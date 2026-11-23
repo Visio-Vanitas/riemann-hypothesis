@@ -96,13 +96,8 @@ variable {ι R}
 variable {M : Type*} [AddCommGroup M] [Module R M] {n : ℕ}
 
 theorem mem_basis_flag_iff (b : Basis (Fin n) R M) (k : Fin (n + 1)) (x : M) :
-    x ∈ b.flag k ↔ ∀ i : Fin n, k ≤ i.castSucc → b.repr x i = 0 := by
-  refine ⟨fun hx i hi => b.flag_le_ker_coord hi hx, fun h => ?_⟩
-  rw [← b.sum_repr x]
-  refine Submodule.sum_mem _ fun i _ => ?_
-  by_cases hi : i.castSucc < k
-  · exact Submodule.smul_mem _ _ (b.self_mem_flag hi)
-  · simp [h i (not_lt.mp hi)]
+    x ∈ b.flag k ↔ ∀ i : Fin n, k ≤ i.castSucc → b.repr x i = 0 :=
+  b.mem_flag_iff_repr_eq_zero
 
 end Triangular
 

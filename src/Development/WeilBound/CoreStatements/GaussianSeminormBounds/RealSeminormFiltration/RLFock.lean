@@ -175,12 +175,10 @@ theorem exists_schwartz_exp_diag [FiniteDimensional ℝ E] (B : E →L[ℝ] E �
     _ ≤ n ! * (2 * (‖B‖ + 1)) ^ n * C := by gcongr; exact hC ‖x‖ hx0
 
 theorem cos_temperate : Real.cos.HasTemperateGrowth :=
-  ⟨Real.contDiff_cos, fun n => ⟨0, 1, fun t => by
-    simpa [norm_iteratedFDeriv_eq_norm_iteratedDeriv] using Real.abs_iteratedDeriv_cos_le_one n t⟩⟩
+  Real.hasTemperateGrowth_cos
 
 theorem sin_temperate : Real.sin.HasTemperateGrowth :=
-  ⟨Real.contDiff_sin, fun n => ⟨0, 1, fun t => by
-    simpa [norm_iteratedFDeriv_eq_norm_iteratedDeriv] using Real.abs_iteratedDeriv_sin_le_one n t⟩⟩
+  Real.hasTemperateGrowth_sin
 
 theorem cis_temperate : Function.HasTemperateGrowth (fun t : ℝ => cexp (I * t)) := by
   have e : (fun t : ℝ => cexp (I * t)) = (ofReal ∘ Real.cos) + (ofReal ∘ Real.sin) * fun _ => I := by

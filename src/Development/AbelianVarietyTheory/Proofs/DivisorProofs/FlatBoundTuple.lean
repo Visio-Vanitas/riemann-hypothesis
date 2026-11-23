@@ -214,8 +214,8 @@ variable {F E : Type} [Field F] [Field E] [Algebra F E] (σ : E →ₐ[F] E) {n 
 
 theorem fromBlocks_mul_fromRows' {R : Type} [CommRing R] {l m₁ m₂ k₁ k₂ : Type} [Fintype k₁] [Fintype k₂]
     (A : Matrix m₁ k₁ R) (B : Matrix m₁ k₂ R) (C : Matrix m₂ k₁ R) (D : Matrix m₂ k₂ R) (P : Matrix k₁ l R)
-    (Q : Matrix k₂ l R) : fromBlocks A B C D * fromRows P Q = fromRows (A * P + B * Q) (C * P + D * Q) := by
-  ext (i | i) j <;> simp [Matrix.mul_apply, Fintype.sum_sum_type]
+    (Q : Matrix k₂ l R) : fromBlocks A B C D * fromRows P Q = fromRows (A * P + B * Q) (C * P + D * Q) :=
+  Matrix.fromBlocks_mul_fromRows P Q A B C D
 
 
 variable (n₁) in
@@ -415,12 +415,12 @@ theorem extM_mul_self (hQ : Q * ι = 1) (g : Matrix k k A) : extM ι Q g * ι = 
     zero_add]
 
 theorem mul_vecMulVec' {a b : Type} [Fintype b] (M : Matrix a b A) (u : b → A) (v : k → A) :
-    M * vecMulVec u v = vecMulVec (M *ᵥ u) v := by
-  ext i j; simp [vecMulVec, Matrix.mul_apply, mulVec, dotProduct, Finset.sum_mul, mul_assoc]
+    M * vecMulVec u v = vecMulVec (M *ᵥ u) v :=
+  Matrix.mul_vecMulVec M u v
 
 theorem vecMulVec_mul' {a b : Type} [Fintype b] (u : a → A) (v : b → A) (M : Matrix b k A) :
-    vecMulVec u v * M = vecMulVec u (v ᵥ* M) := by
-  ext i j; simp [vecMulVec, Matrix.mul_apply, vecMul, dotProduct, Finset.mul_sum, mul_assoc]
+    vecMulVec u v * M = vecMulVec u (v ᵥ* M) :=
+  Matrix.vecMulVec_mul u v M
 
 theorem det_extM (hQ : Q * ι = 1) (t : Matrix k k A) : (extM ι Q t).det = t.det := by
   have e : extM ι Q t = 1 + ι * ((t - 1) * Q) := by

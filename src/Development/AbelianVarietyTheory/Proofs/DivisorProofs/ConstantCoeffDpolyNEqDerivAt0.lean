@@ -118,9 +118,8 @@ private lemma subst_C_eq_C' {σ τ : Type} {a : σ → MvPowerSeries τ C} (ha :
 
 private lemma subst_subst_eq_subst_comp {σ τ ρ : Type} {a : σ → MvPowerSeries τ C} {b : τ → MvPowerSeries ρ C}
     (ha : HasSubst a) (hb : HasSubst b) (f : MvPowerSeries σ C) :
-    subst b (subst a f) = subst (fun s => subst b (a s)) f := by
-  first
-  | exact MvPowerSeries.subst_comp_subst_apply ha hb f
+    subst b (subst a f) = subst (fun s => subst b (a s)) f :=
+  MvPowerSeries.subst_comp_subst_apply ha hb f
 
 private lemma pderiv_inr_subst_twoVars {d : ℕ} (f : MvPowerSeries (Fin 2 × Fin d) C) (k : Fin d) :
     pderiv (Sum.inr k) (subst (GlobalTheory.LawLog.twoVars C d) f) =

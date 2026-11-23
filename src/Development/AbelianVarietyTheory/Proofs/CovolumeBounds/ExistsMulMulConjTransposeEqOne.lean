@@ -146,8 +146,8 @@ private theorem range_quotHom (hs : ∃ a : K, star a ≠ a) :
     rw [div_eq_iff h2, h]
 
 private theorem card_ker_mul_card_range {G H : Type*} [Group G] [Group H] (f : G →* H) :
-    Nat.card f.ker * Nat.card f.range = Nat.card G := by
-  rw [← Subgroup.index_ker, Subgroup.card_mul_index]
+    Nat.card f.ker * Nat.card f.range = Nat.card G :=
+  Subgroup.card_ker_mul_card_range f
 
 private theorem range_normHom [Finite K] (hs : ∃ a : K, star a ≠ a) :
     (normHom K).range = (quotHom K).ker := by
