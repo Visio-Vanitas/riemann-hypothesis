@@ -131,11 +131,8 @@ theorem isIso_appTop_bij {A B : Scheme.{u}} (e : A ≅ B) : Function.Bijective e
   | exact cr_iso_bij (asIso e.hom.appTop)
 
 private theorem comp_appTop_lemma {A B C : Scheme.{u}} (f : A ⟶ B) (g : B ⟶ C) :
-    (f ≫ g).appTop = g.appTop ≫ f.appTop := by
-  first
-  | rfl
-  | (simp; done)
-  | exact Scheme.Hom.comp_appTop f g
+    (f ≫ g).appTop = g.appTop ≫ f.appTop :=
+  Scheme.Hom.comp_appTop f g
 
 theorem appTop_comp_apply {A B C : Scheme.{u}} (f : A ⟶ B) (g : B ⟶ C) (x : Γ(C, ⊤)) :
     (f ≫ g).appTop.hom x = f.appTop.hom (g.appTop.hom x) := by
