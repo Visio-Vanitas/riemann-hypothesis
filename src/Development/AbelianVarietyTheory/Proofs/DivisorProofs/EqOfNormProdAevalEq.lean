@@ -17,10 +17,8 @@ open Polynomial Filter Topology
 variable {l : ℕ} [Fact l.Prime]
 
 theorem norm_prod_map {β : Type*} (s : Multiset β) (f : β → PadicAlgCl l) :
-    ‖(s.map f).prod‖ = (s.map fun a => ‖f a‖).prod := by
-  induction s using Multiset.induction_on with
-  | empty => simp
-  | cons a s ih => simp [norm_mul, ih]
+    ‖(s.map f).prod‖ = (s.map fun a => ‖f a‖).prod :=
+  Multiset.norm_prod_map s f
 
 open Classical in
 theorem eventually_norm_prod (s : Multiset (PadicAlgCl l)) (M : ℚ_[l][X]) :

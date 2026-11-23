@@ -75,10 +75,8 @@ theorem vol_lt_one (lam : Measure (Fv F v)) (h : IsStdV v lam) :
   exact key
 
 theorem absNorm_ne_zero : (Ideal.absNorm v.asIdeal : ℝ≥0∞) ≠ 0 := by
-  have : Ideal.absNorm v.asIdeal ≠ 0 := by
-    rw [Ne, Ideal.absNorm_eq_zero_iff]
-    exact v.ne_bot
-  exact_mod_cast this
+  have h : (Ideal.absNorm v.asIdeal : ℝ≥0) ≠ 0 := HeightOneSpectrum.absNorm_ne_zero v
+  exact_mod_cast h
 
 theorem map_unit (lam : Measure (Fv F v)) (h : IsStdV v lam) (u : Fv F v) (hu : Valued.v u = 1) :
     lam.map (fun t => u * t) = lam := by
