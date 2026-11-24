@@ -70,6 +70,8 @@ def GR (n : ℕ) : Subgroup (GL (Fin n ⊕ Fin n) ℂ) where
 
 def mR (g : GR n) : M2 n := g.1.1
 
+theorem AbsSt.mR_mul (g h : GR n) : mR (g * h) = mR g * mR h := rfl
+
 def cnt (ε : Fin m → Bool) (b : Bool) : ℕ := (Finset.univ.filter fun a => ε a = b).card
 
 def F0 (p q : ℕ) (e : ℤ) (g : GR n) : ℂ := (mR g).det ^ e * f0 p q (mR g)

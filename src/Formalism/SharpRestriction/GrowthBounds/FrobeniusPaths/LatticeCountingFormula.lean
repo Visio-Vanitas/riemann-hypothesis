@@ -84,10 +84,6 @@ lemma Iop_apply (y : Fin k → A) (K : Finset (Fin k) → A) : Iop y K = contrR 
   rw [right_contraction_eq_sum]
   simp [Iop]
 
-lemma exterior_wedge_sq_zero (a : Fin k) : exteriorWedge A a * exteriorWedge A a = 0 := by
-  refine LinearMap.ext fun K => funext fun J => ?_
-  simp [exterior_wedge_apply]
-
 lemma Wop_mul (x y : Fin k → A) : Wop x * Wop y = ∑ a, ∑ b, (x a * y b) • (exteriorWedge A a * exteriorWedge A b) := by
   unfold Wop
   rw [Finset.sum_mul]

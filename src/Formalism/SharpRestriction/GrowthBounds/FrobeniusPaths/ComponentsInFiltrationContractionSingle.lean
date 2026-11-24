@@ -470,10 +470,6 @@ theorem antisymmetric_double_sum_eq_zero {A : Type*} [AddCommGroup A] (f : Fin n
   · intro x _; simp
   · intro x _; rfl
 
-theorem exterior_wedge_sq_zero (a : Fin n) : exteriorWedge P a * exteriorWedge P a = 0 := by
-  refine LinearMap.ext fun K => funext fun J => ?_
-  simp [exterior_wedge_apply]
-
 theorem exterior_contraction_sq_zero (a : Fin n) : exteriorContraction P a * exteriorContraction P a = 0 := by
   refine LinearMap.ext fun K => funext fun J => ?_
   simp [exterior_contraction_apply]

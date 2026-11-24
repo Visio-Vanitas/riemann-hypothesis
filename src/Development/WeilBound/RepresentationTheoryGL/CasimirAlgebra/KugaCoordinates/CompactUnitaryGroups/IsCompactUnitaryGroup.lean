@@ -76,10 +76,6 @@ theorem coord_conjugate {E : Type} [Field E] [_root_.NumberField.IsTotallyComple
     · exact absurd h h2
     · exact absurd h h1
 
-theorem coord_embedding {E : Type} [Field E] (w : InfinitePlace E) (c : Cinf E) :
-    coord w.embedding c = c w := by
-  rw [coord_eq, InfinitePlace.mk_embedding, if_pos rfl]
-
 theorem continuous_coord {E : Type} [Field E] (τ : E →+* ℂ) : Continuous (coord τ : Cinf E → ℂ) := by
   have e : (coord τ : Cinf E → ℂ) = fun c => if (InfinitePlace.mk τ).embedding = τ then
       c (InfinitePlace.mk τ) else starRingEnd ℂ (c (InfinitePlace.mk τ)) := funext (coord_eq τ)

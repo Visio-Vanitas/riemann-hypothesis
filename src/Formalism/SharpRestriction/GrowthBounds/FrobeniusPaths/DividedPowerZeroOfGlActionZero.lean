@@ -490,6 +490,10 @@ def exteriorContraction (P : Type*) [CommRing P] {n : ℕ} (m : Fin n) : Module.
 theorem exterior_wedge_apply (m : Fin n) (K : Finset (Fin n) → P) (J : Finset (Fin n)) :
     exteriorWedge P m K J = if m ∈ J then exteriorSign P J m * K (J.erase m) else 0 := rfl
 
+theorem exterior_wedge_sq_zero (a : Fin n) : exteriorWedge P a * exteriorWedge P a = 0 := by
+  refine LinearMap.ext fun K => funext fun J => ?_
+  simp [exterior_wedge_apply]
+
 theorem exterior_contraction_apply (m : Fin n) (K : Finset (Fin n) → P) (J : Finset (Fin n)) :
     exteriorContraction P m K J = if m ∈ J then 0 else exteriorSign P J m * K (insert m J) := rfl
 

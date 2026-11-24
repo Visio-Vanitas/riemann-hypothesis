@@ -103,6 +103,11 @@ theorem clozelCohomological_of (h1 : KType) (h2 : KData) (h3 : GKData) (h4 : Whi
   obtain ⟨Ξ, q, ω, hΞ, hω, h0⟩ := h7 E a π l s hch hs
   exact ⟨Ξ, h8 E a π Ξ (h6 E a ha π) hΞ q ω hω h0⟩
 
+theorem J.coord_embedding {E : Type} [Field E] (w : InfinitePlace E) (c : Cinf E) :
+    coord w.embedding c = c w := by
+  unfold coord
+  split_ifs <;> simp_all
+
 end PositivityTheory.Rg.Cz
 
 end

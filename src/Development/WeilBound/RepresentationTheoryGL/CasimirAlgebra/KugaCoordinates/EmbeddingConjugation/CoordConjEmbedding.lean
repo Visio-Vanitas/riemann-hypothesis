@@ -60,11 +60,6 @@ omit [NumberField E] in
 theorem atEmb_embedding (w : InfinitePlace E) (z : ℂ) : atEmb w.embedding z = (Pi.single w z : Cinf E) := by
   unfold atEmb; split_ifs <;> simp_all
 
-
-omit [NumberField E] in
-theorem coord_embedding (w : InfinitePlace E) (c : Cinf E) : coord w.embedding c = c w := by
-  unfold coord; split_ifs <;> simp_all
-
 theorem coord_conj_embedding [_root_.NumberField.IsTotallyComplex E] (w : InfinitePlace E) (c : Cinf E) :
     coord (ComplexEmbedding.conjugate w.embedding) c = starRingEnd ℂ (c w) := by
   set τ := ComplexEmbedding.conjugate w.embedding

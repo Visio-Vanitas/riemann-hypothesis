@@ -58,9 +58,6 @@ theorem lowerDiagonalBlockAsGL (M N : M2 n) : (M * N).toBlocks₂₂ = M.toBlock
   rw [← fromBlocks_toBlocks M, ← fromBlocks_toBlocks N, fromBlocks_multiply]
   simp
 
-theorem mR_mul (g h : GR n) : mR (g * h) = mR g * mR h := by
-  simp [mR]
-
 theorem k_blocks {k : GR n} (hk : k ∈ KR n) :
     (mR k).toBlocks₂₁ = -(mR k).toBlocks₁₂ ∧ (mR k).toBlocks₂₂ = (mR k).toBlocks₁₁ := by
   have hK : InK (mR k) := hk

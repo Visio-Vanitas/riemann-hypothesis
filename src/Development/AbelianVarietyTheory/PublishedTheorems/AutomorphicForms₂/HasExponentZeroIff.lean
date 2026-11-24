@@ -108,6 +108,10 @@ def tilde {n : ℕ} {R : Type} [CommRing R] (g : GL (Fin n) R) : GL (Fin n) R :=
 def corner {m : ℕ} {R : Type} [CommRing R] (g : GL (Fin m) R) : GL (Fin (m + 1)) R :=
   emb₂ R (stdSum (rfl : m + 1 = m + 1)) (g, 1)
 
+theorem _root_.DiscreteGroups.sglob.LConv.corner_one {k : Type} [Field k] {m : ℕ} :
+    corner (1 : GL (Fin m) k) = 1 :=
+  map_one (emb₂ k (stdSum (rfl : m + 1 = m + 1)))
+
 variable {k : Type} [Field k] [TopologicalSpace k] {m : ℕ}
 
 def IsTestFun (f : GL (Fin m) k → ℂ) : Prop :=

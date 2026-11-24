@@ -105,9 +105,6 @@ theorem corner_last (g : GL (Fin m) k) (j : Fin (m + 1)) :
   · simp [corner, emb₂, leviEmb, leviTwo, two, Matrix.blockDiagonal', stdSum_symm_castSucc, stdSum_symm_last,
       (Fin.castSucc_lt_last j).ne']
 
-theorem corner_one : corner (1 : GL (Fin m) k) = 1 :=
-  map_one (emb₂ k (stdSum (rfl : m + 1 = m + 1)))
-
 theorem longElt_inv (n : ℕ) : (longElt n k)⁻¹ = longElt n k := Units.ext rfl
 
 theorem longElt_last (j : Fin (m + 1)) :

@@ -50,7 +50,7 @@ import Mathlib.Topology.Sheaves.Init
 import Formalism.RealPlaceAnalysis.QuotientSettingHolds
 import Formalism.RealPlaceAnalysis.RealPlaceTaylor.CasComm
 import Formalism.RealPlaceAnalysis.RealPlaceTaylor.ComplexifiedDerivativeCommutator
-import ReciprocityTheory.ReductiveGroups.DiscreteSeries.DiscreteSeriesExistence.MeasurePreservingMulRight
+public import ReciprocityTheory.ReductiveGroups.DiscreteSeries.DiscreteSeriesExistence.MeasurePreservingMulRight
 
 @[expose] public section
 
@@ -68,8 +68,6 @@ variable {n : ℕ}
 def cvA {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] (ε : Fin n → Bool)
     (σ : Matrix (Fin n) (Fin n) ℂ → (H →L[ℂ] H)) (α : Matrix (Fin n) (Fin n) ℂ → ℂ) (v : H) : H :=
   ∫ g : Formalism.REAL.UJ ε, α (Formalism.MainNotions.S.umat g) • σ (Formalism.MainNotions.S.umat g) v ∂(Formalism.REAL.muG ε)
-
-theorem umat_mem_UJset (ε : Fin n → Bool) (g : Formalism.REAL.UJ ε) : Formalism.MainNotions.S.umat g ∈ UJset ε := g.2
 
 theorem continuous_umatA (ε : Fin n → Bool) : Continuous (fun g : Formalism.REAL.UJ ε => Formalism.MainNotions.S.umat g) := Units.continuous_val.comp continuous_subtype_val
 

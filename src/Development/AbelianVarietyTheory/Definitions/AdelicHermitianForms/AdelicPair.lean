@@ -146,4 +146,11 @@ noncomputable def emb {R A β κ : Type} [CommRing R] [CommRing A] [Algebra R A]
   Matrix.fromBlocks (res b (g : Matrix κ κ A)) 0 0
     (Matrix.of fun _ _ => (res b ((g⁻¹ : GL κ A) : Matrix κ κ A)).det)
 
+theorem adjugate_entry_mem_subring {ι : Type} [Fintype ι] [DecidableEq ι] {R : Type} [CommRing R]
+    (R₀ : Subring R) (A : Matrix ι ι R) (hA : ∀ i j, A i j ∈ R₀) (i j : ι) : A.adjugate i j ∈ R₀ := by
+  let B : Matrix ι ι R₀ := Matrix.of fun i j => ⟨A i j, hA i j⟩
+  have hB : A = R₀.subtype.mapMatrix B := by ext i j; rfl
+  rw [hB, ← RingHom.map_adjugate]
+  exact (B.adjugate i j).2
+
 end GlobalTheory.ClassFin

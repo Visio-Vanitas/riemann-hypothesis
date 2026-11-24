@@ -98,4 +98,6 @@ theorem measurePreserving_mul_right (ε : Fin n → Bool) (y : Formalism.REAL.UJ
     MeasurePreserving (fun x : Formalism.REAL.UJ ε => x * y) (Formalism.REAL.muG ε) (Formalism.REAL.muG ε) := by
   exact ⟨(continuous_mul_const y).measurable, Formalism.REAL.indefinite_unitary_unimodular n ε y⟩
 
+theorem umat_mem_UJset (ε : Fin n → Bool) (g : Formalism.REAL.UJ ε) : Formalism.MainNotions.S.umat g ∈ UJset ε := g.2
+
 end ReciprocityTheory.ChartRestriction.DS
