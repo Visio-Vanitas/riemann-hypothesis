@@ -59,14 +59,8 @@ noncomputable section
 variable {K : Type*} [Field K] [NumberField K]
 
 theorem map_range_powMonoidHom {G H : Type*} [CommGroup G] [CommGroup H] (e : G ≃* H) (n : ℕ) :
-    (powMonoidHom n : G →* G).range.map (e : G →* H) = (powMonoidHom n : H →* H).range := by
-  ext y
-  simp only [Subgroup.mem_map, MonoidHom.mem_range, powMonoidHom_apply]
-  constructor
-  · rintro ⟨_, ⟨x, rfl⟩, rfl⟩
-    exact ⟨e x, by simp [map_pow]⟩
-  · rintro ⟨x, rfl⟩
-    exact ⟨e.symm x ^ n, ⟨e.symm x, rfl⟩, by simp [map_pow]⟩
+    (powMonoidHom n : G →* G).range.map (e : G →* H) = (powMonoidHom n : H →* H).range :=
+  MulEquiv.map_range_powMonoidHom e n
 
 theorem index_range_powMonoidHom_of_mulEquiv {G H : Type*} [CommGroup G] [CommGroup H]
     (e : G ≃* H) (n : ℕ) :

@@ -222,13 +222,8 @@ section Order
 variable [LinearOrder ι]
 
 lemma strictMono_cons {n : ℕ} {s : ι} {j : Fin (n + 1) → ι} (hj : StrictMono j) (hs : s < j 0) :
-    StrictMono (Fin.cons s j : Fin (n + 2) → ι) := by
-  refine Fin.strictMono_iff_lt_succ.2 fun k => ?_
-  cases k using Fin.cases with
-  | zero => simpa using hs
-  | succ k =>
-    rw [← Fin.succ_castSucc, Fin.cons_succ, Fin.cons_succ]
-    exact hj Fin.castSucc_lt_succ
+    StrictMono (Fin.cons s j : Fin (n + 2) → ι) :=
+  (Fin.strictMono_cons (f := j) (a := s)).2 ⟨fun _ => hs.trans_le (hj.monotone (Fin.zero_le _)), hj⟩
 
 def ordIn {n : ℕ} (S : Set ι) : Set (Fin (n + 1) → ι) := {j | StrictMono j ∧ Set.range j ⊆ S}
 

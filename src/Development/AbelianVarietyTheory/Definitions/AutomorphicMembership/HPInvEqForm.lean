@@ -189,8 +189,8 @@ private lemma fromCols_mul_eq_blocks {m : Type*} (X : Matrix m (Fin p) ℂ) (Y :
     Matrix.toBlocks₂₁, Matrix.toBlocks₂₂]
 
 private lemma mul_fromCols' {m k : Type*} [Fintype m] (N : Matrix k m ℂ) (X : Matrix m (Fin p) ℂ)
-    (Y : Matrix m (Fin q) ℂ) : N * fromCols X Y = fromCols (N * X) (N * Y) := by
-  ext i (j | j) <;> simp [Matrix.mul_apply]
+    (Y : Matrix m (Fin q) ℂ) : N * fromCols X Y = fromCols (N * X) (N * Y) :=
+  Matrix.mul_fromCols N X Y
 
 theorem hP_moeb {g : GL (Fin p ⊕ Fin q) ℂ} (hg : g ∈ Upq p q) {z : Matrix (Fin p) (Fin q) ℂ}
     (hz : z ∈ hcDom p q) :

@@ -123,8 +123,8 @@ theorem strip_monomial_eq (v : σ) (e : ℕ) (m : σ →₀ ℕ) (hm : m v = 0) 
     exact h1 hm
 
 theorem monomial_single_add (v : σ) (e : ℕ) (m : σ →₀ ℕ) :
-    (monomial (Finsupp.single v e + m) 1 : MvPolynomial σ ℚ_[p]) = X v ^ e * monomial m 1 := by
-  rw [X_pow_eq_monomial, monomial_mul, one_mul]
+    (monomial (Finsupp.single v e + m) 1 : MvPolynomial σ ℚ_[p]) = X v ^ e * monomial m 1 :=
+  MvPolynomial.monomial_single_add
 
 private theorem prod_factorial_single_add_eq_mul (v : σ) (e : ℕ) (m : σ →₀ ℕ) (hm : m v = 0) :
     ((Finsupp.single v e + m).prod fun _ k => (k.factorial : ℚ_[p])) =
