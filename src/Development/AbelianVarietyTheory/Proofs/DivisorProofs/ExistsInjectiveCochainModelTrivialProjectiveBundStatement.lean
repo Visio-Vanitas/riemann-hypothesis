@@ -4,7 +4,7 @@ public import Development.AbelianVarietyTheory.Definitions.Divisors.SecClass
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.CotDComp
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ImageCochainExists
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsZeroChains
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsDiscreteSpaceCocycleVanishingPosStatement
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsDiscreteSpaceCocycleVanishingPos
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ProjBundleCochainPresheafIsSheafStatement
 public import Mathlib.CategoryTheory.Limits.Shapes.FunctorToTypes
 public import Development.AbelianVarietyTheory.Definitions.Divisors.PullHlComp

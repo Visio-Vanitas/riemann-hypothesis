@@ -58,7 +58,6 @@ public import Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProo
 public import Formalism.PeriodIntegrals.MinkowskiQ
 public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.MinkowskiTorsionFree.Lattice
 public import Formalism.SharpRestriction.GlobalSchurBounds.TheoremThreeFamilyOfFormalDegreeInput
-public import Formalism.SharpRestriction.SmoothDesignExistence.AdmissibleTopsMertens
 public import Formalism.LocalToGlobal.GlobalTheory.IrreducibleOfCountSizes
 public import Formalism.LocalToGlobal.HilbertRowConditions.AllJoin
 public import Formalism.LocalToGlobal.GlobalTheory.ConcNP

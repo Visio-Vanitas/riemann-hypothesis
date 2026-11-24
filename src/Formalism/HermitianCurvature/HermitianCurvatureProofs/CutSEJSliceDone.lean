@@ -58,7 +58,6 @@ import Mathlib.Tactic.TypeStar
 import Std.Tactic.BVDecide.Normalize.Prop
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.SfiniteOfIsHaarOn
 import Mathlib.Algebra.Order.Star.Real
-import Formalism.HermitianCurvature.HermitianCurvatureProofs.HasFDerivAtFsvSelf
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.HermMulVecMulVec
 import Mathlib.Order.CompletePartialOrder
 

@@ -2,7 +2,6 @@ module
 
 public import ReciprocityTheory.GeometryOfNumbers.LatticeCovolumes.ConjSymm
 public import Mathlib.Algebra.Module.ZLattice.Covolume
-public import Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.MeasurePreservingSwapPi
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic
