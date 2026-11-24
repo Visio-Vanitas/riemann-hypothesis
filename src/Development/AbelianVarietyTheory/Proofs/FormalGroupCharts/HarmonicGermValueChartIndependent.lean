@@ -3,6 +3,7 @@ module
 public import Formalism.LocalToGlobal.ProjectiveLattices.EmbKCoe
 public import Formalism.SharpRestriction.Divisibility.GeneratorPowers.CIndVerb
 public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.IntegralChartDirectionsAreEigenvectors
+public import Development.AbelianVarietyTheory.Proofs.FormalGroupCharts.ChartIndependenceUnconditional
 public import Formalism.SharpRestriction.Divisibility.GeneratorPowers.ThExprUniqOfChartIndep2
 public import Development.AbelianVarietyTheory.Proofs.AbelianSchemeLawProofs.GlobalFnsHolds
 public import Formalism.SharpRestriction.Divisibility.GeneratorPowers.EvalSinglePointId
@@ -205,16 +206,8 @@ namespace GlobalTheory
 
 open Formalism.MainNotions.ModuliIntegralCharts.H1
 
-theorem harmonicValue_chart_independent : Formalism.MainNotions.ModuliIntegralCharts.H1.ChartIndepSt2 := by
-  have hAct : ExpActOfSt := by
-    refine expActOf_of_eig ?_
-    intro E _ _ _ H Dw l Xo c _ S _ _ _ y C a ℓ i
-    exact EigDir.linEig_holds E H Dw l Xo c S y C a ℓ i
-  refine chartIndep2_verb ?_ (GlobalTheory.BalancedTwist.frTruncFix_iff.mp frTruncFix_holds) germFix_holds (harmInv_of hAct)
-  refine chartIndepTrunc_of (expChartOf_of hAct) (ExpGauge.expGaugeOf_of hAct) tie_holds ExpUniqChart.expUniqTan
-    (gaugeUniq_of_global globalFns_holds) (killAddVal_of ?_)
-  intro E _ _ _ H
-  exact psiCover_holds H
+theorem harmonicValue_chart_independent : Formalism.MainNotions.ModuliIntegralCharts.H1.ChartIndepSt2 :=
+  GlobalTheory.chartIndependence_unconditional
 
 end GlobalTheory
 end -- clump:auto
