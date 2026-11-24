@@ -72,6 +72,7 @@ public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange
 public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.FrameMatching.HeckeEigenvalueFiniteness.FrameExOfFin
 public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.FrameMatching.HeckeWordBounds.FrameBound
 public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.USideFree
+public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.DefiniteNHolds
 public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.BciOfAlt
 public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.NarrowAsc
 public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.NarrowSpeh
@@ -1902,11 +1903,8 @@ section -- clump:auto
 
 namespace UpperTheory.BaseChangeIdentities
 
-open PositivityTheory.Rg.BcB PositivityTheory.Rg.BcB.F in
 theorem baseChangeNB : PositivityTheory.Rg.BcN.BaseChangeIsobaricN :=
-  Plug2B.bci_of
-    (HeckeLevelFrameExistence.frameEx_of_fin uSide (FX.candFin_of_jEigFin Tail.JB.jEigFin))
-    FrameWordIdentity.frameBound FinalAllB.frameRead_holdsB
+  UpperTheory.BaseChangeIdentities.baseChangeN
 
 end UpperTheory.BaseChangeIdentities
 end -- clump:auto
