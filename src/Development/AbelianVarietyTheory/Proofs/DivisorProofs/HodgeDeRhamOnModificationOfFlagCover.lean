@@ -493,7 +493,7 @@ theorem IsKSR.baseChange (P : AbelianDeRham) {Φ : Finset (E →+* ℂ)} {S S' :
   obtain ⟨B, _, φ, hφ⟩ := exists_isGrpPullback A (spMap (algebraMap S S'))
   obtain ⟨B', _, φ', hφ'⟩ := exists_isGrpPullback A' (spMap (dualMap (algebraMap S S')))
   have e₀ : spMap (algebraMap S S') ≫ DeRham.epsRed S = DeRham.epsRed S' ≫ spMap (dualMap (algebraMap S S')) := by
-    rw [← Cris.spMap_comp, ← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
   have w : (φ ≫ i) ≫ A'.hom = (B.hom ≫ DeRham.epsRed S') ≫ spMap (dualMap (algebraMap S S')) := by
@@ -923,7 +923,7 @@ theorem IsKSR.baseChangeForKSFamily (P : AbelianDeRham) {Φ : Finset (E →+* �
   obtain ⟨B, _, φ, hφ⟩ := exists_isGrpPullback A (spMap (algebraMap S S'))
   obtain ⟨B', _, φ', hφ'⟩ := exists_isGrpPullback A' (spMap (dualMap (algebraMap S S')))
   have e₀ : spMap (algebraMap S S') ≫ GlobalTheory.DeRham.epsRed S = GlobalTheory.DeRham.epsRed S' ≫ spMap (dualMap (algebraMap S S')) := by
-    rw [← Cris.spMap_comp, ← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
   have w : (φ ≫ i) ≫ A'.hom = (B.hom ≫ GlobalTheory.DeRham.epsRed S') ≫ spMap (dualMap (algebraMap S S')) := by
@@ -1123,10 +1123,10 @@ theorem GlobalTheory.HorFrame.exists_horizontal_lift : ∀ {E : Type} [Field E] 
   have hx1 : ∀ b, (spMap (d b) ≫ Q₀.x) ≫ Xo.s = sOf c (DualNumber Γ(M.X, W₁)) := fun b => by
     rw [Category.assoc, Q₀.x_over]
     unfold sOf
-    rw [spMap_comp', ← RingHom.comp_assoc, hdalg]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, hdalg]
   have hx2 : ∀ b, spMap (TrivSqZeroExt.fstHom Γ(M.X, W₁) Γ(M.X, W₁) Γ(M.X, W₁)).toRingHom ≫ spMap (d b) ≫ Q₀.x
       = Q₀.x := fun b => by
-    rw [← Category.assoc, spMap_comp']
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom Γ(M.X, W₁) Γ(M.X, W₁) Γ(M.X, W₁)).toRingHom.comp (d b) = RingHom.id _ :=
       RingHom.ext fun s => hd b s
     rw [this]
@@ -1156,7 +1156,7 @@ theorem GlobalTheory.HorFrame.exists_horizontal_lift : ∀ {E : Type} [Field E] 
     fun b s => combDer_fst _ _ _ _, ?_⟩
   intro K _ _ ψ hk Q hQ b
   have ez : (spMap ψ ≫ tau hW') ≫ toFlag M = (spMap (ψ.comp ρ) ≫ tau hW₁) ≫ toFlag M := by
-    rw [← hτ', ← spMap_comp' ρ ψ]
+    rw [← hτ', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ ψ]
     simp only [Category.assoc]
   have hk' : ⊤ ≤ ((spMap (ψ.comp ρ) ≫ tau hW₁) ≫ toFlag M) ⁻¹ᵁ X.F.U k := ez ▸ hk
   have hQ' : X.F.ChartFr k _ hk' Q :=
@@ -1184,7 +1184,7 @@ theorem GlobalTheory.HorFrame.exists_horizontal_lift : ∀ {E : Type} [Field E] 
     rw [Finset.sum_apply, ← key h]
     rfl
   · rw [← hwpt, ← hτ']
-    simp only [← Category.assoc, spMap_comp']
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 end -- clump:auto
 end -- clump:auto
 -- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DivisorProofs.HodgeDeRhamOnModificationOfFlagCover =====

@@ -452,13 +452,13 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
     (RingHom.id _) hbase' inferInstance (hf.comp hfV) Function.injective_id inferInstance inferInstance
     (fun a => by simp only [RingHom.comp_apply, hfK, hgK]) (fun a => rfl)
     (by
-      rw [hTy, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+      rw [hTy, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       rw [show spMap (RingHom.id (FractionRing T'.V)) = 𝟙 _ from Spec.map_id _, Category.id_comp])
     T'.ϖ m 1 T'.irr hm (by rw [pow_one, RingHom.id_apply])
   refine ⟨T', ι', yK, e₀.symm, m, hint, hyK, ?_, ?_, ?_⟩
   · haveI : Epi (spMap ι') := Flat.epi_of_flat_of_surjective _
-    rw [← cancel_epi (spMap ι'), ← Category.assoc, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hyK, hy, hTy, ← hιc, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
-      _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
+    rw [← cancel_epi (spMap ι'), ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hyK, hy, hTy, ← hιc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
   · obtain ⟨u, hu⟩ := hm
     have hunit : ∀ w : T'.Vˣ, ‖ι' (algebraMap T'.V _ (w : T'.V))‖ = 1 := fun w => by
       have h1 := (hint _).2 ⟨(w : T'.V), rfl⟩

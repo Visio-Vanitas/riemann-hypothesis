@@ -297,7 +297,7 @@ theorem period_pullback_eq_of_chartMap : ∀ {I₁ : Type} [Fintype I₁] {g₁ 
               spMap (((Ideal.Quotient.mk T.J).comp T.ρ).comp (Hol.comap _ (hΦ T.k) (hW T.k)).toRingHom) ≫
                 r₂.x (κ T.k)
             rw [Cris.spMap_id, Category.id_comp, Category.assoc, ← hx T.k,
-              Cris.spMap_comp (Hol.comap _ (hΦ T.k) (hW T.k)).toRingHom, Category.assoc] }
+              ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (Hol.comap _ (hΦ T.k) (hW T.k)).toRingHom, Category.assoc] }
       naturality := fun _ _ _ ↦ Thick.Hom.ext' (AlgHom.ext fun _ ↦ rfl) }
   have e₁ : r₁.coef.pull1 (m.pull1 c) = (m.coef.comp r₁.coef).pull1 c := (m.coef.pullCohomologyOne_comp r₁.coef c).symm
   have e₂ : (m.coef.comp r₁.coef).pull1 c = (r₂.coef.comp n).pull1 c :=
@@ -366,7 +366,7 @@ theorem isPeriod_pull1_eq_comap : ∀ {I₁ : Type} [Fintype I₁] {g₁ : ℕ} 
       refine RingHom.ext fun f ↦ ?_
       change Hol.ev p hp (Hol.comap _ (hΦ k) (hW k) f) = Hol.ev _ (hW k p hp) f
       rw [Hol.ev_apply, Hol.ev_apply, Hol.fn_comap _ _ _ f hp]
-    rw [← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, e, hr₂ (κ k) _ (hW k p hp), hr₁ k p hp,
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, hr₂ (κ k) _ (hW k p hp), hr₁ k p hp,
       hE p (K₁.base k p hp)]
   let per : Λ₁ →+ Hol F₁.V :=
     ((Hol.comap b hb hbV).toRingHom.toAddMonoidHom.comp per₂).comp A

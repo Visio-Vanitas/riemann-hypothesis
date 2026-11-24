@@ -1438,7 +1438,7 @@ theorem exists_cop : ∀ (D : Data) (Λ : Lift D) (n : ℕ) (U : AffOp D.X) (T :
     rw [← q.comm, hψπ]
     rfl
   obtain ⟨r, hr⟩ := (h1 U G y).1 (by
-    rw [hyπ, Cris.spMap_comp, Category.assoc, hgx, ← Category.assoc, (u ≫ q).pt])
+    rw [hyπ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hgx, ← Category.assoc, (u ≫ q).pt])
   refine ⟨F, G, u, q, r, hQ, hfree.1, hqs, ?_, hGlev _ hfree.1, ?_⟩
   · intro b hb
     rw [hGJ] at hb
@@ -1451,7 +1451,7 @@ theorem exists_cop : ∀ (D : Data) (Λ : Lift D) (n : ℕ) (U : AffOp D.X) (T :
   have hsame : ∀ x, S.π (b.φ (Λ.e U x)) = a.φ₀ (g x) := by
     have e := h3 U S.B₀ (b.φ₀.comp ((Λ.L.obj U).π.comp (Λ.e U : Sec D.s U.unop.1 →+* (Λ.L.obj U).B)))
       (a.φ₀.comp g) (by
-        rw [Cris.spMap_comp, Category.assoc, Λ.pt U, ← Category.assoc, b.pt, Cris.spMap_comp, Category.assoc, hgx, ← Category.assoc, a.pt])
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Λ.pt U, ← Category.assoc, b.pt, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hgx, ← Category.assoc, a.pt])
     intro x
     rw [← b.comm]
     exact RingHom.congr_fun e x
@@ -1564,7 +1564,7 @@ theorem exists_cop_qAt : ∀ (D : Data) (Λ : Lift D) (n : ℕ) (U : AffOp D.X) 
     (inferInstance : IsIso (Spec.map (RingEquiv.ofBijective q.φ₀ hbij).toCommRingCatIso.hom))
   have hy := (h1 U G y).2 ⟨r, fun _ ↦ rfl⟩
   have hpt : spMap (F.π.comp (y' : Sec D.s U.unop.1 →+* F.B)) ≫ affPt D.s U.unop = F.x ≫ D.i := by
-    rw [← cancel_epi (spMap q.φ₀), ← Category.assoc, ← Cris.spMap_comp, ← Category.assoc, q.pt, ← hy]
+    rw [← cancel_epi (spMap q.φ₀), ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, q.pt, ← hy]
     congr 2
     ext a
     exact (q.comm _).trans (congrArg G.π (hy' a))

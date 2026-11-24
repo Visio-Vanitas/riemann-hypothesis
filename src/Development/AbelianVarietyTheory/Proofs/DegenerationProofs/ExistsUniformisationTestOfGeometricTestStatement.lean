@@ -421,10 +421,6 @@ theorem isDominant_gPt (p : ℕ) [Fact p.Prime] : IsDominant (gPt p) := by
     (RingHom.injective_iff_ker_eq_bot _).1 (OO p).subtype_injective]
   exact bot_le
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 variable {o Ω : Type} [CommRing o] [Field Ω] [Algebra o Ω] {S : ThetaSys o Ω} {ρ : S.Real}
 
 theorem big (ρ : S.Real) (h : S.Big) : Big S.g S.N (S.r * S.N) := by
@@ -435,7 +431,7 @@ theorem big (ρ : S.Real) (h : S.Big) : Big S.g S.N (S.r * S.N) := by
 
 theorem gPt_j {p : ℕ} [Fact p.Prime] {y₀ : S.R →+* PadicAlgCl p} (u : ρ.UTest p y₀) :
     gPt p ≫ spMap u.j = spMap (algebraMap (FractionRing u.V) (PadicAlgCl p)) ≫ jK u.V :=
-  (spMap_comp' _ _).trans (spMap_comp' (algebraMap u.V (FractionRing u.V)) (algebraMap (FractionRing u.V) (PadicAlgCl p))).symm
+  (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (algebraMap u.V (FractionRing u.V)) (algebraMap (FractionRing u.V) (PadicAlgCl p)))
 
 theorem exists_generic {M : RatModel o Ω} {U₀ : M.Z.Opens} {EE : M.Lat S.J} {Q : Clos ρ M U₀ EE} {p : ℕ}
     [Fact p.Prime] {y : Sp (OO p) ⟶ M.Z} {y₀ : S.R →+* PadicAlgCl p} {t : ρ.GeoTest p y₀} {c : Q.Fac y t.u}
@@ -500,7 +496,7 @@ theorem exists_lift : GlobalTheory.UT.LL → ∀ (o Ω : Type) [CommRing o] [Fie
   have haf' : a ≫ tm.f = gPt p ≫ b' := by
     rw [← cancel_mono (Q.P.hom ⁻¹ᵁ Q.W tm.l).ι, Category.assoc, haf, Category.assoc, hb']
   obtain ⟨v, hv⟩ := CrdCalc.crd_exists t.mod.isLB t.σ a
-  have h1 := tm.crd _ ((OO p).subtype.comp t.u.j) a v (ha.trans (spMap_comp' _ _)) hv
+  have h1 := tm.crd _ ((OO p).subtype.comp t.u.j) a v (ha.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm) hv
   rw [haf'] at h1
   obtain ⟨κ, hκ⟩ := CrdCalc.crd_unique h1 (hmap (OO p).subtype)
   have h2 : (fun i => (OO p).subtype (w i)) = fun i => (κ : PadicAlgCl p) * v i := by

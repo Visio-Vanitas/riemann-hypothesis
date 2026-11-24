@@ -369,7 +369,7 @@ theorem exists_full_over (t : SAB H S) {B L : Type} [Field B] [CharZero B] [Fiel
       exact this
   · rintro ⟨h1, h2⟩
     obtain ⟨z, hz, -⟩ := R.2.2.2.2 _ α' hadd hpow
-    let c : Over.mk x ⟶ C := Over.homMk (pullback.lift x (spMap β') (by rw [hx, spMap_comp'']))
+    let c : Over.mk x ⟶ C := Over.homMk (pullback.lift x (spMap β') (by rw [hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]))
       (pullback.lift_fst _ _ _)
     have hy : ∀ a, lift z c ≫ y a = α' a := fun a => by simp only [y]; rw [lift_fst_assoc, hz]
     have hg' : (lift z c).left ≫ g = spMap β' := by
@@ -521,7 +521,7 @@ theorem exists_charts (hL : Laws) (hL2 : Laws2) (o₀ : Obj D l b s₀) {F L : T
     (fun p => (x p).isOpenEmbedding.isOpen_range) (fun p _ => Set.mem_iUnion.2 ⟨p, hp p⟩)
   choose gam hgam using fun p => exists_spMap (x p ≫ g)
   have hs : ∀ p, x' p ≫ s = spMap ((gam p).comp (algebraMap F L)) := fun p => by
-    rw [← spMap_comp'', ← hgam, Category.assoc, hg, ← e, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hgam, Category.assoc, hg, ← e, Category.assoc]
   have hwe : ∀ (K : Type) [Field K] (y : Sp K ⟶ S) (o : Full D K) (φ : o.P.A.left ⟶ o₀.t.G.left)
       (h : IsFibre o₀.t y o φ) (n : ℤ) (z z' : baseOver (Sp K) ⟶ o.P.A) (c : Kˣ),
       WeilIs o.P.A o.P.L n z z' (unitOn c) ↔ WeilIs o₀.t.G o₀.t.PP.L n (ObjPull.pushEquiv h.1 _ z)
@@ -555,8 +555,8 @@ theorem exists_charts (hL : Laws) (hL2 : Laws2) (o₀ : Obj D l b s₀) {F L : T
       rwa [Subsingleton.elim (α := PrimeSpectrum K) z pt]
     obtain ⟨f, hf⟩ := exists_spMap (A := K) (IsOpenImmersion.lift (x i) w.left hsub)
     have hf' : spMap f ≫ x i = w.left := by rw [← hf, IsOpenImmersion.lift_fac]
-    refine ⟨⟨i, hi⟩, f, spMap_inj' ?_, theta_of_chart hL2.secBaseChangeAny o₀ hm (hv' i) h f ?_ fun a => ?_⟩
-    · rw [← spMap_comp'', ← hgam, ← Category.assoc, hf', hw]
+    refine ⟨⟨i, hi⟩, f, ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_, theta_of_chart hL2.secBaseChangeAny o₀ hm (hv' i) h f ?_ fun a => ?_⟩
+    · rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hgam, ← Category.assoc, hf', hw]
     · rw [← e, ← Category.assoc, hf']
       exact (Over.w w).trans (Category.id_comp _)
     · exact ((Category.assoc _ _ _).symm.trans (congrArg (· ≫ (α a).left) hf')).trans
@@ -566,8 +566,8 @@ theorem exists_charts (hL : Laws) (hL2 : Laws2) (o₀ : Obj D l b s₀) {F L : T
     have a1 : ∀ a c, w ≫ α (a + c) = w ≫ α a * w ≫ α c := fun a c => by rw [hadd, MonObj.comp_mul]
     have p1 : ∀ a, (w ≫ α a) ^ m ^ 2 = 1 := fun a => by rw [← MonObj.comp_pow, hpow, MonObj.comp_one]
     obtain ⟨h1, h2⟩ := (HW K _ (f.comp (gam i)) ((congrArg (· ≫ s) (Category.id_comp _)).trans (by
-      rw [Category.assoc, hs, spMap_comp'', RingHom.comp_assoc])) (fun a => w ≫ α a) a1 p1).1
-      ⟨w, ((Category.assoc _ _ _).trans (congrArg (spMap f ≫ ·) (hgam i))).trans (spMap_comp'' _ _), fun _ => rfl⟩
+      rw [Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingHom.comp_assoc])) (fun a => w ≫ α a) a1 p1).1
+      ⟨w, ((Category.assoc _ _ _).trans (congrArg (spMap f ≫ ·) (hgam i))).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm, fun _ => rfl⟩
     let Φ := ObjPull.pushEquiv h.1 (baseOver (Sp K))
     obtain ⟨I', hI, hI'⟩ := exists_tateIso_of_level
       (fun y y' c c' => weilIs_unique_fieldPoint _ _ _ o.P.isLB K (𝟙 _) (m ^ 2 : ℕ) y y' c c') o.I hN
@@ -1059,14 +1059,14 @@ theorem exists_trait : HV → Laws6 → GlobalTheory.LN.UDvrSt → GlobalTheory.
   obtain ⟨M, -⟩ := GlobalTheory.T.moduli_model_ultrametric_points hV h6 hU hX hT hE hA E H D l Xo c W₀ Y C W hcdv hext (FractionRing W) g hg
     (spMap f ≫ x i) (b.comp (c.V W₀).subtype) (by
       rw [Model.j, Category.assoc Y.jQ, pullback.condition, ← Category.assoc Y.jQ, Y.jQ_over, Category.assoc,
-        ← Category.assoc (x i), hs, spMap_comp'', spMap_comp'', ← RingHom.comp_assoc, ← hb]
-      refine Eq.trans ?_ (congrArg (spMap _ ≫ ·) (spMap_comp'' _ (algebraMap W (FractionRing W))).symm)
-      rw [spMap_comp'']) o₁ ho₁
-  rw [← Category.assoc, spMap_comp''] at ho₁
+        ← Category.assoc (x i), hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, ← hb]
+      refine Eq.trans ?_ (congrArg (spMap _ ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ (algebraMap W (FractionRing W))))
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) o₁ ho₁
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at ho₁
   obtain ⟨φ, h1, h2, h3, -⟩ := ho₁
   obtain ⟨hdet, -⟩ := Y.oF.geom C (𝟙 _ ≫ spMap (g.comp f) ≫ x i)
     (bF.comp (IntermediateField.inclusion c.le).toRingHom) (by
-      rw [Category.id_comp, pullback.condition, Category.assoc, ← Category.assoc (x i), hs, spMap_comp'', spMap_comp''])
+      rw [Category.id_comp, pullback.condition, Category.assoc, ← Category.assoc (x i), hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   let o₂ : Full D C :=
     { o₁ with
       ρ := bF r₀

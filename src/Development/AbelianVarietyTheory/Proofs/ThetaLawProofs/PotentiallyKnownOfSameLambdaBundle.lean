@@ -1514,7 +1514,7 @@ theorem potKnown_of_lamIs : Out.Laws → ThetaUnifAV → ∀ (K : Type) [Field K
     exact ⟨_, p₁, hp₁, IntermediateField.finiteDimensional_adjoin fun x _ => Algebra.IsIntegral.isIntegral x⟩
   haveI := epi_spMap (algebraMap K₁ Ω)
   have c₁ : spMap (algebraMap K Ω) = spMap (algebraMap K₁ Ω) ≫ spMap (algebraMap K K₁) :=
-    spMap_comp (algebraMap K K₁) (algebraMap K₁ Ω)
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (algebraMap K K₁) (algebraMap K₁ Ω)
   have q₁ : p₁ ≫ y.P.A.hom = spMap (algebraMap K K₁) := by
     rw [← cancel_epi (spMap (algebraMap K₁ Ω)), ← Category.assoc, hp₁, hp, c₁]
   have r₁ : IsProd y.P.A p₁ p₁ (spMap (algebraMap K K₁) ≫ eSec y.P.A) := by
@@ -1551,7 +1551,7 @@ theorem potKnown_of_lamIs : Out.Laws → ThetaUnifAV → ∀ (K : Type) [Field K
   refine ⟨K₂, inferInstance, inferInstance, (algebraMap K₁ K₂).comp (algebraMap K K₁), fun F _ j y' φ hφ => ?_⟩
   have c₂ : spMap (j.comp ((algebraMap K₁ K₂).comp (algebraMap K K₁))) =
       (spMap j ≫ spMap (algebraMap K₁ K₂)) ≫ spMap (algebraMap K K₁) := by
-    rw [spMap_comp, spMap_comp, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   let a : y'.P.A.left ⟶ X₁.left := hψ₁.lift φ (y'.P.A.hom ≫ spMap j ≫ spMap (algebraMap K₁ K₂))
     (by rw [hφ.1.1.w, c₂]; simp only [Category.assoc])
   have a₁ : a ≫ ψ₁ = φ := hψ₁.lift_fst _ _ _

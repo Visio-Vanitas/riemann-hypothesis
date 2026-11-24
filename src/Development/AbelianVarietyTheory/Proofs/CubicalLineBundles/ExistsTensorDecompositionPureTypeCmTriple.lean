@@ -158,7 +158,7 @@ theorem exists_isTen_of_hasType : ThetaUnifAV → Out.Laws → HomExtDvr → ∀
   have hPc : Cc.IsPrincipalAt (RingHom.id ℂ) :=
     (GlobalTheory.CM.EllComp.ellMap_comp E H k _ Ck ℂ _ Cc (algebraMap k ℂ) φc hCc).2.1 _ (by rwa [RingHom.id_comp])
   obtain ⟨nc, -⟩ := GlobalTheory.ObjMaps.exists_sab_comp mk mc
-  rw [_root_.GlobalTheory.HomDescent.spMap_comp] at nc
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at nc
   have hinj : Function.Injective ((algebraMap k ℂ).comp (algebraMap (𝓞 k) k)) := by
     rw [RingHom.coe_comp]
     exact (algebraMap k ℂ).injective.comp (IsFractionRing.injective (𝓞 k) k)
@@ -194,9 +194,9 @@ theorem exists_isTen_of_hasType : ThetaUnifAV → Out.Laws → HomExtDvr → ∀
   obtain ⟨n21, -⟩ := GlobalTheory.ObjMaps.exists_sab_comp m₁ ma
   obtain ⟨m₂, -⟩ := (GlobalTheory.CM.Factor.ellMap_cancel_and_sabMap_cancel E H k k k₁ (RingHom.id k)
     (IntermediateField.inclusion hk).toRingHom).2 _ _ _ T.t Tk.t T₂.t mk n21
-    (by rw [_root_.GlobalTheory.HomDescent.spMap_comp, _root_.GlobalTheory.HomDescent.spMap_comp, hring])
+    (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring])
   obtain ⟨m₃, hm₃⟩ := (GlobalTheory.CM.Factor.ellMap_cancel_and_sabMap_cancel E H k₁ k₁ ℂ (RingHom.id k₁)
-    (algebraMap k₁ ℂ)).2 _ _ _ Tk.t T₂.t Tc.t m₂ mc (by rw [_root_.GlobalTheory.HomDescent.spMap_comp, hring'])
+    (algebraMap k₁ ℂ)).2 _ _ _ Tk.t T₂.t Tc.t m₂ mc (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring'])
   obtain ⟨ψ₂, hF₂, hψ₂⟩ := huniv k₁ hk le_rfl _ C₂ φ₂ φ₃ T₂ m₂ m₃ hφ₂ hφ₃ hφ₃c hm₃
 
   obtain ⟨ψ₁, hF₁, hψ₁⟩ := _root_.GlobalTheory.isFam_extends_dedekind hL hD E H (𝓞 k₁) k₁ _ C₁ D h T₁ ⊤ _ C₂ φa T₂ ma ψ₂ hC₂ hF₂
@@ -208,7 +208,7 @@ theorem exists_isTen_of_hasType : ThetaUnifAV → Out.Laws → HomExtDvr → ∀
     refine ontoAt_of_isGrpPullback (φ := φ₃ ≫ φa) (χ := n1.φ) ?_ n1.cart (fun a => ?_) ?_ hOc
     · rw [Category.assoc, hsqa.w, ← Category.assoc, hsq3.w, Category.assoc]
     · rw [hn1, ← Category.assoc, hψ₂ a, Category.assoc, hψ₁ a, Category.assoc]
-    · rw [_root_.GlobalTheory.HomDescent.spMap_comp, _root_.GlobalTheory.HomDescent.spMap_comp, RingHom.id_comp]
+    · rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingHom.id_comp]
   have hinj₁ : Function.Injective ((algebraMap k₁ ℂ).comp (algebraMap (𝓞 k₁) k₁)) := by
     rw [RingHom.coe_comp]
     exact (algebraMap k₁ ℂ).injective.comp (IsFractionRing.injective (𝓞 k₁) k₁)

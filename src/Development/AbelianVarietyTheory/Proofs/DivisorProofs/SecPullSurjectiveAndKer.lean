@@ -50,11 +50,7 @@ open CategoryTheory AlgebraicGeometry ReciprocityTheory.ChartRestriction.G.Geo.T
 
 namespace GlobalTheory.CechDR
 
-private alias spc := _root_.GlobalTheory.Cris.spMap_comp
-
-private theorem spi {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B}
-    (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
+private alias spc := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem secPull_surjective_and_ker (R R₀ : Type) [CommRing R] [CommRing R₀] (I : Ideal R)
     (π : R →+* R₀) (hπ : Function.Surjective π) (hk : RingHom.ker π = I) (X₀ X : Scheme.{0})
@@ -97,7 +93,7 @@ theorem secPull_surjective_and_ker (R R₀ : Type) [CommRing R] [CommRing R₀] 
   let ψ : Sec s₀ p.1.1.1 →+* (Sec s p.1.2.1 ⧸ J) := (Spec.preimage w').hom
   have hψ : spMap ψ = w' := Spec.map_preimage w'
   have h1 : ψ.comp (secPull s s₀ p) = q := by
-    apply spi
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
     rw [← cancel_mono (affPt s p.1.2), spc, Category.assoc, secPull_affPt, hψ, ← Category.assoc,
       hw', hw]
   let ψ' := Ideal.Quotient.lift J (secPull s s₀ p) hJker
@@ -108,7 +104,7 @@ theorem secPull_surjective_and_ker (R R₀ : Type) [CommRing R] [CommRing R₀] 
     rw [secPull_affPt]; infer_instance
   haveI : Mono (spMap (secPull s s₀ p)) := mono_of_mono _ (affPt s p.1.2)
   have h3 : ψ'.comp ψ = RingHom.id _ := by
-    apply spi
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
     rw [← cancel_mono (spMap (secPull s s₀ p)), ← spc, ← spc, RingHom.comp_assoc, h1, h2,
       RingHom.id_comp]
   refine ⟨fun b ↦ ?_, fun b ↦ ⟨fun hb ↦ ?_, hJker b⟩⟩

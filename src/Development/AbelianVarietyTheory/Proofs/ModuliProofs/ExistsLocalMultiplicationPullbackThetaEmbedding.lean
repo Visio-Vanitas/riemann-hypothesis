@@ -107,7 +107,7 @@ theorem mono_of_geom_points {X Y : Scheme.{0}} (f : X ⟶ Y) [LocallyOfFiniteTyp
   have : IsIso (pullback.diagonal f) := (isIso_iff_isOpenImmersion_and_surjective _).2 ⟨inferInstance, hs⟩
   exact (pullback.isIso_diagonal_iff f).1 this
 
-alias sp_comp := _root_.GlobalTheory.ZM.ClosedCoord.spMap_comp_eq
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem sp_id {A : Type} [CommRing A] : spMap (RingHom.id A) = 𝟙 _ := Spec.map_id _
 

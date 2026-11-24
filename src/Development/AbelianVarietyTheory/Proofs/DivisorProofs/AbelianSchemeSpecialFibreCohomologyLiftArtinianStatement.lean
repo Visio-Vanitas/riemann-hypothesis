@@ -1010,7 +1010,7 @@ theorem surj_of_smallExt : ∀ (R : Type) [CommRing R] [IsLocalRing R] (t : R) (
     have hτs : Function.Surjective τ := fun y => by
       obtain ⟨x, rfl⟩ := hσ y; exact ⟨σ' x, hτ x⟩
     have hcomp : spMap σ = spMap τ ≫ spMap σ' := by
-      rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; congr 1; ext r; exact (hτ r).symm
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; congr 1; ext r; exact (hτ r).symm
     let ψ' : X₀ ⟶ pullback A.hom (spMap σ') := hP'.lift ψ (s₀ ≫ spMap τ) (by rw [w.w, hcomp, Category.assoc])
     have hψ' : ψ' ≫ pullback.fst A.hom (spMap σ') = ψ := hP'.lift_fst _ _ _
     have w' : IsPullback ψ' s₀ (pullback.snd A.hom (spMap σ')) (spMap τ) := by

@@ -54,7 +54,7 @@ noncomputable section
 
 namespace GlobalTheory.Frames.NonzeroGenerates
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem spMap_id' {A : Type} [CommRing A] : spMap (RingHom.id A) = 𝟙 (Sp A) :=
   Spec.map_id (CommRingCat.of A)

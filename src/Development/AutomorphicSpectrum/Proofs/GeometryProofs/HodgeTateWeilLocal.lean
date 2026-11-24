@@ -248,12 +248,12 @@ theorem exists_tors [CharZero Ω] [IsNoetherianRing R] (G : Over X) [GrpObj G] [
   have : CharZero R := (κ.toRingHom.comp (algebraMap R (FractionRing R))).charZero
   have e1 : spMap κ.symm.toRingHom ≫ spMap (κ.toRingHom.comp (algebraMap R _)) =
       spMap (algebraMap R (FractionRing R)) := by
-    rw [_root_.Formalism.L2.Pj.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r
     simp
   have e2 : spMap κ.toRingHom ≫ spMap κ.symm.toRingHom = 𝟙 _ := by
-    rw [_root_.Formalism.L2.Pj.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : κ.toRingHom.comp κ.symm.toRingHom = RingHom.id Ω := by
       ext r
       simp
@@ -287,7 +287,7 @@ theorem exists_tors [CharZero Ω] [IsNoetherianRing R] (G : Over X) [GrpObj G] [
       ∃ t, g.left = Spec.map (CommRingCat.ofHom α) ≫ (τ t).left := by
     intro Ω' _ _ α g hg
     have e5 : spMap (α.comp κ.symm.toRingHom) = spMap α ≫ spMap κ.symm.toRingHom :=
-      (_root_.Formalism.L2.Pj.spMap_comp_ring _ _).symm
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
     have e6 : spMap (α.comp κ.symm.toRingHom) ≫ ξ = Spec.map (CommRingCat.ofHom α) ≫ (BT.genPt R).hom ≫ x := by
       rw [e5, Category.assoc, e3]
     let c : Over.mk (spMap (α.comp κ.symm.toRingHom) ≫ ξ) ⟶

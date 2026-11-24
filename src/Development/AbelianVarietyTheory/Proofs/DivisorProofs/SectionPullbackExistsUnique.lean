@@ -221,7 +221,7 @@ theorem allOver_of_overBase (d : DeltaDat Xo c n) (hl : l.A ∣ d.l₂.A) (h : G
     · rw [← GlobalTheory.Moduli.LevelAction.zeta_pow_div d.l₂.A_pos hl]
       exact pow_mem (baseKA d.l₂).ζ.2 _
   intro S _ _ _ hc y₂
-  rw [h hle, ← Category.assoc, y₂.x_over, sOf, sOf, GlobalTheory.ClsVal.Cmp.spMap_comp']
+  rw [h hle, ← Category.assoc, y₂.x_over, sOf, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   refine congrArg spMap (RingHom.ext fun t => ?_)
   exact hc (IntermediateField.inclusion c.le t)
 

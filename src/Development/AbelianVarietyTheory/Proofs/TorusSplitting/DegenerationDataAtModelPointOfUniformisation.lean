@@ -97,16 +97,11 @@ theorem point_ext_of_injective {A B : Type} [CommRing A] [IsDomain A] [CommRing 
     exact this
   exact ext_of_isDominant_of_isSeparated s h' (spMap i) h
 
-theorem spMap_comp_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  show Spec.map _ ≫ Spec.map _ = Spec.map _
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem datAt_of_uniformisation : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Geo.Tor.Host E) (Dw : Datum H) (l : Level H) (Xo : Moduli Dw l) (c : Coeff l) (O : Type) [CommRing O] (β : O →+* c.F) (Y : Model Xo c β) (la : HeightOneSpectrum (𝓞 c.F)), PointsOfFlagModel.BaseAt la β → ∀ (T : CDVR) (io : c.F →+* T.Fr) (e : ℕ), OverLa la T.V io e → ∀ (x : Sp T.Fr ⟶ Xo.X) (s : LB.Sec (PPx x)) (G : SAB H (Sp T.V)) (_ : IntSec Xo T.V x s G), x ≫ Xo.s = spMap (io.comp (IntermediateField.inclusion c.le).toRingHom) → ∀ (T' : CDVR) (φ : T.V →+* T'.V) (G' : SAB H (Sp T'.V)) (_ : SABMap G' G (spMap φ)) (U : PELUnif (maximalIdeal T'.V) G'), (∀ χ, PsiUnitOn U.D.toPre χ (abLocus G'.G)) → U.TorsionIso → ∀ (p : ℕ) (C : SCF p) (Pc : PointsOfFlagModel.PtC Y C) (eF : T.Fr →+* ↥C.S) (f : T'.V →+* intO ↥C.S), eF.comp io = Pc.fK → Pc.y ≫ pullback.fst _ _ = spMap eF ≫ x → (∀ a, ((f (φ a) : intO ↥C.S) : ↥C.S) = eF (algebraMap T.V T.Fr a)) → (∀ a ∈ maximalIdeal T'.V, ‖((f a : intO ↥C.S) : ↥C.S)‖ < 1) → ∃ (A : DatAt Y Pc) (e' : A.Ylat ≃ₗ[𝓞 E] U.D.toPre.X), ∀ a b, A.beta a b = betaAt U.D.toPre ((intO ↥C.S).subtype.comp f) p (e' a) (e' b) := by
   intro E _ _ _ H Dw l Xo c O _ β Y la hB T io e ho x s G I hxs T' φ G' mG U hU hT p C Pc eF f h1' h2' h3' h4'
   obtain ⟨b, hb⟩ := exists_base_map_of_overLa (fun a => (hB.2 (β a)).1 ⟨a, rfl⟩) T io e ho
   have hcond : x ≫ Xo.s = spMap io ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [hxs, spMap_comp_spMap]
+    rw [hxs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let z : Sp T.Fr ⟶ Xo.XF c := pullback.lift x (spMap io) hcond
   have hzs : z ≫ pullback.snd _ _ = spMap io := pullback.lift_snd _ _ _
   have hzf : z ≫ pullback.fst _ _ = x := pullback.lift_fst _ _ _
@@ -136,7 +131,7 @@ theorem datAt_of_uniformisation : ∀ (E : Type) [Field E] [NumberField E] [IsCM
   have hy : Pc.y = spMap eF ≫ z := by
     apply pullback.hom_ext
     · rw [h2', Category.assoc, hzf]
-    · rw [Pc.y_over, Category.assoc, hzs, spMap_comp_spMap, h1']
+    · rw [Pc.y_over, Category.assoc, hzs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h1']
   have halg : (f.comp φ).comp b = Pc.alg := by
     refine RingHom.ext fun a => Subtype.ext ?_
     have q1 := DFunLike.congr_fun Pc.compat a
@@ -146,9 +141,9 @@ theorem datAt_of_uniformisation : ∀ (E : Type) [Field E] [NumberField E] [IsCM
     rw [h3', q2, q3]; exact q1.symm
   have hfac : spMap f ≫ spMap φ ≫ yt = Pc.yt := by
     refine point_ext_of_injective (intO ↥C.S).subtype Subtype.val_injective Y.s _ _ ?_ ?_
-    · rw [Pc.ext, hy, Category.assoc, ← h1, ← Category.assoc (spMap f), spMap_comp_spMap, ← Category.assoc,
-        spMap_comp_spMap, hr, ← spMap_comp_spMap, Category.assoc]
-    · rw [Pc.yt_over, Category.assoc, Category.assoc, h2, ← Category.assoc, spMap_comp_spMap, spMap_comp_spMap, halg]
+    · rw [Pc.ext, hy, Category.assoc, ← h1, ← Category.assoc (spMap f), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc,
+        ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hr, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+    · rw [Pc.yt_over, Category.assoc, Category.assoc, h2, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, halg]
   have hab : (spMap φ ≫ yt) ⁻¹' abLocus Y.t.G = abLocus G'.G :=
     Set.ext fun q => abLocus_pullback abLocusOne Y.t.semi n2.cart.1 q
   let A : DatAt Y Pc :=

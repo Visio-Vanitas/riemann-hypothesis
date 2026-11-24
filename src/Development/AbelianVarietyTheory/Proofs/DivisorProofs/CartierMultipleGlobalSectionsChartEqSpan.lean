@@ -582,7 +582,7 @@ namespace GlobalTheory.Desc.ChartSpan
 
 theorem cst_comp {R S : Type} [CommRing R] [CommRing S] {X : Scheme.{0}} [IsIntegral X] (p : X ⟶ Sp S) (a : R →+* S) :
     GlobalTheory.Desc.cst (p ≫ spMap a) = (GlobalTheory.Desc.cst p).comp a :=
-  _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← _root_.GlobalTheory.Desc.GaussDvr.gp_comp, ← _root_.GlobalTheory.spMap_comp_ring, ← _root_.GlobalTheory.Desc.GaussDvr.gp_comp, Category.assoc])
+  ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← _root_.GlobalTheory.Desc.GaussDvr.gp_comp, ← _root_.GlobalTheory.spMap_comp_ring, ← _root_.GlobalTheory.Desc.GaussDvr.gp_comp, Category.assoc])
 
 theorem regAt_cst {R : Type} [CommRing R] {X : Scheme.{0}} [IsIntegral X] (p : X ⟶ Sp R) (x : X) (r : R) :
     RegAt x (GlobalTheory.Desc.cst p r) := regAt_fnOf (U := ⊤) trivial trivial _

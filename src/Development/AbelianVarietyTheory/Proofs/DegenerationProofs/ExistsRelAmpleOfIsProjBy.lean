@@ -99,7 +99,7 @@ theorem exists_isPullback {S X T₁ T₂ X₁ X₂ : Scheme.{0}} {f : X ⟶ S} {
   rw [h₁.lift_fst, hu]
   exact h₂
 
-alias spMap_comp := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem exists_finite_isProjBy : ∀ (K : Type) [Field K] (A : Over (Sp K)) [GrpObj A], IsAbelianScheme A → ∃ (L : Type) (_ : Field L) (_ : Algebra K L) (_ : FiniteDimensional K L), GlobalTheory.AbLaw.IsProjBy ((Over.pullback (spMap (algebraMap K L))).obj A).hom := by
   intro K _ A _ hA
@@ -119,7 +119,7 @@ theorem exists_finite_isProjBy : ∀ (K : Type) [Field K] (A : Over (Sp K)) [Grp
   let K₀ : Subfield Ω := a.fieldRange
   let j : K →+* K₀ := a.rangeRestrictField
   have sq₀ := IsPullback.of_hasPullback A.hom (spMap j)
-  obtain ⟨φ, hφ, sq⟩ := exists_isPullback sq₀ sqB (spMap K₀.subtype) (spMap_comp _ _)
+  obtain ⟨φ, hφ, sq⟩ := exists_isPullback sq₀ sqB (spMap K₀.subtype) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   obtain ⟨s, hs⟩ := GlobalTheory.LBDescent.exists_lb_subfield Ω K₀ _ _ _ _ φ H hH sq
   let L : IntermediateField K Ω := IntermediateField.adjoin K (s : Set Ω)
   have hfin : FiniteDimensional K L :=
@@ -131,12 +131,12 @@ theorem exists_finite_isProjBy : ∀ (K : Type) [Field K] (A : Over (Sp K)) [Grp
   let C : Over (Sp L) := (Over.pullback (spMap (algebraMap K L))).obj A
   have sqC : IsPullback (pullback.fst A.hom (spMap (algebraMap K L))) C.hom A.hom (spMap (algebraMap K L)) :=
     IsPullback.of_hasPullback _ _
-  obtain ⟨φ₁, hφ₁, sq₁⟩ := exists_isPullback sq₀ sqC (spMap (Subfield.inclusion h)) (spMap_comp _ _)
-  obtain ⟨ψ, hψ, sq₂⟩ := exists_isPullback sqC sqB (spMap L.toSubfield.subtype) (spMap_comp _ _)
+  obtain ⟨φ₁, hφ₁, sq₁⟩ := exists_isPullback sq₀ sqC (spMap (Subfield.inclusion h)) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
+  obtain ⟨ψ, hψ, sq₂⟩ := exists_isPullback sqC sqB (spMap L.toSubfield.subtype) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   obtain ⟨L₁, hL₁, hw⟩ := hs L.toSubfield h (IntermediateField.subset_adjoin K _) C.left C.hom φ₁ ψ sq₁
     (sq₀.hom_ext (by rw [Category.assoc, hφ₁, hψ, hφ]) (by
       rw [Category.assoc, sq₁.w, ← Category.assoc, sq₂.w, Category.assoc, sq.w]
-      exact congrArg _ (spMap_comp _ _))) sq₂.w
+      exact congrArg _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))) sq₂.w
   have : IsProper C.hom := MorphismProperty.of_isPullback (P := @IsProper) sqC hA.proper
   exact isProjBy_of_fieldExtension L.toSubfield.subtype sq₂ hL₁ hH hw hamp
 

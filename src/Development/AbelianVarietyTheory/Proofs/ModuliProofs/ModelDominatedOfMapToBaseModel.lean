@@ -156,11 +156,11 @@ theorem dominates_of_map_to_base : Out.Laws → Out.Laws2 → Out.Laws3 → ∀ 
   have hkb : k.comp B.β = β'.comp b₀ := RingHom.ext fun x => Subtype.ext
     ((hk (B.β x)).trans ((B.β_inc x).trans (hb₀ x).symm))
   have hrB : r ≫ B.C.j ≫ B.C.s = pullback.snd _ _ ≫ spMap (β'.comp b₀) := by
-    rw [Cpt.openImmersion_comp_structure_eq_generic, ← Category.assoc, hr, Category.assoc, ← spMap_comp, hkb]
+    rw [Cpt.openImmersion_comp_structure_eq_generic, ← Category.assoc, hr, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hkb]
   have hrr : r ≫ (Xo l₀).s = r₀ ≫ (Xo l₀).s := by
     apply eq_of_RZ B.A_one B.β_inc
     rw [Category.assoc, Category.assoc, ← Cpt.openImmersion_comp_structure_eq_generic B.C, hrB, ← Category.assoc, ← a₀.j_comm, Category.assoc,
-      a₀.π_over, ← Category.assoc, Cpt.openImmersion_comp_structure_eq_generic, Category.assoc, ← spMap_comp]
+      a₀.π_over, ← Category.assoc, Cpt.openImmersion_comp_structure_eq_generic, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hred : IsReduced ((Xo l).XF c) := by
     have := (Xo l).smooth
     have : Smooth (Xo l).s := SmoothOfRelativeDimension.smooth D.dim _
@@ -201,7 +201,7 @@ theorem dominates_of_map_to_base : Out.Laws → Out.Laws2 → Out.Laws3 → ∀ 
         infer_instance
       exact isReduced_of_isReduced_stalk _
     apply ext_of_isDominant C.j
-    rw [← Category.assoc, hjf, Category.assoc, hrB, ← Category.assoc, Cpt.openImmersion_comp_structure_eq_generic, Category.assoc, ← spMap_comp]
+    rw [← Category.assoc, hjf, Category.assoc, hrB, ← Category.assoc, Cpt.openImmersion_comp_structure_eq_generic, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨h₀, κ₀, hh₀, -, -, hjh₀, hmh₀, -⟩ := Cpt.Above.exists_lift E H _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ B.C
     (ofModel Y') C b₀ (RingHom.id O') (RingHom.id c.F) r ν₀ a₀ (𝟙 _) ν' (e ≫ f) κ₂ hover hβ' rfl
     (by rw [LevelCover.spMap_id', Category.id_comp, Category.comp_id]) (by rw [hjf, Category.id_comp])

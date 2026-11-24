@@ -69,7 +69,7 @@ theorem conj_point_eq_of_isSplit {E : Type} [Field E] [NumberField E] [IsCMField
     show τ (σ _) = σ _
     rw [hσ, hτ])
   obtain ⟨i', P', hP', hu⟩ := F.onto (spMap (τ : ℂ →+* ℂ) ≫ F.u i P)
-    (by rw [Category.assoc, F.over_σ i P hP, GlobalTheory.ConjPermutes.spMap_comp, hτσ])
+    (by rw [Category.assoc, F.over_σ i P hP, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hτσ])
   obtain ⟨Φ, hE, hp, hm, hlev⟩ := marking_conj E H D l Xo σ g ty F hD hσ hty hA τ hτ C io hC.1 i P hP i' P' hP' hs
     hu.symm (1, 0) hC
   obtain ⟨L, hL⟩ := exists_complex_linear_of_pure_types E H _ _ g ty P P' hP hP' Φ hs (fun a ha => (hp a).2 ha)

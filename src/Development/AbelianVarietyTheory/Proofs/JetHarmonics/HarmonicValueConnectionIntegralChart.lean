@@ -336,7 +336,7 @@ theorem jetCoef_comp {A B D : Type} [CommRing A] [CommRing B] [CommRing D] (f : 
   refine Ideal.Quotient.ringHom_ext (RingHom.ext fun p => ?_)
   exact congrArg (Ideal.Quotient.mk _) (MvPolynomial.map_map f g p)
 
-alias spMap_spMap := _root_.GlobalTheory.FrameTangent.spMap_comp'
+alias spMap_spMap := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 
 

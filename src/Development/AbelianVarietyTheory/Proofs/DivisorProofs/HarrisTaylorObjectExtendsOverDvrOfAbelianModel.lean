@@ -1269,7 +1269,7 @@ theorem sp_point {R W R' : Type} [CommRing R] [CommRing W] [CommRing R'] (gm : R
     (x : Sp R' ⟶ Sp W) (hx : x ≫ spMap gm = spMap β) : ∃ β₀ : W →+* R', spMap β₀ = x ∧ β₀.comp gm = β := by
   refine ⟨(Spec.preimage x).hom, by simp [spMap], ?_⟩
   have e : spMap ((Spec.preimage x).hom.comp gm) = spMap β := by
-    rw [spMap_comp, ← hx]; congr 1; simp [spMap]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hx]; congr 1; simp [spMap]
   have e2 := Spec.map_injective e
   exact congrArg CommRingCat.Hom.hom e2
 
@@ -1444,14 +1444,14 @@ theorem extends_obj : ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [Com
       simpa [Function.comp_def, map_sub] using e
   have hx : ∀ (R' : Type) [CommRing R'] (β : L →+* R'),
       spMap β ≫ spMap ((algebraMap W L).comp gm) = spMap (β.comp ((algebraMap W L).comp gm)) :=
-    fun R' _ β => (spMap_comp _ _).symm
+    fun R' _ β => (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have lieGen : ∀ (R' : Type) [CommRing R'] (β : L →+* R'), ∀ v : epsPtR (spMap (β.comp (algebraMap W L))) ⟶ G,
       IsTanScal actG (spMap (β.comp (algebraMap W L))) (algebraMap (𝓞 D.F) D.O D.ω) (β (algebraMap W L (gm b.ρ))) v →
       ∃ w : Fin D.a → (epsPtR (spMap (β.comp (algebraMap W L))) ⟶ G),
         (∀ i, ∀ c : 𝓞 D.F, IsTanScal actG (spMap (β.comp (algebraMap W L))) (algebraMap (𝓞 D.F) D.O c)
           (β (algebraMap W L ((gm.comp (b.t i)) c))) (w i)) ∧ v = (List.ofFn w).prod := by
     intro R' _ β
-    rw [spMap_comp]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     intro v hv
     obtain ⟨e, he⟩ := isTanScal_push hA o.act actG hactG (spMap β)
     have hu := (he _ _ (e.symm v)).2 (by rw [MulEquiv.apply_symm_apply]; exact hv)
@@ -1462,7 +1462,7 @@ theorem extends_obj : ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [Com
   have rankGen : ∀ (k : Type) [Field k] [IsAlgClosed k] (β : L →+* k) i,
       LieMult (actG.toF D) (spMap (β.comp (algebraMap W L))) ((β.comp (algebraMap W L)).comp (gm.comp (b.t i))) D.m := by
     intro k _ _ β i
-    rw [spMap_comp]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact (GlobalTheory.LiePull.lieMult_pull (𝓞 D.F) (Sp W) (Sp L) G o.A (spMap (algebraMap W L)) φ (actG.toF D)
       (o.act.toF D) hA (fun c => hactG _) k (spMap β) _ D.m).1 (o.lieRank k (spMap β) _ (hx k β) i)
   obtain ⟨lieG, rankG⟩ := _root_.GlobalTheory.LieExt.lie_ext p D W L G hG actG (gm b.ρ) (fun i => gm.comp (b.t i))
@@ -1473,7 +1473,7 @@ theorem extends_obj : ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [Com
         (fun n g g' z => Out.WeilIs G (P'.pull (lift (𝟙 G) (𝟙 G)).left) n g g' (unitOn z)),
       ∀ x, toUnit _ ≫ eta' x = I.ev N x := by
     intro k _ _ β
-    rw [spMap_comp]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact tate_push hA hsq o.act actG hactG o.P P' hP hP' iP N o.eta eta' hlv k (spMap β)
       (o.geom k (spMap β) _ (hx k β))
   have geomG := _root_.GlobalTheory.HTGeomExt.tateIsoO_geom_of_generic p D R b N W L gm G hG actG P' hP' eta' eta_add' geomGen

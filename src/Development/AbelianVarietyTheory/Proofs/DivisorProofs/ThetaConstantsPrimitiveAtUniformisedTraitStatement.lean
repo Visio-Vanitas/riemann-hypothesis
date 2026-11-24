@@ -137,10 +137,6 @@ attribute [local instance] Over.cartesianMonoidalCategory
 noncomputable section
 namespace GlobalTheory.UMin.PrimTrait
 
-theorem spMap_comp' {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R') (g : R' →+* R'') :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp [spMap, ← Spec.map_comp]
-
 theorem spMap_id' (R : Type) [CommRing R] : spMap (RingHom.id R) = 𝟙 _ := by
   simp [spMap]
 
@@ -218,11 +214,11 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
     exact (IsFractionRing.lift_algebraMap hii r).symm
   have hy : spMap i' ≫ spMap i ≫ χ = spMap j ≫ x' := by
     change _ = spMap j ≫ (spMap (algebraMap (FractionRing V) F) ≫ spMap (algebraMap V (FractionRing V))) ≫ χ
-    rw [← Category.assoc, spMap_comp', spMap_comp', ← Category.assoc, spMap_comp', hsq]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hsq]
 
   have hPy : PolFib t.G t.PP.L g (spMap j ≫ x') := by
     have := hg Kb (j.comp (algebraMap (FractionRing V) F))
-    rw [← spMap_comp'] at this
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at this
     simpa only [hx', Category.assoc] using this
   have hmKb : (m : Kb) ≠ 0 := by
     have := hmu.map (i'.comp i)
@@ -235,7 +231,7 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
     refine heq_pullS hy _ _ ?_ σ
     simp only [Over.comp_left, Over.homMk_left]
     change spMap i' ≫ spMap i = spMap j ≫ (spMap (algebraMap (FractionRing V) F) ≫ spMap (algebraMap V (FractionRing V)))
-    rw [spMap_comp', spMap_comp', spMap_comp', hsq]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hsq]
   obtain ⟨ptK, hptK, hLK⟩ := thList_of_eq t.PP.rig m hy hθ hL1
   obtain ⟨ptF', hptF', hLF'⟩ := GlobalTheory.T.isThetaConstantListOfFibre_pullback_field_extension S t.G t.PP.L t.PP.rig t.PP.isLB t.PP.rigGen m (m ^ (4 * g)) F Kb j x' θF
     ptF cF hLF

@@ -92,9 +92,9 @@ theorem tan_comb_baseChange : ∀ (E : Type) [Field E] [NumberField E] [IsCMFiel
   refine ⟨fun v hv => ?_, fun m v cf w h => ?_⟩
   · obtain ⟨h1, h2⟩ := hv
     refine ⟨?_, ?_⟩
-    · rw [Category.assoc, h1, ← Category.assoc, _root_.Formalism.L2.Pj.spMap_comp_ring, _root_.Formalism.L2.Pj.dualMap_alg, ← _root_.Formalism.L2.Pj.spMap_comp_ring,
+    · rw [Category.assoc, h1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.Formalism.L2.Pj.dualMap_alg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
         Category.assoc]
-    · rw [← Category.assoc, _root_.Formalism.L2.Pj.spMap_comp_ring, _root_.GlobalTheory.Frames.EigenBaseChange.fst_comp_dualMap, ← _root_.Formalism.L2.Pj.spMap_comp_ring, Category.assoc, h2]
+    · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.GlobalTheory.Frames.EigenBaseChange.fst_comp_dualMap, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, h2]
       have e : (Over.homMk (spMap φ) rfl : Over.mk (spMap φ ≫ x) ⟶ Over.mk x) ≫ (1 : Over.mk x ⟶ t.G) = 1 := by
         simp [Hom.one_def]
       rw [← e, Over.comp_left]
@@ -103,10 +103,10 @@ theorem tan_comb_baseChange : ∀ (E : Type) [Field E] [NumberField E] [IsCMFiel
     let q : tEpsG (spMap φ ≫ x) ⟶ tEpsG x := Over.homMk (spMap (Formalism.L2.Pj.dualMap φ)) (by
       show spMap (Formalism.L2.Pj.dualMap φ) ≫ spMap (algebraMap S (DualNumber S)) ≫ x =
         spMap (algebraMap S' (DualNumber S')) ≫ spMap φ ≫ x
-      rw [← Category.assoc, ← Category.assoc, _root_.Formalism.L2.Pj.spMap_comp_ring, _root_.Formalism.L2.Pj.spMap_comp_ring, _root_.Formalism.L2.Pj.dualMap_alg])
+      rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.Formalism.L2.Pj.dualMap_alg])
     refine ⟨fun i => q ≫ u i, fun i => ?_, ?_⟩
     · show spMap (Formalism.L2.Pj.dualMap φ) ≫ (u i).left = _
-      rw [hu i, ← Category.assoc, _root_.Formalism.L2.Pj.spMap_comp_ring, _root_.Formalism.L2.Pj.dualMap_eps, ← _root_.Formalism.L2.Pj.spMap_comp_ring, Category.assoc]
+      rw [hu i, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.Formalism.L2.Pj.dualMap_eps, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     · have e : List.ofFn (fun i => q ≫ u i) = (List.ofFn u).map (q ≫ ·) := by
         rw [List.map_ofFn]
         rfl

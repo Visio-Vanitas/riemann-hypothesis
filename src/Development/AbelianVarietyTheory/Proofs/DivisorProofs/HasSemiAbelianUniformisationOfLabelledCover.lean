@@ -942,7 +942,7 @@ theorem point_lift (Ω : Type) [Field Ω] (X Y : Scheme.{0}) (g : Y ⟶ X) (hg :
   rw [Category.assoc, ← pullback.condition, ← Category.assoc]
   exact congrArg (· ≫ x) (Spec.map_preimage _).symm
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem closedFibre_inj : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R] (M : Modif R) (G' : Over M.S) [GrpObj G'] (E : Emb M.π G') (N : Near M.π G') (fU : N.U.left ⟶ PSpace R E.N) (l : pullback N.U.hom M.π ⟶ E.H.toScheme), l ≫ E.H.ι = N.u → l ≫ E.f = pullback.fst _ _ ≫ fU → Surjective M.π → ∀ (Ω : Type) [Field Ω] (κ : ResidueField R →+* Ω) (a a' : Sp Ω ⟶ N.U.left), a ≫ N.U.hom = spMap (κ.comp (residue R)) → a' ≫ N.U.hom = spMap (κ.comp (residue R)) → a ≫ fU = a' ≫ fU → a = a' := by
   intro R _ _ _ M G' _ E N fU l hl hlf hπ Ω _ κ a a' ha ha' hf
@@ -950,7 +950,7 @@ theorem closedFibre_inj : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing 
   haveI := E.imm
   obtain ⟨Ω', _, io, s, hs⟩ := point_lift Ω (Sp R) M.S M.π hπ (spMap (κ.comp (residue R)))
   have hs' : s ≫ M.π = spMap ((io.comp κ).comp (residue R)) := by
-    rw [hs, ← spMap_comp, RingHom.comp_assoc]
+    rw [hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingHom.comp_assoc]
   obtain ⟨Ω'', _, io', e, l', -, hl'1, hl'2⟩ := E.fib Ω' s (io.comp κ) hs'
 
   have pt : ∀ (b : Sp Ω ⟶ N.U.left) (hb : b ≫ N.U.hom = spMap (κ.comp (residue R))),
@@ -1063,10 +1063,6 @@ open GlobalTheory.Mum
 
 namespace GlobalTheory.Mum
 
-theorem specMap_contravariant_comp_ringHom {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp [spMap, ← Spec.map_comp]
-
 theorem Near.closed_product_unique : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R] (M : Modif R) (G' : Over M.S) [GrpObj G'] (E : Emb M.π G') (N : Near M.π G') (fU : N.U.left ⟶ PSpace R E.N) (l : pullback N.U.hom M.π ⟶ E.H.toScheme), l ≫ E.H.ι = N.u → l ≫ E.f = pullback.fst _ _ ≫ fU → Surjective M.π → ∀ (Ω : Type) [Field Ω] (κ : ResidueField R →+* Ω) (s s' : Sp Ω ⟶ M.S) (a b c c' : Sp Ω ⟶ N.U.left) (x y : Over.mk s ⟶ G') (x' y' : Over.mk s' ⟶ G'), s ≫ M.π = spMap (κ.comp (residue R)) → s' ≫ M.π = spMap (κ.comp (residue R)) → N.Pt s a x.left → N.Pt s b y.left → N.Pt s c (x * y).left → N.Pt s' a x'.left → N.Pt s' b y'.left → N.Pt s' c' (x' * y').left → c = c' := by
   intro R _ _ _ M G' _ E N fU l hl1 hl2 hsurj Ω _ κ s s' a b c c' x y x' y' hs hs' ha hb hc ha' hb' hc'
   obtain ⟨Ω₁, _, io₁, ca, cb, hca, hcb, hcc⟩ := _root_.GlobalTheory.Mum.closed_product_image R M G' E N fU l hl1 hl2 Ω κ s a b c x y hs ha hb hc
@@ -1076,13 +1072,13 @@ theorem Near.closed_product_unique : ∀ (R : Type) [CommRing R] [IsDomain R] [I
   have : Mono E.j := by haveI := E.imm; infer_instance
 
   let g₁ : Over.mk (spMap ((j₁.comp io₁).comp κ)) ⟶ Over.mk (spMap (io₁.comp κ)) :=
-    Over.homMk (spMap j₁) (by simp only [Over.mk_hom, _root_.GlobalTheory.spMap_comp_ring])
+    Over.homMk (spMap j₁) (by simp only [Over.mk_hom, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   let g₂ : Over.mk (spMap ((j₁.comp io₁).comp κ)) ⟶ Over.mk (spMap (io₂.comp κ)) :=
-    Over.homMk (spMap j₂) (by simp only [Over.mk_hom, _root_.GlobalTheory.spMap_comp_ring, hj])
+    Over.homMk (spMap j₂) (by simp only [Over.mk_hom, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hj])
   have hg₁ : g₁.left = spMap j₁ := rfl
   have hg₂ : g₂.left = spMap j₂ := rfl
-  have e₁ : spMap j₁ ≫ spMap io₁ = spMap (j₁.comp io₁) := _root_.GlobalTheory.spMap_comp_ring _ _
-  have e₂ : spMap j₂ ≫ spMap io₂ = spMap (j₁.comp io₁) := by rw [_root_.GlobalTheory.spMap_comp_ring, hj]
+  have e₁ : spMap j₁ ≫ spMap io₁ = spMap (j₁.comp io₁) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
+  have e₂ : spMap j₂ ≫ spMap io₂ = spMap (j₁.comp io₁) := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hj]
   have hA : g₁ ≫ ca = g₂ ≫ ca' := by
     ext1
     rw [← cancel_mono E.j]
@@ -1108,7 +1104,7 @@ theorem Near.closed_product_unique : ∀ (R : Type) [CommRing R] [IsDomain R] [I
   have hco : ∀ d : Sp Ω ⟶ N.U.left, d ≫ N.U.hom = spMap (κ.comp (residue R)) →
       (spMap (j₁.comp io₁) ≫ d) ≫ N.U.hom = spMap (((j₁.comp io₁).comp κ).comp (residue R)) := by
     intro d hd
-    rw [Category.assoc, hd, specMap_contravariant_comp_ringHom]
+    rw [Category.assoc, hd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have key := GlobalTheory.T.closedFibre_fieldPoints_injective_projective_map R M G' E N fU l hl1 hl2 hsurj Ω₃ ((j₁.comp io₁).comp κ) (spMap (j₁.comp io₁) ≫ c)
     (spMap (j₁.comp io₁) ≫ c') (hco c (hlies s c _ hs hc)) (hco c' (hlies s' c' _ hs' hc'))
     (by simpa only [Category.assoc] using hfU)
@@ -1734,14 +1730,14 @@ theorem GlobalTheory.Mum.hasFin_of_labCover : ∀ (R : Type) [CommRing R] [IsDom
   obtain ⟨ξ, -, hξ⟩ := val_exists C'.π (spMap fφ ≫ C'.gp) (spMap φ) (by
     rw [Category.assoc, C'.gp_π]
     show spMap fφ ≫ spMap (algebraMap R' (FractionRing R')) = spMap (algebraMap V (FractionRing V)) ≫ spMap φ
-    rw [← spMap_comp, ← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun r => hfφ r)
   obtain ⟨W', _, _, _, io, G'', _, _, β', D'', A'', U'', hD'', hW', hio, hfin, hβ', hL', -⟩ :=
     C'.trait V hV φ ξ hφ hloc hξ
   haveI : IsLocalHom io := hfin.to_isIntegral.isLocalHom hio
   have hcomp : IsGrpPullback G'' G (spMap (io.comp φ)) (β' ≫ β) :=
-    (hβ'.comp hβ).congr (by rw [Category.assoc, hξ, spMap_comp]) rfl
+    (hβ'.comp hβ).congr (by rw [Category.assoc, hξ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) rfl
   have h₂ : LBIso (C'.P.L.L.pull β') (P.L.L.pull (β' ≫ β)) :=
     LBIso.chartPull (chartPullPull C'.P.L.L β') (chartPullSame P.L.L _ _ _ β' fun _ => rfl) hL
   have hLc : LBIso U''.LG.L (P.L.L.pull (β' ≫ β)) :=

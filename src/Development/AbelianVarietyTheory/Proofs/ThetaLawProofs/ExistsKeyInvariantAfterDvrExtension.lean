@@ -297,11 +297,11 @@ theorem exists_finset_descend {O Ω : Type} [CommRing O] [Field Ω] {X : Scheme.
   let g' : Γ(X, U) →+* k := e.symm.toRingHom.comp (g.hom.codRestrict σ.range hmem)
   have hg' : σ.comp g' = g.hom := RingHom.ext fun b => congrArg Subtype.val (e.apply_symm_apply ⟨_, hmem b⟩)
   have h₁ : spMap σ ≫ spMap g' ≫ hU.fromSpec = q := by
-    rw [← Category.assoc, ← spMap_comp, hg']
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hg']
     exact hgq
   refine ⟨spMap g' ≫ hU.fromSpec, h₁, ?_⟩
   haveI := epi_spMap σ
-  rw [← cancel_epi (spMap σ), ← Category.assoc, h₁, hq, ← spMap_comp, ht]
+  rw [← cancel_epi (spMap σ), ← Category.assoc, h₁, hq, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ht]
 
 theorem eq_of_apply_eq {O k : Type} [CommRing O] [Field k] {X : Scheme.{0}} (p : X ⟶ Sp O) (t : O →+* k)
     (ht : Function.Surjective t) (q q' : Sp k ⟶ X) (hq : q ≫ p = spMap t) (hq' : q' ≫ p = spMap t)
@@ -503,7 +503,7 @@ theorem exists_kaVal_extension : Out.Laws → ∀ (O : Type) [CommRing O] [IsDom
   have hp₃ : IsPullback φ₃ xk.P.A.hom y.P.A.hom (spMap σ) := H₃.choose_spec.choose_spec.choose_spec.1.1
   have hp₄ := hp₂.paste_horiz hG'.1
   have hw : ∀ a, q₁ a ≫ x.P.A.hom = 𝟙 _ ≫ spMap (IsLocalRing.residue O') ≫ spMap j := fun a => by
-    rw [hq₁', spMap_comp, Category.id_comp]
+    rw [hq₁', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.id_comp]
   let z : Fin d → Pt y := fun a => Over.homMk (hp₄.lift (q₁ a) (𝟙 _) (hw a)) (hp₄.lift_snd _ _ _)
   have hz : ∀ a, (zk a).left ≫ φ₃ = spMap σ ≫ (z a).left := fun a => by
     refine hp₄.hom_ext ?_ ?_
@@ -521,7 +521,7 @@ theorem exists_kaVal_extension : Out.Laws → ∀ (O : Type) [CommRing O] [IsDom
       spMap (IsLocalRing.residue O') ≫ spMap j ≫ eSec x.P.A := fun b => by
     have e₁ : (e b).1 ≫ Out.mulA x.P.A (degProd x.P.g n l l') = 1 := by
       rw [Out.mulA, MonObj.comp_pow, Category.comp_id, (e b).2]
-    rw [← cancel_epi (spMap σ), ← Category.assoc, hq₂, ← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp,
+    rw [← cancel_epi (spMap σ), ← Category.assoc, hq₂, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       hσ, hrj]
     exact congrArg CommaMorphism.left e₁
   choose ξ hξ hξ' using fun b => exists_torsion_lift hG' H'.choose (degProd x.P.g n l l') (q₂ b) (htor b)

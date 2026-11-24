@@ -308,7 +308,7 @@ theorem lift_to_finer_level : ∀ (E : Type) [Field E] [NumberField E] [IsCMFiel
   obtain ⟨L₀, _, _, _, io', hio'⟩ := exists_field_over c.F F₂ T.Fr io
   have cond : (spMap (algebraMap T.Fr L₀) ≫ x) ≫ Xo.s =
       spMap io' ≫ spMap (IntermediateField.inclusion c'.le).toRingHom := by
-    rw [Category.assoc, hx, Formalism.L2.PjFree.spMap_comp', Formalism.L2.PjFree.spMap_comp']
+    rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a
     have h := RingHom.congr_fun hio' (IntermediateField.inclusion c.le a)
@@ -332,16 +332,16 @@ theorem lift_to_finer_level : ∀ (E : Type) [Field E] [NumberField E] [IsCMFiel
     have h := congrArg (· ≫ pullback.snd _ _) hx'
     simp only [Category.assoc, hr2, pullback.lift_snd, z'] at h
     rw [hid, Category.comp_id] at h
-    rw [h, Formalism.L2.PjFree.spMap_comp']
+    rw [h, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hf : x' ≫ pullback.fst _ _ ≫ r = spMap (algebraMap T.Fr L) ≫ x := by
     have h := congrArg (· ≫ pullback.fst _ _) hx'
     simp only [Category.assoc, hr1, pullback.lift_fst, z'] at h
-    rw [h, ← Category.assoc, Formalism.L2.PjFree.spMap_comp']
+    rw [h, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   refine ⟨c₂, la₂, T', iT, φ, e', io₂, e₂, spMap ψ.toRingHom ≫ x' ≫ pullback.fst _ _, r, m, he', hv, hφ, ho₂,
     ?_, ?_⟩
   · rw [Category.assoc, Category.assoc, pullback.condition, ← Category.assoc x', hs, ← Category.assoc,
-      Formalism.L2.PjFree.spMap_comp', Formalism.L2.PjFree.spMap_comp']
-  · rw [Category.assoc, Category.assoc, hf, ← Category.assoc, Formalism.L2.PjFree.spMap_comp']
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  · rw [Category.assoc, Category.assoc, hf, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have hc : ψ.toRingHom.comp (algebraMap T.Fr L) = iT := RingHom.ext fun a => hψ a
     rw [hc]
 

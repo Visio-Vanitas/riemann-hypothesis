@@ -1250,7 +1250,7 @@ namespace GlobalTheory.HeatConn.Comm
 
 theorem spMap_fst_alg (k : Type) [Field k] :
     spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ spMap (algebraMap k (DualNumber k)) = 𝟙 _ := by
-  rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have : (TrivSqZeroExt.fstHom k k k).toRingHom.comp (algebraMap k (DualNumber k)) = RingHom.id k := by
     ext; simp
   rw [this, spMap]
@@ -1344,7 +1344,7 @@ theorem commutes : ∀ {R : Type} [CommRing R] [IsDomain R] (Q : DegPre R) {k : 
   have hfB : Flat B'.hom := MorphismProperty.of_isPullback h₁.1 hfA
   obtain ⟨φ', hφ'0, hφ'1, hφ'2⟩ := exists_lift Q ρ B' π₁ π₂ c' h₁ h₂ hc α j
   have e2 : spMap (constHom ρ) = spMap (algebraMap k (DualNumber k)) ≫
-      spMap ((TrivSqZeroExt.fstHom k k k).toRingHom.comp ρ) := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
+      spMap ((TrivSqZeroExt.fstHom k k k).toRingHom.comp ρ) := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   obtain ⟨sc, hspr, hs₂, hsq, hpts⟩ := exists_sec Q.P.A.hom _ A₀.hom B'.hom m₀ π₁ π₂ pr hA₀.1
     (e2 ▸ h₂.1) h₃ hpr₁ hpr₂
   have hpre : ∀ U : Q.P.A.left.Opens, π₂ ⁻¹ᵁ U ≤ π₁ ⁻¹ᵁ U := fun U x hx => by

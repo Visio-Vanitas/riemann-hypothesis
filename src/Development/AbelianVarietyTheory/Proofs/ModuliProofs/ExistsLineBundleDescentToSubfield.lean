@@ -284,12 +284,12 @@ theorem exists_lb_subfield : ∀ (K : Type) [Field K] (K₀ : Subfield K) (X₀ 
     | mul x y _ _ hx hy => exact mul_mem hx hy
   let ι : R →+* K₁ := R.val.toRingHom.codRestrict K₁ fun x => hR x x.2
   let r : X₁ ⟶ pullback p₀ (spMap (algebraMap K₀ R)) := pullback.lift φ₁ (p₁ ≫ spMap ι) (by
-    rw [hX₁.w, Category.assoc, spMap_comp_ring]
+    rw [hX₁.w, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl)
   have hr : ψ ≫ r = ρ := by
     apply pullback.hom_ext
     · rw [Category.assoc, pullback.lift_fst, e₁, h₁]
-    · rw [Category.assoc, pullback.lift_snd, ← Category.assoc, e₂, h₂, Category.assoc, spMap_comp_ring]
+    · rw [Category.assoc, pullback.lift_snd, ← Category.assoc, e₂, h₂, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
   exact ⟨M.pull r, pull_isLB hM r, LBIso.chartPull (chartPullId L)
     (chartPullLinComb M r (fun _ : PUnit => ψ) (fun _ => ρ) (fun _ => 1) (𝟙 X)

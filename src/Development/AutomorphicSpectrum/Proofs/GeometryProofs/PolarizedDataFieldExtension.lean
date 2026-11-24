@@ -137,7 +137,7 @@ theorem hodge_congr {S : Scheme.{0}} {G : Over S} [GrpObj G] (Lb : LB G.left) {z
   obtain rfl : w = w' := Over.OverMorphism.ext hw
   exact hc
 
-alias spMap_comp := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem dualMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (d : A →+* B) (c : B →+* C) :
     (dualMap c).comp (dualMap d) = dualMap (c.comp d) := by
@@ -163,7 +163,7 @@ theorem exists_ext (D : PPData H L) (L' : Type) [Field L'] [NumberField L'] [Alg
   obtain ⟨n, -⟩ := sabComp pullCubComp E H _ _ _ D.t t' tK' _ _ m₁ m₂
   have hsq : spMap (algebraMap (𝓞 L') L') ≫ spMap (algebraMap (𝓞 L) (𝓞 L')) =
       spMap (algebraMap L L') ≫ spMap (algebraMap (𝓞 L) L) := by
-    rw [spMap_comp, spMap_comp, algebraMap_square]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, algebraMap_square]
   obtain ⟨m₃, -⟩ := sabCancel pullCubCancel E H _ _ _ D.t D.tK tK' _ (spMap (algebraMap L L')) D.m (hsq ▸ n)
   have pr : IsPrincipal tK' := (_root_.GlobalTheory.CompanionTheory.Ar.isPrincipal_iff_of_sabMap_field E H L L' (algebraMap L L') D.tK tK' m₃).2 D.princ
   obtain ⟨B, MB, fib⟩ := _root_.GlobalTheory.CompanionTheory.Ar.HodgeFibre.exists_hermitianBundle E H L' t' tK' m₂ pr
@@ -214,7 +214,7 @@ theorem ext_props (D : PPData H L) (D' : PPData H L') (m : D.Ext D') :
       rw [RingHom.comp_assoc, algebraMap_square, RingHom.comp_assoc]
     have hz : spMap ((σ'.comp (algebraMap L L')).comp (algebraMap (𝓞 L) L)) ≫ 𝟙 _ =
         (spMap (σ'.comp (algebraMap (𝓞 L') L')) ≫ 𝟙 _) ≫ spMap (algebraMap (𝓞 L) (𝓞 L')) := by
-      rw [Category.comp_id, Category.comp_id, spMap_comp, hring]
+      rw [Category.comp_id, Category.comp_id, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring]
     obtain ⟨M₃, h₃⟩ := exists_transport hz M₁
     have hv : ∀ e, (M₂.pt ((1 : ComplexAt σ') ⊗ₜ[𝓞 L'] j e)).left ≫ m.φ =
         (M₃.pt ((1 : ComplexAt _) ⊗ₜ[𝓞 L] e)).left := by
@@ -226,7 +226,7 @@ theorem ext_props (D : PPData H L) (D' : PPData H L') (m : D.Ext D') :
           spMap (dualMap ((σ'.comp (algebraMap L L')).comp (algebraMap (𝓞 L) L))) ≫ (D.MB.pt e).left :=
         (Category.comp_id _).symm.trans (h₁ e)
       change lf _ ≫ m.φ = lf _
-      rw [h₃, c₁, c₂, Category.assoc, hj', ← Category.assoc, spMap_comp, dualMap_comp, hring]
+      rw [h₃, c₁, c₂, Category.assoc, hj', ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp, hring]
     have T := _root_.GlobalTheory.CompanionTheory.Ar.HodgeUnique.main E H _ _ D'.t D.t _ m (spMap (σ'.comp (algebraMap (𝓞 L') L')) ≫ 𝟙 _) _ _ _ _ (hv x) (hv y)
     exact T.2 _ _ ((T.1 _).1 b) (hodge_congr _ hz (h₃ _).symm (h₃ _).symm a)
   refine ⟨hb.finrank_eq, ?_, j, ?_, ?_, hmet⟩

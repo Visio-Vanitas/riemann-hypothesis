@@ -71,9 +71,9 @@ namespace GlobalTheory.FamRep
 theorem spMap_surj {R R' : Type} [CommRing R] [CommRing R'] (x : Sp R' ⟶ Sp R) : ∃ β : R →+* R', spMap β = x :=
   ⟨(Spec.preimage x).hom, Spec.map_preimage x⟩
 
-alias spMap_comp_eq := _root_.GlobalTheory.ZM.ClosedCoord.spMap_comp_eq
+alias spMap_comp_eq := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
-alias spMap_inj := _root_.GlobalTheory.ZM.DenseFib.spMap_inj
+alias spMap_inj := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
 
 
 open MvPolynomial in

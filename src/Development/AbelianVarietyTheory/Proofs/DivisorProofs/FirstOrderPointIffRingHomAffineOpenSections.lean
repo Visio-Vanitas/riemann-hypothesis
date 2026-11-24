@@ -59,10 +59,6 @@ noncomputable section
 
 namespace GlobalTheory.SchRing
 
-theorem spMap_inj {R S : Type} [CommRing R] [CommRing S] {a b : R →+* S} (h : spMap a = spMap b) : a = b := by
-  have := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom this
-
 theorem subsingleton_primeSpectrum_trivSqZeroExt (k : Type) [Field k] (M : Type) [AddCommGroup M] [Module k M] [Module kᵐᵒᵖ M] [IsCentralScalar k M] :
     Subsingleton (PrimeSpectrum (TrivSqZeroExt k M)) := by
   have key : ∀ (P : PrimeSpectrum (TrivSqZeroExt k M)) (a : TrivSqZeroExt k M), a ∈ P.asIdeal ↔ a.fst = 0 := by
@@ -100,7 +96,7 @@ theorem exists_ringHom_of_range {X : Scheme.{0}} {V : X.Opens} (hV : IsAffineOpe
 
 theorem spMap_cancel {R D : Type} [CommRing R] [CommRing D] {Y : Scheme.{0}} (G : Sp R ⟶ Y) [Mono G]
     {a b : R →+* D} (h : spMap a ≫ G = spMap b ≫ G) : a = b :=
-  spMap_inj (cancel_mono G |>.mp h)
+  ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (cancel_mono G |>.mp h)
 
 end GlobalTheory.SchRing
 
@@ -123,7 +119,7 @@ theorem deformation_on_sections : ∀ (B : Type) [CommRing B] (X : Scheme.{0}) (
   have hs : ∀ (D : Type) [CommRing D] (r : Γ(X, V) →+* D),
       spMap r ≫ hV.fromSpec ≫ s = spMap (r.comp (s.appLE U V e).hom) ≫ hU.fromSpec := by
     intro D _ r
-    rw [← key, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [← key, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have hbase : ∀ (D : Type) [CommRing D] (alg : k →+* D) (r : Γ(X, V) →+* D),
       (spMap r ≫ hV.fromSpec) ≫ s = spMap alg ≫ x ≫ s ↔
@@ -131,14 +127,14 @@ theorem deformation_on_sections : ∀ (B : Type) [CommRing B] (X : Scheme.{0}) (
     intro D _ alg r
     rw [hφ]
     simp only [Category.assoc]
-    rw [hs, ← Category.assoc (spMap alg) (spMap φ), ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hs]
+    rw [hs, ← Category.assoc (spMap alg) (spMap φ), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hs]
     constructor
-    · intro h; exact spMap_inj ((cancel_mono hU.fromSpec).mp h)
+    · intro h; exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ((cancel_mono hU.fromSpec).mp h)
     · intro h; rw [h]
   have hfst : ∀ (D : Type) [CommRing D] (f : D →+* k) (r : Γ(X, V) →+* D),
       spMap f ≫ spMap r ≫ hV.fromSpec = x ↔ f.comp r = φ := by
     intro D _ f r
-    rw [hφ, ← Category.assoc, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [hφ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     constructor
     · intro h; exact spMap_cancel hV.fromSpec h
     · intro h; rw [h]
@@ -150,10 +146,10 @@ theorem deformation_on_sections : ∀ (B : Type) [CommRing B] (X : Scheme.{0}) (
     have h2 := (hbase _ _ _).mpr hv2
     obtain ⟨c, hc, hcu⟩ := huniq _ h1 h2
     refine ⟨c, ?_, ?_⟩
-    · rw [hψ, ← Category.assoc, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hc
+    · rw [hψ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hc
       exact spMap_cancel hV.fromSpec hc
     · intro c' hc'
       apply hcu
-      rw [hψ, ← Category.assoc, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hc']
+      rw [hψ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hc']
 
 end GlobalTheory.SchRing

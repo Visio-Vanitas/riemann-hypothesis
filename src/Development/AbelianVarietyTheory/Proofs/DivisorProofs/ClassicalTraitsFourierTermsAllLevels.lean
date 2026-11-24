@@ -639,7 +639,7 @@ theorem latAt_of_uTest {o Ω : Type} [CommRing o] [Field Ω] [Algebra o Ω] [hA 
     rw [← hξ]
     exact (congrArg ξ (IsLocalRing.comap_closedPoint iV)).symm
   have hg : gPt p ≫ y = spMap κ' ≫ spMap jV ≫ ξ := by
-    rw [← hξ, ← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp']
+    rw [← hξ, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact RingHom.ext hiκ
   have hpt : (gPt p ≫ y) (closedPoint (PadicAlgCl p)) = (spMap jV ≫ ξ) (closedPoint (FractionRing V')) := by
@@ -653,14 +653,14 @@ theorem latAt_of_uTest {o Ω : Type} [CommRing o] [Field Ω] [Algebra o Ω] [hA 
     exact (DFunLike.congr_fun hκ (u.yK x)).trans (DFunLike.congr_fun u.fac x))
   have hα := isGrpPullback_pullback u.A.A (spMap fK)
   obtain ⟨Ψ, hΨ, hΨe, hΨp⟩ := GlobalTheory.T.genericFibre_iso_specialises_to_fieldPoints o Ω Y hY G hG S.R ρ.P.A (isSemiAbelian_of_isAbelianScheme _ ρ.P.isAb) A₀ a' ψ ha' hψ
-    _ _ hR _ hyK _ _ ((hα.comp u.cart).congr (spMap_comp' _ _) rfl)
-  have hj : spMap fK ≫ jK u.V = spMap (jV.comp fV) := (spMap_comp' _ _).trans (congrArg spMap (RingHom.ext hfK))
+    _ _ hR _ hyK _ _ ((hα.comp u.cart).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm rfl)
+  have hj : spMap fK ≫ jK u.V = spMap (jV.comp fV) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext hfK))
   obtain ⟨G', _, β, β', ω, hβ, hβ', hω, hωβ, hωβ', hend⟩ := GlobalTheory.T.exists_common_pullback_semiAbelian_dvr Y.Z G hG u.V u.G u.semi V' fV ξ _ _ Ψ
     ((hα.comp hgen).congr hj rfl) hΨ
   obtain ⟨a, ha⟩ := exists_spMap (ξ ≫ Y.s)
   rw [← hcl] at hext ⊢
   obtain ⟨xx, hxx, hsurj⟩ := LabelMap.exists_lift_points u.cart (TFK (R := u.V) (PadicAlgCl p)) ρ.pt ρ.pt_add
-  have hy : (TFK (R := u.V) (PadicAlgCl p)).hom ≫ spMap u.yK = spMap y₀ := (spMap_comp' _ _).trans (congrArg spMap u.fac)
+  have hy : (TFK (R := u.V) (PadicAlgCl p)).hom ≫ spMap u.yK = spMap y₀ := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap u.fac)
   have hsurj' := hsurj (S.r * S.N) fun z hz =>
     (ρ.pt_bij (PadicAlgCl p) _ z hz).exists.imp fun a ha => congrArg (fun w => w.left) ha
   have hx : ∀ b, (xx (Multiplicative.ofAdd b)).left ≫ u.φ = spMap y₀ ≫ (ρ.pt b).left := fun b => by
@@ -679,7 +679,7 @@ theorem latAt_of_uTest {o Ω : Type} [CommRing o] [Field Ω] [Algebra o Ω] [hA 
     · rw [← Category.assoc, heK, Category.assoc, heA', Category.assoc]
   · obtain ⟨q, τ, hq, hτ, hqx, hv⟩ := tor t.1 t.2
     have hw : (xx (Multiplicative.ofAdd t.1)).left ≫ u.A.A.hom = spMap κ' ≫ spMap fK := by
-      rw [Over.w, spMap_comp', hκ]; rfl
+      rw [Over.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hκ]; rfl
     let xK : Sp (PadicAlgCl p) ⟶ ((Over.pullback (spMap fK)).obj u.A.A).left := pullback.lift _ _ hw
     have hx₁ : xK ≫ pullback.fst u.A.A.hom (spMap fK) = (xx (Multiplicative.ofAdd t.1)).left := pullback.lift_fst _ _ _
     have hx₂ : xK ≫ ((Over.pullback (spMap fK)).obj u.A.A).hom = spMap κ' := pullback.lift_snd _ _ _
@@ -687,17 +687,17 @@ theorem latAt_of_uTest {o Ω : Type} [CommRing o] [Field Ω] [Algebra o Ω] [hA 
     · obtain ⟨b, hb⟩ := l.yy_onto (QuotientAddGroup.mk χ)
       rw [hv b χ hb, hc t b χ hb, hy₀, hζ, ← pow_mul]
       have : (gPt p ≫ y) ≫ Y.s = spMap ((κ'.comp jV).comp a) := by
-        rw [hg, Category.assoc, Category.assoc, ha, spMap_comp', spMap_comp']
+        rw [hg, Category.assoc, Category.assoc, ha, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact RatModel.val_algebraMap this _
-    · rw [Category.assoc, hω, ← Category.assoc, hx₂, spMap_comp']
+    · rw [Category.assoc, hω, ← Category.assoc, hx₂, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · rw [Category.assoc, hωβ, ← Category.assoc, hx₁]
     · obtain ⟨v, hv'⟩ := ExtNear.exists_valAt ξ (hext t.1 t.2)
       obtain ⟨w, hw₁, hw₂, hw₃⟩ := hγ t.1
       have hv₂ := hv'.comp (spMap (κ'.comp jV))
       rw [Category.assoc, hωβ', hΨp (ρ.pt t.1).left (gγ t.1) w (Over.w _) hw₁ hw₂ hw₃ _ xK (spMap (κ'.comp jV) ≫ v) ?_ ?_]
       · exact hv₂
-      · rw [← Category.assoc, hx₁, hx, ← Category.assoc, hx₂, ← Category.assoc, spMap_comp', ← RingHom.comp_assoc, hκ, u.fac]
-      · rw [← Category.assoc, hx₂, ← Category.assoc, spMap_comp']
+      · rw [← Category.assoc, hx₁, hx, ← Category.assoc, hx₂, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, hκ, u.fac]
+      · rw [← Category.assoc, hx₂, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         exact hv₂
 
 variable {g n : ℕ} {F : SFam g n (zetaAway n)} {W : Matrix (Fin 8) (Fin 8) ℤ} {Z : Scheme.{0}} {i : F.X ⟶ Z}
@@ -759,8 +759,8 @@ theorem latAt_of_isLab (X₁ : Setup F W i) (ε₁ : Matrix (Fin 8) (Fin 8) ℤ 
       obtain ⟨w, hw, hw'⟩ := hpts b
       have h1 : w ≫ P₀.A.hom = 𝟙 _ := by
         obtain ⟨σ, hσ⟩ := exists_spMap (w ≫ P₀.A.hom)
-        have e₁ : σ.comp R'.val.toRingHom = R'.val.toRingHom := ringHom_eq_of_spMap (by
-          rw [← spMap_comp', ← hσ, Category.assoc, ← ha'.1.w, ← Category.assoc, hw', Category.assoc, Over.w]
+        have e₁ : σ.comp R'.val.toRingHom = R'.val.toRingHom := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
+          rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hσ, Category.assoc, ← ha'.1.w, ← Category.assoc, hw', Category.assoc, Over.w]
           exact Category.comp_id _)
         have e₂ : σ = RingHom.id _ := RingHom.ext fun x => by
           obtain ⟨a, ha, b, hb, rfl⟩ := frac x
@@ -1194,7 +1194,7 @@ theorem exists_deep : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (W : Matrix (F
   set h' : X₁.S.R →+* S₂.R := (Subalgebra.inclusion hR).toRingHom.comp h with hh'
   have hval : ∀ a, ((h' a : S₂.R) : Ω₂) = algebraMap X₁.Ω₁ Ω₂ a := fun a => hh a
   have hpb' : IsGrpPullback ρ₂.P.A X₁.ρ.P.A (spMap h') (φ ≫ ψ) := by
-    rw [hh', ← _root_.GlobalTheory.spMap_comp_ring]
+    rw [hh', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact hpb₂.comp hpb
   have hlb' : LBIso ρ₂.P.L (X₁.ρ.P.L.pull (φ ≫ ψ)) :=
     LBIso.trans ρ₂.P.isLB (pull_isLB P.isLB _) (pull_isLB X₁.ρ.P.isLB _) hlb₂ (lbIso_pull_comp' hlb φ rfl)
@@ -1203,7 +1203,7 @@ theorem exists_deep : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (W : Matrix (F
     obtain ⟨c, hc₁, pr, hpr, hun, hLc, -⟩ := hε₂
     exact ⟨c, hc₁, pr, hpr, hun, hLc⟩
   have key : spMap S₂.R.val.toRingHom ≫ spMap h' = spMap (algebraMap X₁.Ω₁ Ω₂) ≫ spMap X₁.S.R.val.toRingHom := by
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a
     exact hval a
@@ -1219,7 +1219,7 @@ theorem exists_deep : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (W : Matrix (F
       key, Category.assoc]
   have hbase : spMap S₂.R.val.toRingHom ≫ (spMap h' ≫ X₁.u) ≫ F.s =
       spMap ((algebraMap o₂ Ω₂).comp (κ.comp X₁.κ)) := by
-    rw [← Category.assoc, ← Category.assoc, key, Category.assoc, Category.assoc, X₁.base, _root_.GlobalTheory.spMap_comp_ring, ← RingHom.comp_assoc, ← hc]
+    rw [← Category.assoc, ← Category.assoc, key, Category.assoc, Category.assoc, X₁.base, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, ← hc]
   have hbig : S₂.Big := big j le_rfl o₂ Ω₂ S₂ (hg₂.trans hPg) hN₂ hr₂
   let X₂ : Setup F W i := Setup.mk o₂ Ω₂ S₂ ρ₂ hbig (spMap h' ≫ X₁.u) hsharp hgen M₂ hMn (q ≫ X₁.π) inferInstance hcomp
     X₁.one_le X₁.three_le X₁.odd X₁.z X₁.proj X₁.normalZ X₁.imm X₁.thetaSetup_structureMap_comp X₁.dense X₁.e8 X₁.thetaInt (κ.comp X₁.κ) hbase

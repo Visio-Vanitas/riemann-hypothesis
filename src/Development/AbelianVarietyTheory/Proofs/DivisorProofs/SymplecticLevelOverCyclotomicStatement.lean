@@ -567,7 +567,7 @@ theorem weil_locus_clopen : ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type
         rw [Units.coe_map]; exact congrArg β hζv
       constructor
       · intro E β' z hβ' hz
-        obtain rfl : β = β' := spMap_inj' (hβ.symm.trans hβ')
+        obtain rfl : β = β' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hβ.symm.trans hβ')
         obtain rfl : z = Units.map β.toMonoidHom ζu := Units.ext (hz.trans hzβ.symm)
         rw [← hu, ← E]
         exact hW'
@@ -697,7 +697,7 @@ theorem exists_sympLevScheme : ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : T
       exact ⟨hk, (_root_.GlobalTheory.HTSympCover.onto_tors_iff p D R b N h M hM hcop S t o k _ _ ha hp hk).2 hC, hw β z hβ hz⟩
     · rintro ⟨hk, ho, hw⟩
       refine ⟨hk, (_root_.GlobalTheory.HTSympCover.onto_tors_iff p D R b N h M hM hcop S t o k _ _ ha hp hk).1 ho, fun β' z' hβ' hz' => ?_⟩
-      obtain rfl : β' = β := GlobalTheory.LevCover.spMap_inj' (hβ'.symm.trans hβ)
+      obtain rfl : β' = β := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hβ'.symm.trans hβ)
       obtain rfl : z' = z := Units.ext (hz'.trans hz.symm)
       exact hw
   have unitζ : ∀ (k : Type) [Field k] (β : cycAway M →+* k), IsUnit (β (zetaAway M)) := fun k _ β =>
@@ -1469,7 +1469,7 @@ theorem sympCond_twist : ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [
       simp only [spMap, hβdef, CommRingCat.ofHom_hom, Spec.map_preimage]
     have hβ' : β' = β.comp σ := by
       have e : spMap β' = spMap (β.comp σ) := by
-        rw [spMap_comp, ← hx', ← hβ, Category.assoc]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hx', ← hβ, Category.assoc]
       have := Spec.map_injective e
       exact congrArg CommRingCat.Hom.hom this
     have hζM : β (zetaAway M) ^ M = 1 := by
@@ -1609,7 +1609,7 @@ theorem exists_galoisCover_of_geom {p : ℕ} [Fact p.Prime] {D : Datum p} {R : T
     exact hper c)
   have hrmul : ∀ a c, r (a * c) = r a ≫ r c := fun a c => uniqY _ _ (by
       rw [(hr _).1, Over.comp_left, Category.assoc, (hr c).1, ← Category.assoc, (hr a).1, Category.assoc,
-        ← spMap_comp, hσmul])
+        ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσmul])
     (fun d => by
       rw [(hr _).2, Category.assoc, (hr c).2]
       change sympTwist (a * c) lu d = r a ≫ lu (liftMod

@@ -197,7 +197,7 @@ namespace GlobalTheory.KeyDesc
 
 open GlobalTheory.KeyCancel
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem dualMapR_algebraMap {A B : Type} [CommRing A] [CommRing B] (f : A →+* B) (a : A) :
     Chart.dualMapR f (algebraMap A _ a) = algebraMap B _ (f a) := by
@@ -222,7 +222,7 @@ theorem keyPB_of_keyVia_field : ∀ (R k K : Type) [CommRing R] [Field k] [Field
   have r₀ := (maps_iff w₀ _ (fun _ => eSec z.P.A) _ x.rig z.rig (spMap β) _ (rigPull_le φ (spMap β) he₀ z.P.L)
     (fun _ => rfl)).1 hr₀
   have r₂ := T.pmaps_comp z.P.isLB (fun _ => he₀) m r₀
-  rw [← spMap_comp] at r₂
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r₂
   obtain rfl : w₂ = w₁ := rigidified_iso_unique globalFns_holds x.P y.P.isLB (φ ≫ ψ) w₂ w₁
     ((isGen_iff _).2 (T.pgen_comp z.P.isLB g g₀)) hw₁ x.rig _
     ((maps_iff w₂ _ (fun _ => eSec y.P.A) _ x.rig y.rig (spMap (β.comp α)) _
@@ -255,12 +255,12 @@ theorem keyPB_of_keyVia_field : ∀ (R k K : Type) [CommRing R] [Field k] [Field
   · refine Spread.tangent_ext β β.injective y.P.A.hom ?_ ?_
     · rw [Category.assoc, hψ.1.w, ← Category.assoc, Over.w, Category.assoc, Over.w]
       show spMap _ ≫ spMap _ = spMap _ ≫ spMap _
-      rw [← spMap_comp, ← spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       exact RingHom.ext fun a => (dualMapR_algebraMap α a).symm
     · have a := hv₀ (i.cast hg₀.symm)
       have b := hv₁ (i.cast hg₀.symm)
-      rw [← Category.assoc, a, spMap_comp, Category.assoc, Category.assoc] at b
+      rw [← Category.assoc, a, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc] at b
       exact b
 
 end GlobalTheory.KeyDesc
@@ -361,7 +361,7 @@ theorem exists_factor {S K : Type} [CommRing S] [Countable S] [Field K] (i : S �
   exact (Subfield.cardinalMk_closure_le_max _).trans
     (max_le (Cardinal.le_aleph0_iff_set_countable.2 hc) le_rfl)
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem exists_common_countable {k K : Type} [Field k] [Countable k] [Field K] (σ : k →+* K) (y₀ y₁ : KeyIn k)
     (x : KeyIn K) (h₀ : KeyPB x y₀ σ) (h₁ : KeyPB x y₁ σ) :

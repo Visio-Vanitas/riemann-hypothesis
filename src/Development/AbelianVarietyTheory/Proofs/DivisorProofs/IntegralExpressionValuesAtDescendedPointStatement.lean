@@ -678,7 +678,7 @@ theorem gen_values_mem : ∀ (V₁ W₀ : Type) [CommRing V₁] [CommRing W₀] 
     have hc : (pullback.fst A.hom (spMap ev) ≫ β) ≫ B₀.hom =
         (pullback.snd A.hom (spMap ev) ≫ spMap σ.toRingHom ≫ spMap ev) ≫ spMap ib := by
       simp only [Category.assoc]
-      rw [hβ.w, pullback.condition_assoc, _root_.GlobalTheory.spMap_comp_ring, spMap_conj k₀ _ hf σ hσ]
+      rw [hβ.w, pullback.condition_assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, spMap_conj k₀ _ hf σ hσ]
     obtain ⟨l, hl1, hl2⟩ : ∃ l : pullback A.hom (spMap ev) ⟶ A.left, l ≫ β = pullback.fst A.hom (spMap ev) ≫ β ∧
         l ≫ A.hom = pullback.snd A.hom (spMap ev) ≫ spMap σ.toRingHom ≫ spMap ev :=
       ⟨hβ.lift _ _ hc, hβ.lift_fst _ _ hc, hβ.lift_snd _ _ hc⟩
@@ -898,7 +898,7 @@ theorem toUnit_eta_left {S : Scheme.{0}} (G : Over S) [GrpObj G] :
   rfl
 
 @[reassoc]
-alias spMap_two' := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_two' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem eta_push {S S' : Scheme.{0}} {G' : Over S'} [GrpObj G'] {G : Over S} [GrpObj G] {f : S' ⟶ S}
     {F : G'.left ⟶ G.left} (hF : IsGrpPullback G' G f F) : (toUnit G' ≫ η[G']).left ≫ F = G'.hom ≫ f ≫ (η[G]).left := by

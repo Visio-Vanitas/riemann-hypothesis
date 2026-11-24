@@ -165,7 +165,7 @@ theorem exists_desc_pol (hL : Laws) (h2 : Laws2) (hH : HomExtSt) {O' R V : Type}
     IsFractionRing.lift (g := (algebraMap V (FractionRing V)).comp g) ((IsFractionRing.injective V _).comp hg)
   have hgam : ∀ r, gam (algebraMap R _ r) = algebraMap V _ (g r) := fun r => IsFractionRing.lift_algebraMap _ r
   have sq : spMap gam ≫ jK R = jK V ≫ spMap g :=
-    (spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (spMap_comp g _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g _))
   have := P.isAb.smooth
   have := P.isAb.proper
   have := P'.isAb.smooth
@@ -183,7 +183,7 @@ theorem exists_desc_pol (hL : Laws) (h2 : Laws2) (hH : HomExtSt) {O' R V : Type}
   have : GeometricallyReduced AL.hom := geometricallyReduced_of_smooth _
   have : IsReduced AL.left := GeometricallyReduced.isReduced_of_flat_of_isLocallyNoetherian AL.hom
   have bs : (pullback.fst P'.A.hom (jK V) ≫ φ') ≫ P₀.A.hom = π ≫ AK.hom ≫ jK R ≫ spMap f := by
-    rw [Category.assoc, gp'.1.w, ← Category.assoc, gL.1.w, reassoc_of% hπ₂, reassoc_of% sq, spMap_comp, Category.assoc]
+    rw [Category.assoc, gp'.1.w, ← Category.assoc, gL.1.w, reassoc_of% hπ₂, reassoc_of% sq, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   obtain ⟨ψ, hψ⟩ := exists_desc_of_points gam gπ.1 P₀.A.hom (pullback.fst P'.A.hom (jK V) ≫ φ') _ bs
     (fun F _ _ x₁ x₂ hx => by
       obtain ⟨j₁, e₁⟩ := Spec.map_surjective (x₁ ≫ AL.hom)
@@ -191,7 +191,7 @@ theorem exists_desc_pol (hL : Laws) (h2 : Laws2) (hH : HomExtSt) {O' R V : Type}
       have k : ∀ (x : Sp F ⟶ AL.left) (j : CommRingCat.of (FractionRing V) ⟶ CommRingCat.of F), Spec.map j = x ≫ AL.hom →
           (x ≫ pullback.fst P'.A.hom (jK V)) ≫ P'.A.hom = spMap (j.hom.comp (algebraMap V (FractionRing V))) :=
         fun x j e => by
-          rw [Category.assoc, gL.1.w, ← Category.assoc, ← e, spMap_comp]; rfl
+          rw [Category.assoc, gL.1.w, ← Category.assoc, ← e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
       simpa only [Category.assoc] using H F _ _ (j₁.hom.injective.comp (IsFractionRing.injective V _))
         (j₂.hom.injective.comp (IsFractionRing.injective V _)) _ _ (k x₁ j₁ e₁) (k x₂ j₂ e₂)
         (by rw [Category.assoc, Category.assoc, ← hπ₁, reassoc_of% hx]))
@@ -202,7 +202,7 @@ theorem exists_desc_pol (hL : Laws) (h2 : Laws2) (hH : HomExtSt) {O' R V : Type}
   have : Epi π := Flat.epi_of_flat_of_surjective _
   have gψ : IsGrpPullback AK P₀.A (jK R ≫ spMap f) ψ :=
     isGrpPullback_of_fpqc _ _ _ _ (spMap gam) P₀.A AK AL π ψ f₁ f₂ inferInstance gπ
-      ((gL.comp gp').congr (by rw [reassoc_of% sq, spMap_comp]) hψ.symm)
+      ((gL.comp gp').congr (by rw [reassoc_of% sq, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) hψ.symm)
       (by rw [← cancel_epi π, ← Category.assoc, hψ, bs])
   have ab : IsAbelianScheme AK := ⟨by have := P.isAb.comm; infer_instance, MorphismProperty.of_isPullback gK.1 inferInstance,
     MorphismProperty.of_isPullback gK.1 inferInstance, MorphismProperty.of_isPullback gK.1 P.isAb.geomConnected⟩
@@ -230,7 +230,7 @@ theorem exists_desc_pol (hL : Laws) (h2 : Laws2) (hH : HomExtSt) {O' R V : Type}
   refine ⟨Ψ.hom.left ≫ g₁, gφ, ?_,
     LBIso.trans P.isLB (LB.isLB_pull P₁.isLB _) (LB.isLB_pull P₀.isLB _) wΨ (lbIso_pull w₁ _ rfl)⟩
   refine ext_of_injective (IsFractionRing.injective V (FractionRing V)) gL.1 P₀.A.hom ?_ ?_
-  · rw [Category.assoc, gφ.1.w, ← Category.assoc, gp.1.w, gp'.1.w, spMap_comp, Category.assoc]
+  · rw [Category.assoc, gφ.1.w, ← Category.assoc, gp.1.w, gp'.1.w, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · rw [← hψ, ← he, ← reassoc_of% hπ₁, reassoc_of% hΨ']
 
 section Values
@@ -298,7 +298,7 @@ variable {R : Type} [CommRing R] [IsDomain R] {D : DegPre R} {F F' : Type} [Fiel
 theorem gtφ_ext {σ : F →+* F'} (hσ : σ.comp (algebraMap (FractionRing R) F) = algebraMap (FractionRing R) F') {k : ℕ}
     {p : QkPt D F k} {p' : QkPt D F' k} (h : QkExt σ p p') (χ : D.X) :
     DegPre.gtφ D F' p'.g.b χ = fun i => spMap σ ≫ DegPre.gtφ D F p.g.b χ i := by
-  have hj : spMap σ ≫ jFK (R := R) F = jFK (R := R) F' := (spMap_comp _ _).symm.trans (congrArg spMap hσ)
+  have hj : spMap σ ≫ jFK (R := R) F = jFK (R := R) F' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap hσ)
   let r : TF (R := R) F' ⟶ TF (R := R) F := Over.homMk (spMap σ) (by
     show spMap σ ≫ jFK (R := R) F ≫ jK R = jFK (R := R) F' ≫ jK R
     rw [← Category.assoc, hj])

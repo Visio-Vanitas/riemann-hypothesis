@@ -174,10 +174,6 @@ theorem anHolFam_of_holTo {N : ℕ} {y : (Fin N → ℂ) → (Sp ℂ ⟶ Y)} (h 
   simp only [Set.mem_univ, true_and] at h1 h2
   exact ⟨h1, h2⟩
 
-theorem anSpMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := by
-  simp only [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
 theorem anJetMap_comp {K : Type} [Field K] {Ia Ib Ic : Type} {m : ℕ} (φ : Ia → MvPolynomial Ib K)
     (hφ : ∀ i, φ i ∈ orig K Ib) (ψ : Ib → MvPolynomial Ic K) (hψ : ∀ i, ψ i ∈ orig K Ic)
     (ch : Ia → MvPolynomial Ic K) (hch : ∀ i, ch i ∈ orig K Ic) (h : ∀ i, MvPolynomial.aeval ψ (φ i) = ch i)
@@ -304,7 +300,7 @@ theorem jets_law (u : Sp ℂ ⟶ X) {u' : Sp ℂ ⟶ X} (ex : (Fin g → ℂ) �
       RingHom.ext fun a => (anRen_copy m i a).symm
     rw [Over.comp_left, hx]
     show spMap _ ≫ jetPt _ hol m = _
-    rw [hring, anSpMap_comp, Category.assoc, anJX_jets ex hol m (anPr i) hA]
+    rw [hring, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, anJX_jets ex hol m (anPr i) hA]
   have Js : (homAt u (jetSubstP (S := ℂ) m fun p : Fin 1 × Fin g => psTrunc m (addF ℂ g p.2)) ≫ xm m).left =
       spMap ((anRen m : Jet ℂ (Fin 1 × Fin (2 * g)) m →ₐ[ℂ] Jet ℂ (Fin 2 × Fin g) m) :
         Jet ℂ (Fin 1 × Fin (2 * g)) m →+* Jet ℂ (Fin 2 × Fin g) m) ≫ jetPt (fun v => (ex (anSum v)).left) hols m := by
@@ -317,7 +313,7 @@ theorem jets_law (u : Sp ℂ ⟶ X) {u' : Sp ℂ ⟶ X} (ex : (Fin g → ℂ) �
       RingHom.ext fun a => (anRen_sum m a).symm
     rw [Over.comp_left, hx]
     show spMap _ ≫ jetPt _ hol m = _
-    rw [hring, anSpMap_comp, Category.assoc, anJX_jets ex hol m anSum hols]
+    rw [hring, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, anJX_jets ex hol m anSum hols]
   apply Over.OverMorphism.ext
   rw [Js, CategoryTheory.Hom.mul_def, Over.comp_left, Over.lift_left]
   have hl : pullback.lift (homAt u (jetCopy (S := ℂ) g m (0 : Fin 2)) ≫ xm m).left

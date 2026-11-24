@@ -99,13 +99,13 @@ theorem torsion_rigid : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] {
       Over.mk (y ≫ pullback.fst _ _) :=
     Over.homMk (spMap ιK) (by
       simp only [Over.mk_hom, hy, Category.assoc]
-      rw [← Category.assoc (spMap ιK), ← spMap_comp])
+      rw [← Category.assoc (spMap ιK), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   have hx' : (j ≫ x) ^ l.M' = 1 := by rw [← MonObj.comp_pow, hx, MonObj.comp_one]
   obtain ⟨x₀, -, hx₀⟩ := GlobalTheory.T.universalAbelianScheme_torsion_rational_fieldPoint Xo c φ k K' (ιK.comp φ') y₀ (j ≫ x) hx'
   have hxl : x.left = spMap φ' ≫ x₀.left := by
     rw [← cancel_epi (spMap ιK)]
     have : spMap ιK ≫ x.left = spMap (ιK.comp φ') ≫ x₀.left := hx₀
-    rw [this, ← Category.assoc, ← spMap_comp]
+    rw [this, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hκ' : κ₁ ≫ spMap φ' = κ₂ ≫ spMap φ' := by
     rw [← cancel_mono y₀]
     simpa only [hy, Category.assoc] using hκ

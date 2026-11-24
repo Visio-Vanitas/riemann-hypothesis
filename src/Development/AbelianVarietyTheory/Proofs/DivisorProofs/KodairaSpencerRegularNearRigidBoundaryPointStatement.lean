@@ -620,7 +620,7 @@ theorem eps_over {S S' : Type} [CommRing S] [CommRing S'] (r : S →+* S') {x : 
     spMap (dualMap r) ≫ spMap (algebraMap S (DualNumber S)) ≫ x = spMap (algebraMap S' (DualNumber S')) ≫ x' := by
   have h : spMap (dualMap r) ≫ spMap (algebraMap S (DualNumber S)) =
       spMap (algebraMap S' (DualNumber S')) ≫ spMap r := by
-    rw [GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.spMap_comp', _root_.Formalism.L2.Pj.dualMap_alg]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.Formalism.L2.Pj.dualMap_alg]
   rw [← hx, ← Category.assoc, ← Category.assoc, h]
 
 theorem tan_map {S S' : Type} [CommRing S] [CommRing S'] (r : S →+* S') {x : Sp S ⟶ X} {x' : Sp S' ⟶ X}
@@ -630,7 +630,7 @@ theorem tan_map {S S' : Type} [CommRing S] [CommRing S'] (r : S →+* S') {x : S
   · rw [Category.assoc, hv.1, eps_over r hx]
   · have h : spMap (TrivSqZeroExt.fstHom S' S' S').toRingHom ≫ spMap (dualMap r) =
         spMap r ≫ spMap (TrivSqZeroExt.fstHom S S S).toRingHom := by
-      rw [GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.spMap_comp', _root_.GlobalTheory.Frames.EigenBaseChange.fst_comp_dualMap]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.GlobalTheory.Frames.EigenBaseChange.fst_comp_dualMap]
     rw [← Category.assoc, h, Category.assoc, hv.2]
     let k : Over.mk x' ⟶ Over.mk x := Over.homMk (spMap r) hx
     exact congrArg CommaMorphism.left (comp_one k (M := t.G))
@@ -977,8 +977,8 @@ theorem leibniz_ext_of_res {X : Scheme.{0}} (U W : X.affineOpens) (hW : W.1 ≤ 
     · simpa [g₁, g₂] using h r
   have : IsOpenImmersion (chart W) := W.2.isOpenImmersion_fromSpec
   have e2 : spMap g₁ ≫ chart W = spMap g₂ ≫ chart W := by
-    rw [← GlobalTheory.LogKSLoc.spMap_res_chart U W hW, ← Category.assoc, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp',
-      GlobalTheory.LogKSLoc.spMap_comp', e]
+    rw [← GlobalTheory.LogKSLoc.spMap_res_chart U W hW, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
   have e3 := congrArg CommRingCat.Hom.hom (Spec.map_inj.1 ((cancel_mono (chart W)).1 e2))
   have e4 : g₁ b = g₂ b := congrArg (fun k => k b) e3
   simpa [g₁, g₂] using congrArg TrivSqZeroExt.snd e4
@@ -1011,10 +1011,10 @@ theorem isKS_restrict {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Ho
     rw [hD, e, e, (hfld i).2.2 _ _ _ le_rfl, hcomp]
   · refine htest i i' O (hO.trans (inf_le_inf inf_le_left inf_le_left)) g S
       (φ.comp (X.presheaf.map (homOfLE hW).op).hom) g₀ w ?_ hO' fun a => ?_
-    · rw [hg₀, ← GlobalTheory.LogKSLoc.spMap_res_chart U W hW, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp']
+    · rw [hg₀, ← GlobalTheory.LogKSLoc.spMap_res_chart U W hW, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · obtain ⟨g', v', h₁, h₂, h₃⟩ := hw a
       refine ⟨g', v', h₁, ?_, h₃⟩
-      rw [h₂, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.dualMap_comp']
+      rw [h₂, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.LogKSLoc.dualMap_comp']
 
 theorem ks_chart_eq : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (Dw : Datum H) (l : Geo.Tor.Level H) (Xo : Moduli Dw l) (c : Coeff l) (Y : Model Xo c (RingHom.id c.F)), 1 ≤ Dw.p + Dw.q → SmoothOfRelativeDimension Dw.dim (genStr Y) → ∀ (U W : Y.X.affineOpens) (hW : W.1 = U.1 ⊓ interior Y) (n : ℕ) (v : Fin n → (Sp (DualNumber Γ(Y.X, U.1)) ⟶ Y.t.G.left)), (∀ i, IsTanAtG Y.t (chart U) (v i)) → (∀ w, IsTanAtG Y.t (chart U) w → ∃! cf : Fin n → Γ(Y.X, U.1), IsCombAtG Y.t (chart U) v cf w) → ∀ (D : logDer Y.s (Scheme.IdealSheafData.vanishingIdeal (interior Y).compl) U) (DW : Derivation ℤ Γ(Y.X, W.1) Γ(Y.X, W.1)) (Θ : Matrix (Fin n) (Fin n) Γ(Y.X, W.1)), (∀ r, DW ((Y.X.presheaf.map (homOfLE (hW.le.trans inf_le_left)).op).hom r) = (Y.X.presheaf.map (homOfLE (hW.le.trans inf_le_left)).op).hom (D.1 r)) → IsKS Y.t (interior Y) W (fun i => spMap (dualMap (Y.X.presheaf.map (homOfLE (hW.le.trans inf_le_left)).op).hom) ≫ v i) DW Θ → ∀ (k : Type) [Field k] [CharZero k] (m d : ℕ) (ξ : Sp (ChartRing k m d) ⟶ gen Y) (hx : ξ (closedPoint _) ∈ genι Y ⁻¹ᵁ U.1) (t : SAB H (Sp (ChartRing k m d))) (φ : SABMap t Y.t (ξ ≫ genι Y)), IsEtaleCompletion (Scheme.stalkClosedPointTo ξ).hom → (∀ p : Sp (ChartRing k m d), ξ p ∈ genBd Y ↔ ∏ i, bdParam k m d i ∈ p.asIdeal) → ∀ vR : Fin n → (Sp (DualNumber Γ(Sp (ChartRing k m d), ⊤)) ⟶ t.G.left), (∀ i, IsTanAtG t (chart (⟨⊤, isAffineOpen_top _⟩ : (Sp (ChartRing k m d)).affineOpens)) (vR i)) → (∀ i, vR i ≫ φ.φ = spMap (dualMap ((Scheme.ΓSpecIso (CommRingCat.of (ChartRing k m d))).inv.hom.comp (GlobalTheory.LocReg.chartHom Y U ξ hx))) ≫ v i) → ∀ D' : Derivation ℤ (ChartRing k m d) (ChartRing k m d), (∀ r, D' (GlobalTheory.LocReg.chartHom Y U ξ hx r) = GlobalTheory.LocReg.chartHom Y U ξ hx (D.1 r)) → ∀ ΘR : Matrix (Fin n) (Fin n) Γ(Sp (ChartRing k m d), ⊤), IsKS t ((Sp (ChartRing k m d)).basicOpen ((Scheme.ΓSpecIso (CommRingCat.of (ChartRing k m d))).inv.hom (∏ i, bdParam k m d i))) (⟨⊤, isAffineOpen_top _⟩ : (Sp (ChartRing k m d)).affineOpens) vR (fun r => (Scheme.ΓSpecIso (CommRingCat.of (ChartRing k m d))).inv.hom (D' ((Scheme.ΓSpecIso (CommRingCat.of (ChartRing k m d))).hom.hom r))) ΘR → ∀ (h : Γ(Y.X, U.1)) (hh : Y.X.basicOpen h ≤ W.1), GlobalTheory.LocReg.chartHom Y U ξ hx h ≠ 0 → ∀ (a b : Fin n) (s : Γ(Y.X, U.1)) (N : ℕ), (Y.X.presheaf.map (homOfLE (Y.X.basicOpen_le h)).op).hom s = (Y.X.presheaf.map (homOfLE (Y.X.basicOpen_le h)).op).hom (h ^ N) * (Y.X.presheaf.map (homOfLE hh).op).hom (Θ a b) → GlobalTheory.LocReg.chartHom Y U ξ hx s = GlobalTheory.LocReg.chartHom Y U ξ hx h ^ N * (Scheme.ΓSpecIso (CommRingCat.of (ChartRing k m d))).hom.hom (ΘR a b) := by
   intro E _ _ _ H Dw l Xo c Y hpq hsm U W hW n v hv hb D DW Θ hDW hKS k _ _ m d ξ hx t φ hEt hbd vR hvR hvRφ D' hD' ΘR hKSR h hh hρh a b s N hs
@@ -1042,12 +1042,12 @@ theorem ks_chart_eq : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H 
   have hcompU : ∀ i, v' i ≫ φ.φ = spMap (dualMap (g.appLE U.1 U'.1 hU'U).hom) ≫ v i := by
     intro i
     show (spMap _ ≫ vR i) ≫ φ.φ = _
-    rw [Category.assoc, hvRφ i, ← Category.assoc, ← GlobalTheory.Cris.spMap_comp, GlobalTheory.CechKS.dualMap_comp_dualMap, ← hgρ,
+    rw [Category.assoc, hvRφ i, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.CechKS.dualMap_comp_dualMap, ← hgρ,
       ← CommRingCat.hom_comp, Scheme.Hom.appLE_map]
   have hcompW : ∀ i, v' i ≫ φ.φ = spMap (dualMap (g.appLE W.1 U'.1 hUW).hom) ≫
       (spMap (dualMap (Y.X.presheaf.map (homOfLE (hW.le.trans inf_le_left)).op).hom) ≫ v i) := by
     intro i
-    rw [hcompU i, ← Category.assoc, ← GlobalTheory.Cris.spMap_comp, GlobalTheory.CechKS.dualMap_comp_dualMap,
+    rw [hcompU i, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.CechKS.dualMap_comp_dualMap,
       ← CommRingCat.hom_comp, Scheme.Hom.map_appLE]
   let V' : (Sp (ChartRing k m d)).Opens := (Sp (ChartRing k m d)).basicOpen
     ((Scheme.ΓSpecIso (CommRingCat.of (ChartRing k m d))).inv.hom (∏ i, bdParam k m d i))

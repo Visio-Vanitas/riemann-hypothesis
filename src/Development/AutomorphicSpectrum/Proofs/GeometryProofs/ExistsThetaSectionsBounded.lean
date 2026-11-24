@@ -1441,13 +1441,13 @@ abbrev baseF {F : Type} [Field F] (f : L' →+* F) : Sp F ⟶ Sp (𝓞 L) :=
 
 theorem baseF_eq {F : Type} [Field F] (f : L' →+* F) :
     baseF L f = spMap ((f.comp (algebraMap L L')).comp (algebraMap (𝓞 L) L)) := by
-  exact (spMap_comp (algebraMap (𝓞 L) (𝓞 L')) (f.comp (algebraMap (𝓞 L') L'))).symm.trans (congrArg spMap rfl)
+  exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (algebraMap (𝓞 L) (𝓞 L')) (f.comp (algebraMap (𝓞 L') L'))).symm.trans (congrArg spMap rfl)
 
 def ptAt (D : PPData H L) (x : Over.mk (baseF L (RingHom.id L')) ⟶ D.t.G) {F : Type} [Field F] (f : L' →+* F) :
     Over.mk (baseF L f) ⟶ D.t.G :=
   (Over.homMk (spMap f) (by
     show spMap f ≫ baseF L (RingHom.id L') = baseF L f
-    simp only [baseF, ← Category.assoc, ← spMap_comp]
+    simp only [baseF, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     ) : Over.mk (baseF L f) ⟶ Over.mk (baseF L (RingHom.id L'))) ≫ x
 
 theorem ptAt_left (D : PPData H L) (x : Over.mk (baseF L (RingHom.id L')) ⟶ D.t.G) {F : Type} [Field F] (f : L' →+* F) :
@@ -1694,7 +1694,7 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
   choose s0 d hd hraw using h2
   have hbase : spMap (algebraMap K L') ≫ spMap ((algebraMap L K).comp (algebraMap (𝓞 L) L)) =
       baseF L (RingHom.id L') := by
-    rw [baseF_eq, ← spMap_comp]
+    rw [baseF_eq, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let ρ : Over.mk (baseF L (RingHom.id L')) ⟶ Over.mk (spMap ((algebraMap L K).comp (algebraMap (𝓞 L) L))) :=
     Over.homMk (spMap (algebraMap K L')) hbase
   let xL := fun i => ρ ≫ x i
@@ -1707,7 +1707,7 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
     have h5 : (f.comp (algebraMap (K' i) L')).comp (algebraMap K (K' i)) = f.comp (algebraMap K L') := by
       ext a
       simp [IsScalarTower.algebraMap_apply K (K' i) L']
-    rw [h5, spMap_comp, Category.assoc]
+    rw [h5, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     rfl
   have hdiv := fun i => exists_div D D' e th hm (xL i) (hxL i) (s0 i) (d i) (hd i) (hrel i)
   choose s hs using hdiv
@@ -1725,10 +1725,10 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
       f hf (fun i => hth _ _ _ (hf i))
     intro y hy
     have hb' : baseF L σ' = spMap (σ'.comp (algebraMap K L')) ≫ spMap ((algebraMap L K).comp (algebraMap (𝓞 L) L)) := by
-      rw [baseF_eq, ← spMap_comp]
+      rw [baseF_eq, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     obtain ⟨i, hi, -⟩ := hxu ℂ (σ'.comp (algebraMap K L')) (baseF L σ') y hb' hy
     refine ⟨i, hi.trans ?_⟩
-    rw [spMap_comp, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     rfl
   refine ⟨L', inferInstance, inferInstance, inferInstance, D', e, s, ?_, fun σ' a f hf => (key σ' a f hf).2⟩
   intro i σ' a θ hθ w

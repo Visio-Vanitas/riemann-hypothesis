@@ -282,10 +282,10 @@ theorem splitsAt (hC : Out.CubePullSt) (hU : Out.UnramExtSt) (hB : Out.GtBaseCha
       spMap (residue W) ≫ P.ξ Wx := by
     have a₁ : spMap g ≫ Spec.map (CommRingCat.ofHom (algebraMap (Y.X.residueField x) k)) =
         spMap (e.symm.toRingHom.comp (algebraMap (ResidueField P.V) k')) ≫ Spec.map φ₀ :=
-      (spMap_comp _ _).symm.trans ((congrArg spMap hg).trans (spMap_comp _ _))
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap hg).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
     have a₂ : spMap (residue W) ≫ spMap (algebraMap P.V W) =
         spMap (e.symm.toRingHom.comp (algebraMap (ResidueField P.V) k')) ≫ spMap (residue P.V) :=
-      (spMap_comp _ _).symm.trans ((congrArg spMap hr).trans (spMap_comp _ _))
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap hr).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
     rw [← Category.assoc, a₁, Category.assoc, hf₀]
     show _ = spMap (residue W) ≫ spMap (algebraMap P.V W) ≫ P.yt
     rw [← Category.assoc (spMap (residue W)), a₂, Category.assoc]

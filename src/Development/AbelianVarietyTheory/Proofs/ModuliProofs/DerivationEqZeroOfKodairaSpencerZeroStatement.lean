@@ -1644,20 +1644,11 @@ def derPt {o R : Type} [CommRing o] [CommRing R] [Algebra o R] [Algebra o ℂ] [
   map_zero' := by ext <;> simp
   map_add' a b := by ext <;> simp
 
-theorem spMap_comp {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R') (f' : R' →+* R'') :
-    spMap f' ≫ spMap f = spMap (f'.comp f) := by
-  show Spec.map _ ≫ Spec.map _ = Spec.map _
-  rw [← Spec.map_comp]; rfl
-
-theorem spMap_inj {R R' : Type} [CommRing R] [CommRing R'] {f f' : R →+* R'} (h : spMap f = spMap f') : f = f' := by
-  have := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom this
-
 theorem derivation_eq_zero_of_ks_zero : Out.Laws → Out.Laws2 → ThetaUnifAV → ∀ (o : Type) [CommRing o] (g k : ℕ) (J : Type) (b : TBase o k) (R : Type) [CommRing R] [Algebra o R] [Algebra o ℂ] [Algebra R ℂ] [IsScalarTower o R ℂ] (t : TObj g k J b (spMap (algebraMap o R))) (s₀ : Sp ℂ ⟶ Sp o) (t₀ : TObj g k J b s₀) (m : t₀.A.left ⟶ t.A.left) (u : HolUnif t₀.pol.A t₀.pol.L t₀.pol.g) (Hm : Matrix (Fin t₀.pol.g) (Fin t₀.pol.g) ℂ) (χ : u.Λ → ℂ), GoodU u Hm χ → (IsGrpPullback t₀.A t.A (spMap (algebraMap R ℂ)) m ∧ LBIso t₀.L (t.L.pull m) ∧ (∀ i, (t₀.pt i).left ≫ m = (spMap (algebraMap R ℂ)) ≫ (t.pt i).left) ∧ ∀ jj, (t₀.act jj).left ≫ m = m ≫ (t.act jj).left) → (∀ (x : Sp (DualNumber ℂ) ⟶ Sp R) (t' : TObj g k J b (x ≫ spMap (algebraMap o R))), x ≫ spMap (algebraMap o R) = constPt x ≫ spMap (algebraMap o R) → TMap t' t x → TMap t' t (constPt x) → x = constPt x) → ∀ (D : Derivation o R ℂ) s, KSRel u t.A.hom m (fun r => D r) 0 s → D = 0 := by
   intro h₁ h₂ h₃ o _ g k J b R _ _ _ _ _ t s₀ t₀ m u Hm χ hu hm hun D s hs
   obtain ⟨hm₁, hm₂, hm₃, hm₄⟩ := hm
   have hfst : spMap (TrivSqZeroExt.fstHom ℂ ℂ ℂ).toRingHom ≫ spMap (derPt D) = spMap (algebraMap R ℂ) := by
-    rw [spMap_comp]; congr 1; ext r; simp [derPt]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; congr 1; ext r; simp [derPt]
   obtain ⟨t', ht'⟩ := _root_.GlobalTheory.tObj_pull o g k J b _ _ _ _ (spMap (derPt D)) t rfl
   obtain ⟨φ, hφ₁, hφ₂, hφ₃, hφ₄⟩ := id ht'
   have hp := hφ₁.1
@@ -1694,11 +1685,11 @@ theorem derivation_eq_zero_of_ks_zero : Out.Laws → Out.Laws2 → ThetaUnifAV �
     rw [hcp]
     exact ((_root_.GlobalTheory.ZM.tmap_id_comp_cancel o g k J b _ _ _ _ _ _ t t₀ t').2 _ _ ⟨m, hm₁, hm₂, hm₃, hm₄⟩).1 hc
   have hx := hun (spMap (derPt D)) t' (by
-    rw [hcp, spMap_comp, spMap_comp, spMap_comp]
+    rw [hcp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r <;> simp [derPt, TrivSqZeroExt.algebraMap_eq_inl]) ht' hc'
-  rw [hcp, spMap_comp] at hx
-  have hx' := spMap_inj hx
+  rw [hcp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hx
+  have hx' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq hx
   ext r
   have := congrArg (fun f : R →+* DualNumber ℂ => (f r).snd) hx'
   simpa [derPt, TrivSqZeroExt.algebraMap_eq_inl] using this

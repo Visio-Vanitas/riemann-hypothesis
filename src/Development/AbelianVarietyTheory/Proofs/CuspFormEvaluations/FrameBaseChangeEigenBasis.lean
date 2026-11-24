@@ -61,10 +61,6 @@ namespace GlobalTheory.FrameBaseChange
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
   {Xo : Moduli Dw l}
 
-theorem spMap_spMap {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R' →+* R'')
-    (g : R →+* R') : spMap f ≫ spMap g = spMap (f.comp g) := by
-  simp only [spMap, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 private theorem isTangent_iff_isTanAt_of_isGrpPullback {S : Type} [CommRing S] {x : Sp S ⟶ Xo.X} {G' : Over (Sp S)} [GrpObj G']
     {φ : G'.left ⟶ Xo.univ.t.G.left} (h : IsGrpPullback G' Xo.univ.t.G x φ) (w : epsR S ⟶ G') :
     IsTangent w ↔ IsTanAt x (w.left ≫ φ) := by
@@ -132,7 +128,7 @@ variable {T : Type} [CommRing T] {x : Sp T ⟶ Xo.X}
 def epsEnd (x : Sp T ⟶ Xo.X) (a : T) : tEps x ⟶ tEps x :=
   Over.homMk (spMap (epsMul a)) (by
     change spMap _ ≫ spMap _ ≫ x = spMap _ ≫ x
-    rw [← Category.assoc, spMap_spMap]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     ext r <;> simp [epsMul, TrivSqZeroExt.algebraMap_eq_inl])
 
@@ -141,7 +137,7 @@ theorem epsEnd_comp (a b : T) : epsEnd x a ≫ epsEnd x b = epsEnd x (a * b) := 
     ext r <;> simp [epsMul]
   apply Over.OverMorphism.ext
   show spMap (epsMul a) ≫ spMap (epsMul b) = spMap (epsMul (a * b))
-  rw [spMap_spMap, h]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h]
 
 theorem epsEnd_zero (W : tEps x ⟶ Xo.univ.t.G) (hW : IsTanAt x W.left) : epsEnd x 0 ≫ W = 1 := by
   have h0 : epsMul (0 : T) = (algebraMap T (DualNumber T)).comp (TrivSqZeroExt.fstHom T T T).toRingHom := by
@@ -150,7 +146,7 @@ theorem epsEnd_zero (W : tEps x ⟶ Xo.univ.t.G) (hW : IsTanAt x W.left) : epsEn
       (1 : Over.mk x ⟶ Xo.univ.t.G) = 1 := MonObj.comp_one _
   apply Over.OverMorphism.ext
   show spMap (epsMul 0) ≫ W.left = _
-  rw [h0, ← spMap_spMap, Category.assoc, hW.2, ← e]
+  rw [h0, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hW.2, ← e]
   rfl
 
 theorem isTanAt_epsEnd (a : T) (W : tEps x ⟶ Xo.univ.t.G) (hW : IsTanAt x W.left) :
@@ -159,7 +155,7 @@ theorem isTanAt_epsEnd (a : T) (W : tEps x ⟶ Xo.univ.t.G) (hW : IsTanAt x W.le
     exact RingHom.ext fun r => by simp [epsMul]
   refine ⟨Over.w (epsEnd x a ≫ W), ?_⟩
   show spMap _ ≫ spMap (epsMul a) ≫ W.left = _
-  rw [← Category.assoc, spMap_spMap, h1]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h1]
   exact hW.2
 
 theorem isCombAt_iff {m : ℕ} (v : Fin m → (tEps x ⟶ Xo.univ.t.G)) (cf : Fin m → T)

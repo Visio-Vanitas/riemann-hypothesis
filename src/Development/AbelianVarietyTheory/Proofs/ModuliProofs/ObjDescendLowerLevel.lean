@@ -129,7 +129,7 @@ def descend [Epi π] [LocallyOfFiniteType π] [Surjective π] (j : B →+* B') (
       ⟨(Spec.preimage (y ≫ s')).hom, (Spec.map_preimage _).symm⟩
     obtain rfl : β = β'.comp j := by
       have : spMap β = spMap (β'.comp j) := by
-        rw [← hx, Category.assoc, hs, ← Category.assoc, hβ', spMap_comp]
+        rw [← hx, Category.assoc, hs, ← Category.assoc, hβ', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg CommRingCat.Hom.hom (Spec.map_injective this)
     have hL : LBIso o.t.PP.L (t.PP.L.pull m.cm.F) := by
       obtain ⟨w, hw, -⟩ := m.lin

@@ -140,11 +140,11 @@ theorem relAmple_of_generic (O K : Type) [CommRing O] [IsDomain O] [IsNoetherian
   haveI : IsFractionRing Op K := IsFractionRing.isFractionRing_of_isDomain_of_isLocalization
     (RingHom.ker g).primeCompl Op K
   have e₁ : spMap (algebraMap Op K) ≫ spMap (algebraMap O Op) = spMap (algebraMap O K) := by
-    rw [← spMap_comp, ← IsScalarTower.algebraMap_eq]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← IsScalarTower.algebraMap_eq]
   have hu : ∀ x : (RingHom.ker g).primeCompl, IsUnit (g x) := fun x => isUnit_iff_ne_zero.2 x.2
   let g' : Op →+* K' := IsLocalization.lift hu
   have e₂ : spMap g' ≫ spMap (algebraMap O Op) = spMap g := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (IsLocalization.lift_comp hu)
   let Ap := (Over.pullback (spMap (algebraMap O Op))).obj A
   have pp := isGrpPullback_pullback A (spMap (algebraMap O Op))
@@ -177,7 +177,7 @@ theorem isPPol_of_field (O K' : Type) [CommRing O] [IsDomain O] [IsNoetherianRin
   let K := FractionRing O
   let i : K →+* K' := IsFractionRing.lift hj
   have e₁ : spMap i ≫ spMap (algebraMap O K) = spMap j := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun x => IsFractionRing.lift_algebraMap hj x)
   let f := spMap (algebraMap O K)
   let AK := (Over.pullback f).obj A
@@ -248,7 +248,7 @@ theorem exists_isPPol_away : ∀ (g n : ℕ) (φ : InvFun ℤ), 3 ≤ n → ∀ 
     refine (IsLocalization.lift_injective_iff _).2 fun x x' => ?_
     rw [(IsLocalization.injective O hle).eq_iff, hκ.eq_iff]
   have e₁ : spMap j ≫ f = (𝟙 _ ≫ jK R') ≫ spMap ρ := by
-    rw [Category.id_comp, ← spMap_comp, hjκ, spMap_comp]
+    rw [Category.id_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hjκ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   haveI := U.gen_hom
   haveI := B.isAb.comm
   haveI : IsMonHom U.gen.symm.hom := inferInstanceAs (IsMonHom U.gen.inv)

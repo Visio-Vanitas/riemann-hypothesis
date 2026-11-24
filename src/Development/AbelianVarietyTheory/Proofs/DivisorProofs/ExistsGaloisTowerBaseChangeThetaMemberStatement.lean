@@ -427,7 +427,7 @@ theorem exists_frPull_tower : ∀ {I : Type} (X₁ : GlobalTheory.GSep.GSet) (ac
   obtain ⟨J₁, hJ₁⟩ := exists_good' X₁.ρ.P.isLB z
   obtain ⟨J₂, hJ₂⟩ := exists_good' 𝔗.X₂.ρ.P.isLB z
   have hs : spMap 𝔪₂.yK ≫ spMap 𝔗.om = spMap f ≫ spMap 𝔪.yK := by
-    rw [← Geo.Tor.spMap_comp, ← Geo.Tor.spMap_comp, hy]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hy]
   have hp : (x₂ (𝔗.lam b)).left ≫ ψ =
       (show (TFK (R := V') (FractionRing V')).left ⟶ (TFK (R := V) (FractionRing V)).left from spMap f) ≫ (x b).left := by
     refine 𝔪.cart.1.hom_ext ?_ ?_

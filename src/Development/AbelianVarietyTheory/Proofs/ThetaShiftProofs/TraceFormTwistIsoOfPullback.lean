@@ -207,8 +207,8 @@ def genMap (hφ : Function.Injective φ) : (TK R').left ⟶ (TK R).left := spMap
 
 theorem fracMap_sq (hφ : Function.Injective φ) :
     𝟙 (TK R').left ≫ jK R' ≫ spMap φ = genMap hφ ≫ jK R :=
-  (Category.id_comp _).trans ((spMap_comp _ (fracMap hφ)).symm.trans
-    ((congrArg spMap (RingHom.ext (fracMap_algebraMap hφ))).trans (spMap_comp φ _))).symm
+  (Category.id_comp _).trans ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ (fracMap hφ)).symm.trans
+    ((congrArg spMap (RingHom.ext (fracMap_algebraMap hφ))).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ _))).symm
 
 variable {D : DegPre R} {D' : DegPre R'} (hD : IsPullDeg φ D D')
 

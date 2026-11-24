@@ -80,14 +80,14 @@ theorem val_sub_pull {R R' : Type} [CommRing R] [CommRing R'] {σ : R →+* R'} 
     have h1 : spMap u ≫ T₀.x = z := τ.pt
     have h2 : spMap u' ≫ T₀'.x = z' := τ'.pt
     have h3 : spMap a₀ ≫ T₀.x = T₀'.x ≫ φ := a.pt
-    rw [← h1, ← h2, Category.assoc, ← h3, ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp]
+    rw [← h1, ← h2, Category.assoc, ← h3, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     refine RingHom.ext fun c ↦ ?_
     obtain ⟨c, rfl⟩ := T₀.surj c
     exact (congrArg ρ (τ.comm c)).trans ((h c).trans
       ((τ'.comm (a.φ c)).symm.trans (congrArg τ'.φ₀ (a.comm c).symm)))
   have e₀ : spMap ρ₀ ≫ spMap (E.π : E.C →+* E.B) ≫ z = (spMap (E'.π : E'.C →+* E'.B) ≫ z') ≫ φ := by
-    rw [Category.assoc, ← e, ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp]
+    rw [Category.assoc, ← e, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact RingHom.ext hπ
   let Φ : E.thick _ (E.red_w hz) ⟶ m.obj (E'.thick _ (E'.red_w hz')) :=

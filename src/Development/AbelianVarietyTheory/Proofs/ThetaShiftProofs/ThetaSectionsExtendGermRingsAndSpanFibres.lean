@@ -268,7 +268,7 @@ theorem extend_of_frame {E : Type} [Field E] [NumberField E] [IsCMField E] {H : 
     exact div_mem (Subtype.property _) (pow_mem (hR.2 v k hk) j)
   obtain ⟨T₁, h₁, hT₁⟩ := Conv.exists_le_preimage_inclusion Ψ.yT (U := V)
     (le_preimage_of_field (algebraMap Conv.convLaurent ℂ⸨X⸩) (by
-      rw [← Category.assoc, ← spMap_comp]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact Ψ.yT_gen.symm ▸ hy))
   obtain ⟨T₀, hT₀⟩ := A.exists_isConvLine
   refine ⟨max T₁ (max T₂ T₀), h₁.trans (le_max_left _ _), fun w hw hw' => ?_⟩
@@ -277,13 +277,13 @@ theorem extend_of_frame {E : Type} [Field E] [NumberField E] [IsCMField E] {H : 
     have e : (Subalgebra.inclusion (Γ.le Ψ.T w hw)).toRingHom =
         (Subalgebra.inclusion (Γ.le T₁ w w₁)).toRingHom.comp
           (Subalgebra.inclusion (Conv.halfRing_mono h₁) : Conv.halfRing Ψ.T →+* Conv.halfRing T₁) := rfl
-    rw [e, spMap_comp, Category.assoc]
+    rw [e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     exact fun p _ => hT₁ (x := spMap _ p) trivial
   have hyw : ⊤ ≤ Ψ.yw w ⁻¹ᵁ V := by
     have e : (Conv.ev Ψ.T w hw).toRingHom =
         (Γ.ev w).toRingHom.comp (Subalgebra.inclusion (Γ.le Ψ.T w hw)).toRingHom :=
       RingHom.ext fun r => (Γ.ev_eq _ _ hw r).symm
-    rw [Ψ.yw_eq w hw, e, spMap_comp, Category.assoc]
+    rw [Ψ.yw_eq w hw, e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     exact fun p _ => hyt (x := spMap _ p) trivial
   let i₂ := Subalgebra.inclusion (Γ.le T₂ w w₂)
   let σt := fun α th => comb (pullback.snd _ _) (fun i => i₂ (a α th i)) (β _ _ hyt)

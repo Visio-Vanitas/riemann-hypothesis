@@ -177,7 +177,7 @@ theorem chart_opens {O K A : Type} [CommRing O] [IsDomain O] [IsDiscreteValuatio
     have hx : xF ≫ j = spMap f ≫ g := IsOpenImmersion.lift_fac _ _ _
     have ht : xF ≫ t = spMap (algebraMap K R) := by
       rw [← cancel_mono (spMap (algebraMap O K)), Category.assoc, ← hjs, ← Category.assoc, hx, Category.assoc, hα,
-        ← spMap_comp, ← spMap_comp, hf]
+        ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hf]
     refine ⟨⟨xF, ht, hx⟩, fun d hi hdu hs => ?_⟩
     have := isOpenImmersion_of_surj α f hf (e * d) (by rw [map_mul]; exact hu.mul hdu) hi hs
     have : IsOpenImmersion (xF ≫ j) := by rw [hx]; infer_instance
@@ -185,7 +185,7 @@ theorem chart_opens {O K A : Type} [CommRing O] [IsDomain O] [IsDiscreteValuatio
     have : Smooth (spMap (algebraMap K R)) := by rw [← ht]; infer_instance
     exact RingHom.smooth_algebraMap.1 ((HasRingHomProperty.Spec_iff (P := @Smooth)).1 this)
   · have : spMap (f.comp α) = spMap ((algebraMap K L).comp (algebraMap O K)) := by
-      rw [spMap_comp, spMap_comp, ← hα, ← Category.assoc, ← hx2, ← hx1, Category.assoc, hjs, Category.assoc]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hα, ← Category.assoc, ← hx2, ← hx1, Category.assoc, hjs, Category.assoc]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective this)
   · obtain ⟨e, he, h⟩ := (h3 (spMap f (⊥ : PrimeSpectrum L))).1
       ⟨xF (⊥ : PrimeSpectrum L), (Scheme.Hom.comp_apply xF j _).symm.trans

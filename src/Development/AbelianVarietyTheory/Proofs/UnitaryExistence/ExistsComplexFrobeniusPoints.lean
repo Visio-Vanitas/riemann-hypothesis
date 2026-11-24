@@ -144,13 +144,13 @@ theorem exists_complex_framed_pair : ∀ (E : Type) [Field E] [NumberField E] [I
   refine ⟨z, z', ?_, ?_, ?_⟩
   · intro ρ h
     have e1 : y.x = spMap ι.toRingHom ≫ spMap φL.toRingHom ≫ y₀.x := by
-      rw [← Category.assoc, ← Geo.Tor.spMap_comp, hy.1, ← hφ]; rfl
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hy.1, ← hφ]; rfl
     have e2 : y'.x = spMap ι.toRingHom ≫ spMap ψL.toRingHom ≫ y₁.x := by
-      rw [← Category.assoc, ← Geo.Tor.spMap_comp, hy'.1, ← hψ]; rfl
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hy'.1, ← hψ]; rfl
     have e3 : z.x = spMap j.toRingHom ≫ spMap φL.toRingHom ≫ y₀.x := by
-      rw [← Category.assoc, ← Geo.Tor.spMap_comp, hz.1]; rfl
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hz.1]; rfl
     have e4 : z'.x = spMap j.toRingHom ≫ spMap ψL.toRingHom ≫ y₁.x := by
-      rw [← Category.assoc, ← Geo.Tor.spMap_comp, hz'.1]; rfl
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hz'.1]; rfl
     haveI := ComplexTransfer.epi_spMap_field ι.toRingHom
     rw [e1, e2, Category.assoc, cancel_epi] at h
     rw [e3, e4, h]

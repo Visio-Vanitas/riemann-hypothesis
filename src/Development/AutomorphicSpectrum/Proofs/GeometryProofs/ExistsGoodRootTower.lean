@@ -1404,7 +1404,7 @@ theorem exists_cover : _root_.GlobalTheory.CompanionTheory.Ar.Top.Given → Out.
       simp
     have := c.fin
     have : NumberField c.F := {}
-    exact cst_ext (_root_.GlobalTheory.ZM.DenseFib.spMap_inj h4)
+    exact cst_ext (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq h4)
   obtain ⟨jA, hext, hpt, hact, hlat⟩ :=
     _root_.GlobalTheory.CompanionTheory.Ar.CoverLie.main E H D l Xo c Y ∅ S R.Ω Ω R.K R.ι R.y K₂ J₂ y₂ o.𝔐 B i (g ≫ h₁) hdomB hfB
   obtain ⟨Li₀, _, _, M₀, j, V₀, hspan, hj, hV, hflag⟩ :=

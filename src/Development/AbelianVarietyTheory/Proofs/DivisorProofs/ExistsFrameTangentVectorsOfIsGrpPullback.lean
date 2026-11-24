@@ -84,7 +84,7 @@ theorem tan_iff (hπ : IsGrpPullback A Xo.univ.t.G x π) (w : epsR K ⟶ A) : Is
     apply hπ.1.hom_ext
     · rw [Category.assoc]; exact h.2.trans (one_comp hπ).symm
     · have a : η[A].left ≫ A.hom = 𝟙 _ := Over.w η[A]
-      rw [Category.assoc, hw, a, ← Geo.Tor.spMap_comp]
+      rw [Category.assoc, hw, a, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have : (TrivSqZeroExt.fstHom K K K).toRingHom.comp (algebraMap K (DualNumber K)) = RingHom.id K := by
         ext r; simp
       rw [this]

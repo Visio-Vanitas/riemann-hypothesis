@@ -1112,10 +1112,10 @@ theorem exists_ext_of_minAt5 : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (Z : 
   haveI : CharZero R' := charZero_of_injective_ringHom hinj
   let gam : FractionRing R →+* FractionRing R' := (eR.symm : K' →+* FractionRing R').comp (algebraMap (FractionRing R) K')
   have E1 : spMap gam = spMap (eR.symm : K' →+* FractionRing R') ≫ spMap (algebraMap (FractionRing R) K') :=
-    _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   have E2 : spMap gam ≫ jK R = jK R' ≫ spMap ρ := by
     change spMap gam ≫ spMap (algebraMap R (FractionRing R)) = spMap (algebraMap R' (FractionRing R')) ≫ spMap ρ
-    rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r
     simp only [RingHom.comp_apply, gam]
@@ -1137,7 +1137,7 @@ theorem exists_ext_of_minAt5 : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (Z : 
   obtain ⟨φ2, hφ2⟩ := _root_.GlobalTheory.ProperFamily.exists_factor (isGrpPullback_pullback F.univ.A c) h2 rfl
   have h3 := (hφ2.comp he).congr (Category.assoc _ _ _) rfl
   have hyz : yy ≫ π ≫ z = jK R' ≫ spMap (ρ.comp b) := by
-    rw [← Category.assoc, E3, Category.assoc, Category.assoc, hiz, hyb, ← Category.assoc, E2, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+    rw [← Category.assoc, E3, Category.assoc, Category.assoc, hiz, hyb, ← Category.assoc, E2, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc]
   obtain ⟨a', ha'⟩ := GlobalTheory.T.exists_minimalCompactification_extension_of_cover (cycAway n) g Z S' z π OZ hOZ hamp G N hGsa hGsm hL R' (ρ.comp b) G₁' hG₁' yy _ h3 hyz
   have hmeet' : ∀ (x : FractionRing R) (w : R'), algebraMap R' _ w = gam x → ∃ r : R, algebraMap R _ r = x :=

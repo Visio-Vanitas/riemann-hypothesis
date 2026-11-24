@@ -1309,7 +1309,7 @@ theorem conj_point_eq {D : Datum H} {l : Level H} {Xo : Moduli D l} {σ : KA l �
     rw [← hσ]
     exact RingHom.congr_fun hτσ _
   obtain ⟨i', P', hP', hu⟩ := F.onto (spMap (τ : ℂ →+* ℂ) ≫ F.u i P)
-    (by rw [Category.assoc, F.over_σ i P hP, GlobalTheory.ConjPermutes.spMap_comp, hτσ])
+    (by rw [Category.assoc, F.over_σ i P hP, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hτσ])
   have hM : 0 < l.M := lt_of_lt_of_le (by norm_num) l.three_le
   have hA : 0 < l.A := l.A_pos
   have hdiv : ∀ m : ℕ, m ∣ N * l.M' → C.ActsBy τ io m (1, 0) :=
@@ -1435,10 +1435,10 @@ theorem exists_intFr (hpq : 1 ≤ Dw.p + Dw.q) {q : ℕ} (hq : q.Prime) (hg : l.
   have hIF : IntFramesSt Xo c := GlobalTheory.intFrames_of_laws GlobalTheory.abelianSchemeLaws_all.1.secBaseChange hT E H Dw l Xo c
   let _ := (k.comp j).toAlgebra
   have hs : (spMap k ≫ z) ≫ Limits.pullback.snd _ _ = spMap (k.comp j) := by
-    rw [Category.assoc, ← GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg _ hz
   have hx : ((spMap k ≫ z) ≫ Limits.pullback.fst _ _) ≫ Xo.s = sOf c T.Fr := by
-    rw [Category.assoc, Limits.pullback.condition, ← Category.assoc, hs, GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [Category.assoc, Limits.pullback.condition, ← Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   obtain ⟨y₀, -, h0, -, -⟩ := gfp_frPt_gen (Xo := Xo) (c := c) (L := T.Fr) (L' := T.Fr) hT (fun _ => rfl) _ hx
     (fun _ i j => if i = j then 1 else 0) (fun _ _ => if_pos rfl) (fun _ _ _ h => if_neg h.ne')

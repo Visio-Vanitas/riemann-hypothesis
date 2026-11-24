@@ -307,7 +307,7 @@ theorem exists_cdvr_thru {o Ω : Type} [CommRing o] [Field Ω] [Algebra o Ω] [I
   refine ⟨V₀, inferInstance, inferInstance, hdvr, φ₀, emb, hcpl, hchar, hl, hemb, ?_⟩
   rw [← spMap_stalkHom, ← Category.assoc, ← Category.assoc]
   congr 1
-  rw [show jK V₀ = spMap (algebraMap V₀ (FractionRing V₀)) from rfl, _root_.Formalism.L2.Pj.spMap_comp_ring, _root_.Formalism.L2.Pj.spMap_comp_ring]
+  rw [show jK V₀ = spMap (algebraMap V₀ (FractionRing V₀)) from rfl, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r
   exact (hemb r).symm
@@ -354,7 +354,7 @@ theorem exists_gMem_of_trait : ∀ (I : Type) (X₁ : GlobalTheory.GSep.GSet) (z
     A := A
     U := U
     φ := β ≫ ψ
-    cart := (hβ.comp hψ).congr (_root_.Formalism.L2.Pj.spMap_comp_ring e X₁.S.R.val.toRingHom) rfl
+    cart := (hβ.comp hψ).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp X₁.S.R.val.toRingHom e).symm rfl
     wl := wl
     wl_gen := hwl
     equiv := fun a => ⟨E a, hE a, fun _ => rfl⟩
@@ -382,7 +382,7 @@ theorem exists_gMem_thru : ∀ (I : Type) (X₁ : GlobalTheory.GSep.GSet) (z₁ 
   haveI hsl : IsLocalHom s := inferInstanceAs (IsLocalHom (πY.stalkMap y).hom)
   let ev : X₁.M.Z.presheaf.stalk (πY y) →+* V := φ₀.comp s
   have hξ : (spMap φ₀ ≫ Y.Z.fromSpecStalk y) ≫ πY = spMap ev ≫ X₁.M.Z.fromSpecStalk (πY y) := by
-    rw [Category.assoc, ← hs, ← Category.assoc, _root_.Formalism.L2.Pj.spMap_comp_ring]
+    rw [Category.assoc, ← hs, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hjξ : jK V ≫ spMap φ₀ ≫ Y.Z.fromSpecStalk y = spMap emb ≫ Y.pt := hptY
   have hpt' : jK V ≫ spMap ev ≫ X₁.M.Z.fromSpecStalk (πY y) = spMap emb ≫ X₁.M.pt := by
     calc jK V ≫ spMap ev ≫ X₁.M.Z.fromSpecStalk (πY y) = jK V ≫ (spMap φ₀ ≫ Y.Z.fromSpecStalk y) ≫ πY := by rw [hξ]
@@ -392,7 +392,7 @@ theorem exists_gMem_thru : ∀ (I : Type) (X₁ : GlobalTheory.GSep.GSet) (z₁ 
   have hinj : Function.Injective ev := by
     have h1 : spMap ((algebraMap V (FractionRing V)).comp ev) ≫ X₁.M.Z.fromSpecStalk (πY y) =
         spMap (emb.comp (X₁.M.stalkHom (πY y))) ≫ X₁.M.Z.fromSpecStalk (πY y) := by
-      rw [← _root_.Formalism.L2.Pj.spMap_comp_ring (algebraMap V (FractionRing V)) ev, ← _root_.Formalism.L2.Pj.spMap_comp_ring emb (X₁.M.stalkHom (πY y)), Category.assoc,
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ev (algebraMap V (FractionRing V)), ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (X₁.M.stalkHom (πY y)) emb, Category.assoc,
         Category.assoc, spMap_stalkHom]
       exact hpt'
     have h2 := (cancel_mono _).1 h1

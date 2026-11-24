@@ -299,15 +299,6 @@ theorem exists_local_domain {A K : Type} [CommRing A] [Field K] (e : A →+* K) 
     rw [IsLocalization.lift_mk']
     rw [show e' a = 0 from ha, zero_mul]
 
-theorem spMap_comp {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R') (f' : R' →+* R'') :
-    spMap f' ≫ spMap f = spMap (f'.comp f) := by
-  unfold spMap
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
-theorem spMap_inj {R R' : Type} [CommRing R] [CommRing R'] {f f' : R →+* R'} (h : spMap f = spMap f') : f = f' := by
-  have := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom this
-
 theorem exists_factor {X : Scheme.{0}} {R R' K : Type} [CommRing R] [CommRing R'] [Field K] (x : Sp R ⟶ X)
     [IsOpenImmersion x] (x' : Sp R' ⟶ X) (φ : R →+* K) (ψ : R' →+* K) (hψ : ∀ r, ψ r ≠ 0 → IsUnit r)
     (h : spMap ψ ≫ x' = spMap φ ≫ x) : ∃ χ : R →+* R', spMap χ ≫ x = x' ∧ ψ.comp χ = φ := by
@@ -327,13 +318,13 @@ theorem exists_factor {X : Scheme.{0}} {R R' K : Type} [CommRing R] [CommRing R'
   have hχ : spMap (Spec.preimage (IsOpenImmersion.lift x x' hr)).hom ≫ x = x' := by
     unfold spMap
     rw [CommRingCat.ofHom_hom, Spec.map_preimage, IsOpenImmersion.lift_fac]
-  refine ⟨_, hχ, spMap_inj ?_⟩
-  rw [← cancel_mono x, ← spMap_comp, Category.assoc, hχ, h]
+  refine ⟨_, hχ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_⟩
+  rw [← cancel_mono x, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hχ, h]
 
 theorem exists_algebraicIndependent : Out.Laws → Out.Laws2 → ∀ (n : ℕ), ∀ (g N' : ℕ) (J : Type) (Mat : J → Matrix (Fin (2 * g)) (Fin (2 * g)) ℤ) (κ : ℕ) (w w' : J) (o : Type) [CommRing o] (b : TBase o (N' ^ 2)) (em : o →+* ℂ) (C : TObj g (N' ^ 2) J b (spMap em) → Prop) (d : ℕ) (F : ThetaFam n em C), ArBase em → GoodClass em C Mat κ w w' d → ∀ (R : Type) [CommRing R] [Algebra o R] (x : Sp R ⟶ F.MM), IsOpenImmersion x → x ≫ F.s = spMap (algebraMap o R) → ∀ (K : Type) [Field K] [Algebra o K] (φ : R →ₐ[o] K), RingHom.ker φ ∈ minimalPrimes R → (∀ z : K, ∃ a b, z = φ a / φ b) → ∃ y : Fin d → K, AlgebraicIndependent o y := by
   intro hL hL2 n g N' J Mat κ w w' o _ b em C d F hA hG R _ _ x hx hxs K _ _ φ hmin hsurj
   have hη : (spMap φ.toRingHom ≫ x) ≫ F.s = spMap (algebraMap o K) := by
-    rw [Category.assoc, hxs, spMap_comp]
+    rw [Category.assoc, hxs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact φ.comp_algebraMap
   obtain ⟨v, hv, hvI⟩ := F.loc K (algebraMap o K) _ hη
@@ -373,7 +364,7 @@ theorem exists_algebraicIndependent : Out.Laws → Out.Laws2 → ∀ (n : ℕ), 
   obtain ⟨x', ⟨hx's, hx'v⟩, -⟩ := F.pts R' β' v' hI'
   have hcl : spMap ψ ≫ x' = spMap φ.toRingHom ≫ x := by
     refine (F.pts K (algebraMap o K) v hvI).unique ⟨?_, ?_⟩ ⟨hη, hv⟩
-    · rw [Category.assoc, hx's, spMap_comp, hψβ]
+    · rw [Category.assoc, hx's, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψβ]
     · have := GlobalTheory.hasTh_baseChange hL2 o g N' J b _ _ F.univ R' K ψ x' v' hx'v
       rwa [hψv] at this
   obtain ⟨χ, hχx, hψχ⟩ := exists_factor x x' φ.toRingHom ψ hψ hcl
@@ -388,7 +379,7 @@ theorem exists_algebraicIndependent : Out.Laws → Out.Laws2 → ∀ (n : ℕ), 
     exact le_antisymm hle (hmin.2 ⟨RingHom.ker_isPrime _, bot_le⟩ hle)
   obtain ⟨j, hj⟩ := exists_hom_of_ker_eq φ.toRingHom (lam.comp χ) hker hsurj
   have hpt : spMap j ≫ spMap φ.toRingHom ≫ x = spMap lam ≫ x' := by
-    rw [← Category.assoc, spMap_comp, hj, ← spMap_comp, Category.assoc, hχx]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hj, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hχx]
   have h1 := GlobalTheory.hasTh_baseChange hL2 o g N' J b _ _ F.univ K K' j _ v hv
   have h2 := GlobalTheory.hasTh_baseChange hL2 o g N' J b _ _ F.univ R' K' lam _ v' hx'v
   rw [hpt] at h1
@@ -396,8 +387,8 @@ theorem exists_algebraicIndependent : Out.Laws → Out.Laws2 → ∀ (n : ℕ), 
     (Ideal.eq_top_of_isUnit_mem _ (Ideal.subset_span ⟨a₁, rfl⟩)
       (isUnit_iff_ne_zero.2 ((map_ne_zero j).2 hva₁)))
   have hjβ : j.comp (algebraMap o K) = lam.comp β' := by
-    apply spMap_inj
-    rw [← spMap_comp, ← hη, ← Category.assoc, hpt, Category.assoc, hx's, spMap_comp]
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hη, ← Category.assoc, hpt, Category.assoc, hx's, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hkP : RingHom.ker (MvPolynomial.eval₂Hom (lam.comp β') (fun i => lam (v' i))) = P := by
     rw [← MvPolynomial.comp_eval₂Hom, hev, ← hρ]
     ext G

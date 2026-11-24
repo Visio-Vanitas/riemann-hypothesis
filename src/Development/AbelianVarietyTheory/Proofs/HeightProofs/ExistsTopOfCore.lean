@@ -191,7 +191,7 @@ theorem exists_extension {O : Type} [CommRing O] {β : O →+* c.F} (Y : Model X
     ∃ yt : Sp T.V ⟶ Y.X, spMap g ≫ yt = Pc.yt ∧ Nonempty (SABMap G Y.t yt) := by
   obtain ⟨b, hb⟩ := GlobalTheory.EtaVal.exists_base_map_of_overLa (fun a => (hB.2 (β a)).1 ⟨a, rfl⟩) T io e ho
   have hcond : x ≫ Xo.s = spMap io ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [hxs, GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [hxs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let z : Sp T.Fr ⟶ Xo.XF c := pullback.lift x (spMap io) hcond
   have hzs : z ≫ pullback.snd _ _ = spMap io := pullback.lift_snd _ _ _
   have hzf : z ≫ pullback.fst _ _ = x := pullback.lift_fst _ _ _
@@ -214,7 +214,7 @@ theorem exists_extension {O : Type} [CommRing O] {β : O →+* c.F} (Y : Model X
   have hy : Pc.y = spMap eF ≫ z := by
     apply pullback.hom_ext
     · rw [h2', Category.assoc, hzf]
-    · rw [Pc.y_over, Category.assoc, hzs, GlobalTheory.EtaVal.spMap_comp_spMap, h1']
+    · rw [Pc.y_over, Category.assoc, hzs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h1']
   have halg : g.comp b = Pc.alg := by
     refine RingHom.ext fun a => Subtype.ext ?_
     have q1 := DFunLike.congr_fun Pc.compat a
@@ -224,9 +224,9 @@ theorem exists_extension {O : Type} [CommRing O] {β : O →+* c.F} (Y : Model X
     rw [h3', q2, q3]; exact q1.symm
   refine ⟨yt, ?_, ⟨PullbackSections.sabMapCast n (Category.id_comp yt)⟩⟩
   refine GlobalTheory.EtaVal.point_ext_of_injective (intO ↥C.S).subtype Subtype.val_injective Y.s _ _ ?_ ?_
-  · rw [Pc.ext, hy, Category.assoc, ← h1, ← Category.assoc, GlobalTheory.EtaVal.spMap_comp_spMap, hr,
-      ← GlobalTheory.EtaVal.spMap_comp_spMap, Category.assoc]
-  · rw [Pc.yt_over, Category.assoc, h2, GlobalTheory.EtaVal.spMap_comp_spMap, halg]
+  · rw [Pc.ext, hy, Category.assoc, ← h1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hr,
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+  · rw [Pc.yt_over, Category.assoc, h2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, halg]
 
 theorem exists_equiv_of_uniformisation {O : Type} [CommRing O] {β : O →+* c.F} (Y : Model Xo c β)
     {la : HeightOneSpectrum (𝓞 c.F)} (hB : PointsOfFlagModel.BaseAt la β) (T : CDVR) (hT : T.FinRes) (io : c.F →+* T.Fr) (e : ℕ)
@@ -267,7 +267,7 @@ theorem exists_equiv_of_uniformisation {O : Type} [CommRing O] {β : O →+* c.F
       «ι» := spMap φ ≫ yt
       f := f
       f_loc := hfl
-      fac := by rw [← Category.assoc, GlobalTheory.EtaVal.spMap_comp_spMap, hf, hyt]
+      fac := by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hf, hyt]
       t := G'
       m := n2
       U := U

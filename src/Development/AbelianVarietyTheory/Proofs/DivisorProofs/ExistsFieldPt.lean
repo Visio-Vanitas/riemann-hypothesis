@@ -84,21 +84,21 @@ theorem transfer (σ : Setup) (E : Emb σ) (hC : σ.Common) (x x' : Sp σ.R) (Ω
     obtain rfl : o = closedPoint Ω := Subsingleton.elim (α := PrimeSpectrum Ω) _ _
     have h1 : (maximalIdeal Ω).comap u' = maximalIdeal _ := congrArg PrimeSpectrum.asIdeal hs'
     rw [← h1, maximalIdeal_eq_bot]; rfl
-  rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring] at h
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at h
   obtain ⟨R', _, _, _, a, b, v, H, _, _, πa, πb, θa, θb, -, -, hab, -, hva, hvb, -, -, ⟨pa, -⟩, ⟨pb, -⟩, fa, fb, hθ⟩ :=
-    hC x x' Ω u u' hk (_root_.GlobalTheory.ZM.DenseFib.spMap_inj h)
+    hC x x' Ω u u' hk (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq h)
   have key : πa ≫ E.emb x = πb ≫ E.emb x' := by
     haveI := E.sep
     haveI := isDominant_gp H.left
     obtain ⟨w, -⟩ := E.openIn x
     obtain ⟨w', -⟩ := E.openIn x'
     refine ext_of_isDominant_of_isSeparated E.p ?_ (gp H.left) ?_
-    · rw [Category.assoc, Category.assoc, w, w', pa.w_assoc, pb.w_assoc, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, hab]
+    · rw [Category.assoc, Category.assoc, w, w', pa.w_assoc, pb.w_assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hab]
     · rw [← Category.assoc, ← Category.assoc, pff_id fa, pff_id fb, Category.assoc, Category.assoc,
-        pff_id (E.ff x), pff_id (E.ff x'), ← Category.assoc, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring,
+        pff_id (E.ff x), pff_id (E.ff x'), ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
         ← RingHom.comp_assoc, ← RingHom.comp_assoc, hθ]
-  have ea : spMap v ≫ spMap a = spMap u := by rw [_root_.GlobalTheory.spMap_comp_ring, hva]
-  have eb : spMap v ≫ spMap b = spMap u' := by rw [_root_.GlobalTheory.spMap_comp_ring, hvb]
+  have ea : spMap v ≫ spMap a = spMap u := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hva]
+  have eb : spMap v ≫ spMap b = spMap u' := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hvb]
   constructor
   · intro t ht
     refine ⟨pa.lift t (spMap v) (ht.trans ea.symm) ≫ πb, ?_, ?_⟩

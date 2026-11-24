@@ -671,7 +671,7 @@ theorem exists_trait_transport : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLoc
       pullback.condition
     have c₃ : pullback.fst T.G.hom (jK W) ≫ T.G.hom = pullback.snd T.G.hom (jK W) ≫ jK W := pullback.condition
     simp only [Category.assoc]
-    rw [spMap_comp, c₃, reassoc_of% c₁, reassoc_of% c₂]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, c₃, reassoc_of% c₁, reassoc_of% c₂]
   have k₁ : (q ≫ (snd (TFK (R := W) F) T.A.A).left ≫ T.U.gen.inv.left ≫ pullback.fst T.G.hom (jK W)) ≫ T.β =
       q ≫ (f ≫ (snd (TFK (R := R) F) C.A.A).left) ≫ C.α := by
     rw [hp]; simp only [Category.assoc]

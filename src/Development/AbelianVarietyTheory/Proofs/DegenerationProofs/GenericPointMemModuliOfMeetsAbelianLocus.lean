@@ -120,7 +120,7 @@ theorem GlobalTheory.LN.generic_point_of_meets_abLocus : Laws → Laws2 → ∀ 
   have := c.fin
   obtain ⟨g, hg⟩ := exists_extend (K := FractionRing R) (c.V W₀) (Spec.preimage ((jK R ≫ ξ) ≫ Y.s)).hom
   have sq : (jK R ≫ ξ) ≫ Y.s = spMap g ≫ spMap (c.V W₀).subtype := by
-    rw [← Geo.Tor.spMap_comp, hg]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hg]
     exact (Spec.map_preimage _).symm
   have := Y.jQ_open
   have hr : Set.range (pullback.lift _ _ sq) ⊆ Set.range Y.jQ := by

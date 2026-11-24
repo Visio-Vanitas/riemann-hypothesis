@@ -741,10 +741,10 @@ theorem isTr_comp {R : Type} [CommRing R] {K : Type} [Field K] (x₀ : R →+* K
   obtain ⟨p, q, h₁, h₂, h₃⟩ := exists_mul_of_isGrpPullback hm _ x₁ v₁
     (spMap (algebraMap B (DualNumber B)) ≫ (x ≫ m) ≫ G.hom) (by
       change _ = spMap ((algebraMap B (DualNumber B)).comp φ) ≫ spMap x₀
-      rw [Category.assoc, hm.1.w, ← Category.assoc x, hx, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp'])
+      rw [Category.assoc, hm.1.w, ← Category.assoc x, hx, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   refine ⟨p, q, ?_, ?_, h₃⟩
   · rw [h₁, a]; exact Category.assoc _ _ _
-  · rw [h₂, b, ← dc, ← GlobalTheory.LogKSLoc.spMap_comp' (ReciprocityTheory.ChartRestriction.G.Chart.dualMapR x₀) (dualMap φ)]
+  · rw [h₂, b, ← dc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (ReciprocityTheory.ChartRestriction.G.Chart.dualMapR x₀) (dualMap φ)]
     refine (Category.assoc _ _ _).trans ?_
     rw [hv]
     exact (Category.assoc (spMap (dualMap φ)) (spMap (ReciprocityTheory.ChartRestriction.G.Chart.dualMapR x₀)) _).symm
@@ -758,7 +758,7 @@ theorem invField_baseChange : ∀ {R : Type} [CommRing R] {K : Type} [Field K] (
   have hO : ⊤ ≤ y' ⁻¹ᵁ (m ⁻¹ᵁ O) := le_preimage_of_red (hy'.red hvt) hy
   rw [← snd_valR_transl hvt hdd hy' hy, CoeffWt.valR_app _ _ _ hO, valR_pbT y m le_rfl hy]
   refine he.2 B (β.comp x₀) (y ≫ m) (y' ≫ m) O f ?_ hy (isTr_comp x₀ m hm w v hv β y hb y' hy')
-  rw [Category.assoc, hm.1.w, ← Category.assoc, hb, GlobalTheory.LogKSLoc.spMap_comp']
+  rw [Category.assoc, hm.1.w, ← Category.assoc, hb, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 end GlobalTheory.Heat.FieldCompat
 end -- clump:auto

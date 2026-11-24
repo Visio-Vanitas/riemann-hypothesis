@@ -1278,10 +1278,10 @@ theorem potGood_of_lieMult_zero : ∀ (V K : Type) [CommRing V] [IsDomain V] [Is
   let aG : OAct (𝓞 F) G := ⟨actG, g1, g2, g3, g4⟩
   obtain ⟨g', hg'⟩ := lift_ext V K W L Ω hc hfin g
   have e1 := GlobalTheory.LiePull.lieMult_pull (𝓞 F) _ _ A _ _ (pullback.fst _ _) act aL hAL hLc Ω (spMap g') σ 0
-  have hx : spMap g' ≫ spMap (algebraMap K L) = spMap g := by rw [← hg', _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  have hx : spMap g' ≫ spMap (algebraMap K L) = spMap g := by rw [← hg', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have e2 := GlobalTheory.LiePull.lieMult_pull (𝓞 F) _ _ G _ _ φ aG aL hφ hGc Ω (spMap g') σ 0
   have hG0 : LieMult aG (spMap (g'.comp (algebraMap W L))) σ 0 := by
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact e2.1 (e1.2 (hx ▸ hL))
   haveI : CharZero Ω := charZero_of_injective_ringHom g.injective
   have hinj : Function.Injective (g'.comp (algebraMap W L)) :=
@@ -1933,7 +1933,7 @@ theorem isProper_model_of_compact (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Ty
     (spMap (algebraMap K L)) oK
   have hLs : spMap (algebraMap K L) ≫ spMap ((algebraMap V K).comp β) =
       spMap ((algebraMap W L).comp ((algebraMap V W).comp β)) := by
-    rw [_root_.GlobalTheory.spMap_comp_ring, ← RingHom.comp_assoc, ← RingHom.comp_assoc, hcomp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, ← RingHom.comp_assoc, hcomp]
   generalize hs' : spMap (algebraMap K L) ≫ spMap ((algebraMap V K).comp β) = s₁ at oL hL
   obtain rfl : s₁ = spMap ((algebraMap W L).comp ((algebraMap V W).comp β)) := hs'.symm.trans hLs
   obtain ⟨φ, hφ⟩ := _root_.GlobalTheory.SS.exists_isGrpPullback_of_isModel K W L oK.A G hmod oL.A hL.φ hL.cart
@@ -1942,7 +1942,7 @@ theorem isProper_model_of_compact (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Ty
   obtain ⟨h₁⟩ := _root_.GlobalTheory.UPel.HT.objMap_comp p D R b N _ _ _ _ _ _ oL oW M.univ _ _ hW hf
   obtain ⟨h₂⟩ := _root_.GlobalTheory.UPel.HT.objMap_comp p D R b N _ _ _ _ _ _ oL oK M.univ _ _ hL hK
   obtain ⟨g, -, hg⟩ := M.rep (Sp L) _ oL
-  have e₁ : spMap (algebraMap W L) ≫ f = g := hg _ ⟨by rw [Category.assoc, hfs, _root_.GlobalTheory.spMap_comp_ring], ⟨h₁⟩⟩
+  have e₁ : spMap (algebraMap W L) ≫ f = g := hg _ ⟨by rw [Category.assoc, hfs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp], ⟨h₁⟩⟩
   have e₂ : spMap (algebraMap K L) ≫ x = g := hg _ ⟨by rw [Category.assoc, hx, hLs], ⟨h₂⟩⟩
   exact ⟨W, L, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance,
     inferInstance, inferInstance, hcomp, hloc, f, e₂.trans e₁.symm⟩

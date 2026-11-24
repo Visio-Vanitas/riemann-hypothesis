@@ -109,19 +109,15 @@ theorem eq_one_of_pow_of_closedPoint (G : Over S) [GrpObj G] [IsCommMonObj G]
     · exact ((Category.assoc _ _ _).trans (congrArg (j.left ≫ ·)
         ((Over.w (toSec G p x)).trans (Over.w (toSec G p 1)).symm))).trans (Category.assoc _ _ _).symm
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 theorem exists_reduction : ∀ (W R Ω : Type) [CommRing W] [CommRing R] [IsDomain R] [IsLocalRing R] [Field Ω] [Algebra W R] [Algebra R Ω] [Algebra W Ω] [IsScalarTower W R Ω], Function.Injective (algebraMap R Ω) → ∀ (G : Over (Sp W)) [GrpObj G], SmConn G → ∃ (H : Subgroup (Over.mk (spMap (algebraMap W Ω)) ⟶ G)) (r : H →* (𝟙_ (Over (Sp (IsLocalRing.ResidueField R))) ⟶ (Over.pullback (spMap ((IsLocalRing.residue R).comp (algebraMap W R)))).obj G)), (∀ x, x ∈ H ↔ ∃ s : Sp R ⟶ G.left, s ≫ G.hom = spMap (algebraMap W R) ∧ spMap (algebraMap R Ω) ≫ s = x.left) ∧ (∀ (x : H) (s : Sp R ⟶ G.left), s ≫ G.hom = spMap (algebraMap W R) → spMap (algebraMap R Ω) ≫ s = x.1.left → (r x).left ≫ pullback.fst G.hom _ = spMap (IsLocalRing.residue R) ≫ s) ∧ ∀ (n : ℕ) (x : H), IsUnit (n : R) → x ^ n = 1 → r x = 1 → x = 1 := by
   intro W R Ω _ _ _ _ _ _ _ _ _ hj G _ hG
   obtain ⟨hc, hsm, hsep, -, -⟩ := hG
   let u : Over.mk (spMap (algebraMap W Ω)) ⟶ Over.mk (spMap (algebraMap W R)) :=
     Over.homMk (spMap (algebraMap R Ω))
-      ((spMap_comp _ _).trans (congrArg spMap (IsScalarTower.algebraMap_eq W R Ω).symm))
+      ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (IsScalarTower.algebraMap_eq W R Ω).symm))
   let v : Over.mk (spMap ((IsLocalRing.residue R).comp (algebraMap W R))) ⟶
       Over.mk (spMap (algebraMap W R)) :=
-    Over.homMk (spMap (IsLocalRing.residue R)) (spMap_comp _ _)
+    Over.homMk (spMap (IsLocalRing.residue R)) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have hdom : IsDominant (spMap (algebraMap R Ω)) :=
     ⟨(PrimeSpectrum.denseRange_comap_iff_ker_le_nilRadical _).2 (by
       change RingHom.ker (algebraMap R Ω) ≤ _

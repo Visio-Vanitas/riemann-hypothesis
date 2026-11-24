@@ -1131,7 +1131,7 @@ theorem pullData_of_dataFrom : ∀ {o W : Type} [CommRing o] [CommRing W] [IsLoc
   intro o W _ _ _ T R V _ _ _ _ θ iw I _ s ε n Q e Q' e' hs hQ hQ'
   obtain ⟨β₀, β₀₂, w₀, hpb₀, hsq₀, hw₀, hc₀, hτ₀⟩ := hQ
   obtain ⟨β₁, β₁₂, w₁, hpb₁, hsq₁, hw₁, hc₁, hτ₁⟩ := hQ'
-  have hcomp : spMap θ ≫ spMap iw = spMap (θ.comp iw) := (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp iw θ).symm
+  have hcomp : spMap θ ≫ spMap iw = spMap (θ.comp iw) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp iw θ).symm
 
   obtain ⟨β, β₂, hpb, hsq, hβ, hβ₂⟩ := GlobalTheory.T.exists_cancel_grpPullback_with_squares (Sp V) (Sp R) (Sp W) Q'.B Q.B T.B (spMap θ) (spMap iw)
     β₁ β₀ β₁₂ β₀₂ (hcomp ▸ hpb₁) hpb₀ hsq₁ hsq₀

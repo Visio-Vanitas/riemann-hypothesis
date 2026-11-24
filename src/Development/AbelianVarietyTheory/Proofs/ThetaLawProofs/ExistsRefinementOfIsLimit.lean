@@ -249,7 +249,7 @@ theorem lb_descends_to_fg_subring : ∀ (R : Type) [CommRing R] (R₀ : Subring 
     (Algebra.adjoin R₀ (s.unop : Set R)).val.toRingHom.codRestrict R₁ hsub
   let q : X₁ ⟶ pullback f₀ (spMap (algebraMap R₀ (Algebra.adjoin R₀ (s.unop : Set R)))) :=
     pullback.lift π₁ (f₁ ≫ spMap φ) (by
-      rw [H₁.w, Category.assoc, spMap_comp_ring]
+      rw [H₁.w, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl)
   have hMq : (M.pull q).IsLB := by
     apply isLB_of_germs
@@ -267,7 +267,7 @@ theorem lb_descends_to_fg_subring : ∀ (R : Type) [CommRing R] (R₀ : Subring 
   apply pullback.hom_ext
   · rw [Category.assoc, pullback.lift_fst, hj₁, Category.assoc, Spread.bcMap_fst,
       IsPullback.isoPullback_hom_fst]
-  · rw [Category.assoc, pullback.lift_snd, ← Category.assoc, hj₂, Category.assoc, spMap_comp_ring,
+  · rw [Category.assoc, pullback.lift_snd, ← Category.assoc, hj₂, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc, Spread.bcMap_snd, IsPullback.isoPullback_hom_snd_assoc]
     rfl
 

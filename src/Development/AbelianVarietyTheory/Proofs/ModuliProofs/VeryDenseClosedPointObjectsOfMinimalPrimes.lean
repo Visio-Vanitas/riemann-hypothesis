@@ -236,14 +236,14 @@ def GrpModel {R : Type} [CommRing R] (ψ : R →+* K) (A : Over (Sp R)) [GrpObj 
 
 variable {P}
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem GrpModel.baseChange {R R' : Type} [CommRing R] [CommRing R'] {ψ₀ : R →+* K} {A : Over (Sp R)} [GrpObj A]
     {φ : P.A.left ⟶ A.left} (h : GrpModel P ψ₀ A φ) {g : R →+* R'} {ψ : R' →+* K} (e : ψ.comp g = ψ₀) :
     ∃ φ' : P.A.left ⟶ ((Over.pullback (spMap g)).obj A).left,
       φ' ≫ pullback.fst A.hom (spMap g) = φ ∧ GrpModel P ψ ((Over.pullback (spMap g)).obj A) φ' := by
   obtain ⟨hA, hs, hp⟩ := h
-  have e' : spMap ψ₀ = spMap ψ ≫ spMap g := by rw [← e, spMap_comp]
+  have e' : spMap ψ₀ = spMap ψ ≫ spMap g := by rw [← e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have w : φ ≫ A.hom = (P.A.hom ≫ spMap ψ) ≫ spMap g := by rw [hp.1.w, e', Category.assoc]
   have hb := isGrpPullback_pullback A (spMap g)
   refine ⟨pullback.lift φ _ w, pullback.lift_fst _ _ _, PolPull.isAbelianScheme_of_isGrpPullback hA hb,
@@ -662,7 +662,7 @@ open GlobalTheory.ZM
 namespace GlobalTheory
 namespace ClosedPts
 
-alias spMap_spMap := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_spMap := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 alias jacobson_int := _root_.ReciprocityTheory.AnForm.R.IntegerToRational.isJacobsonRing_int
 

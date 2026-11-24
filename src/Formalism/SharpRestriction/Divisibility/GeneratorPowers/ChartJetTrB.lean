@@ -52,12 +52,6 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.S
 
 attribute [local instance] Over.cartesianMonoidalCategory
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (a : A →+* B) (b : B →+* C) :
-    spMap b ≫ spMap a = spMap (b.comp a) := by
-  simp only [spMap]
-  rw [← Spec.map_comp]
-  rfl
-
 section Pt
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
@@ -70,8 +64,8 @@ abbrev jc (n m : ℕ) : Jet T.V (Fin n × Fin d) m →+* Jet T.Fr (Fin n × Fin 
 theorem xL_w (m : ℕ) : (spMap (jc (d := d) 1 m) ≫ (xT m).left) ≫ I.G.G.hom =
     spMap (algebraMap T.Fr (Jet T.Fr (Fin 1 × Fin d) m)) ≫ spMap (algebraMap T.V T.Fr) := by
   rw [Category.assoc, Over.w]
-  simp only [spMap_comp']
-  simp only [jOG, Over.mk_hom, Category.comp_id, spMap_comp']
+  simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  simp only [jOG, Over.mk_hom, Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r
   simp only [jc, jetCoef, RingHom.comp_apply]

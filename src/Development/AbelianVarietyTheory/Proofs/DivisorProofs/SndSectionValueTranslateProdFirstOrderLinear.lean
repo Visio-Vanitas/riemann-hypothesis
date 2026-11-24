@@ -102,7 +102,7 @@ theorem fst_comp_of_smT_zero (g₀ : Sp S ⟶ G.left) (g' : overAt x0 (DualNumbe
     (hz : smT x0 0 z = g') : spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ z.left = g₀ := by
   have h1 : (smT x0 0 z).left = spMap (epsMul 0) ≫ z.left := rfl
   have h2 := congrArg (fun φ => spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ φ) (hz ▸ h1)
-  rw [hg, ← Category.assoc, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring] at h2
+  rw [hg, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at h2
   have e1 : (TrivSqZeroExt.fstHom S S S).toRingHom.comp (algebraMap S (DualNumber S)) = RingHom.id S := by
     ext; simp
   have e2 : (TrivSqZeroExt.fstHom S S S).toRingHom.comp (epsMul (0 : S)) =
@@ -116,7 +116,7 @@ theorem smT_const (g₀ : Sp S ⟶ G.left) (g' : overAt x0 (DualNumber S) ⟶ G)
     (hg : g'.left = spMap (algebraMap S (DualNumber S)) ≫ g₀) (a : S) : smT x0 a g' = g' := by
   apply Over.OverMorphism.ext
   have h1 : (smT x0 a g').left = spMap (epsMul a) ≫ g'.left := rfl
-  rw [h1, hg, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+  rw [h1, hg, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 2
   exact RingHom.ext fun x => by simp [epsMul]
 

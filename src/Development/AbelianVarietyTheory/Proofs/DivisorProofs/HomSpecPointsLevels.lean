@@ -63,7 +63,7 @@ theorem exists_spMap_affPt {R : Type} [CommRing R] {X : Scheme.{0}} (s : X ⟶ S
 theorem eq_of_spMap_affPt {R : Type} [CommRing R] {X : Scheme.{0}} (s : X ⟶ Sp R) (U : X.affineOpens)
     {C : Type} [CommRing C] {g g' : Sec s U.1 →+* C} (h : spMap g ≫ affPt s U = spMap g' ≫ affPt s U) : g = g' := by
   have : Mono (affPt s U) := @IsOpenImmersion.mono _ _ _ (IsAffineOpen.isOpenImmersion_fromSpec U.2)
-  exact _root_.GlobalTheory.ZM.DenseFib.spMap_inj ((cancel_mono _).1 h)
+  exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ((cancel_mono _).1 h)
 
 theorem red_over (D : Data) : D.i ≫ D.s = D.t := by
   obtain ⟨s₀, hpb, ht⟩ := D.red
@@ -96,11 +96,11 @@ theorem Lift.hom_iff (U : AffOp D.X) (T : Thick D.κ D.t) (y : Sec D.s U.unop.1 
       RingHom.liftOfRightInverse_comp_apply _ _ _ _ b
     refine ⟨⟨φ, φ₀, hc, hd, ?_⟩, hφ⟩
     have := D.mono_i
-    rw [← cancel_mono D.i, Category.assoc, ← Λ.pt U, ← h, ← Category.assoc, ← Cris.spMap_comp]
+    rw [← cancel_mono D.i, Category.assoc, ← Λ.pt U, ← h, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact RingHom.ext fun a ↦ (hc _).trans (congrArg T.π (hφ a))
   · rintro ⟨b, hb⟩
-    rw [← b.pt, Category.assoc, ← Λ.pt U, ← Category.assoc, ← Cris.spMap_comp]
+    rw [← b.pt, Category.assoc, ← Λ.pt U, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact RingHom.ext fun a ↦ ((b.comm _).trans (congrArg T.π (hb a))).symm
 
@@ -110,8 +110,8 @@ theorem Lift.hom_spec : ∀ (D : Data) (Λ : Lift D), (∀ (U : AffOp D.X) (T : 
   · obtain ⟨g, hg⟩ := exists_spMap_affPt D.s U.unop _ h
     refine ⟨g, hg, fun r ↦ ?_⟩
     have : spMap (g.comp (algebraMap D.R (Sec D.s U.unop.1))) = spMap (T.π.comp (algebraMap D.R T.B)) := by
-      rw [Cris.spMap_comp, ← affPt_w, ← Category.assoc, hg, Category.assoc, red_over, T.w]
-    exact RingHom.congr_fun (_root_.GlobalTheory.ZM.DenseFib.spMap_inj this) r
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← affPt_w, ← Category.assoc, hg, Category.assoc, red_over, T.w]
+    exact RingHom.congr_fun (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq this) r
   · obtain ⟨N₀, h⟩ := (isDPNilpotent_iff_exists_isLevel D.κ).1 D.nil
     refine ⟨N₀, fun N hN U ↦ ?_⟩
     have h' : fil D.κ N = ⊥ := eq_bot_iff.2 (le_of_le_of_eq (ExpBij.dpFil_anti D.κ hN) h)

@@ -1199,11 +1199,11 @@ theorem Taut.exists_isFam_of_siegPre : ∀ (g n : ℕ) (φ : InvFun ℤ), 3 ≤ 
   have hl : l.comp (algebraMap C.R (Localization.Away (∏ k, C.t k))) = algebraMap C.R (FractionRing C.R) :=
     IsLocalization.Away.lift_comp _ hu
   have hl' : spMap l ≫ spMap (algebraMap C.R (Localization.Away (∏ k, C.t k))) = jK C.R := by
-    rw [← Geo.Tor.spMap_comp, hl]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hl]
   obtain ⟨ψ, ψ₂, h₁, h₂, h₃, h₄⟩ := hPB
   obtain ⟨α₁, hα, hF⟩ := hM.exists_isMumfordFam F hl' c.isLB ha ha₂ hPa h₁ h₂ h₃
   refine ⟨spMap l ≫ yU, α₁, yU, l, ⟨hM.2.2.1, hab, hα, hF, ?_⟩, ⟨ψ, ψ₂, h₁, h₂, h₃, h₄⟩, hl, rfl⟩
-  rw [Category.assoc, hs, Geo.Tor.spMap_comp, ← Category.assoc, hl']
+  rw [Category.assoc, hs, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, hl']
 
 end GlobalTheory.TChart
 end -- clump:auto

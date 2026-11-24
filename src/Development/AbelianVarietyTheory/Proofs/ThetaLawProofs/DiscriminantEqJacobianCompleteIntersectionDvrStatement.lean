@@ -674,7 +674,7 @@ section Group
 
 open CategoryTheory Limits AlgebraicGeometry MonoidalCategory CartesianMonoidalCategory
 open scoped CategoryTheory.MonObj
-open ReciprocityTheory.ChartRestriction.G.Chart (sp spMap spMap_left spMap_comp spMap_id comp_one' IsTan fstD isTan_iff)
+open ReciprocityTheory.ChartRestriction.G.Chart (sp spMap spMap_left ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp spMap_id comp_one' IsTan fstD isTan_iff)
 open ReciprocityTheory.ChartRestriction.G.Geo.Tor (Sp epsR IsTangent IsLieComb IsLieBasis)
 open TrivSqZeroExt (inl inr)
 open GlobalTheory.SqZero GlobalTheory.LieComb IsLocalRing MvPowerSeries
@@ -701,12 +701,12 @@ theorem exists_matrix (hv : IsLieBasis v) (j : sp (R₀ := O) (MvPowerSeries (Fi
   have hfst : ∀ a, (χ a).fst = u a := by
     refine fun a => (AlgHom.congr_fun (mvPowerSeries_algHom_ext_of_isHausdorff (maximalIdeal O) hu0
       (inj u ((TrivSqZeroExt.fstHom O O _).comp χ) ?_)) a).symm
-    rw [← spMap_comp, Category.assoc, hχ, MonObj.comp_mul, hz, comp_lieExp,
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hχ, MonObj.comp_mul, hz, comp_lieExp,
       lieExp_eq_one hv.1 _ (fun i => by rfl), mul_one, hu]
   let φ : (Fin n → O) → (MvPowerSeries (Fin n) O →ₐ[O] DualNumber O) := fun c =>
     (vecTo (inlS O O) (fun i => inr (c i)) (fun _ _ => TrivSqZeroExt.inr_mul_inr _ _ _)).comp χ
   have hφ : ∀ c, spMap (φ c) ≫ j = (toUnit _ ≫ z) * tanExp v c := fun c => by
-    rw [← spMap_comp, Category.assoc, hχ, MonObj.comp_mul, hz, comp_lieExp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hχ, MonObj.comp_mul, hz, comp_lieExp]
     exact congrArg _ (lieExp_congr _ (fun i => vecTo_single _ _ _ i) _ _)
   have hφ1 : ∀ c a, (φ c a).fst = u a := fun c a => by
     simp [φ, vecTo_apply, TrivSqZeroExt.fst_sum, hfst]
@@ -717,7 +717,7 @@ theorem exists_matrix (hv : IsLieBasis v) (j : sp (R₀ := O) (MvPowerSeries (Fi
     intro l
     have h1 : (fstS O O).comp (dirPt u (Pi.single l 1)) = u := AlgHom.ext fun a => dirPt_fst _ _ a
     obtain ⟨c, hc⟩ := hsurj ((toUnit _ ≫ z)⁻¹ * (spMap (dirPt u (Pi.single l 1)) ≫ j)) (by
-      rw [IsTanOver, MonObj.comp_mul, GrpObj.comp_inv, hz, ← Category.assoc, spMap_comp, h1, hu,
+      rw [IsTanOver, MonObj.comp_mul, GrpObj.comp_inv, hz, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h1, hu,
         inv_mul_cancel])
     have h2 := inj (dirPt u (Pi.single l 1)) (φ c) (by rw [hφ, ← hc, mul_inv_cancel_left])
     exact ⟨c, fun i => by rw [← hφ2, ← h2, dirPt_snd_X]⟩

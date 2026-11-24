@@ -77,13 +77,6 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {D : Da
 
 section Field
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
-theorem spMap_inj {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
-
 theorem mem_of_gens {l : Level H} (T : Subfield (KA l)) (h₁ : (baseKA l).ρ ∈ T) (h₂ : (baseKA l).ζ ∈ T) (x : KA l) :
     x ∈ T := by
   obtain ⟨x, hx⟩ := x
@@ -264,7 +257,7 @@ theorem Twist.mul {g g' : Sim D} {σ σ' : KA l₂ →+* KA l₂} {f f' : Xo.X �
     root := by rw [RingHom.comp_apply, h'.root, map_zpow₀, h.root, ← zpow_mul]; rfl,
     lowM a := (h.lowM _).trans (h'.lowM a),
     lowA a := (h.lowA _).trans (h'.lowA a),
-    comm := by rw [Category.assoc, h'.comm, ← Category.assoc, h.comm, Category.assoc, spMap_comp'],
+    comm := by rw [Category.assoc, h'.comm, ← Category.assoc, h.comm, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp],
     map := by
       obtain ⟨ν, a, b⟩ := h.map
       obtain ⟨ν', a', b'⟩ := h'.map
@@ -336,8 +329,8 @@ theorem Twist.eq_id_of_fixed (hL : Out.Laws) (hpq : 1 ≤ D.p + D.q) (hd : l.Dvd
     rw [← Category.assoc, ← hq]
     exact (Category.assoc _ _ _).trans (congrArg _ (hn.symm.trans hrig))
   obtain ⟨β, hβ⟩ := exists_spMap (y ≫ Xo.s)
-  have hσ : β.comp σ = β := spMap_inj (by
-    rw [← spMap_comp', ← hβ, Category.assoc, ← h.comm, ← Category.assoc, hy])
+  have hσ : β.comp σ = β := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hβ, Category.assoc, ← h.comm, ← Category.assoc, hy])
   refine h.unique hpq hj Twist.one (RingHom.ext fun x => β.injective (RingHom.congr_fun hσ x))
     (fun x => eta_eq_of_point _ y ?_) (fun x => etaA_eq_of_point _ y ?_)
   · rw [← hid, a, ← Category.assoc, hy]; rfl
@@ -351,8 +344,8 @@ theorem exists_twist_of_lowers (hL : Out.Laws) (hpq : 1 ≤ D.p + D.q) (hd : l.D
     ∃ g σ f, Twist Xo jK g σ f ∧ y ≫ f = y' := by
   obtain ⟨β, hβ⟩ := exists_spMap (y ≫ Xo.s)
   obtain ⟨β', hβ'⟩ := exists_spMap (y' ≫ Xo.s)
-  have hb : β.comp jK = β'.comp jK := spMap_inj (by
-    rw [← spMap_comp', ← spMap_comp', ← hβ, ← hβ', Category.assoc, Category.assoc, hs])
+  have hb : β.comp jK = β'.comp jK := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hβ, ← hβ', Category.assoc, Category.assoc, hs])
   obtain ⟨o, ⟨p⟩⟩ := pull_univ Xo.univ y'
   obtain ⟨p', hp'⟩ := sab_cast (Category.id_comp y').symm p.toSABMap
   obtain ⟨n', hn'⟩ := ObjMaps.exists_sab_cancel mu' p'
@@ -409,7 +402,7 @@ theorem exists_twist_of_lowers (hL : Out.Laws) (hpq : 1 ≤ D.p + D.q) (hd : l.D
   · exact (pow_left_comp n (hA' x) _).symm.trans ((key _ _ _ _ (p.etaA x) (hl'.2 x)).trans (hl.2 x))
   · obtain ⟨m, hm⟩ := exists_comp_sabMap n ν rfl
     refine (Xo.rep (Sp k) (y' ≫ Xo.s) inferInstance o).unique ⟨?_, ⟨⟨m, fun x => ?_, fun x => ?_⟩⟩⟩ ⟨rfl, ⟨p⟩⟩
-    · rw [Category.assoc, hf, ← Category.assoc, hβ, hβ', spMap_comp', hσ]
+    · rw [Category.assoc, hf, ← Category.assoc, hβ, hβ', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ]
     · show _ ≫ m.φ = _
       rw [hm, ← Category.assoc, hM', Category.assoc, a, Category.assoc]
     · show _ ≫ m.φ = _
@@ -478,7 +471,7 @@ theorem exists_group_action : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E
     rw [hn, ← Category.assoc, h₁, Category.assoc, h₂, ← Category.assoc]
     rfl
   · obtain ⟨g, σ, h⟩ := a.2
-    rw [← Category.assoc, h.comm, Category.assoc, spMap_comp', h.fix]
+    rw [← Category.assoc, h.comm, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h.fix]
   · obtain ⟨g, σ, h⟩ := a.2
     exact Subtype.ext (h.eq_id_of_fixed hL hpq hd hj y hy)
   · obtain ⟨g, σ, f, h, e⟩ := exists_twist_of_lowers hL hpq hd hj y y' t mu mu' eM eA hs hl hl'

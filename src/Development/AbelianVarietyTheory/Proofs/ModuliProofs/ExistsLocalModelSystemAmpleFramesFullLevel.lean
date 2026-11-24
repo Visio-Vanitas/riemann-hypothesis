@@ -253,7 +253,7 @@ theorem Top.exists_cpt_above : ∀ (E : Type) [Field E] [NumberField E] [IsCMFie
   let s₁ := pullback.snd T.s (spMap b)
   have hp : IsPullback (pullback.fst s₁ (spMap β) ≫ pullback.fst T.s (spMap b)) (pullback.snd s₁ (spMap β)) T.s
       (spMap (β.comp b)) := by
-    rw [spMap_comp]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact (IsPullback.of_hasPullback s₁ (spMap β)).paste_horiz (IsPullback.of_hasPullback T.s (spMap b))
   let g := W.ι ≫ hp.isoPullback.inv
   have g₁ : (g ≫ pullback.fst _ _) ≫ pullback.fst _ _ = W.ι ≫ pullback.fst _ _ := by
@@ -1096,7 +1096,7 @@ theorem SemiTwist.comp {Xo : Moduli D l} {f f' φ φ' g g' σ σ'} (h : SemiTwis
   obtain ⟨h1, h2, h3⟩ := h
   obtain ⟨h1', h2', h3'⟩ := h'
   refine ⟨?_, fun a => ?_, fun a => ?_⟩
-  · rw [Category.assoc, h1', ← Category.assoc, h1, Category.assoc, GlobalTheory.LevCover.spMap_comp'']
+  · rw [Category.assoc, h1', ← Category.assoc, h1, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   · rw [← Category.assoc, h2, Category.assoc, h2', Category.assoc]
   · rw [Function.comp_apply, ← Category.assoc, h3, Category.assoc, h3', Category.assoc]
 
@@ -1333,7 +1333,7 @@ theorem exists_twist_of_fibre (hL : Out.Laws) (hL2 : Out.Laws2) (hL3 : Out.Laws3
     exact ⟨(IsAlgClosed.lift (R := KA l₁) (S := c.F) (M := k)).toRingHom,
       (IsAlgClosed.lift (R := KA l₁) (S := c.F) (M := k)).comp_algebraMap⟩
   have w : y ≫ X₁.s = spMap θ ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [LevCover.spMap_comp'', hθ, hβ]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hθ, hβ]
   obtain ⟨⟨g, ρ, hg, ⟨hs, m, b₁, b₂⟩, -, hy⟩, -⟩ := htr k (pullback.lift y (spMap θ) w)
     (pullback.lift y' (spMap θ) (h₂ ▸ w)) (by
       apply pullback.hom_ext
@@ -1427,7 +1427,7 @@ theorem exists_mem_twistMonoid (hL : Out.Laws) (hL2 : Out.Laws2) (hL3 : Out.Laws
   have hσ : σ.toRingHom.comp k = k := field_hom_ext l₀ _ _ (by rw [RingHom.comp_apply, hkρ]; exact h₁)
     (by rw [hz, map_one, map_one])
   obtain ⟨o₁, o₂⟩ := over_of_fix hL hL2 hL3 hA hc m h₂.2.1 (by
-    rw [Category.assoc, hr, ← Category.assoc, h₂.1, Category.assoc, LevCover.spMap_comp'', hσ])
+    rw [Category.assoc, hr, ← Category.assoc, h₂.1, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ])
   have e : m.φ = (τ ⟨Aut.of ρ, o₁⟩).asIso.hom :=
     ν.cart.1.hom_ext (o₂.trans (hτ _).1.symm) (m.cart.1.w.trans (hτ ⟨Aut.of ρ, o₁⟩).2.symm)
   exact ⟨⟨Aut.of ρ, o₁⟩, ⟨g, σ, h₁, e ▸ h₂⟩, rfl⟩
@@ -1460,15 +1460,15 @@ theorem exists_level_quotient : Out.Laws → Out.Laws2 → Out.Laws3 → ∀ (E 
     obtain ⟨β, hβ⟩ := LevCover.exists_spMap (y ≫ (Xo l₁).s)
     obtain ⟨β', hβ'⟩ := LevCover.exists_spMap (y' ≫ (Xo l₁).s)
     have hkρ : k (baseKA l₀).ρ = (baseKA l₁).ρ := Subtype.ext (hk _)
-    have hb : β.comp k = β'.comp k := LevCover.spMap_inj' (by
-      rw [← LevCover.spMap_comp'', ← LevCover.spMap_comp'', ← hβ, ← hβ', Category.assoc, Category.assoc, ← hr,
+    have hb : β.comp k = β'.comp k := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hβ, ← hβ', Category.assoc, Category.assoc, ← hr,
         ← Category.assoc, hy, Category.assoc])
     obtain ⟨σ, h₁, h₂⟩ := exists_fieldAut l₁ β β' (hkρ ▸ DFunLike.congr_fun hb (baseKA l₀).ρ)
     obtain ⟨ρ, m, g, h₃⟩ := exists_semiTwist_iso hpq l₀ hA hM hMb (Xo l₁) σ h₁
     obtain ⟨a, ha, ea⟩ := hS ρ m g σ h₁ h₃
     obtain ⟨ρ', m', g', h₄, h₅⟩ := exists_twist_of_fibre hL hL2 hL3 hN hd hM hMb hk hr hc (y ≫ ρ.hom) y'
       (by rw [Category.assoc, ← ea, show a.1.asIso.hom ≫ r = r from a.2, hy])
-      (by rw [Category.assoc, h₃.1, ← Category.assoc, hβ, hβ', LevCover.spMap_comp'', h₂])
+      (by rw [Category.assoc, h₃.1, ← Category.assoc, hβ, hβ', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h₂])
     obtain ⟨b, hb', eb⟩ := hS ρ' m' g' (RingEquiv.refl _) rfl h₄
     refine ⟨⟨b * a, (hT _).2 (S.mul_mem hb' ha)⟩, ?_⟩
     rw [h₅, Category.assoc, ← ea, ← eb]

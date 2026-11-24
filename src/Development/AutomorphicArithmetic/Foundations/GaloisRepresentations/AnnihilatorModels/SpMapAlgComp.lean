@@ -53,12 +53,12 @@ open UpperTheory.Gal.crystallineComparison UpperTheory.Gal.crystallineComparison
 
 namespace UpperTheory.Gal.crystallineComparison.Mod
 
-private alias spMap_inj' := _root_.GlobalTheory.ZM.DenseFib.spMap_inj
+private alias spMap_inj' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
 
 private theorem spMap_algComp {V B C D : Type} [CommRing V] [CommRing B] [CommRing C] [CommRing D] [Algebra V B] [Algebra V C]
     [Algebra V D] (a : C →ₐ[V] D) (b : B →ₐ[V] C) :
     spMap (a.comp b).toRingHom = spMap a.toRingHom ≫ spMap b.toRingHom := by
-  rw [_root_.GlobalTheory.spMap_comp_ring]; rfl
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
 
 private theorem pt_alg {V B Λ : Type} [CommRing V] [CommRing B] [Algebra V B] [CommRing Λ] [Algebra V Λ]
     (w : algPt V Λ ⟶ algPt V B) : ∃ ν : B →ₐ[V] Λ, w.left = spMap ν.toRingHom := by
@@ -67,7 +67,7 @@ private theorem pt_alg {V B Λ : Type} [CommRing V] [CommRing B] [Algebra V B] [
   have hw := Over.w w
   have key : (Spec.preimage w.left).hom.comp (algebraMap V B) = algebraMap V Λ := by
     apply spMap_inj'
-    rw [← _root_.GlobalTheory.spMap_comp_ring]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     change Spec.map (CommRingCat.ofHom (Spec.preimage w.left).hom) ≫ spMap (algebraMap V B) = spMap (algebraMap V Λ)
     rw [e]
     simpa using hw
@@ -77,7 +77,7 @@ private noncomputable def ptOf {V B Λ : Type} [CommRing V] [CommRing B] [Algebr
     (ν : B →ₐ[V] Λ) : algPt V Λ ⟶ algPt V B :=
   Over.homMk (spMap ν.toRingHom) (by
     show spMap ν.toRingHom ≫ spMap (algebraMap V B) = spMap (algebraMap V Λ)
-    rw [_root_.GlobalTheory.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact ν.comp_algebraMap)
 
@@ -151,7 +151,7 @@ theorem UpperTheory.Gal.crystallineComparison.Mod.infW_of :
       rw [← Category.assoc, ← Mod.spMap_algComp, hv]
       exact hInf0'
     obtain ⟨c, hc⟩ := hv₀ _ ((hiP' _ _).mp ⟨Mod.ptOf v, rfl⟩) hvI
-    rw [hm₀, Over.comp_left, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring] at hc
+    rw [hm₀, Over.comp_left, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hc
     have hr := Mod.spMap_inj' ((cancel_mono i'.left).mp hc)
     refine ⟨c, fun x => ?_⟩
     have hx := RingHom.congr_fun hr x

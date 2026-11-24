@@ -295,7 +295,7 @@ theorem Red.sig_π (r : R) : h.sig S (π r) = Ideal.Quotient.mk _ (algebraMap R 
 
 def Red.pt : Sp (S.B ⧸ big S I) ⟶ X₀ :=
   h.pb.lift (spMap (rho S I) ≫ S.x) (spMap (h.sig S)) (by
-    rw [Category.assoc, S.w, ← GlobalTheory.Cris.spMap_comp, ← GlobalTheory.Cris.spMap_comp]
+    rw [Category.assoc, S.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun r ↦ (rho_π S I _).trans (h.sig_π S r).symm)
 
@@ -315,7 +315,7 @@ theorem Red.pt_s : h.pt S ≫ s₀ = spMap (h.sig S) := h.pb.lift_snd _ _ _
   ker _ := Ideal.Quotient.eq_zero_iff_mem
   x := h.pt S
   w := by
-    rw [← Category.assoc, h.pt_s, ← GlobalTheory.Cris.spMap_comp]
+    rw [← Category.assoc, h.pt_s, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun r ↦ h.sig_π S r
 
@@ -344,7 +344,7 @@ def Red.upTo (hS : InN κ S) {T : Thick κ (s₀ ≫ spMap π)} (f : S ⟶ h.mor
   pt := by
     refine h.pb.hom_ext ?_ ?_
     · change (_ ≫ h.pt S) ≫ i = _
-      rw [Category.assoc, h.pt_i, ← Category.assoc, ← GlobalTheory.Cris.spMap_comp]
+      rw [Category.assoc, h.pt_i, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       refine Eq.trans ?_ f.pt
       congr 2
       refine RingHom.ext fun b ↦ ?_
@@ -356,7 +356,7 @@ def Red.upTo (hS : InN κ S) {T : Thick κ (s₀ ≫ spMap π)} (f : S ⟶ h.mor
         have : IsClosedImmersion (spMap π) := IsClosedImmersion.spec_of_surjective _ h.surj
         infer_instance
       rw [← cancel_mono (spMap π), Category.assoc, Category.assoc, ← Category.assoc (h.pt S), h.pt_s,
-        Category.assoc, T.w, ← GlobalTheory.Cris.spMap_comp, ← GlobalTheory.Cris.spMap_comp]
+        Category.assoc, T.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       refine RingHom.ext fun r ↦ ?_
       simp only [RingHom.comp_apply]
@@ -489,7 +489,7 @@ def push : Thick (dp0 R) s where
   ker := fun _ ↦ Ideal.Quotient.eq_zero_iff_mem
   x := spMap (pushRed S a θ ha) ≫ S.x
   w := by
-    rw [Category.assoc, S.w, ← GlobalTheory.Cris.spMap_comp]
+    rw [Category.assoc, S.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun r ↦ pushRed_π S a θ ha _
 
@@ -508,7 +508,7 @@ def pushDesc {V : Thick (dp0 R) s} (φ : S ⟶ V) (G : A →+* V.B) (hG : IsDPMo
   dp := hG
   pt := by
     change spMap _ ≫ spMap (pushRed S a θ ha) ≫ S.x = V.x
-    rw [← Category.assoc, ← GlobalTheory.Cris.spMap_comp, ← φ.pt]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← φ.pt]
     congr 2
     refine RingHom.ext fun b ↦ ?_
     obtain ⟨b, rfl⟩ := S.surj b

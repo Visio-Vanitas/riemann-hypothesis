@@ -126,7 +126,7 @@ theorem baseChange {k : ℕ} {S T : Type} [CommRing S] [CommRing T] (ψ : S →+
     rw [hev.2.1, Category.assoc]
   · have : spMap χ ≫ h.left ≫ (ev a).left = spMap χ ≫ h.left ≫ (ev b).left := hab
     rw [hh] at this
-    rw [spMap_comp, Category.assoc, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
     exact this
 
 theorem eq_of_agree (hL : Laws) {k : ℕ} (hk : 0 < k) {S T : Type} [CommRing S] [CommRing T] (χ : S →+* T)

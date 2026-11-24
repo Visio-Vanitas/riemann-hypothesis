@@ -531,11 +531,11 @@ theorem val_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Ho
   refine ⟨?_, _root_.GlobalTheory.CompanionTheory.Ar.SingVal.value_map E H D l Xo c Y S S₀ Ω Ω₀ K K₀ J J₀ y y₀ 𝔐 𝔐₀ i ι W φ z₁ z₂ σ₁ σ₂ hξ hpt g₁ g₂ v₁ v₂ hx⟩
   have e₁ : spMap φ ≫ spMap σ₁ ≫ 𝔐.X.fromSpecStalk (centre z₁) = z₁ := by
     have : φ.comp σ₁ = (Scheme.stalkClosedPointTo z₁).hom := RingHom.ext v₁
-    rw [← Category.assoc, ← FlagPull.spMap_comp, this]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, this]
     exact LieTangent.spec_centre z₁
   have e₂ : spMap φ ≫ spMap σ₂ ≫ 𝔐₀.X.fromSpecStalk (centre z₂) = z₂ := by
     have : φ.comp σ₂ = (Scheme.stalkClosedPointTo z₂).hom := RingHom.ext v₂
-    rw [← Category.assoc, ← FlagPull.spMap_comp, this]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, this]
     exact LieTangent.spec_centre z₂
   have f₁ : z₁ ≫ 𝔐.f = spMap φ ≫ spMap σ₁ ≫ 𝔐.X.fromSpecStalk (centre z₁) ≫ 𝔐.f :=
     (congrArg (· ≫ 𝔐.f) e₁).symm.trans (by simp only [Category.assoc])
@@ -725,12 +725,12 @@ theorem sing_agree : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H :
   have hξ : o.𝔐.ξ ≫ o.𝔐.f = spMap i ≫ o₀.𝔐.ξ ≫ o₀.𝔐.f := by
     rw [o.g_over, o₀.g_over, ← hi, ← Category.assoc]
     congr 1
-    exact (FlagPull.spMap_comp _ _)
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   have hFl : ∀ s k, (o.𝔐.M.pt (o.Fl.b s k)).left ≫ o.𝔐.m.φ =
       spMap (dualMap i) ≫ (o₀.𝔐.M.pt (o₀.Fl.b s k)).left ≫ o₀.𝔐.m.φ := fun s k => by
     rw [o.g_flag, o₀.g_flag, ← hi, ← Category.assoc, FlagPull.dualMap_comp]
     congr 1
-    exact (FlagPull.spMap_comp _ _)
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   obtain ⟨W, φ, hW, hr, hs⟩ := _root_.GlobalTheory.CompanionTheory.Ar.LocVal.exists_locRing_val _ _ _ (Ht.joinOf M R i) w hw
   obtain h₁ := _root_.GlobalTheory.CompanionTheory.Ar.RegVal.contains_localRing o.𝔐.X M.Ω M.Ω (RingHom.id _) o.𝔐.ξ M.K M.ι M.y z₁ _ W φ o.𝔐.tie hc₁ hW
     (fun k c' e hc => hr (Sum.inl k) c' e hc)

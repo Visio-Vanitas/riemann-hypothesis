@@ -269,7 +269,7 @@ theorem below_exists (hO : GlobalTheory.ClsVal.Cmp.OverBase d) (hK : KA l ≤ KA
   refine GlobalTheory.ClassSumCompare.exists_frUnder d hc y₂ ?_
   rw [Category.assoc, hO hK, ← Category.assoc, y₂.x_over]
   unfold sOf
-  rw [GlobalTheory.ClsVal.Cmp.spMap_comp']
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext x
   simp only [RingHom.comp_apply]

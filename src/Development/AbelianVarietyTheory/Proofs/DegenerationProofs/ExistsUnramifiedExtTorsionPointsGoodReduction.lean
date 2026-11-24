@@ -70,7 +70,7 @@ attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace GlobalTheory.TorsionUnram
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem exists_local_of_etale {T W Ω F : Type} [CommRing T] [IsDomain T] [IsDiscreteValuationRing T]
     [CommRing W] [Algebra T W] [Algebra.Etale T W] [Field Ω] [Field F] [IsAlgClosed F]

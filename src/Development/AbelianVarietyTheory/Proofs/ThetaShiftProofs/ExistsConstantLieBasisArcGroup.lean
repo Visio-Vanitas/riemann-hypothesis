@@ -290,7 +290,7 @@ end Transport
 
 section Lie
 
-open ReciprocityTheory.ChartRestriction.G.Chart hiding spMap spMap_comp
+open ReciprocityTheory.ChartRestriction.G.Chart hiding spMap ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 variable {R A : Type} [CommRing R] [CommRing A] (f : R →+* A) {G : Over (Sp R)} [GrpObj G] [IsCommMonObj G]
 
@@ -412,7 +412,7 @@ abbrev redE (A : Type) [CommRing A] : (epsR A).left ⟶ (epsR (PowerSeries A)).l
   spMap (dualMapR (PowerSeries.constantCoeff (R := A)))
 
 theorem redE_cstE (A : Type) [CommRing A] : redE A ≫ cstE A = 𝟙 _ := by
-  refine (spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (Spec.map_id _))
+  refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (Spec.map_id _))
   refine RingHom.ext fun x => ?_
   ext <;> simp
 
@@ -428,7 +428,7 @@ theorem lieImg_of_tr {ν : GtPt a.D₀ (epsR A)} {g : GtPt W.P.D.toPre (epsR (Po
     isLocalRing_quotient_pow hI n
   have := isLocalRing_dual (PowerSeries A ⧸ Ideal.span {(PowerSeries.X : PowerSeries A)} ^ (n + 1))
   refine genRelR_of_tr W.spec.2.1 W.P.U.toUnifPre h (hv n _ (spMap ρ) vn h₆) ?_ x
-  refine (spMap_comp _ _).symm.trans (congrArg spMap ?_)
+  refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap ?_)
   rw [eq_dualMapR ((Ideal.Quotient.mk _).comp (PowerSeries.C (R := A))) κ h₃ h₄]
   exact eq_dualMapR _ _ (fun r => (congrArg ρ (dualMapR_inl _ r)).trans (h₁ _))
     ((congrArg ρ (dualMapR_eps _)).trans h₂)
@@ -457,7 +457,7 @@ theorem exists_level_zero (v : epsR (PowerSeries A) ⟶ W.t.G) :
       rw [zero_add, pow_one, Ideal.mem_span_singleton] at hr
       exact PowerSeries.X_dvd_iff.1 hr
   have hq : spMap q ≫ thick (PowerSeries A) (Ideal.span {PowerSeries.X}) 0 =
-      spMap (PowerSeries.constantCoeff (R := A)) := (spMap_comp _ q).symm
+      spMap (PowerSeries.constantCoeff (R := A)) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ q).symm
   refine ⟨pullback.lift (redE A ≫ v.left) ((epsR A).hom ≫ spMap q) ?_, pullback.lift_fst _ _ _⟩
   rw [Category.assoc, Over.w v, Category.assoc, hq]
   exact LieCombBaseChange.dualMap_over _

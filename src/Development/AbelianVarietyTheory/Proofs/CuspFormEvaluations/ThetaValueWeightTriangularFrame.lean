@@ -479,7 +479,7 @@ private theorem frBor_units_map_of_frMap {S T : Type} [CommRing S] [Algebra c.F 
     let g : tEps z.x ⟶ tEps y.x := Over.homMk (spMap (dualMap φ.toRingHom)) (by
       show spMap (dualMap φ.toRingHom) ≫ spMap (algebraMap S (DualNumber S)) ≫ y.x =
         spMap (algebraMap T (DualNumber T)) ≫ z.x
-      rw [zx, ← Category.assoc, ← Category.assoc, ← FramedBaseChange.spec_comp, ← FramedBaseChange.spec_comp,
+      rw [zx, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
         _root_.Formalism.L2.Pj.dualMap_alg])
     let Fm : (tEps y.x ⟶ Xo.univ.t.G) →* (tEps z.x ⟶ Xo.univ.t.G) :=
       { toFun := fun v => g ≫ v
@@ -489,7 +489,7 @@ private theorem frBor_units_map_of_frMap {S T : Type} [CommRing S] [Algebra c.F 
     · dsimp only
       rw [Over.comp_left, hu1 j, zu τ j]
       change spMap (dualMap φ.toRingHom) ≫ _ = _
-      rw [← Category.assoc, ← Category.assoc, ← FramedBaseChange.spec_comp, ← FramedBaseChange.spec_comp,
+      rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
         _root_.Formalism.L2.Pj.dualMap_eps]
     · have hprod : (List.ofFn fun j => g ≫ u j).prod = g ≫ (List.ofFn u).prod := by
         have := map_list_prod Fm (List.ofFn u)

@@ -283,7 +283,7 @@ theorem kodaira_spencer_map_properties : _root_.GlobalTheory.CovTop.Hypotheses''
   intro PP E _ _ _ H Dw l Xo c TF U δ K _ _ P hU y' hU' hs hev
   have hred : spMap (GlobalTheory.FlagTan.red c K).toRingHom ≫ y' = frX P := by
     apply GlobalTheory.FlagMod.xF_ext (Y := TF.Y)
-    · rw [Category.assoc, hs, _root_.GlobalTheory.spMap_comp_ring]
+    · rw [Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
     · exact GlobalTheory.FlagMod.frX_snd P
     · have h1 : ⊤ ≤ (spMap (GlobalTheory.FlagTan.red c K).toRingHom ≫ (y' ≫ TF.Y.j)) ⁻¹ᵁ U.1 :=
@@ -296,7 +296,7 @@ theorem kodaira_spencer_map_properties : _root_.GlobalTheory.CovTop.Hypotheses''
       simp [GlobalTheory.FlagTan.red]
   have hx : GlobalTheory.FlagTan.IsTanX P (y' ≫ pullback.fst _ _) := by
     refine ⟨?_, ?_⟩
-    · rw [Category.assoc, pullback.condition, ← Category.assoc, hs, _root_.GlobalTheory.spMap_comp_ring]
+    · rw [Category.assoc, pullback.condition, ← Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
     · rw [← Category.assoc, hred, GlobalTheory.FlagMod.frX_fst]
   have P5 := PP.p5

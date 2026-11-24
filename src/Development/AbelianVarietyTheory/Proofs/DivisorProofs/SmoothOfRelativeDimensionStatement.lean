@@ -1123,7 +1123,7 @@ theorem exists_summand : ∀ (p : ℕ) [Fact p.Prime] (D : GlobalTheory.UPel.HT.
     exact one_ne_zero hsq
   haveI : IsLocalRing C₀ := IsLocalRing.of_surjective' π hπ
   have hlagr := GlobalTheory.HTLagr.fil_lagrangian p D R b N C₀ _ o₀ φ' (GlobalTheory.AbelianDim.exists_relDim C₀ o₀.A o₀.ab) hφ'
-  have hlie := GlobalTheory.HTSummand.lie_mod_fil p D R b N C₀ (π.comp tR) _ (GlobalTheory.Cris.spMap_comp tR π).symm o₀
+  have hlie := GlobalTheory.HTSummand.lie_mod_fil p D R b N C₀ (π.comp tR) _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp tR π).symm o₀
   have hprojF := _root_.GlobalTheory.HTSummand.crys_projective D.F C C₀ π hπ hsq o₀.A o₀.ab D.O o₀.act
   have hI2 : RingHom.ker π ^ 2 = ⊥ := hsq
   let F : Submodule C (Crys (divided₂ hsq) (spMap π) o₀.A) := (Fil o₀.A).comap red

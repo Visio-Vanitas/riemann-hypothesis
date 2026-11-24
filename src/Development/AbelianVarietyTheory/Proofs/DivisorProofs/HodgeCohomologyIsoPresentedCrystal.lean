@@ -154,16 +154,16 @@ theorem spMap_bwd (P : S.Presents s i) (U : AffOp X₀) : spMap (bwd P U) ≫ P.
 theorem fwd_bwd (P : S.Presents s i) (U : AffOp X₀) : (fwd P U).comp (bwd P U) = RingHom.id _ := by
   haveI := P.isOpen U
   refine ringHom_eq_of_spMap (P.y U) ?_
-  rw [Cris.spMap_comp, Category.assoc, spMap_bwd, spMap_fwd, Cris.spMap_id, Category.id_comp]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, spMap_bwd, spMap_fwd, Cris.spMap_id, Category.id_comp]
 
 theorem bwd_fwd (P : S.Presents s i) (U : AffOp X₀) : (bwd P U).comp (fwd P U) = RingHom.id _ := by
   refine ringHom_eq_of_spMap (affPt s (W P U)) ?_
-  rw [Cris.spMap_comp, Category.assoc, spMap_fwd, spMap_bwd, Cris.spMap_id, Category.id_comp]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, spMap_fwd, spMap_bwd, Cris.spMap_id, Category.id_comp]
 
 theorem fwd_algebraMap (P : S.Presents s i) (U : AffOp X₀) :
     (fwd P U).comp (algebraMap R (Sec s (W P U).1)) = algebraMap R (S.F.obj U) := by
   have h : spMap ((fwd P U).comp (algebraMap R (Sec s (W P U).1))) = spMap (algebraMap R (S.F.obj U)) := by
-    rw [Cris.spMap_comp, ← affPt_w, ← Category.assoc, spMap_fwd, P.base]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← affPt_w, ← Category.assoc, spMap_fwd, P.base]
   exact congrArg CommRingCat.Hom.hom (Spec.map_injective h)
 
 def e (P : S.Presents s i) (U : AffOp X₀) : Sec s (W P U).1 ≃ₐ[R] S.F.obj U :=
@@ -180,7 +180,7 @@ theorem e_res (P : S.Presents s i) {U V : AffOp X₀} (a : U ⟶ V) (b : Sec s (
   have : (fwd P V).comp (Sec.res s (W_le P a) : Sec s (W P U).1 →+* Sec s (W P V).1) =
       (mp S.F a : S.F.obj U →+* S.F.obj V).comp (fwd P U) := by
     refine ringHom_eq_of_spMap (affPt s (W P U)) ?_
-    rw [Cris.spMap_comp, Cris.spMap_comp, Category.assoc, Category.assoc, affPt_res, spMap_fwd, spMap_fwd, P.nat a]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, affPt_res, spMap_fwd, spMap_fwd, P.nat a]
   rw [e_apply, e_apply]
   exact RingHom.congr_fun this b
 
@@ -272,7 +272,7 @@ theorem p_e_res (P : S.Presents s i) (p : Pair i) (hle : W P (op p.1.1) ≤ p.1.
   have : (S.p (op p.1.1)).comp ((fwd P (op p.1.1)).comp (Sec.res s hle : Sec s p.1.2.1 →+* Sec s (W P (op p.1.1)).1)) =
       GlobalTheory.CechDR.secPull s s₀ p := by
     refine ringHom_eq_of_spMap (affPt s p.1.2) ?_
-    rw [Cris.spMap_comp, Cris.spMap_comp, Category.assoc, Category.assoc, affPt_res, spMap_fwd, P.red,
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, affPt_res, spMap_fwd, P.red,
       GlobalTheory.CechDR.secPull_affPt]
   exact RingHom.congr_fun this b
 

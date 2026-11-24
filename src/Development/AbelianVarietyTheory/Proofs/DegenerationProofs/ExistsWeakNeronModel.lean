@@ -64,12 +64,6 @@ noncomputable section
 namespace GlobalTheory.SS.WeakNeronEx
 open GlobalTheory.AbLaw ReciprocityTheory.ChartRestriction.G.Out
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := (Spec.map_comp _ _).symm
-
-theorem sp_inj {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (e : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective e)
-
 theorem away_of_irreducible (V : Type) [CommRing V] [IsDomain V]
     [IsDiscreteValuationRing V] (K : Type) [Field K] [Algebra V K] [IsFractionRing V K]
     {π : V} (hπ : Irreducible π) : IsLocalization.Away π K := by
@@ -262,16 +256,16 @@ theorem exists_affine (R K : Type) [CommRing R] [IsDomain R] [IsDiscreteValuatio
   · haveI : IsIso (spMap (e i).symm.toAlgHom.toRingHom) :=
       inferInstanceAs (IsIso (Spec.map (e i).symm.toRingEquiv.toCommRingCatIso.hom))
     infer_instance
-  · rw [Category.assoc, fromSpec_hom, sp_comp]
+  · rw [Category.assoc, fromSpec_hom, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap ((e i).symm.toAlgHom.comp_algebraMap)
   · intro V L _ _ _ _ _ _ _ a ha
     obtain ⟨i, h, hi⟩ := exists_chart s hc r hr (V := V) a
     have h₁ := spMap_ev a (haff i) h
     have h₂ : (ev a _ h).comp (algebraMap R _) = (algebraMap V L).comp (algebraMap R V) := by
-      apply sp_inj
+      apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
       have h₀ : a ≫ f = spMap ((ev a _ h).comp (cst f _)) := by
-        rw [← sp_comp, ← fromSpec_hom f (haff i), reassoc_of% h₁]
-      rw [← ha, reassoc_of% h₀, sp_comp]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← fromSpec_hom f (haff i), reassoc_of% h₁]
+      rw [← ha, reassoc_of% h₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
     letI : Algebra R L := ((algebraMap V L).comp (algebraMap R V)).toAlgebra
     haveI : IsScalarTower R V L := IsScalarTower.of_algebraMap_eq fun _ => rfl
@@ -283,7 +277,7 @@ theorem exists_affine (R K : Type) [CommRing R] [IsDomain R] [IsDiscreteValuatio
     let κ := AlgEquiv.ofInjective (IsScalarTower.toAlgHom R V L) (IsFractionRing.injective V L)
     refine ⟨i, κ.symm.toAlgHom.comp ((φ.comp (Subalgebra.val _)).codRestrict _ fun x => hle x.2),
       (ev a _ h).comp (e i).toAlgHom.toRingHom, ?_, fun x => ?_⟩
-    · rw [← Category.assoc, sp_comp]
+    · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       refine Eq.trans ?_ h₁
       congr 2
       ext y
@@ -318,7 +312,7 @@ theorem exists_weakNeron : ∀ (R K : Type) [CommRing R] [IsDomain R] [IsDiscret
     (spMap (Algebra.TensorProduct.map (AlgHom.id K K) (φ i k)).toRingHom ≫ u i)
     (by haveI := (hC i k).2; haveI := (hB i).2.2.1; infer_instance)
     (by
-      rw [Category.assoc, (hB i).2.2.2, sp_comp]
+      rw [Category.assoc, (hB i).2.2.2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (AlgHom.comp_algebraMap (Algebra.TensorProduct.map (AlgHom.id K K) (φ i k))))
   choose M g hg₁ hg₂ hg₃ hg₄ using h₂
   choose p N q hN hcov using fun i k => _root_.GlobalTheory.SS.IrrSplit.exists_cover_irr R K A (M i k)
@@ -339,7 +333,7 @@ theorem exists_weakNeron : ∀ (R K : Type) [CommRing R] [IsDomain R] [IsDiscret
   obtain ⟨i, b, ψ, hψ, hb⟩ := hpt V L a ha
   obtain ⟨k, c, hc⟩ := hlift i V b hunr
   have hb₀ : (spMap c.toRingHom ≫ g i k) ≫ (M i k).Y.hom = spMap (algebraMap R V) := by
-    rw [Category.assoc, hg₂, sp_comp]
+    rw [Category.assoc, hg₂, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (AlgHom.comp_algebraMap c)
   have hgen : spMap (algebraMap V L) ≫ spMap c.toRingHom ≫ g i k = a ≫ (M i k).j := by
     letI : Algebra R L := ((algebraMap V L).comp (algebraMap R V)).toAlgebra
@@ -368,8 +362,8 @@ theorem exists_weakNeron : ∀ (R K : Type) [CommRing R] [IsDomain R] [IsDiscret
       show ψ' (1 ⊗ₜ x) = _
       rw [Algebra.TensorProduct.lift_tmul, map_one, _root_.one_mul]
       rfl
-    rw [← Category.assoc, sp_comp, ← e₂, ← sp_comp, Category.assoc, hg₃, ← Category.assoc, ← Category.assoc,
-      sp_comp, e₁, hψ]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← e₂, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hg₃, ← Category.assoc, ← Category.assoc,
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e₁, hψ]
   have hsp : (spMap c.toRingHom ≫ g i k) (IsLocalRing.closedPoint V) ∈ (M i k).sp := by
     show (M i k).Y.hom ((spMap c.toRingHom ≫ g i k) _) = _
     rw [← Scheme.Hom.comp_apply, hb₀]

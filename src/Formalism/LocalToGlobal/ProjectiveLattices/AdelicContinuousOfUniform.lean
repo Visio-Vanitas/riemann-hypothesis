@@ -61,12 +61,6 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 section BC
 
-theorem bcSp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  unfold spMap
-  rw [← Spec.map_comp]
-  rfl
-
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
   {Xo : Moduli Dw l} {c : Coeff l}
 
@@ -89,7 +83,7 @@ theorem bcOver {S T : Type} [CommRing S] [Algebra c.F S] [CommRing T] [Algebra c
     {x : Sp S ⟶ Xo.X} (h : x ≫ Xo.s = sOf c S) : (spMap ψ.toRingHom ≫ x) ≫ Xo.s = sOf c T := by
   rw [Category.assoc, h]
   unfold sOf
-  rw [bcSp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext a
   simp

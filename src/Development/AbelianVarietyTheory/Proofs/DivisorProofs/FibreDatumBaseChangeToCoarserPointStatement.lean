@@ -159,7 +159,7 @@ theorem keyOn_trans : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMonObj
     rw [pullback.lift_fst, hξ]
     exact hP'
   have hφ : IsGrpPullback x.P.A (KeyVals.bG G ξ) (spMap (f.comp r)) (φ' ≫ m) := by
-    rw [spMap_comp]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact IsGrpPullback.comp hφ' hm
   have he : eSec x.P.A ≫ φ' ≫ m = spMap (f.comp r) ≫ eSec (KeyVals.bG G ξ) := PolBaseChange.eSec_comm hφ
   have e : (φ' ≫ m) ≫ pullback.fst G.hom ξ = φ' ≫ pullback.fst G.hom ξ' := by rw [Category.assoc, hfst]
@@ -168,7 +168,7 @@ theorem keyOn_trans : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMonObj
       (KeyVals.bL L ξ').rig (spMap f) :=
     (maps_iff ψ' _ _ _ x.rig (KeyVals.bL L ξ').rig (spMap f) _
       (rigPull_le (G' := x.P.A) φ' (spMap f) he' (KeyVals.bL L ξ').L) (fun _ => rfl)).1 hrig'
-  have c : spMap (f.comp r) ≫ ξ = spMap f ≫ ξ' := by rw [spMap_comp, Category.assoc, hξ]
+  have c : spMap (f.comp r) ≫ ξ = spMap f ≫ ξ' := by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hξ]
   have H := hmap L.rig (KeyVals.bL L ξ).rig (KeyVals.bL L ξ').rig x.rig he he' c (pmaps_bL L ξ) (pmaps_bL L ξ') H'
   have hD1 : ∀ a, Chart.dualMapR r (algebraMap R _ a) = algebraMap R' _ (r a) := fun a => by
     ext <;> simp [Chart.dualMapR, TrivSqZeroExt.algebraMap_eq_inl]
@@ -207,7 +207,7 @@ theorem keyOn_trans : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMonObj
         rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
         congr 2
         exact RingHom.ext fun a => (hD1 a).symm
-    rw [← Category.assoc, hFv j, Category.assoc, hv, spMap_comp, Category.assoc]
+    rw [← Category.assoc, hFv j, Category.assoc, hv, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 end GlobalTheory.KeyValsTrans
 

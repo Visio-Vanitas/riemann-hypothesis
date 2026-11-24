@@ -93,7 +93,7 @@ theorem transl_spMap {K : Type} [Field K] {A : Over (Sp K)} [GrpObj A] {B B' : T
     (φ : K →+* B) (σ : B →+* B') (x : Sp B ⟶ A.left) (hx : x ≫ A.hom = spMap φ) (v : epsR K ⟶ A) :
     transl (σ.comp φ) (spMap σ ≫ x) v = spMap (dualMap σ) ≫ transl φ x v := by
   have hx' : (spMap σ ≫ x) ≫ A.hom = spMap (σ.comp φ) := by
-    rw [Category.assoc, hx, Cris.spMap_comp]
+    rw [Category.assoc, hx, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact (isTransl_transl _ _ hx' v).unique ((isTransl_transl φ x hx v).map σ)
 
 theorem baseMap_eq {K : Type} [Field K] {B B' : Type} [CommRing B] [Algebra (DualNumber K) B] [CommRing B']
@@ -143,7 +143,7 @@ theorem isChartPt_spMap : ∀ {K : Type} [Field K] {A : Over (Sp K)} [GrpObj A] 
   intro K _ A _ A' Z m m' Ω δ n u θ Wo g B _ _ x l hx hxΩ hxWo hut hl B' _ _ ρ
   obtain ⟨h1, h2, h3⟩ := hl
   refine ⟨?_, ?_, fun f ↦ ?_⟩
-  · rw [Category.assoc, h1, ← Cris.spMap_comp, AlgHom.comp_algebraMap]
+  · rw [Category.assoc, h1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, AlgHom.comp_algebraMap]
   · rw [Category.assoc]
     exact GlobalTheory.FlagMod.le_preimage_comp _ h2
   · rw [Category.assoc, valR_spMap_comp _ _ _ h2, h3 f, chartVal_spMap m Ω δ u θ Wo g ρ hx hxΩ hxWo hut f]

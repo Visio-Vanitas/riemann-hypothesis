@@ -1408,7 +1408,7 @@ theorem exists_xfLevel : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] 
   let β : KA l →+* F := (toF C F).comp (IntermediateField.inclusion c.le).toRingHom
   have hx : (jFK (R := R) F ≫ C.y ≫ pullback.fst _ _) ≫ Xo.s = spMap β := by
     rw [Category.assoc, Category.assoc, pullback.condition, ← Category.assoc C.y, C.y_over]
-    simp only [β, toF, spMap_comp, Category.assoc]
+    simp only [β, toF, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   obtain ⟨-, J0, hζ0, jA, jM⟩ := Xo.univ.geom F (jFK (R := R) F ≫ C.y ≫ pullback.fst _ _) β hx
   haveI := c.fin
   obtain ⟨w, hw1, hw2, hw3⟩ := GlobalTheory.HostModel.exists_roots c.F F (toF C F)

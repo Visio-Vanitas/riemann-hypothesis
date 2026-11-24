@@ -435,15 +435,15 @@ theorem isFibreOf_trans {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R
   have g' := (isGen_iff w').1 hw'
   obtain ⟨w'', T⟩ := exists_comp x'.P.isLB w w' g g' hL x''.P.isLB
   have he'' : eSec x''.P.A ≫ φ' ≫ φ = spMap (f'.comp f) ≫ eSec G := by
-    rw [← Category.assoc, he', Category.assoc, he, spMap_comp, Category.assoc]
-  refine ⟨φ' ≫ φ, he'', w'', hg'.trans hg, F'.comp F, (hp'.comp hp).congr (spMap_comp f f').symm rfl,
+    rw [← Category.assoc, he', Category.assoc, he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+  refine ⟨φ' ≫ φ, he'', w'', hg'.trans hg, F'.comp F, (hp'.comp hp).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f f').symm rfl,
     (isGen_iff w'').2 (T.pgen_comp x'.P.isLB g g'), ?_, ?_, fun a => ?_, ?_, fun i => ?_⟩
   · have r₀ := (maps_iff w _ (fun _ => eSec G) _ x'.rig rig (spMap f) _
       (rigPull_le φ (spMap f) he L) (fun _ => rfl)).1 hr
     have r₁ := (maps_iff w' _ (fun _ => eSec x'.P.A) _ x''.rig x'.rig (spMap f') _
       (rigPull_le φ' (spMap f') he' x'.P.L) (fun _ => rfl)).1 hr'
     have r₂ := T.pmaps_comp x'.P.isLB (fun _ => he') r₀ r₁
-    rw [← spMap_comp] at r₂
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r₂
     exact (maps_iff w'' _ (fun _ => eSec G) _ x''.rig rig (spMap (f'.comp f)) _
       (rigPull_le (φ' ≫ φ) (spMap (f'.comp f)) he'' L) (fun _ => rfl)).2 r₂
   · refine (appLE_eq_iff_stalk w'' θ x''.th).2 fun Z q z j k hj hk => ?_
@@ -453,7 +453,7 @@ theorem isFibreOf_trans {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R
     rw [T _ q z j i k hj hi hk, ← Category.assoc, a, b, Units.val_mul, _root_.mul_assoc]
   · rw [RingHom.comp_apply, hF, hF', RingHom.comp_apply]
   · rw [RingHom.comp_apply, hε, hε']
-  · rw [← Category.assoc, hv', Category.assoc, hv, spMap_comp, Category.assoc]
+  · rw [← Category.assoc, hv', Category.assoc, hv, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     rfl
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E}
@@ -493,7 +493,7 @@ theorem exists_isFibreOf_pull {R R' R'' : Type} [CommRing R] [IsLocalRing R] [Co
     have u₂ := isUnit_of_mul_isUnit_right (e ▸ u₁)
     rw [gs_eq (𝟙 _) y _ hl] at u₂
     exact ⟨y, hy, TopologicalSpace.Opens.mem_iSup.2 ⟨l, (t'.G.left.mem_basicOpen _ _ hl).2 u₂⟩⟩
-  have hsp : spMap (f'.comp f) = spMap f' ≫ spMap f := spMap_comp _ _
+  have hsp : spMap (f'.comp f) = spMap f' ≫ spMap f := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   have hc := m.cart
   have hp := hc.1
   obtain ⟨φ', hφ, hw0⟩ : ∃ φ' : x.P.A.left ⟶ t'.G.left, φ' ≫ m.φ = φ'' ∧ φ' ≫ t'.G.hom = x.P.A.hom ≫ spMap f' :=
@@ -532,7 +532,7 @@ theorem exists_isFibreOf_pull {R R' R'' : Type} [CommRing R] [IsLocalRing R] [Co
   · ext <;> simp [Chart.dualMapR, TrivSqZeroExt.algebraMap_eq_inl]
   · ext <;> simp [Chart.dualMapR]
   · apply hp.hom_ext
-    · rw [Category.assoc, hv'', Category.assoc, hvv, ← hFF, ← Category.assoc, spMap_comp]
+    · rw [Category.assoc, hv'', Category.assoc, hvv, ← hFF, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · rw [Category.assoc, hw0, ← Category.assoc, Over.w, Category.assoc, Over.w]
       show Spec.map _ ≫ Spec.map _ = Spec.map _ ≫ Spec.map _
       rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
@@ -1760,7 +1760,7 @@ theorem key_isUnit {κ : KeyRule} (hκ : IsKeyRule κ) (hpow : ∀ (K : Type) [F
   obtain ⟨tΩ, ⟨mΩ⟩⟩ := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.exists_sab (spMap i) TK.t
   obtain ⟨⟨TΩ, rfl, hgΩ⟩, hL⟩ := GlobalTheory.CM.PAT.exists_of_sabMap E' H' _ _ _ TK tΩ mΩ
   have lK : ∀ τ N, LieMult T.act (spMap (i.comp (algebraMap V K))) τ N → LieMult TK.t.act (spMap i) τ N := fun τ N h =>
-    (GlobalTheory.LiePull.lieMult_pull _ _ _ _ _ _ _ T.act TK.t.act mK.cart mK.act Ω (spMap i) τ N).2 (by rwa [← spMap_comp])
+    (GlobalTheory.LiePull.lieMult_pull _ _ _ _ _ _ _ T.act TK.t.act mK.cart mK.act Ω (spMap i) τ N).2 (by rwa [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   have lΩ : ∀ τ N, LieMult TK.t.act (spMap i) τ N → LieMult TΩ.t.act (𝟙 _) τ N := fun τ N h =>
     (GlobalTheory.LiePull.lieMult_pull _ _ _ _ _ _ _ TK.t.act TΩ.t.act mΩ.cart mΩ.act Ω (𝟙 _) τ N).2 (by rwa [Category.id_comp])
   obtain ⟨D, rfl, rfl, hpq, ⟨I⟩⟩ := exists_datum_tate TΩ (by rw [hgΩ, hgK]; exact y.g_pos) ρ hρ p q
@@ -1780,7 +1780,7 @@ theorem key_isUnit {κ : KeyRule} (hκ : IsKeyRule κ) (hpow : ∀ (K : Type) [F
   obtain ⟨n₂, -⟩ := sabComp pullCubComp E' H' _ _ _ _ _ _ _ _ m₁ m₃
   obtain ⟨n₃, -⟩ := sabComp pullCubComp E' H' _ _ _ _ _ _ _ _ mK n₂
   obtain ⟨n₄, -⟩ := sabCancel pullCubCancel E' H' _ _ _ T G t'' (spMap g) (spMap (algebraMap T₀.V T₀.Fr)) mG
-    (PullbackSections.sabMapCast n₃ (by rw [← spMap_comp, ← spMap_comp, ← spMap_comp, hgj, RingHom.comp_assoc]))
+    (PullbackSections.sabMapCast n₃ (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hgj, RingHom.comp_assoc]))
   obtain ⟨y', hy'⟩ := GlobalTheory.KeyPow.exists_keyPB_ring y j₀
   have hf := isFibreOf_trans T.PP.isLB hy₂ hy'
   rw [← hgj] at hf

@@ -468,7 +468,7 @@ theorem exists_objMaps : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] 
   intro E _ _ _ H D' l c W _ b o k _ f B' _ π₁ π₂ h₁ h₂ h0 hL
   have hlow : lowMap c (f.comp b) = spMap f ≫ lowMap c b := by
     unfold lowMap
-    rw [RingHom.comp_assoc, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [RingHom.comp_assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨o', ⟨m₀⟩⟩ : ∃ o' : Obj D' (LowDat.lowLevel l) (baseKA (LowDat.lowLevel l)) (lowMap c (f.comp b)),
       Nonempty (ObjMap o' o (spMap f)) := by
     rw [hlow]
@@ -504,7 +504,7 @@ theorem exists_objMaps : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] 
   obtain ⟨m, hm⟩ := GlobalTheory.T.exists_sabMap_of_grpPullback_respecting_action_bundle o'.t o.t (spMap (GlobalTheory.RigChart.constHom f)) (io.hom ≫ π₂) o.proper hψc hact hLB
   have hg : spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ spMap f =
       spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ spMap (GlobalTheory.RigChart.constHom f) := by
-    rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
   have hunit : ∀ n : ℕ, 0 < n → (n : k) ≠ 0 := by
     intro n hn
@@ -794,10 +794,10 @@ namespace GlobalTheory.RigHom
 theorem comp_eq_of_const : ∀ {R : Type} [CommRing R] [IsDomain R] (Q : DegPre R) {W₀ : Type} [CommRing W₀] (ιb : W₀ →+* R) (B₀ : Over (Sp W₀)) [GrpObj B₀] (β : Q.P.A.left ⟶ B₀.left), IsGrpPullback Q.P.A B₀ (spMap ιb) β → ∀ (k : Type) [Field k] (ρ : R →+* DualNumber k), ρ.comp ιb = GlobalTheory.RigChart.constHom (ρ.comp ιb) → ∀ (B' : Over (Sp (DualNumber k))) [GrpObj B'] (π₁ π₂ : B'.left ⟶ Q.P.A.left), IsGrpPullback B' Q.P.A (spMap ρ) π₁ → IsGrpPullback B' Q.P.A (spMap (GlobalTheory.RigChart.constHom ρ)) π₂ → (∀ (Z : Scheme.{0}) (x : Z ⟶ B'.left) (y : Z ⟶ Sp k), x ≫ B'.hom = y ≫ spMap (TrivSqZeroExt.fstHom k k k).toRingHom → x ≫ π₁ = x ≫ π₂) → π₁ ≫ β = π₂ ≫ β := by
   intro R _ _ Q W₀ _ ιb B₀ _ β hβ k _ ρ hρ B' _ π₁ π₂ h₁ h₂ h0
   have c₁ : IsGrpPullback B' B₀ (spMap (ρ.comp ιb)) (π₁ ≫ β) :=
-    (IsGrpPullback.comp h₁ hβ).congr (_root_.GlobalTheory.spMap_comp_ring ιb ρ) rfl
+    (IsGrpPullback.comp h₁ hβ).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ιb ρ).symm rfl
   have c₂ : IsGrpPullback B' B₀ (spMap (ρ.comp ιb)) (π₂ ≫ β) := by
     refine (IsGrpPullback.comp h₂ hβ).congr ?_ rfl
-    rw [_root_.GlobalTheory.spMap_comp_ring, hρ]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ]
     rfl
   have hab : IsAbelianScheme B' := GlobalTheory.PolPull.isAbelianScheme_of_isGrpPullback Q.P.isAb h₁
   obtain ⟨e₁, he₁, f₁⟩ := grpPullback_iso c₁ (isGrpPullback_pullback B₀ (spMap (ρ.comp ιb)))
@@ -814,7 +814,7 @@ theorem comp_eq_of_const : ∀ {R : Type} [CommRing R] [IsDomain R] (Q : DegPre 
       pullback.fst B'.hom (spMap (Ideal.Quotient.mk I)) ≫ π₂ := by
     refine h0 _ _ (pullback.snd B'.hom (spMap (Ideal.Quotient.mk I)) ≫
       spMap ((Ideal.Quotient.mk I).comp (algebraMap k (DualNumber k)))) ?_
-    rw [pullback.condition, Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    rw [pullback.condition, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact mk_ker_fst_eq k
   have key : e₁.hom = e₂.hom := by

@@ -257,14 +257,14 @@ theorem wtf_frMap (hA : TanAddSt Xo) {S : Type} [CommRing S] [Algebra c.F S] {p 
   obtain ⟨hxb, -, pmb, hsb, hfb, hgb⟩ := hb
   have hφ : φ.toRingHom = χ.toRingHom.comp α.toRingHom := by rw [← hχα]; rfl
   have hxz : spMap χ.toRingHom ≫ z.x = y'.x := by
-    rw [hx2, ← Category.assoc, spMap_comp_spMap, ← hφ, hxb, hx1]
+    rw [hx2, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hφ, hxb, hx1]
   have hxy : spMap χ.toRingHom ≫ z.x = y.x := hxz.trans hxb
   refine ⟨hxz.symm, fun τ i => ?_, wtfA_bcPmE χ.toRingHom z.x y'.x hxz, wtfA_bcPmE_snd _ _ _ _,
     wtfA_bcPmE_fst _ _ _ _, fun i h => ?_⟩
   · let D : tEps y.x ⟶ tEps z.x := Over.homMk (spMap (dualMap χ.toRingHom)) (by
       show spMap (dualMap χ.toRingHom) ≫ spMap (algebraMap R (DualNumber R)) ≫ z.x =
         spMap (algebraMap S (DualNumber S)) ≫ y.x
-      rw [← Category.assoc, spMap_comp_spMap, dualMap_comp_alg, ← spMap_comp_spMap, Category.assoc, hxy])
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hxy])
     have hM' : ∀ τ i j, χ.toRingHom (M τ i j) = cf τ i j := hM
     have hD : D ≫ wtfA_comb z.x (fun j => wtfA_lt z.x (z.u τ j) (z.tan τ j)) (M τ i) =
         wtfA_comb y.x (fun j => wtfA_lt y.x (y.u τ j) (y.tan τ j)) (cf τ i) := by
@@ -272,13 +272,13 @@ theorem wtf_frMap (hA : TanAddSt Xo) {S : Type} [CommRing S] [Algebra c.F S] {p 
       rw [wtfA_pre_prod]
       refine Finset.prod_congr rfl fun j _ => Over.OverMorphism.ext ?_
       show spMap (dualMap χ.toRingHom) ≫ spMap (epsMul (M τ i j)) ≫ z.u τ j = spMap (epsMul (cf τ i j)) ≫ y.u τ j
-      rw [hu2 τ j, hu1 τ j, ← Category.assoc, spMap_comp_spMap, dualMap_comp_epsMul, ← spMap_comp_spMap, hM',
-        Category.assoc, ← Category.assoc (spMap (dualMap χ.toRingHom)), spMap_comp_spMap, wtf_dualMap_comp, ← hφ]
+      rw [hu2 τ j, hu1 τ j, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hM',
+        Category.assoc, ← Category.assoc (spMap (dualMap χ.toRingHom)), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, wtf_dualMap_comp, ← hφ]
     rw [← (wtfA_isComb_iff y.x (y.u τ) (y.tan τ) (cf τ i) (y'.u τ i)).1 (hcf τ i), ← hD]
     rfl
   · have hpm : wtfA_bcPmE χ.toRingHom z.x y'.x hxz ≫ pmz = pmb ≫ pma := by
       apply wtfA_gx_ext
-      · rw [Category.assoc, hfz, ← Category.assoc, wtfA_bcPmE_fst, Category.assoc, spMap_comp_spMap, ← hφ,
+      · rw [Category.assoc, hfz, ← Category.assoc, wtfA_bcPmE_fst, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hφ,
           Category.assoc, hfa, ← Category.assoc, hfb]
       · rw [Category.assoc, hsz, wtfA_bcPmE_snd, Category.assoc, hsa, hsb]
     have hfb' : pmb ≫ (fst (Over.mk y.x) Xo.univ.t.G).left =

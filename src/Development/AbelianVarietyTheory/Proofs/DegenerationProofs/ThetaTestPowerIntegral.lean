@@ -61,9 +61,6 @@ attribute [local instance] SplitExt.free SplitExt.finite MvPolynomial.gradedAlge
 
 namespace GlobalTheory.ZH.MultInt
 
-theorem spMap_comp_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := (Spec.map_comp _ _).symm
-
 theorem pow_left_pullback {S S' : Scheme.{0}} (f : S' ⟶ S) (G : Over S) [GrpObj G] {T : Over S'} {T₀ : Over S}
     (h : T.left ⟶ T₀.left) (hh : h ≫ T₀.hom = T.hom ≫ f) (x : T ⟶ (Over.pullback f).obj G) (x₀ : T₀ ⟶ G)
     (hx : h ≫ x₀.left = x.left ≫ pullback.fst G.hom f) (k : ℕ) :
@@ -93,7 +90,7 @@ theorem exists_finite_factor {p : ℕ} [Fact p.Prime] {V : Type} [CommRing V] {X
     exact (HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)).1 this
   have hψα : ψ.comp α = φ := by
     refine congrArg CommRingCat.Hom.hom (Spec.map_injective (?_ : spMap _ = spMap _))
-    rw [← spMap_comp_spMap, hα, ← Category.assoc, hψ, hx]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα, ← Category.assoc, hψ, hx]
   letI := α.toAlgebra
   obtain ⟨t, ht⟩ := Algebra.FiniteType.out (self := hft)
   haveI : Finite (ψ '' (t : Set A)) := (t.finite_toSet.image _).to_subtype
@@ -113,14 +110,14 @@ theorem exists_finite_factor {p : ℕ} [Fact p.Prime] {V : Type} [CommRing V] {X
     | add x y _ _ hx hy => rw [map_add]; exact add_mem hx hy
     | mul x y _ _ hx hy => rw [map_mul]; exact mul_mem hx hy
   refine ⟨K, hk, IntermediateField.finiteDimensional_sup _ _, spMap (ψ.codRestrict K hmem) ≫ i, ?_⟩
-  rw [← Category.assoc, spMap_comp_spMap]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact hψ
 
 theorem isProjOver_snd_snd {V F O K : Type} [CommRing V] [CommRing F] [CommRing O] [CommRing K] {X : Scheme.{0}}
     (s : X ⟶ Sp V) (α : V →+* F) (β : F →+* K) (ψ : V →+* O) (χ : O →+* K) (h : β.comp α = χ.comp ψ)
     (hp : IsProjOver (pullback.snd s (spMap α))) :
     IsProjOver (pullback.snd (pullback.snd s (spMap ψ)) (spMap χ)) := by
-  have e : spMap χ ≫ spMap ψ = spMap β ≫ spMap α := by rw [spMap_comp_spMap, spMap_comp_spMap, h]
+  have e : spMap χ ≫ spMap ψ = spMap β ≫ spMap α := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h]
   have H := (IsPullback.of_hasPullback (pullback.snd s (spMap ψ)) (spMap χ)).paste_horiz
     (IsPullback.of_hasPullback s (spMap ψ))
   rw [e] at H

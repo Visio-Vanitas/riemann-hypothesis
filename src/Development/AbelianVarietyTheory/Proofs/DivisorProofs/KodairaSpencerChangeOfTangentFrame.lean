@@ -153,12 +153,12 @@ theorem translate_comb : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] 
   · let gA : overAt (g₀ ≫ t.G.hom) (DualNumber S) ⟶ Over.mk (GlobalTheory.LogKS.chart U) :=
       Over.homMk (spMap ((algebraMap S (DualNumber S)).comp φ)) (by
         show spMap _ ≫ GlobalTheory.LogKS.chart U = spMap (algebraMap S (DualNumber S)) ≫ g₀ ≫ t.G.hom
-        rw [hg, spMap_comp, Category.assoc])
+        rw [hg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
     have h1 : gA ≫ (1 : Over.mk (GlobalTheory.LogKS.chart U) ⟶ t.G) = 1 := MonObj.comp_one gA
     apply Over.OverMorphism.ext
     rw [← h1, smT_left, Over.comp_left, hy c, ← (hTan c).2]
     simp only [gA, Over.homMk_left]
-    rw [← Category.assoc, spMap_comp', hr0, spMap_comp, Category.assoc]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hr0, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · obtain ⟨g'', V, h1, h2, h3⟩ := hw
     obtain ⟨u, hu, hprod⟩ := hComb
     have hg'' : g'' = g' := Over.OverMorphism.ext (h1.trans hg'.symm)
@@ -166,7 +166,7 @@ theorem translate_comb : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] 
       Over.homMk (spMap (dualMap φ)) (by
         show spMap (dualMap φ) ≫ spMap (algebraMap Γ(X, U.1) (DualNumber Γ(X, U.1))) ≫ GlobalTheory.LogKS.chart U =
           spMap (algebraMap S (DualNumber S)) ≫ g₀ ≫ t.G.hom
-        rw [hg, ← Category.assoc, spMap_comp', hra, spMap_comp, Category.assoc])
+        rw [hg, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hra, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
     have hV : V = bA ≫ (List.ofFn u).prod := by
       apply Over.OverMorphism.ext
       rw [h2, Over.comp_left, hprod]
@@ -176,7 +176,7 @@ theorem translate_comb : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] 
       apply Over.OverMorphism.ext
       rw [Over.comp_left, hu c, smT_left, hy c]
       simp only [bA, Over.homMk_left]
-      rw [← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', Formalism.L2.Pj.dualMap_comp_epsMul]
+      rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Formalism.L2.Pj.dualMap_comp_epsMul]
     rw [← h3, hg'', hV, comp_list_prod]
     simp only [hbAu]
 

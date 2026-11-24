@@ -80,7 +80,7 @@ theorem comp_base (hZ : Cells A π g κ) (k : A.B × Pm Dw.mult) {L : Type} [Com
     (hz : ⊤ ≤ z ⁻¹ᵁ (κ k.1 k.2).opensRange) :
     z ≫ π = spMap (((ev z _ hz).comp (cellθ κ k).toRingHom).comp (cC A k.1)) ≫ tau (A.V k.1).2 := by
   conv_lhs => rw [← eq_spMap_ev k z hz]
-  rw [Category.assoc, hZ.plk.base, cbase, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+  rw [Category.assoc, hZ.plk.base, cbase, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem le_comp_base (hZ : Cells A π g κ) (k : A.B × Pm Dw.mult) {L : Type} [CommRing L] (z : Sp L ⟶ Z)

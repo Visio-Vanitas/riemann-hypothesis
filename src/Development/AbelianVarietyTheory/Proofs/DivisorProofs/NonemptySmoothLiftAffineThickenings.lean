@@ -82,9 +82,9 @@ theorem exists_pt (D : Data) (U : D.X.affineOpens) : ∃ x : Sp (Sec D.s U.1 ⧸
     Ideal.quotientMap (ext D U) (algebraMap D.R (Sec D.s U.1)) Ideal.le_comap_map
   have hq : spMap q ≫ spMap (Ideal.Quotient.mk D.I) =
       spMap ((Ideal.Quotient.mk (ext D U)).comp (algebraMap D.R (Sec D.s U.1))) := by
-    rw [← Cris.spMap_comp]; rfl
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   refine ⟨hpb.lift (spMap (Ideal.Quotient.mk (ext D U)) ≫ affPt D.s U) (spMap q) ?_, hpb.lift_fst _ _ _, ?_⟩
-  · rw [hq, Category.assoc, affPt_w, Cris.spMap_comp]
+  · rw [hq, Category.assoc, affPt_w, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   · rw [ht, ← Category.assoc, hpb.lift_snd, hq]
 
 theorem exists_dp (D : Data) (U : D.X.affineOpens) :
@@ -130,7 +130,7 @@ theorem nonempty_lift : ∀ D : Data, Nonempty (Lift D) := by
       pt := by
         rw [← cancel_mono D.i, Category.assoc]
         change spMap _ ≫ x U ≫ D.i = x V ≫ D.i
-        rw [hx, hx, ← affPt_res D.s h, ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp]
+        rw [hx, hx, ← affPt_res D.s h, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         rfl }
   refine ⟨{ L := { obj := fun U ↦ T U.unop
                    map := fun a ↦ m (leOfHom a.unop)

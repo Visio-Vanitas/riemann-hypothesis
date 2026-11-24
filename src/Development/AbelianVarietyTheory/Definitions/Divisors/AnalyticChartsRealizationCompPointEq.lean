@@ -145,7 +145,7 @@ def obj (T : K.Obj) : Thick (dp0 B) s where
   ker _ := Ideal.Quotient.eq_zero_iff_mem
   x := spMap ((Ideal.Quotient.mk T.J).comp T.ρ) ≫ r.x T.k
   w := by
-    rw [Category.assoc, r.w, ← Cris.spMap_comp]
+    rw [Category.assoc, r.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun b ↦ congrArg (Ideal.Quotient.mk T.J) (T.ρ_cst (σ b))
 
@@ -155,7 +155,7 @@ theorem analyticChartsRealization_comp_point_eq {T T' : K.Obj} (f : T ⟶ T') :
   have e : (Ideal.quotientMap T'.J (f.φ : T.C →+* T'.C) f.mem).comp ((Ideal.Quotient.mk T.J).comp T.ρ) =
       ((Ideal.Quotient.mk T'.J).comp T'.ρ).comp (Charts.sh (Charts.Hom.le f)) :=
     RingHom.ext fun h ↦ Ideal.Quotient.eq.2 (f.close.sub_mem h)
-  rw [← r.compat (Charts.Hom.le f), ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp, e]
+  rw [← r.compat (Charts.Hom.le f), ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
 
 def functor : K.Obj ⥤ Thick (dp0 B) s where
   obj := r.obj
@@ -320,9 +320,9 @@ variable (σ : B →+* Hol (fam I).V)
 
 def real (K : Charts (fam I)) : Real K (str B) σ where
   x k := spMap (pt ((K.cst k).comp σ) (expFn (K.W k)) (isUnit_expFn _))
-  w _ := by rw [← Cris.spMap_comp, pt_const]
+  w _ := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, pt_const]
   compat {l k k'} h := by
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     refine congrArg spMap (comp_pt _ _ _ (fun b ↦ Charts.sh_cst h _) (Subtype.ext (funext fun p ↦ ?_)))
     change Complex.exp (p.1.2 0 + l * (2 * Real.pi * Complex.I)) = Complex.exp (p.1.2 0)
     rw [Complex.exp_add, Complex.exp_int_mul_two_pi_mul_I, mul_one]
@@ -336,7 +336,7 @@ theorem ev_comp_pt (K : Charts (fam I)) (k : K.K) (p : Tot I 1) (hp : p ∈ K.W 
 
 def unif : Unif (fam I) (str B) σ where
   E p := spMap (expPt σ p)
-  w p hp := by rw [← Cris.spMap_comp, expPt, pt_const]
+  w p hp := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, expPt, pt_const]
   per l p _ := by
     have : Complex.exp (((fam I).shift l p).2 0) = Complex.exp (p.2 0) := by
       change Complex.exp (p.2 0 + l * (2 * Real.pi * Complex.I)) = Complex.exp (p.2 0)
@@ -351,7 +351,7 @@ def unif : Unif (fam I) (str B) σ where
     exact Hol.ev_apply p hp _
 
 theorem isFor (K : Charts (fam I)) : (real σ K).IsFor (unif σ) := fun k p hp ↦
-  (Cris.spMap_comp _ _).symm.trans (congrArg spMap (ev_comp_pt σ K k p hp))
+  (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (ev_comp_pt σ K k p hp))
 
 theorem based : (unif σ).Based := ⟨⊤, isAffineOpen_top _, fun _ _ ↦ le_top⟩
 

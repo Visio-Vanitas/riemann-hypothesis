@@ -350,11 +350,11 @@ theorem tanPull_mem_step (φ : S →+* S') (z : Sp S ⟶ Z) {x : Sp S ⟶ Y.X} (
     (ez : spMap φ ≫ z = z') {x' : Sp S' ⟶ Y.X} (hx' : z' ≫ π = x') (e : spMap φ ≫ x = x') (σ : E →+* ℂ) (i : ℕ)
     {v : TanM x Y.t.G} (hv : v ∈ F.step z hx σ i) : tanPull φ e v ∈ F.step z' hx' σ i := by
   intro S'' _ ψ x'' e' k z'' ez' hz'' hx''
-  have := hv S'' (ψ.comp φ) x'' (by rw [← spMap_comp', Category.assoc, e, e']) k z''
-    (by rw [← spMap_comp', Category.assoc, ez, ez']) hz'' hx''
+  have := hv S'' (ψ.comp φ) x'' (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, e, e']) k z''
+    (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ez, ez']) hz'' hx''
   convert this using 1
   apply tan_ext_left
-  rw [tanPull_left, tanPull_left, tanPull_left, dualMap_comp, ← spMap_comp', Category.assoc]
+  rw [tanPull_left, tanPull_left, tanPull_left, dualMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 theorem mem_step_iff_of_injective {V K : Type} [CommRing V] [IsLocalRing V] [CommRing K] (φ : V →+* K)
     (hφ : Function.Injective φ) (z : Sp V ⟶ Z) {x : Sp V ⟶ Y.X} (hx : z ≫ π = x) {zK : Sp K ⟶ Z}

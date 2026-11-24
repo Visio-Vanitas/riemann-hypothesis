@@ -243,9 +243,9 @@ theorem exists_siegPre_of_descended_data : ∀ (h M : ℕ) (o : Type) [CommRing 
   intro k _ _ x β z hx hz
   obtain ⟨i', rfl⟩ : ∃ i' : K₀ →+* k, x = spMap i' := ⟨(Spec.preimage x).hom, (Spec.map_preimage x).symm⟩
   obtain ⟨Ω, _, _, j, j', hj⟩ := _root_.GlobalTheory.CommonAlgClosedExtension.exists_common_algClosed_extension K₀ K k i i'
-  have e : spMap j' ≫ spMap i' = spMap j ≫ spMap i := by rw [← spMap_comp, ← spMap_comp, hj]
+  have e : spMap j' ≫ spMap i' = spMap j ≫ spMap i := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hj]
   obtain ⟨g₁, g₂, g₃⟩ := c.geom Ω (spMap j) (j'.comp β) (Units.map j'.toMonoidHom z)
-    (by rw [hs, ← Category.assoc, ← e, Category.assoc, hx, spMap_comp]) (congrArg j' hz)
+    (by rw [hs, ← Category.assoc, ← e, Category.assoc, hx, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) (congrArg j' hz)
   obtain ⟨σ, hσ⟩ := exists_liftHom hp (Over.mk (spMap j)) (Over.mk (spMap i')) (spMap j') e
   have σinj : Function.Injective σ := fun x y e => by
     haveI := epi _ _ j'

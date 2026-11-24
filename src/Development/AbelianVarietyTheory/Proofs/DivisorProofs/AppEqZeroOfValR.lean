@@ -225,7 +225,7 @@ theorem exists_global_lift (hv : ∀ a, IsTanAtG t (chart U) (v a)) (hKS : IsKS 
     obtain ⟨ψ, hψ⟩ : ∃ ψ : K →+* Γ(Y, Ω.1), spMap ψ = chart Ω ≫ q :=
       ⟨(Spec.preimage (chart Ω ≫ q)).hom, Spec.map_preimage _⟩
     have hg : (chart Ω ≫ m) ≫ t.G.hom = spMap (ψ.comp φ₀) ≫ chart U := by
-      rw [Category.assoc, hm, ← Category.assoc, ← hψ, ← Category.assoc, spMap_comp']
+      rw [Category.assoc, hm, ← Category.assoc, ← hψ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     choose w hw using fun a => (existsUnique_isTranslate t (ψ.comp φ₀) hg (hv a)).exists
     rw [hdiff i i' O hO f _ (ψ.comp φ₀) (chart Ω ≫ m) w hg (fun p hp => hΩ (top_le_chart Ω hp)) hw]
     simp [hΘ]
@@ -238,7 +238,7 @@ theorem exists_isConstK (hv : ∀ a, IsTanAtG t (chart U) (v a)) (hKS : IsKS t V
     (hi : IsGrpPullback A A' (spMap (TrivSqZeroExt.fstHom K K K).toRingHom) i) : ∃ ρ, IsConstK A' A ρ i := by
   have hA := PolPull.isAbelianScheme_of_isGrpPullback hA' hi
   let φ₀ : Γ(X, U.1) →+* K := (TrivSqZeroExt.fstHom K K K).toRingHom.comp φ
-  have hφ₀ : spMap φ₀ = spMap (TrivSqZeroExt.fstHom K K K).toRingHom ≫ spMap φ := (spMap_comp' _ _).symm
+  have hφ₀ : spMap φ₀ = spMap (TrivSqZeroExt.fstHom K K K).toRingHom ≫ spMap φ := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   have hm : (i ≫ ι') ≫ t.G.hom = A.hom ≫ spMap φ₀ ≫ chart U := by
     rw [Category.assoc, hι'.1.w, ← Category.assoc, hi.1.w, hφ₀]
     simp only [Category.assoc]
@@ -287,7 +287,7 @@ theorem exists_isConstK (hv : ∀ a, IsTanAtG t (chart U) (v a)) (hKS : IsKS t V
     have a2 : resG C hT (((ρ ≫ i ≫ ι').appLE (t.G.hom ⁻¹ᵁ U.1) _ le_rfl).hom ((t.G.hom.app U.1).hom r)) =
         constFn π ⊤ (algebraMap K (DualNumber K) (φ₀ r)) := by
       rw [← RingHom.comp_apply (algebraMap K _), ← appLE_eq_constFn U _ π ((ρ ≫ i ≫ ι') ≫ t.G.hom) (by
-        rw [Category.assoc, hm, ← Category.assoc, P.w, ← spMap_comp' φ₀ (algebraMap K (DualNumber K))]
+        rw [Category.assoc, hm, ← Category.assoc, P.w, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ₀ (algebraMap K (DualNumber K))]
         simp only [Category.assoc]) ⊤ hT, Scheme.Hom.comp_appLE]
       exact congrArg (fun ψ => ψ.hom ((t.G.hom.app U.1).hom r))
         (Scheme.Hom.appLE_map (ρ ≫ i ≫ ι') le_rfl (homOfLE hT).op)

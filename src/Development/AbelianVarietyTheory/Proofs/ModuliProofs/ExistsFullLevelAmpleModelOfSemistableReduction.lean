@@ -1468,7 +1468,7 @@ open GlobalTheory.ZM
 noncomputable section
 namespace GlobalTheory.ThetaCrit
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem exists_model (hS : GlobalTheory.SS.SemistablePol) {o : Type} [CommRing o] {g k : ℕ} {J : Type} {b : TBase o k}
     (V K : Type) [CommRing V] [IsDomain V] [IsDiscreteValuationRing V] [IsAdicComplete (IsLocalRing.maximalIdeal V) V]
@@ -1488,16 +1488,16 @@ theorem exists_model (hS : GlobalTheory.SS.SemistablePol) {o : Type} [CommRing o
     rw [RingHom.comp_assoc, ← hcomm, ← RingHom.comp_assoc, hε]
   obtain ⟨tK, hK⟩ := GlobalTheory.tObj_pull o g k J b _ _ _
     (spMap (algebraMap W (FractionRing W)) ≫ spMap (algebraMap V W) ≫ spMap β) (spMap ψ) t
-    (by rw [← Category.assoc, ← spMap_comp, hψ, spMap_comp, Category.assoc])
+    (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
   obtain ⟨χ, hχ, -⟩ := id hK
-  have e₁ : spMap ε ≫ spMap (algebraMap W L) = Out.jK W := by rw [← spMap_comp, hε]
+  have e₁ : spMap ε ≫ spMap (algebraMap W L) = Out.jK W := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hε]
   have a₁ := ((isGrpPullback_of_iso e).comp (isGrpPullback_pullback t.pol.A _)).congr (Category.id_comp _) rfl
   let m : ((Over.pullback (Out.jK W)).obj G).left ⟶ ((Over.pullback (spMap (algebraMap W L))).obj G).left :=
     pullback.lift (pullback.fst _ _) (pullback.snd _ _ ≫ spMap ε) (by rw [Category.assoc, e₁, pullback.condition])
   have a₂ : IsGrpPullback ((Over.pullback (Out.jK W)).obj G) ((Over.pullback (spMap (algebraMap W L))).obj G)
       (spMap ε) m := (isGrpPullback_pullback G _).cancel
     ((isGrpPullback_pullback G (Out.jK W)).congr e₁.symm (pullback.lift_fst _ _ _).symm) (pullback.lift_snd _ _ _)
-  obtain ⟨gen, hgen, -⟩ := grpPullback_iso ((a₂.comp a₁).congr (spMap_comp _ _).symm rfl) hχ
+  obtain ⟨gen, hgen, -⟩ := grpPullback_iso ((a₂.comp a₁).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm rfl) hχ
   exact ⟨W, inferInstance, inferInstance, inferInstance, algebraMap V W, ψ, tK, G, inferInstance, gen, hloc, hψ, hc, hK,
     hgen, hG⟩
 
@@ -1870,7 +1870,7 @@ theorem semistablePol_of_padic : GlobalTheory.Published.SemistableReductionSt �
   · haveI : IsLocalHom e₀.toRingHom := isLocalHom_of_leftInverse e₀.symm.toRingHom e₀.left_inv
     exact RingHom.isLocalHom_comp f e₀.toRingHom
   · obtain ⟨i, hi, -⟩ := grpPullback_iso
-      ((hφ.comp hψ).congr (GlobalTheory.SplitReduction.spMap_comp _ _) rfl)
+      ((hφ.comp hψ).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm rfl)
       (isGrpPullback_pullback A.A (spMap (algebraMap K K')))
     exact ⟨i, hi⟩
 

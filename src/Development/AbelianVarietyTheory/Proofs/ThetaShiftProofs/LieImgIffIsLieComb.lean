@@ -243,7 +243,7 @@ def Reads (W : Wit Y a χ) (ν : GtPt a.D₀ (epsR A)) (g : GtPt W.P.D.toPre (ep
 omit [IsDomain A] [IsLocalRing A] in
 theorem dualMapR_over {A' : Type} [CommRing A'] (f : A →+* A') :
     spMap (dualMapR f) ≫ (epsR A).hom = (epsR A').hom ≫ spMap f :=
-  (spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun r => dualMapR_inl _ r)).trans (spMap_comp _ _))
+  (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun r => dualMapR_inl _ r)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
 
 omit [IsLocalRing A] in
 theorem exists_reads (hG : GlobalFnsSt) (W : Wit Y a χ) (ν : GtPt a.D₀ (epsR A)) : ∃ g, Reads W ν g := by
@@ -288,7 +288,7 @@ theorem lieImg_iff (W : Wit Y a χ) {ν : GtPt a.D₀ (epsR A)} {g : GtPt W.P.D.
     have hsurj : Function.Surjective ρ := ConstTanFormal.dualMapR_surjective Ideal.Quotient.mk_surjective
     let q := ρ.liftOfSurjective hsurj ⟨_, hk⟩
     have hq : spMap q ≫ spMap ρ = adicLevelι J (n + 1) :=
-      (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.liftOfSurjective_comp ρ hsurj _))
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.liftOfSurjective_comp ρ hsurj _))
     have hr : FormalPoint.reduction I v n = spMap q ≫ xe := by
       rw [← cancel_mono (fstG I n W.t.G).left, FormalPoint.reduction_fstG, Category.assoc, hx, ← Category.assoc, hq]
     have := hc.comp (spMap q)
@@ -308,14 +308,14 @@ theorem lieImg_iff (W : Wit Y a χ) {ν : GtPt a.D₀ (epsR A)} {g : GtPt W.P.D.
 
 omit [IsDomain A] [IsLocalRing A] in
 def scaleOver (c : A) : epsR A ⟶ epsR A := Over.homMk (spMap (epsScaleR c))
-  ((spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun r => by
+  ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun r => by
     ext <;> simp [epsScaleR, TrivSqZeroExt.algebraMap_eq_inl])))
 
 omit [IsDomain A] [IsLocalRing A] in
 theorem scale_dualMapR {A' : Type} [CommRing A'] (f : A →+* A') (c : A) :
     spMap (epsScaleR (f c)) ≫ spMap (dualMapR f) = spMap (dualMapR f) ≫ spMap (epsScaleR c) :=
-  (spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun r => by
-    ext <;> simp [dualMapR, epsScaleR, _root_.mul_comm])).trans (spMap_comp _ _))
+  (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun r => by
+    ext <;> simp [dualMapR, epsScaleR, _root_.mul_comm])).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
 
 theorem chain {M α : Type} [Monoid M] (P : α → M → Prop) : ∀ (m : ℕ) (p : Fin (m + 1) → α) (u : Fin m → M) (x : M),
     P (p 0) x → (∀ (i : Fin m) y, P (p i.castSucc) y → P (p i.succ) (y * u i)) →

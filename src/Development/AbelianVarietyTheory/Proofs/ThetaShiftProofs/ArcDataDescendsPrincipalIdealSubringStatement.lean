@@ -102,7 +102,7 @@ theorem psiUnitOn_near_of_tauCan [IsIntegrallyClosed R] (D : DegPre R) {n : ℕ}
   let i : W →+* FractionRing R := algebraMap W (FractionRing R)
   let φ : R →+* W := algebraMap R W
   have sq : spMap i ≫ spMap φ = jK R := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (IsScalarTower.algebraMap_eq R W (FractionRing R)).symm
   have := D.P.isAb.proper
   have : D.P.A.left.IsSeparated := ⟨by rw [← terminal.comp_from D.P.A.hom]; infer_instance⟩
@@ -465,7 +465,7 @@ theorem geom_down (hL : Laws) (hφ : Function.Injective f) (a' : ArcIn Dw l β K
   · obtain ⟨n, m₁, m₂⟩ := (FieldPull.det_iff p hx ho hF _ _).1 (k₁ (g.comp τ))
     have := D₀.P.isAb.smooth
     refine ⟨n, (DetExtend.lieMult_extend g _ _ τ n).1 ?_, m₂.trans ?_⟩
-    · rw [← spMap_comp, ← RingHom.comp_assoc, hg]; exact m₁
+    · rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, hg]; exact m₁
     · have e : ((algebraMap (FractionRing K) F').comp (algebraMap K _)) (f.comp b r) =
           g (((algebraMap (FractionRing R) F).comp (algebraMap R _)) (b r)) := (hF (b r)).symm
       rw [e, RingHom.comp_apply, g.injective.eq_iff]

@@ -1031,14 +1031,14 @@ namespace GlobalTheory.LogKSDiv.SpreadFrame
 
 theorem eps_dual {R S : Type} [CommRing R] [CommRing S] (θ : R →+* S) (c : R) :
     spMap (epsMul (θ c)) ≫ spMap (dualMap θ) = spMap (dualMap θ) ≫ spMap (epsMul c) := by
-  rw [ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap, ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   refine RingHom.ext fun z => ?_
   ext <;> simp [epsMul, dualMap, mul_comm]
 
 theorem dual_dual {R S T : Type} [CommRing R] [CommRing S] [CommRing T] (θ : S →+* T) (l : R →+* S) :
     spMap (dualMap θ) ≫ spMap (dualMap l) = spMap (dualMap (θ.comp l)) := by
-  rw [ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   refine RingHom.ext fun z => ?_
   ext <;> simp [dualMap]
@@ -1047,7 +1047,7 @@ theorem cancel_eps {R : Type} [CommRing R] {T : Scheme.{0}} {a b : Sp (DualNumbe
     (h : spMap (epsMul u) ≫ a = spMap (epsMul u) ≫ b) : a = b := by
   obtain ⟨u, rfl⟩ := hu
   have e : spMap (epsMul ((u⁻¹ : Rˣ) : R)) ≫ spMap (epsMul (u : R)) = 𝟙 _ := by
-    rw [ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap, ← Spec.map_id]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Spec.map_id]
     congr 1
     ext z <;> simp [epsMul]
   calc a = (spMap (epsMul ((u⁻¹ : Rˣ) : R)) ≫ spMap (epsMul (u : R))) ≫ a := by rw [e, Category.id_comp]
@@ -1093,7 +1093,7 @@ theorem GlobalTheory.LogKSDiv.exists_spread_eigFrame : ∀ (E : Type) [Field E] 
   let φ₀ : c.F →+* Γ(TF.Y.X, U₀) := (Spec.preimage (x₀ ≫ TF.Y.s)).hom
   have hφ₀ : spMap φ₀ = x₀ ≫ TF.Y.s := Spec.map_preimage _
   have hφl : φ = lam.comp φ₀ := spMap_inj (by
-    rw [← hφ, ← ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap, hφ₀, ← Category.assoc, hpt, Category.assoc])
+    rw [← hφ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ₀, ← Category.assoc, hpt, Category.assoc])
   subst hφl
   have vec_bc_of_chart {S : Type} [CommRing S] {X : Scheme.{0}} {t : SAB H X} {x : Sp S ⟶ X} {n : ℕ}
       {xc : ∀ m : ℕ, ReciprocityTheory.ChartRestriction.G.Chart.sp (R₀ := S) (ReciprocityTheory.ChartRestriction.G.Chart.JetR S (Fin n) m) ⟶ (Over.pullback x).obj t.G}
@@ -1244,7 +1244,7 @@ theorem GlobalTheory.LogKSDiv.exists_spread_eigFrame : ∀ (E : Type) [Field E] 
   let cv : Fin (Fintype.card (Σ τ : E →+* ℂ, Fin (Dw.mult τ))) → Fin m → Γ(TF.Y.X, U.1) := fun j => w • (ψ ∘ B₀ j)
   refine ⟨U, le_trans (show TF.Y.X.basicOpen (g' * g) ≤ _ by rw [Scheme.basicOpen_mul]; exact inf_le_left) hg'le, hyU, ρ, _, e,
     fun j => vec TF.Y.t (LogKS.chart U) xU (cv j), ψ.comp φ₀, ?_, fun j => vec_tan hxU _, ?_, ?_, ?_⟩
-  · rw [hchart, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap, hρψ, ← ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap,
+  · rw [hchart, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρψ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc, ← hpt, ← Category.assoc]
     congr 1
     exact Scheme.SpecMap_stalkSpecializes_fromSpecStalk ((genericPoint_spec (X₀ TF.Y Z)).specializes trivial)

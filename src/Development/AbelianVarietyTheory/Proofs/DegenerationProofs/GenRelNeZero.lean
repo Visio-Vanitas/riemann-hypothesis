@@ -693,7 +693,7 @@ theorem map_eq [IsNoetherianRing R] (hL : Laws) (hM : (l.M : F) ≠ 0) : φ₁ =
     ⟨(PrimeSpectrum.denseRange_comap_iff_ker_le_nilRadical j).2 (by
       rw [(RingHom.injective_iff_ker_eq_bot j).1 hj]; exact bot_le)⟩
   have : IsDominant (jFK (R := R) F ≫ jK R) := by
-    rw [show jFK (R := R) F ≫ jK R = spMap j from (spMap_comp _ _).symm]
+    rw [show jFK (R := R) F ≫ jK R = spMap j from (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm]
     exact this
   have hT := base_comm hF
   have key : θ.hom = 𝟙 _ := by

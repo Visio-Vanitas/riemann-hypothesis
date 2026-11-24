@@ -68,7 +68,7 @@ theorem crys_two_reductions : AbelianDeRham → ∀ (R R₁ R₀ : Type) [CommRi
   have hπ : Function.Surjective π := by
     rw [← st.comp]; exact st.surj₁.comp st.surj
   have hb : spMap π₁ ≫ spMap ρ = spMap π ≫ spMap (RingHom.id R) := by
-    rw [Cris.spMap_id, Category.comp_id, ← st.comp, Cris.spMap_comp]
+    rw [Cris.spMap_id, Category.comp_id, ← st.comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let N : GrpMor (divided₂ hJ) (spMap ρ) A₁ κ (spMap π) A₀ (RingHom.id R) (spMap π₁) i₁ :=
     GrpMor.of_isGrpPullback st.dpJ hb h₁
   have key : ∀ c, N.pull ((liftMor (divided₂ hJ) h₂).pull c) = (liftMor κ h).pull c := fun c ↦

@@ -208,10 +208,10 @@ variable {R W : Type} [CommRing R] [IsDomain R] [CommRing W] [IsDomain W] {φ : 
 theorem jFK_fac {ga : FractionRing R →+* FractionRing W} (hga : ∀ r, ga (algebraMap R _ r) = algebraMap W _ (φ r))
     (c : Compat φ F') : jFK (R := R) F' = (TFK (R := W) F').hom ≫ spMap ga :=
   (congrArg spMap (IsLocalization.ringHom_ext (nonZeroDivisors R) (RingHom.ext fun r => (c r).trans
-      (congrArg (algebraMap (FractionRing W) F') (hga r).symm)))).trans (Geo.Tor.spMap_comp _ _)
+      (congrArg (algebraMap (FractionRing W) F') (hga r).symm)))).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
 
 def ptMap (em : F →ₐ[FractionRing R] F') : TFK (R := R) F' ⟶ TFK (R := R) F :=
-  Over.homMk (spMap em.toRingHom) ((Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap em.comp_algebraMap))
+  Over.homMk (spMap em.toRingHom) ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap em.comp_algebraMap))
 
 theorem exists_ptHom [CharZero R] [IsAlgClosed F] [IsAlgClosed F'] (ha : IsFib φ A A' a) (c : Compat φ F')
     (em : F →ₐ[FractionRing R] F') :

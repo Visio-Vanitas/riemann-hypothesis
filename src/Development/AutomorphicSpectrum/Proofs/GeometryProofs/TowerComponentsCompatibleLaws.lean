@@ -943,7 +943,7 @@ namespace GlobalTheory.CompanionTheory.Ar.Rec.ReadEx
 
 alias dualMap_comp₂ := _root_.GlobalTheory.FramedBaseChange.dual_comp
 
-alias spc := _root_.Formalism.L2.Pj.spMap_comp_ring
+alias spc := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 section Core
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : ReciprocityTheory.ChartRestriction.G.Geo.Tor.Host E} {Dw : Datum H} {l : Level H}

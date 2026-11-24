@@ -137,7 +137,7 @@ theorem exists_countable_atlas : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
   intro L _ _ y
   have hcond : y.x ≫ Xo.s =
       spMap (algebraMap c.F L) ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [y.x_over, spMap_comp_ring]
+    rw [y.x_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   let q : Sp L ⟶ Xo.XF c := pullback.lift y.x (spMap (algebraMap c.F L)) hcond
   obtain ⟨p, hpT, hq⟩ := Set.mem_iUnion₂.mp (hT (Set.mem_univ (q (IsLocalRing.closedPoint L))))

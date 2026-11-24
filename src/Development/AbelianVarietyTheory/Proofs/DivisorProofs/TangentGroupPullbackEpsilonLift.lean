@@ -99,7 +99,7 @@ def epsThick (hs : s' = s ≫ DeRham.epsRed R) (T : Thick (dp0 R) s) : Thick (ep
   ker := fun b ↦ T.ker b.fst
   x := T.x
   w := by
-    rw [hs, ← Category.assoc, T.w, ← Cris.spMap_comp]
+    rw [hs, ← Category.assoc, T.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun a ↦ congrArg T.π (fst_epsMap (algebraMap R T.B) a).symm
 

@@ -888,13 +888,13 @@ end General
 theorem dual_over {A B : Type} [CommRing A] [CommRing B] (f : A →+* B) :
     spMap (dualMap f) ≫ (epsR A).hom = (epsR B).hom ≫ spMap f := by
   change spMap _ ≫ spMap _ = spMap _ ≫ spMap _
-  rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext a <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
 
 theorem dual_scale {A B : Type} [CommRing A] [CommRing B] (f : A →+* B) (c : A) :
     spMap (epsScaleR (f c)) ≫ spMap (dualMap f) = spMap (dualMap f) ≫ spMap (epsScaleR c) := by
-  rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   refine RingHom.ext fun a => ?_
   ext <;> simp [dualMap, epsScaleR, mul_comm]

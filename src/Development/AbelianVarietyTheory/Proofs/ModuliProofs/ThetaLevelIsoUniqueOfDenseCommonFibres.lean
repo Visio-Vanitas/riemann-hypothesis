@@ -488,7 +488,7 @@ theorem idealOf_le [IsReduced S] (h₁ : Laws) (h₂ : Laws2) {t t' : TObj g (N'
     (by rw [← Category.assoc _ u.A.hom, z₂, Category.id_comp, Category.assoc, hy])
     (by rw [z₁, Category.assoc]) (by rw [← Category.assoc _ u.A.hom, z₂, Category.id_comp, c₁]) c₂
     (Coord.baseChange hv i)
-  have := ProjRep.eval_of_mem_idealOf hF' (β := i.comp β) (c₁.trans (spMap_comp _ _).symm) hv'
+  have := ProjRep.eval_of_mem_idealOf hF' (β := i.comp β) (c₁.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm) hv'
   apply i.injective
   rw [map_zero, MvPolynomial.eval₂_comp_left]
   exact this

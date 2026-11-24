@@ -54,16 +54,12 @@ namespace GlobalTheory.SiegelRingChange
 
 variable {h k : ℕ} {B B' : Type} [CommRing B] [CommRing B'] {ζ : B} {ζ' : B'} {S : Scheme.{0}}
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem exists_spMap {R₁ R₂ : Type} [CommRing R₁] [CommRing R₂] (x : Sp R₂ ⟶ Sp R₁) :
     ∃ a : R₁ →+* R₂, spMap a = x := by
   obtain ⟨a, ha⟩ := Spec.map_surjective x
   exact ⟨a.hom, ha⟩
-
-theorem spMap_inj {R₁ R₂ : Type} [CommRing R₁] [CommRing R₂] {a b : R₁ →+* R₂} (e : spMap a = spMap b) : a = b := by
-  have := Spec.map_injective e
-  exact congrArg CommRingCat.Hom.hom this
 
 def down (j : B →+* B') (hj : j ζ = ζ') {s' : S ⟶ Sp B'} (c : SiegPre h k ζ' s') : SiegPre h k ζ (s' ≫ spMap j) :=
   { A := c.A, ab := c.ab, P := c.P, isLB := c.isLB, rig₁ := c.rig₁, rig₂ := c.rig₂, symm := c.symm
@@ -71,7 +67,7 @@ def down (j : B →+* B') (hj : j ζ = ζ') {s' : S ⟶ Sp B'} (c : SiegPre h k 
     geom := fun K _ _ x β z hx hz => by
       obtain ⟨β', hβ'⟩ := exists_spMap (x ≫ s')
       have e : β'.comp j = β := by
-        apply spMap_inj
+        apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
         rw [spMap_comp', hβ', Category.assoc, hx]
       refine c.geom K x β' z hβ'.symm ?_
       rw [hz, ← e, ← hj]; rfl }

@@ -53,11 +53,6 @@ namespace GlobalTheory.Frames.EigenBaseChange
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
   {Xo : Moduli Dw l} {c : Coeff l}
 
-theorem spMap_spMap {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R' →+* R'')
-    (g : R →+* R') : spMap f ≫ spMap g = spMap (f.comp g) := by
-  simp only [spMap, ← Spec.map_comp]
-  rfl
-
 theorem dualMap_comp_alg {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* T) :
     (dualMap ψ).comp (algebraMap S (DualNumber S)) = (algebraMap T (DualNumber T)).comp ψ := by
   ext s <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
@@ -77,9 +72,9 @@ theorem isTanAt_baseChange {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* 
     IsTanAt (spMap ψ ≫ x) (spMap (dualMap ψ) ≫ v) := by
   obtain ⟨h1, h2⟩ := hv
   refine ⟨?_, ?_⟩
-  · rw [Category.assoc, h1, ← Category.assoc, spMap_spMap, dualMap_comp_alg, ← spMap_spMap,
+  · rw [Category.assoc, h1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc]
-  · rw [← Category.assoc, spMap_spMap, fst_comp_dualMap, ← spMap_spMap, Category.assoc, h2]
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_dualMap, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, h2]
     simp only [Hom.one_def, Over.comp_left]
     simp
 
@@ -87,7 +82,7 @@ theorem isEigAt_baseChange {S T : Type} [CommRing S] [Algebra c.F S] [CommRing T
     (ψ : S →ₐ[c.F] T) (τ : E →+* ℂ) {v : Sp (DualNumber S) ⟶ Xo.univ.t.G.left} (hv : IsEigAt c τ v) :
     IsEigAt c τ (spMap (dualMap ψ.toRingHom) ≫ v) := by
   intro a
-  rw [Category.assoc, hv a, ← Category.assoc, spMap_spMap, dualMap_comp_epsMul, ← spMap_spMap,
+  rw [Category.assoc, hv a, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
     Category.assoc]
   congr 3
   exact ψ.commutes _

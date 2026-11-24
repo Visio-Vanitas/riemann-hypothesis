@@ -67,7 +67,7 @@ variable {R : Type} [CommRing R] [IsDomain R] {D : DegPre R} {F F' F'' : Type} [
 
 theorem qkExt_trans {f : F →+* F'} {g : F' →+* F''} {p : QkPt D F k} {q : QkPt D F' k} {r : QkPt D F'' k}
     (h₁ : QkExt f p q) (h₂ : QkExt g q r) : QkExt (g.comp f) p r := by
-  have hs : spMap (g.comp f) = spMap g ≫ spMap f := Geo.Tor.spMap_comp _ _
+  have hs : spMap (g.comp f) = spMap g ≫ spMap f := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   refine ⟨h₂.1.trans h₁.1, by rw [h₂.2.1, h₁.2.1, hs, Category.assoc], fun χ => corr_of_val D.P.isLB fun y J hJ => ?_⟩
   refine ((val_corr hJ (h₂.2.2 χ) _).trans ((val_pull hJ _ _ _).trans ((val_corr hJ (h₁.2.2 χ) _).trans
     (val_pull hJ _ _ _)))).trans (Eq.trans ?_ (val_pull hJ _ _ _).symm)
@@ -100,7 +100,7 @@ theorem exists_lift_pt {R R' : Type} [CommRing R] [IsDomain R] [CommRing R'] [Is
     (x : TFK (R := R) F ⟶ A) : ∃ x' : TFK (R := R') F' ⟶ A', x'.left ≫ a = spMap f ≫ x.left := by
   have w : (spMap f ≫ x.left) ≫ A.hom = jFK (R := R') F' ≫ spMap ga := by
     rw [Category.assoc, Over.w x]
-    exact (Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap hf).trans (Geo.Tor.spMap_comp _ _))
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap hf).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   exact ⟨Over.homMk (h.lift _ _ w) (h.lift_snd _ _ w), h.lift_fst _ _ w⟩
 
 theorem eq_fracMap {R R' : Type} [CommRing R] [IsDomain R] [CommRing R'] [IsDomain R'] {φ : R →+* R'}

@@ -54,7 +54,7 @@ open AlgebraicGeometry CategoryTheory Limits NumberField ReciprocityTheory.Chart
 
 namespace GlobalTheory.ShFam.TieBase
 
-alias spMap_trans := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_trans := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem exists_affine_factor {Y : Scheme.{0}} {R : Type} [CommRing R] [IsLocalRing R] (x : Sp R ⟶ Y) {U : Y.Opens}
     (hU : IsAffineOpen U) (h : x (IsLocalRing.closedPoint R) ∈ U) :

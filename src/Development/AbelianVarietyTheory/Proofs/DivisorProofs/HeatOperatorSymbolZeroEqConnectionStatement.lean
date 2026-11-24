@@ -491,12 +491,12 @@ theorem GlobalTheory.KS.TwoPull.exists_locDerK_of_two_pullbacks : ∀ (k : Type)
   subst hpr
   have hsp : spMap (constHom ρ) =
       spMap (algebraMap k (DualNumber k)) ≫ spMap ((TrivSqZeroExt.fstHom k k k).toRingHom.comp ρ) := by
-    rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   have hpb : IsPullback pr B'.hom A₀.hom (spMap (algebraMap k (DualNumber k))) := by
     refine IsPullback.of_right ?_ hprA hm₀.1
     rw [← hsp]; exact hπ₂.1
   have hid : spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ spMap (algebraMap k (DualNumber k)) = 𝟙 _ := by
-    rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : ((TrivSqZeroExt.fstHom k k k).toRingHom.comp (algebraMap k (DualNumber k))) = RingHom.id k := by
       ext x; simp
     rw [this]; simp [spMap]

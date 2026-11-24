@@ -632,7 +632,7 @@ theorem liftObj_step : AbelianDeRham → AbelianUnobstructed → ∀ (R R₁ R�
   intro g A₀ _ A' _ i' h' hA' hg F hF
   have hπ : Function.Surjective π := S.comp ▸ S.surj₁.comp S.surj
   have hrig := P.2.2.2.1
-  have hsp : spMap π = spMap π₁ ≫ spMap ρ := by rw [← S.comp, Cris.spMap_comp]
+  have hsp : spMap π = spMap π₁ ≫ spMap ρ := by rw [← S.comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have M : GrpMor κ (spMap π) A₀ κ₁ (spMap π₁) A₀ ρ (𝟙 _) (𝟙 _) := by
     refine ⟨S.dp, ?_, ?_, ?_⟩
     · simpa using hsp
@@ -766,7 +766,7 @@ theorem filtration_reduction : AbelianDeRham → ∀ (R R₁ R₀ : Type) [CommR
         (ρ.comp (RingHom.id R)) (𝟙 _ ≫ spMap π) (𝟙 _ ≫ i) := by
       let m := liftMor κ h
       refine ⟨IsDPMorphism.comp _ M.dp m.dp, ?_, ?_, ?_⟩
-      · rw [Category.assoc, m.base, ← Category.assoc, M.base, Category.assoc, Cris.spMap_comp]
+      · rw [Category.assoc, m.base, ← Category.assoc, M.base, Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       · rw [Category.assoc, m.w, ← Category.assoc, M.w, Category.assoc]
       · intro T x y x₀ y₀ hx hy
         let x₁ : Over.mk (T.hom ≫ 𝟙 _) ⟶ A₀ := Over.homMk (x.left ≫ 𝟙 _) (by
@@ -847,7 +847,7 @@ variable {R R₁ R₀ : Type} [CommRing R] [CommRing R₁] [CommRing R₀] {I J 
   {π₁ : R₁ →+* R₀}
 
 theorem IsStep.spMap_eq (st : IsStep κ π hJ ρ κ₁ π₁) : spMap π = spMap π₁ ≫ spMap ρ := by
-  rw [← st.comp, Cris.spMap_comp]
+  rw [← st.comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 theorem IsStep.idMor (st : IsStep κ π hJ ρ κ₁ π₁) (A₀ : Over (Sp R₀)) [GrpObj A₀] :
     GrpMor κ (spMap π) A₀ κ₁ (spMap π₁) A₀ ρ (𝟙 _) (𝟙 _) :=
@@ -1210,7 +1210,7 @@ theorem exists_noeth_model (P : AbelianDeRham) {R : Type} [CommRing R] {g : ℕ}
   haveI : Algebra.FiniteType S T := Algebra.FiniteType.adjoin_of_finite (Set.finite_range a)
   haveI : IsNoetherianRing T := Algebra.FiniteType.isNoetherianRing S T
   obtain ⟨C, _, ψ, χ, h₀, h₁, hc, hC, hgC⟩ := exists_factor (f := spMap (algebraMap S T))
-    (k := spMap T.val.toRingHom) h (Cris.spMap_comp _ _).symm hB hgB
+    (k := spMap T.val.toRingHom) h (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm hB hgB
   obtain ⟨c₁, c₂, -⟩ := bc_facts P h₀ hB hgB
   obtain ⟨e₁, he₁⟩ := exists_descent (τ := algebraMap S T) (σ₁ := T.val.toRingHom) (fun _ ↦ rfl) hpl _ b₁ hl e
     (fun i j ↦ ⟨a (i, j), Algebra.subset_adjoin ⟨_, rfl⟩⟩) (fun _ _ ↦ rfl) _ c₁ c₂ (redMor h₁).pull
@@ -1240,7 +1240,7 @@ theorem liftObj_of_noetherian (P : AbelianDeRham)
   have hρ : Function.Injective ρ := RingHom.kerLift_injective _
   have hsq : ∀ a, ρ (π₁ a) = π (σ a) := fun _ ↦ rfl
   have sq : spMap ρ ≫ spMap π₁ = spMap π ≫ spMap σ := by
-    rw [← Cris.spMap_comp, ← Cris.spMap_comp]; rfl
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   obtain ⟨B₀, _, j, ψ, k, k₀, hj, hB₀, hgB₀⟩ := exists_factor (h'.comp h) sq hB hgB
   obtain ⟨b₁, b₂, -⟩ := bc_facts P h hB hgB
   obtain ⟨hf, hp, -⟩ := P.1.prim hB hgB
@@ -1405,10 +1405,6 @@ theorem exists_isPullback_reductions : ∀ (R : Type) [CommRing R] (I : Ideal R)
   refine IsPullback.of_right ?_ (pullback.lift_snd _ _ _) (IsPullback.of_hasPullback _ _)
   rwa [pullback.lift_fst]
 
-theorem spMap_comp_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (g : A →+* B) (f : B →+* C) :
-    spMap f ≫ spMap g = spMap (f.comp g) := by
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem isIso_spMap {A B : Type} [CommRing A] [CommRing B] (f : A ≃+* B) : IsIso (spMap (f : A →+* B)) := by
   have : IsIso (CommRingCat.ofHom (f : A →+* B)) := f.toCommRingCatIso.isIso_hom
   infer_instance
@@ -1443,7 +1439,7 @@ theorem morphism_descends_to_reduction : ∀ (R : Type) [CommRing R] (I : Ideal 
   have hpb' : IsPullback π' p (a ≫ spMap (redInv I π hI S)) (spMap (iota I π hI S).range.subtype) := by
     refine IsPullback.of_iso hpb (Iso.refl _) (Iso.refl _) (Iso.refl _)
       (asIso (spMap (redInv I π hI S))) (by simp) (by simp) (by simp) ?_
-    rw [Iso.refl_hom, Category.id_comp, asIso_hom, spMap_comp_spMap, iota_redInv]
+    rw [Iso.refl_hom, Category.id_comp, asIso_hom, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, iota_redInv]
   obtain ⟨F₀, hF₀⟩ := GlobalTheory.morphism_descends_to_subring R₀ (iota I π hI S).range X X₀ Y₀ p
     (a ≫ spMap (redInv I π hI S)) (b ≫ spMap (redInv I π hI S)) π' φ hpb'
     (by rw [← Category.assoc, hφ, Category.assoc])
@@ -1469,9 +1465,9 @@ theorem morphism_descends_to_reduction : ∀ (R : Type) [CommRing R] (I : Ideal 
       (spMap (Subring.inclusion hT)) := by
     refine IsPullback.of_iso hpb₁ (Iso.refl _) (Iso.refl _) (asIso (spMap (redInv I π hI S')))
       (asIso (spMap (redInv I π hI S))) (by simp) (by simp) (by simp) ?_
-    rw [asIso_hom, asIso_hom, spMap_comp_spMap, spMap_comp_spMap, hring]
+    rw [asIso_hom, asIso_hom, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring]
   have hk₂' : k ≫ a₁ ≫ spMap (redInv I π hI S') = p ≫ spMap (iota I π hI S').range.subtype := by
-    rw [← Category.assoc, hk₂, Category.assoc, spMap_comp_spMap, iota_redInv]
+    rw [← Category.assoc, hk₂, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, iota_redInv]
   obtain ⟨ψ, hψ₁, hψ₂⟩ := hF₀ _ hT hFT X₁ _ π₁ k hpb₁' hk₁ hk₂'
   refine ⟨ψ, hψ₁, ?_⟩
   rw [← Category.assoc, ← Category.assoc] at hψ₂
@@ -1663,7 +1659,7 @@ theorem push_mem_liftFil_of_injective : AbelianDeRham →
     rw [← RingHom.comp_apply, ← hι, RingHom.comp_apply, this, map_zero]
   have hdp : IsDPMorphism (divided₂ hJ) (divided₂ h) σ := isDPMorphism_sqDP hJ h σ hJI
   have hbase : spMap ι₀ ≫ spMap πS = spMap π ≫ spMap σ := by
-    rw [← Cris.spMap_comp, ← Cris.spMap_comp, hι]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hι]
   have mA := GrpMor.of_isGrpPullback hdp hbase hψA
   have mB := GrpMor.of_isGrpPullback hdp hbase hψB
   have nA := GlobalTheory.Published.AbelianDeRham.bcMor (R := S) (R' := R) hφA

@@ -677,12 +677,12 @@ theorem smT_zero_kap {G : Over (Sp V)} [GrpObj G] (w : epsOver V V ⟶ G) (h : R
   have h' : spMap (TrivSqZeroExt.fstHom V V V).toRingHom ≫ w.left = (1 : ptOver V V ⟶ G).left := h
   let φ : tEpsG (𝟙 (Sp V)) ⟶ ptOver V V := Over.homMk (spMap (algebraMap V (DualNumber V))) (by
     show spMap (algebraMap V (DualNumber V)) ≫ spMap (algebraMap V V) = spMap (algebraMap V (DualNumber V)) ≫ 𝟙 _
-    rw [spMap_comp', Category.comp_id])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.comp_id])
   have h1 : (φ ≫ (1 : ptOver V V ⟶ G)) = 1 := MonObj.comp_one φ
   apply Over.OverMorphism.ext
   rw [← h1, smT_left]
   simp only [kapSat, Over.homMk_left, Over.comp_left, φ, Category.id_comp]
-  rw [he, ← spMap_comp', Category.assoc, h']
+  rw [he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, h']
 
 theorem isEigV_kapI_iff {Fr : Type} [Field Fr] [Algebra V Fr] (io : c.F →+* Fr) (G : SAB H (Sp V)) (τ : E →+* ℂ)
     (W : tEpsG (𝟙 (Sp V)) ⟶ G.G) :
@@ -748,7 +748,7 @@ theorem integral_reb (T : CDVR) (io : c.F →+* T.Fr) : letI := io.toAlgebra
     have hδ : spMap (dualMap (algebraMap T.V T.Fr)) ≫
         spMap ((algebraMap T.V (DualNumber T.V)).comp (algebraMap T.V T.V)) =
         spMap (algebraMap T.Fr (DualNumber T.Fr)) ≫ spMap (algebraMap T.V T.Fr) := by
-      rw [spMap_comp', spMap_comp']
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       show spMap ((dualMap (algebraMap T.V T.Fr)).comp (algebraMap T.V (DualNumber T.V))) = _
       rw [dualMap_comp_alg]
     have hov : ∀ j, u' j ≫ t'.G.hom = spMap (algebraMap T.Fr (DualNumber T.Fr)) := by
@@ -760,7 +760,7 @@ theorem integral_reb (T : CDVR) (io : c.F →+* T.Fr) : letI := io.toAlgebra
     let cf : Fin (Dw.mult τ) → T.Fr := fun j => algebraMap T.V T.Fr (k τ j i)
     let Y : Fin (Dw.mult τ) → (T' ⟶ t'.G) := fun j => Over.homMk (spMap (epsMul (cf j)) ≫ u' j) (by
       show (spMap (epsMul (cf j)) ≫ u' j) ≫ t'.G.hom = spMap (algebraMap T.Fr (DualNumber T.Fr))
-      rw [Category.assoc, hov, spMap_comp', epsMul_comp_alg])
+      rw [Category.assoc, hov, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, epsMul_comp_alg])
     refine ⟨(∏ j, Y j).left, ?_, ?_⟩
     · have hA := grpPull_prod m1.cart T' Finset.univ Y
         (fun j => smT y.x (cf j) (ovT (t := Xo.univ.t) (y.tan τ j))) (fun j => by
@@ -773,7 +773,7 @@ theorem integral_reb (T : CDVR) (io : c.F →+* T.Fr) : letI := io.toAlgebra
         (fun j => δ ≫ kapI ≫ smT (𝟙 (Sp T.V)) (k τ j i) (Ub τ j)) (fun j => by
           simp only [Over.comp_left, δ, kapI, kapSat, Ub, smT_left, Over.homMk_left, Category.id_comp, Y,
             Category.assoc]
-          rw [hu2 j, ← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_epsMul])
+          rw [hu2 j, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul])
       rw [← hB, ← comp_prodT, ← comp_prodT]
       rfl
 

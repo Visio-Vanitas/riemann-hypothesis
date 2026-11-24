@@ -1130,15 +1130,15 @@ theorem isFibreOf_trans {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R
   have g' := (isGen_iff w').1 hw'
   obtain ⟨w'', T⟩ := exists_comp k.P.isLB w₀ w' g₀ g' hL k'.P.isLB
   have he'' : eSec k'.P.A ≫ φ' ≫ φ = spMap (g.comp f) ≫ eSec G := by
-    rw [← Category.assoc, he', Category.assoc, he, spMap_comp, Category.assoc]
-  refine ⟨φ' ≫ φ, he'', w'', hg'.trans hg, F'.comp F, (hp'.comp hp).congr (spMap_comp f g).symm rfl,
+    rw [← Category.assoc, he', Category.assoc, he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+  refine ⟨φ' ≫ φ, he'', w'', hg'.trans hg, F'.comp F, (hp'.comp hp).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g).symm rfl,
     (isGen_iff w'').2 (T.pgen_comp k.P.isLB g₀ g'), ?_, ?_, fun a => ?_, ?_, fun i => ?_⟩
   · have r₀ := (maps_iff w₀ _ (fun _ => eSec G) _ k.rig rig (spMap f) _
       (rigPull_le φ (spMap f) he L) (fun _ => rfl)).1 hr
     have r₁ := (maps_iff w' _ (fun _ => eSec k.P.A) _ k'.rig k.rig (spMap g) _
       (rigPull_le φ' (spMap g) he' k.P.L) (fun _ => rfl)).1 hr'
     have r₂ := T.pmaps_comp k.P.isLB (fun _ => he') r₀ r₁
-    rw [← spMap_comp] at r₂
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r₂
     exact (maps_iff w'' _ (fun _ => eSec G) _ k'.rig rig (spMap (g.comp f)) _
       (rigPull_le (φ' ≫ φ) (spMap (g.comp f)) he'' L) (fun _ => rfl)).2 r₂
   · refine GlobalTheory.KeyPow.appLE_eq_of_stalk w'' θ k'.th fun z j k₀ hj hk => ?_
@@ -1148,20 +1148,20 @@ theorem isFibreOf_trans {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R
     rw [T _ (𝟙 _) z j i k₀ hj hi hk, ← Category.assoc, a, b, Units.val_mul, _root_.mul_assoc]
   · rw [RingHom.comp_apply, hF, hF', RingHom.comp_apply]
   · rw [RingHom.comp_apply, hε, hε']
-  · rw [← Category.assoc, hv', Category.assoc, hv, spMap_comp, Category.assoc]
+  · rw [← Category.assoc, hv', Category.assoc, hv, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     rfl
 
 theorem isFibreOf_descend {R R₂ K : Type} [CommRing R] [CommRing R₂] [CommRing K] (φ : R →+* R₂) (f : R₂ →+* K) (G : Over (Sp R)) [GrpObj G] [IsCommMonObj G] (G₂ : Over (Sp R₂)) [GrpObj G₂] [IsCommMonObj G₂] (L : LB G.left) (hL : L.IsLB) (rig : (L.pull (eSec G)).Gen) (L₂ : LB G₂.left) (hL₂ : L₂.IsLB) (rig₂ : (L₂.pull (eSec G₂)).Gen) (ψ : G₂.left ⟶ G.left) (hψ : IsGrpPullback G₂ G (spMap φ) ψ) (he : eSec G₂ ≫ ψ = spMap φ ≫ eSec G) (wI : L₂.Iso (L.pull ψ)) (hwI : LB.Gen.IsGen wI) (hrig : LB.Gen.Maps (LB.linCombIso wI (fun _ => eSec G₂) fun _ => 1) rig₂ (rigPullOf ψ (spMap φ) he L rig)) (θ : L.Sec) (θ₂ : L₂.Sec) (hθ : IsoMaps wI θ₂ (thfPull L ψ θ)) {n : ℕ} (w : Fin n → (epsR R ⟶ G)) (w₂ : Fin n → (epsR R₂ ⟶ G₂)) (hw : ∀ i, (w₂ i).left ≫ ψ = spMap (Chart.dualMapR φ) ≫ (w i).left) (k : KeyIn K) : IsFibreOf k G L rig θ w (f.comp φ) → IsFibreOf k G₂ L₂ rig₂ θ₂ w₂ f := by
   intro H
   obtain ⟨φk, hek, e, hg, F, hp, hgen, hr, hs, hF, hε, hv⟩ := H
   obtain ⟨ψ₂, hfac, hbase⟩ : ∃ ψ₂ : k.P.A.left ⟶ G₂.left, ψ₂ ≫ ψ = φk ∧ ψ₂ ≫ G₂.hom = k.P.A.hom ≫ spMap f :=
-    ⟨hψ.1.lift φk (k.P.A.hom ≫ spMap f) (by rw [hp.1.w, spMap_comp, Category.assoc]),
+    ⟨hψ.1.lift φk (k.P.A.hom ≫ spMap f) (by rw [hp.1.w, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]),
       hψ.1.lift_fst _ _ _, hψ.1.lift_snd _ _ _⟩
   subst hfac
-  have hp₂ : IsGrpPullback k.P.A G₂ (spMap f) ψ₂ := hψ.cancel (hp.congr (spMap_comp φ f) rfl) hbase
+  have hp₂ : IsGrpPullback k.P.A G₂ (spMap f) ψ₂ := hψ.cancel (hp.congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ f) rfl) hbase
   have he₂ : eSec k.P.A ≫ ψ₂ = spMap f ≫ eSec G₂ := by
     apply hψ.1.hom_ext
-    · rw [Category.assoc, hek, Category.assoc, he, spMap_comp, Category.assoc]
+    · rw [Category.assoc, hek, Category.assoc, he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     · rw [Category.assoc, hbase, ← Category.assoc, _root_.ReciprocityTheory.ChartRestriction.G.Out.CubePf.eSec_hom, Category.assoc, _root_.ReciprocityTheory.ChartRestriction.G.Out.CubePf.eSec_hom]
       simp
   have gI := (isGen_iff wI).1 hwI
@@ -1177,7 +1177,7 @@ theorem isFibreOf_descend {R R₂ K : Type} [CommRing R] [CommRing R₂] [CommRi
       (rigPull_le ψ (spMap φ) he L) (fun _ => rfl)).1 hrig
     have r'' := (maps_iff e _ (fun _ => eSec G) _ k.rig rig (spMap (f.comp φ)) _
       (rigPull_le (ψ₂ ≫ ψ) (spMap (f.comp φ)) hek L) (fun _ => rfl)).1 hr
-    rw [spMap_comp] at r''
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r''
     have r₂ := T.pmaps_cancel hL (fun _ => he₂) r₀ r''
     exact (maps_iff e₂ _ (fun _ => eSec G₂) _ k.rig rig₂ (spMap f) _
       (rigPull_le ψ₂ (spMap f) he₂ L₂) (fun _ => rfl)).2 r₂
@@ -1199,16 +1199,16 @@ theorem isFibreOf_descend {R R₂ K : Type} [CommRing R] [CommRing R₂] [CommRi
   · ext <;> simp [Chart.dualMapR, TrivSqZeroExt.algebraMap_eq_inl]
   · ext <;> simp [Chart.dualMapR]
   · apply hψ.1.hom_ext
-    · rw [Category.assoc, hv i, Category.assoc, hw, ← Category.assoc, hFe, spMap_comp]
+    · rw [Category.assoc, hv i, Category.assoc, hw, ← Category.assoc, hFe, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · rw [Category.assoc, hbase, ← Category.assoc, Over.w (k.v i), Category.assoc, Over.w (w₂ (Fin.cast hg i))]
       simp only [epsR, Over.mk_hom]
-      rw [← spMap_comp, ← spMap_comp, _root_.GlobalTheory.SpecTangent.dualMapR_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.GlobalTheory.SpecTangent.dualMapR_comp]
 
 theorem exists_framed_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : ReciprocityTheory.ChartRestriction.G.Geo.Tor.Host E) (T T' : CDVR) (iT : T.Fr →+* T'.Fr) (φ : T.V →+* T'.V), (∀ a : T.V, algebraMap T'.V T'.Fr (φ a) = iT (algebraMap T.V T.Fr a)) → ∀ (G : SAB H (Sp T.V)) (t' : SAB H (Sp T.Fr)), SABMap t' G (spMap (algebraMap T.V T.Fr)) → ∀ (n : ℕ) (w : Fin n → (epsR T.V ⟶ G.G)), IsLieBasis w → ∀ (θ : G.PP.L.Sec), Generates (X := G.G) θ → ∀ (k : KeyIn T.Fr), IsFibreOf k G.G G.PP.L G.PP.rig θ w (algebraMap T.V T.Fr) → ∃ (G' : SAB H (Sp T'.V)) (t'' : SAB H (Sp T'.Fr)) (_ : SABMap t'' t' (spMap iT)) (_ : SABMap t'' G' (spMap (algebraMap T'.V T'.Fr))) (n' : ℕ) (w' : Fin n' → (epsR T'.V ⟶ G'.G)) (θ' : G'.PP.L.Sec) (k' : KeyIn T'.Fr), IsLieBasis w' ∧ Generates (X := G'.G) θ' ∧ IsFibreOf k' G'.G G'.PP.L G'.PP.rig θ' w' (algebraMap T'.V T'.Fr) ∧ KeyPB k' k iT := by
   intro E _ _ _ H T T' iT φ hφ G t' m2 n w hw θ hθ k hk
   have hφ' : (algebraMap T'.V T'.Fr).comp φ = iT.comp (algebraMap T.V T.Fr) := RingHom.ext hφ
   have hsq : spMap iT ≫ spMap (algebraMap T.V T.Fr) = spMap (algebraMap T'.V T'.Fr) ≫ spMap φ := by
-    rw [← spMap_comp, ← spMap_comp, hφ']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ']
   have tr : ∀ {S S' : Scheme.{0}} {s : SAB H S} {s' : SAB H S'} {f g : S' ⟶ S}, f = g → SABMap s' s f →
       Nonempty (SABMap s' s g) := by
     intro S S' s s' f g h m
@@ -1364,7 +1364,7 @@ theorem key_unit_at {κ : KeyRule} (hκ : IsKeyRule κ) (hpq : 1 ≤ Dw.p + Dw.q
   obtain ⟨b, hb⟩ := GlobalTheory.EtaVal.exists_base_map_of_overLa (β := (c.V W).subtype)
     (fun a => (Valuation.mem_valuationSubring_iff _ _).1 (hW ▸ a.2)) T io e ho
   have hcond : x ≫ Xo.s = spMap io ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [hxs, GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [hxs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let z : Sp T.Fr ⟶ Xo.XF c := pullback.lift x (spMap io) hcond
   have hzs : z ≫ pullback.snd _ _ = spMap io := pullback.lift_snd _ _ _
   have hzf : z ≫ pullback.fst _ _ = x := pullback.lift_fst _ _ _
@@ -1450,8 +1450,8 @@ theorem exists_tied_det_any {κ : KeyRule} (hκ : IsKeyRule κ) (hpq : 1 ≤ Dw.
       IsPreimmersion.of_isLocalization (nonZeroDivisors T.V)
     rw [← cancel_mono (spMap (algebraMap T.V T.Fr)), Category.assoc, ← m2.cart.1.w, ← Category.assoc, hu₂,
       Category.assoc, Over.w]
-    exact (GlobalTheory.EtaVal.spMap_comp_spMap _ _).trans ((congrArg spMap (RingHom.ext fun a => by
-      ext <;> simp [Formalism.L2.Pj.dualMap, TrivSqZeroExt.algebraMap_eq_inl])).trans (GlobalTheory.EtaVal.spMap_comp_spMap _ _).symm)
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun a => by
+      ext <;> simp [Formalism.L2.Pj.dualMap, TrivSqZeroExt.algebraMap_eq_inl])).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   let v : Fin P.g → (epsR T.Fr ⟶ P.t.G) := fun j => Over.homMk (u' (e j).1 (e j).2) (hov _ _)
   have hv : IsLieBasis v := (hb _ v).2 (by
     rw [show (fun j => (v j).left ≫ m1.φ) = fun j => y.u (e j).1 (e j).2 from funext fun j => hu₁ _ _]

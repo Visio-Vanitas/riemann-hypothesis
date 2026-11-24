@@ -95,7 +95,7 @@ theorem isTransl_origin (v : epsR K ⟶ A) : IsTransl (algebraMap K K) η[A].lef
   refine ⟨1, Over.homMk (spMap (dualMap (algebraMap K K)) ≫ v.left) (by
       rw [Category.assoc, Over.w v]
       change spMap _ ≫ spMap _ = spMap _
-      rw [← Cris.spMap_comp, dualMap_comp_algebraMap]), rfl, rfl, ?_⟩
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_algebraMap]), rfl, rfl, ?_⟩
   rw [_root_.one_mul]
   change spMap (dualMap (RingHom.id K)) ≫ v.left = v.left
   rw [_root_.Formalism.L2.Pj.dualMap_id, Cris.spMap_id, Category.id_comp]

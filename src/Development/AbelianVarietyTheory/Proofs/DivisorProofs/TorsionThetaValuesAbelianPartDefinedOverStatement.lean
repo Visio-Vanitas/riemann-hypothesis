@@ -297,8 +297,8 @@ theorem twist_fibre_iso : ∀ (V₁ : Type) [CommRing V₁] (X : Over (Sp V₁))
       q ≫ pullback.snd X.hom (spMap ev) = 𝟙 _ →
       q ≫ f ≫ pullback.fst X.hom (spMap (σ.toRingHom.comp ev)) = spMap σ.toRingHom ≫ q ≫ pullback.fst X.hom (spMap ev) := by
   intro V₁ _ X _ L hL K _ ev σ K₀ _ e hσe Z _ LZ hLZ ψ hψ H1 Y _ L₀ hL₀ φ hφ H2
-  have hs : spMap σ.toRingHom ≫ spMap e = spMap e := by rw [_root_.GlobalTheory.spMap_comp_ring, hσe]
-  have hev : spMap σ.toRingHom ≫ spMap ev = spMap (σ.toRingHom.comp ev) := _root_.GlobalTheory.spMap_comp_ring _ _
+  have hs : spMap σ.toRingHom ≫ spMap e = spMap e := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσe]
+  have hev : spMap σ.toRingHom ≫ spMap ev = spMap (σ.toRingHom.comp ev) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have hX := isGrpPullback_pullback X (spMap ev)
   have hXσ := isGrpPullback_pullback X (spMap (σ.toRingHom.comp ev))
   have hχ := hψ.comp hφ
@@ -965,7 +965,7 @@ noncomputable section
 
 namespace GlobalTheory.Poinc.Sep.MumKeep
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem exists_fibre_point : ∀ (V V₁ : Type) [CommRing V] [IsDomain V] [CommRing V₁] [IsDomain V₁] (Q : Data V) (ρ : V →+* V₁)
     (D : DegPre V₁) (pr : Fin 8 → (D.P.A ⟶ (Over.pullback (spMap ρ)).obj Q.B)),
@@ -1367,7 +1367,7 @@ namespace GlobalTheory.Poinc.Sep.ConjFib
 
 alias isGrpPullback_self := _root_.GlobalTheory.ObjComp.isGrpPullback_id
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 end GlobalTheory.Poinc.Sep.ConjFib
 

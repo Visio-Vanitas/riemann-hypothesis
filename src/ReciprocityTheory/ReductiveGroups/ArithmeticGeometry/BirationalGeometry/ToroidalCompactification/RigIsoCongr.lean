@@ -153,7 +153,7 @@ theorem ArcWit.baseChange (hC : Out.CubePullSt) (hP : Out.PolBaseChangeSt) (hU :
     IsFractionRing.lift (g := (algebraMap R' (FractionRing R')).comp g) ((IsFractionRing.injective R' _).comp hg)
   have hgam : ∀ r, gam (algebraMap R _ r) = algebraMap R' _ (g r) := fun r => IsFractionRing.lift_algebraMap _ r
   have sq : spMap gam ≫ Out.jK R = Out.jK R' ≫ spMap g :=
-    (spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (spMap_comp g _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g _))
   obtain ⟨A', gA, pA, dA, mA, tA⟩ := hP _ _ (spMap gam) W.P.A
   have gpA : IsGrpPullback A'.A W.P.A.A (spMap gam) gA := ⟨pA, fun T x y x₀ y₀ hx hy => by
     have e₁ : x₀ = Out.toBase pA.w x := Over.OverMorphism.ext hx
@@ -225,14 +225,14 @@ theorem ArcWit.baseChange (hC : Out.CubePullSt) (hP : Out.PolBaseChangeSt) (hU :
   have g0 := (isGen_iff W.w).1 s2
   obtain ⟨w', T⟩ := exists_comp W.P.D.toPre.P.isLB W.w hD.w g0 gD a.D₀.P.isLB D'.toPre.P.isLB
   have he' : eSec D'.toPre.P.A ≫ Φ ≫ W.φ = spMap (g.comp f) ≫ eSec a.D₀.P.A := by
-    rw [← Category.assoc, hD.he, Category.assoc, W.he, spMap_comp, Category.assoc]
+    rw [← Category.assoc, hD.he, Category.assoc, W.he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   let xe' : D'.toPre.X ≃ₗ[𝓞 E] W.P.D.toPre.X := { hD.xe with map_smul' := xl }
   have := hD.e_hom
   have gpB : IsGrpPullback D'.toPre.P.A W.P.D.toPre.P.A (spMap g) Φ :=
     ((isGrpPullback_of_iso hD.e).comp (isGrpPullback_pullback W.P.D.toPre.P.A (Out.specOf g))).congr
       (Category.id_comp _) rfl
   have hxe : ∀ y, hD.xe (xe'.symm (W.e y)) = W.e y := fun y => xe'.apply_symm_apply _
-  refine ⟨⟨t', m', P', Φ ≫ W.φ, he', w', W.e.trans xe'.symm, (gpB.comp s1).congr (spMap_comp f g).symm rfl,
+  refine ⟨⟨t', m', P', Φ ≫ W.φ, he', w', W.e.trans xe'.symm, (gpB.comp s1).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g).symm rfl,
     (isGen_iff w').2 (T.pgen_comp W.P.D.toPre.P.isLB g0 gD), ?_, fun x => ?_, fun y => ?_,
     fun F _ _ _ _ uF ha hu => ?_⟩, hD, Iso.refl _, mR, hPU, ?_, hxe, w', rfl, HEq.rfl, T⟩
   · have r₀ := (maps_iff W.w _ (fun _ => eSec a.D₀.P.A) _ W.P.D.toPre.rig a.D₀.rig (spMap f) _
@@ -240,7 +240,7 @@ theorem ArcWit.baseChange (hC : Out.CubePullSt) (hP : Out.PolBaseChangeSt) (hU :
     have r₁ := (maps_iff hD.w _ (fun _ => eSec W.P.D.toPre.P.A) _ D'.toPre.rig W.P.D.toPre.rig (Out.specOf g) _
       (rigPull_le Φ (Out.specOf g) hD.he W.P.D.toPre.P.L) (fun _ => rfl)).1 hD.w_rig
     have r₂ := T.pmaps_comp W.P.D.toPre.P.isLB (fun _ => hD.he) r₀ r₁
-    rw [← spMap_comp] at r₂
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r₂
     exact (maps_iff w' _ (fun _ => eSec a.D₀.P.A) _ D'.toPre.rig a.D₀.rig (spMap (g.comp f)) _
       (rigPull_le (Φ ≫ W.φ) (spMap (g.comp f)) he' a.D₀.P.L) (fun _ => rfl)).2 r₂
   · have e₁ : (oD'.onB.act x).left ≫ Φ = Φ ≫ (W.P.oD.onB.act x).left := by
@@ -253,12 +253,12 @@ theorem ArcWit.baseChange (hC : Out.CubePullSt) (hP : Out.PolBaseChangeSt) (hU :
     show (oD'.onB.act x).left ≫ Φ ≫ W.φ = (Φ ≫ W.φ) ≫ (a.oa.onB.act x).left
     rw [← Category.assoc, e₁, Category.assoc, s4 x, Category.assoc]; rfl
   · show (D'.toPre.c (xe'.symm (W.e y))).left ≫ Φ ≫ W.φ = spMap (g.comp f) ≫ (a.D₀.c y).left
-    rw [← Category.assoc, hD.c_pr, hxe, Category.assoc, s5 y, spMap_comp, Category.assoc]
+    rw [← Category.assoc, hD.c_pr, hxe, Category.assoc, s5 y, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · letI : Algebra (FractionRing R) F := ((algebraMap (FractionRing R') F).comp gam).toAlgebra
     have hF : ∀ r : R, algebraMap (FractionRing R) F (algebraMap R (FractionRing R) r) =
         algebraMap (FractionRing R') F (algebraMap R' (FractionRing R') (g r)) := fun r =>
       congrArg (algebraMap (FractionRing R') F) (hgam r)
-    have hjg : Out.jFK (R := R) F = Out.jFK (R := R') F ≫ spMap gam := spMap_comp gam _
+    have hjg : Out.jFK (R := R) F = Out.jFK (R := R') F ≫ spMap gam := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp gam _
     have hj : Out.jFK (R := R') F ≫ Out.jK R' ≫ spMap g = Out.jFK (R := R) F ≫ Out.jK R := by
       rw [hjg, Category.assoc, sq]
     obtain ⟨k₁, k₂⟩ := s6 F uF (fun x => (ha x).trans (hF (f x)).symm) (hu.trans (hF u).symm)

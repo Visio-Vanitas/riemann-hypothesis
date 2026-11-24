@@ -299,7 +299,7 @@ theorem genSp_eq {T : Type} [CommRing T] [Algebra c.F T] {Z Z' : Comp Xo c} (ψ 
     have e' := genSp_strK Z'
     rw [Category.assoc, Category.assoc]
     erw [e, e']
-    rw [spMap_comp_ring, spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r
     exact (ψ.commutes r).trans (ψ'.commutes r).symm
@@ -329,7 +329,7 @@ noncomputable def resKap {T : Type} [CommRing T] [Algebra c.F T] {Z : Comp Xo c}
 
 theorem x_eq {T : Type} [CommRing T] [Algebra c.F T] (h : GenFrEx Xo c) {Z : Comp Xo c} (φ : Om Z →ₐ[c.F] T)
     {y : FrPt Xo c T} (hy : FrMap φ (genFr h Z) y) : y.x = spMap (resKap φ).toRingHom ≫ xGen Z := by
-  rw [hy.1, (isGenFr_genFr h Z).1, ← Category.assoc, spMap_comp_ring]
+  rw [hy.1, (isGenFr_genFr h Z).1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem eq_of_frBor {T : Type} [CommRing T] [Nontrivial T] [Algebra c.F T] (h : GenFrEx Xo c) (Z Z' : Comp Xo c)
@@ -347,7 +347,7 @@ theorem eq_of_frBor {T : Type} [CommRing T] [Nontrivial T] [Algebra c.F T] (h : 
         (w.u τ i) := by
     intro χ w hw τ i
     refine isCombAt_pull χ.toRingHom hw.1 (fun j => ?_) (hw.2.1 τ i) (hc τ i)
-    rw [← Category.assoc, spMap_comp_ring, ← dualMap_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp]
     rfl
   have hcoef : ∀ τ i j, φ' (genCoef Z τ i j) = φ (genCoef Z τ i j) := by
     intro τ
@@ -659,7 +659,7 @@ theorem cuspRatioField_eq_top_of_toroidalCompactification (hP : _root_.GlobalThe
     TwoPoint.separate_two (TwoPoint.separatesOnSmooth_of_pair hS) hN c.F σ M.X M.str (dimFlag Dw) M.proj hconn hD M.K
       _ _ _ _ _ _ _ _ _ _ m' m (nef std (hstd.mono zero_le_one)) (nef _ (_root_.GlobalTheory.HSApp.gapGe_sub_smul m _ hg)) (nef mu hmu0) le_rfl hm'
       e₁ e₂ (fun n => spMap (ι n) ≫ z) hzz
-      (fun n => by rw [Category.assoc, hstr, spMap_comp_ring, hι])
+      (fun n => by rw [Category.assoc, hstr, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hι])
       (fun n s => by
         have e : (spMap (ι n) ≫ z) s = ptOf z := congrArg z (Subsingleton.elim (α := PrimeSpectrum (Om Z)) _ _)
         rw [e]

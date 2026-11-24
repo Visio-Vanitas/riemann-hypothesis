@@ -324,7 +324,7 @@ theorem exists_points {S : Scheme.{0}} (G : Over S) [GrpObj G] (hG : IsSemiAbeli
   let c₀ : Over.mk (spMap (algebraMap K F) ≫ x) ⟶ Over.mk (spMap (algebraMap K L) ≫ x) :=
     Over.homMk (spMap (algebraMap L F)) (by
       change spMap (algebraMap L F) ≫ spMap (algebraMap K L) ≫ x = spMap (algebraMap K F) ≫ x
-      rw [← Category.assoc, GlobalTheory.TorsionRat.sp_comp]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl)
   have hc₀ : ∀ j, c₀ ≫ P j = (u j).1 := fun j => Over.OverMorphism.ext (hP j)
   refine ⟨τ', _, P, fun a b h => u.injective (Subtype.ext ?_), fun j => ?_, ?_⟩
@@ -345,7 +345,7 @@ theorem PositivityTheory.Xgn.stratum_generic_torsion_points : ∀ (S : Scheme.{0
   letI : Algebra L K := ((algebraMap L₁ K).comp (algebraMap L L₁)).toAlgebra
   haveI : IsScalarTower L L₁ K := IsScalarTower.of_algebraMap_eq fun _ => rfl
   refine ⟨K, inferInstance, inferInstance, Module.Finite.trans L₁ K, ?_⟩
-  exact H _ (by rw [← Category.assoc, GlobalTheory.TorsionRat.sp_comp])
+  exact H _ (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
 end -- clump:auto
 end -- clump:auto
 -- ===== end clump member: Development.WeilBound.CoreStatements.TorusUniformisation.ChowMahlerFamilies.StratumGenericTorsionPoints =====

@@ -242,7 +242,7 @@ theorem key_unit {κ : KeyRule} (hκ : IsKeyRule κ) (hpq : 1 ≤ Dw.p + Dw.q) (
   obtain ⟨b, hb⟩ := GlobalTheory.EtaVal.exists_base_map_of_overLa (β := (c.V W).subtype)
     (fun a => (Valuation.mem_valuationSubring_iff _ _).1 (hW ▸ a.2)) T io e ho
   have hcond : x ≫ Xo.s = spMap io ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [hxs, GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [hxs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let z : Sp T.Fr ⟶ Xo.XF c := pullback.lift x (spMap io) hcond
   have hzs : z ≫ pullback.snd _ _ = spMap io := pullback.lift_snd _ _ _
   have hzf : z ≫ pullback.fst _ _ = x := pullback.lift_fst _ _ _
@@ -318,8 +318,8 @@ theorem exists_tied_det {κ : KeyRule} (hκ : IsKeyRule κ) (hpq : 1 ≤ Dw.p + 
       IsPreimmersion.of_isLocalization (nonZeroDivisors T.V)
     rw [← cancel_mono (spMap (algebraMap T.V T.Fr)), Category.assoc, ← m2.cart.1.w, ← Category.assoc, hu₂,
       Category.assoc, Over.w]
-    exact (GlobalTheory.EtaVal.spMap_comp_spMap _ _).trans ((congrArg spMap (RingHom.ext fun a => by
-      ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl])).trans (GlobalTheory.EtaVal.spMap_comp_spMap _ _).symm)
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun a => by
+      ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl])).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   let v : Fin P.g → (epsR T.Fr ⟶ P.t.G) := fun j => Over.homMk (u' (e j).1 (e j).2) (hov _ _)
   have hv : IsLieBasis v := (hb _ v).2 (by
     rw [show (fun j => (v j).left ≫ m1.φ) = fun j => y.u (e j).1 (e j).2 from funext fun j => hu₁ _ _]

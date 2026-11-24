@@ -1676,7 +1676,7 @@ def lowF (C : UChart.Fam Xo c R) (F : Type) [Field F] [Algebra (FractionRing R) 
 theorem jFR_lowS (C : UChart.Fam Xo c R) (F : Type) [Field F] [Algebra (FractionRing R) F] :
     (jFK (R := R) F ≫ jK R) ≫ lowS C = spMap (lowF C F) := by
   rw [Category.assoc]
-  exact (congrArg (_ ≫ jK R ≫ ·) (spMap_comp _ _)).trans (spMap_four _ _ _ _)
+  exact (congrArg (_ ≫ jK R ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)).trans (spMap_four _ _ _ _)
 
 theorem detCond_generic (hR : GlobalTheory.Mum.Base R) (C : UChart.Fam Xo c R) (D' : Datum H)
     (hp : D'.p = Dw.p - Module.finrank (𝓞 E) C.P.D.toPre.X) (hq : D'.q = Dw.q - Module.finrank (𝓞 E) C.P.D.toPre.X)

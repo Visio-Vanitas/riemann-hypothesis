@@ -53,10 +53,6 @@ namespace GlobalTheory.Frames.SecCalc
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
 variable {Xo : Moduli Dw l}
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : B →+* C) (g : A →+* B) :
-    spMap f ≫ spMap g = spMap (f.comp g) := by
-  simp only [spMap, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem spMap_id' (A : Type) [CommRing A] : spMap (RingHom.id A) = 𝟙 _ := by
   simp only [spMap, CommRingCat.ofHom_id, Spec.map_id]
 
@@ -144,7 +140,7 @@ theorem sec_calc : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : H
       rw [Category.assoc, ps, qs]
     have rf : (q ≫ p) ≫ (fst (Over.mk x) Xo.univ.t.G).left =
         (fst (Over.mk x'') Xo.univ.t.G).left ≫ spMap (ψ.comp φ) := by
-      rw [Category.assoc, pf, ← Category.assoc, qf, Category.assoc, spMap_comp']
+      rw [Category.assoc, pf, ← Category.assoc, qf, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rw [secBC_iff φ a p ps pf] at h
     rw [secBC_iff ψ 1 q qs qf, secBC_iff (ψ.comp φ) a (q ≫ p) rs rf]
     refine forall_congr' fun i => ?_

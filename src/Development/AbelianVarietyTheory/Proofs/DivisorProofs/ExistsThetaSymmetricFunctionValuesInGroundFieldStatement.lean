@@ -90,12 +90,6 @@ theorem grpPullback_self {S : Scheme.{0}} (G : Over S) [GrpObj G] : IsGrpPullbac
   rw [ex, ey, ← MonObj.comp_mul]
   exact (Category.id_comp _).trans (Category.comp_id _).symm
 
-theorem spMap_comp_ring {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
-alias sec_eq := _root_.ReciprocityTheory.ChartRestriction.G.DVR.SecOps.sec_ext
-
 theorem pullS_comp {S : Scheme.{0}} (G : Over S) [GrpObj G] {L : LB G.left} (hL : L.IsLB) (a : ℤ) {T T' T'' : Over S}
     (h : T' ⟶ T) (h' : T'' ⟶ T') (s : LB.Sec (LPow G L a T)) :
     VVRank.pullS G a h' (VVRank.pullS G a h s) = VVRank.pullS G a (h' ≫ h) s := by
@@ -152,13 +146,13 @@ theorem symAt_exists : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMonOb
   simp only [SecAt.pull] at h1 h2
   rw [pullS_comp G hL] at h1 h2
   have ey1 : spMap (jj : Ω' →+* AlgebraicClosure K) ≫ spMap (algebraMap Ω Ω') ≫ x = spMap (k.comp i) ≫ x := by
-    rw [← Category.assoc, spMap_comp_ring, hcomp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomp]
   have ey2 : spMap k ≫ spMap i ≫ x = spMap (k.comp i) ≫ x := by
-    rw [← Category.assoc, spMap_comp_ring]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨q1, H1⟩ := thList_congr θ ey1 _ (Over.homMk (spMap (k.comp i)) rfl : Over.mk (spMap (k.comp i) ≫ x) ⟶ Over.mk x)
-    (by simp only [Over.comp_left, Over.homMk_left]; rw [spMap_comp_ring, hcomp]) h1
+    (by simp only [Over.comp_left, Over.homMk_left]; rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomp]) h1
   obtain ⟨q2, H2⟩ := thList_congr θ ey2 _ (Over.homMk (spMap (k.comp i)) rfl : Over.mk (spMap (k.comp i) ≫ x) ⟶ Over.mk x)
-    (by simp only [Over.comp_left, Over.homMk_left]; rw [spMap_comp_ring]) h2
+    (by simp only [Over.comp_left, Over.homMk_left]; rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) h2
   have hPy : PolFib G L g (spMap (k.comp i) ≫ x) :=
     (GlobalTheory.T.principallyPolarisedFibre_iff_of_grpPullback S S G L G L (𝟙 S) (𝟙 G.left) hL hL (grpPullback_self G) (GlobalTheory.ThetaAffineGlue.lbIso_pull_id hL) g Ω
       x).2 (AlgebraicClosure K) (k.comp i) hP

@@ -60,7 +60,7 @@ theorem lift_isTranslate : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E
   refine ⟨w', ?_, hw'⟩
   have hsq : m.φ ≫ t.G.hom = t'.G.hom ≫ j := m.cart.1.w
   have hg : (g₀' ≫ m.φ) ≫ t.G.hom = spMap (φS.comp ψ) ≫ x := by
-    rw [Category.assoc, hsq, ← Category.assoc, hg₀', Category.assoc, hx, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    rw [Category.assoc, hsq, ← Category.assoc, hg₀', Category.assoc, hx, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨g', v', h₁, h₂, h₃⟩ := hw'
   have ht : IsTranslate t (φS.comp ψ) (g₀' ≫ m.φ) u (w' ≫ m.φ) := by
     let T : Over X' := tEpsG (g₀' ≫ t'.G.hom)
@@ -73,7 +73,7 @@ theorem lift_isTranslate : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E
     · show 𝟙 _ ≫ g'.left ≫ m.φ = _
       rw [Category.id_comp, h₁, Category.assoc]
     · show 𝟙 _ ≫ v'.left ≫ m.φ = _
-      rw [Category.id_comp, h₂, Category.assoc, huu, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.Frames.Glue.dual_comp]
+      rw [Category.id_comp, h₂, Category.assoc, huu, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.GlobalTheory.Frames.Glue.dual_comp]
     · rw [← MonObj.comp_mul, ← map_mul]
       show 𝟙 _ ≫ (g' * v').left ≫ m.φ = _
       rw [Category.id_comp, h₃]

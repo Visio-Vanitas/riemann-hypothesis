@@ -619,11 +619,11 @@ theorem exists_extension_integral_frame_uniformizer : _root_.GlobalTheory.CovTop
     exact ⟨_, ⟨m⟩⟩
   have hι : i.comp (algebraMap T.V T.Fr) = (algebraMap T'.V T'.Fr).comp j := RingHom.ext hφ
   have hio : spMap (algebraMap T'.V T'.Fr) ≫ spMap j = spMap i ≫ spMap (algebraMap T.V T.Fr) := by
-    rw [GlobalTheory.EtaVal.spMap_comp_spMap, GlobalTheory.EtaVal.spMap_comp_spMap, hι]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hι]
   have hz2 : (spMap i ≫ FlagMod.frX P) ≫ TF.Y.j = spMap (algebraMap T'.V T'.Fr) ≫ spMap j ≫ w := by
     rw [Category.assoc, hz, ← Category.assoc, ← hio, Category.assoc]
   have hzs2 : (spMap i ≫ FlagMod.frX P) ≫ pullback.snd _ _ = spMap (i.comp io) := by
-    rw [Category.assoc, hzs, GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [Category.assoc, hzs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨t', m1, m2, -⟩ := genFibre Xo c Out.CubePf.cubePull T' (i.comp io) c.F (RingHom.id c.F) TF.Y
     (spMap j ≫ w) _ hz2 hzs2 G mG
   have hx' : y'.1.x = (spMap i ≫ FlagMod.frX P) ≫ pullback.fst _ _ := by

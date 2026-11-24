@@ -384,7 +384,7 @@ theorem integral_of_frMap (T : CDVR) [Algebra c.F T.V] (io : c.F →+* T.Fr) : l
       simpa only [comb_iff m] using this
     · have cond : (spMap (dualMap (algebraMap T.V T.Fr)) ≫ (ub τ i).left) ≫ G.G.hom =
           spMap (algebraMap T.Fr (DualNumber T.Fr)) ≫ spMap (algebraMap T.V T.Fr) := by
-        rw [Category.assoc, Over.w (ub τ i), eps_hom, ← FramedBaseChange.spec_comp, ← FramedBaseChange.spec_comp]
+        rw [Category.assoc, Over.w (ub τ i), eps_hom, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         congr 1
         exact RingHom.ext fun a => by ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
       refine ⟨m2.cart.1.lift _ _ cond, ?_, m2.cart.1.lift_fst _ _ cond⟩

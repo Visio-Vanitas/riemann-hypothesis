@@ -214,10 +214,6 @@ noncomputable section
 
 namespace GlobalTheory.SecGlue.Cocycle
 
-theorem spMap_comp_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C]
-    (a : A →+* B) (b : B →+* C) : spMap b ≫ spMap a = spMap (b.comp a) := by
-  rw [← Spec.map_comp]; rfl
-
 theorem awayMap_surjective {R R₀ : Type} [CommRing R] [CommRing R₀] (π : R →+* R₀)
     (hπ : Function.Surjective π) (r : R) : Function.Surjective (Localization.awayMap π r) := by
   intro y
@@ -266,7 +262,7 @@ theorem isCombIn_restrict_chart {Y : Scheme.{0}} {V V' : Y.Opens} (hV : IsAffine
   refine _root_.GlobalTheory.SecGlue.isCombIn_of_chart Y V V' hV hV' S' (S' ⧸ J) (Ideal.Quotient.mk J) Ideal.Quotient.mk_surjective
     ?_ ι _ _ _ _ (fun i => ?_) (isCombIn_spMap_comp Y V S S' g ι u c w a hC) hu
   · rw [Ideal.mk_ker, ← Ideal.map_pow, h2, Ideal.map_bot]
-  · rw [← Category.assoc, ← Category.assoc, spMap_comp_spMap, ← hg', ← spMap_comp_spMap,
+  · rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hg', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc, Category.assoc, hw i]
 
 theorem eq_of_cocycle {Y : Scheme.{0}} {W : Y.Opens} (hW : IsAffineOpen W) {S : Type} [CommRing S]
@@ -330,14 +326,14 @@ theorem exists_lifts_agree_of_cocycle : ∀ (R R₀ : Type) [CommRing R] [CommRi
   refine hom_ext_of_span_eq_top _ _ (s j l) (hs j l) _ _ _ fun i => ?_
   obtain ⟨hlW, -⟩ := hco j l j i
   have hjW := heW j l i
-  rw [← Category.assoc, spMap_comp_spMap] at hlW hjW
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hlW hjW
   have h₁ := isCombIn_restrict_chart (hV j) (hW j l i) _ (awayMap_surjective π hπ _)
     (ker_awayMap_sq π h2 _) _ _ _ _ _ (hte j) (hc j) hjW
   have h₂ := isCombIn_restrict_chart (hV l) (hW j l i) _ (awayMap_surjective π hπ _)
     (ker_awayMap_sq π h2 _) _ _ _ _ _ (hte l) (hc l) hlW
   simp only [RingHom.comp_apply, IsLocalization.Away.awayToAwayRight_eq,
     IsLocalization.Away.awayToAwayLeft_eq, ← IsScalarTower.algebraMap_apply,
-    ← spMap_comp_spMap, Category.assoc] at h₁ h₂
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc] at h₁ h₂
   refine eq_of_cocycle (hW j l i) _ _ _ _ _ _ _
     (fun k => algebraMap R (Localization.Away (s j l i)) (f k) ^ N) ?_ h₁ h₂ fun k => hco j l k i
 
@@ -405,10 +401,6 @@ noncomputable section
 
 namespace GlobalTheory.SecGlue.Red
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B)
-    (g : B →+* C) : spMap (g.comp f) = spMap g ≫ spMap f := by
-  simp only [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
 theorem spMap_id (A : Type) [CommRing A] : spMap (RingHom.id A) = 𝟙 _ := by
   simp only [spMap]; exact Spec.map_id _
 
@@ -469,8 +461,8 @@ theorem isRed_of_away (π : R →+* R₀) (hπ : Function.Surjective π) {Y : Sc
         (algebraMap R₀ (Localization.Away (π a))).comp π := IsLocalization.map_comp _
     rw [e1, ← RingHom.comp_assoc, IsLocalization.Away.lift_comp, redPsi_comp]
   unfold IsRed
-  rw [← Category.assoc, ← spMap_comp, key, spMap_comp, Category.assoc, hu, ← Category.assoc,
-    ← spMap_comp, IsLocalization.Away.lift_comp]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, key, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hu, ← Category.assoc,
+    ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, IsLocalization.Away.lift_comp]
 
 theorem isRed_self (π : R →+* R₀) (hπ : Function.Surjective π) {Y : Scheme.{0}}
     (g₀ : Sp R₀ ⟶ Y) (a : R) (u : Sp (Localization.Away a) ⟶ Y)
@@ -498,8 +490,8 @@ theorem isRed_comp (π : R →+* R₀) (hπ : Function.Surjective π) {Y : Schem
       ← RingHom.comp_apply (redPsi π hπ S'), redPsi_comp, RingHom.comp_apply, RingHom.comp_apply,
       Ideal.quotientMap_mk, ← RingHom.comp_apply σ, hσ]
   unfold IsRed at *
-  rw [← Category.assoc, ← spMap_comp, h1, spMap_comp, Category.assoc, hu, ← Category.assoc,
-    ← spMap_comp, h2]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hu, ← Category.assoc,
+    ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h2]
 
 theorem awayMap_eq_of_red (π : R →+* R₀) {Y : Scheme.{0}} (a : R)
     (u v : Sp (Localization.Away a) ⟶ Y)
@@ -519,7 +511,7 @@ theorem awayMap_eq_of_red (π : R →+* R₀) {Y : Scheme.{0}} (a : R)
   have e : Localization.awayMap π a =
       (Ideal.Quotient.lift _ (Localization.awayMap π a) H).comp (Ideal.Quotient.mk _) := by
     ext x; simp
-  rw [e, spMap_comp, Category.assoc, Category.assoc, h]
+  rw [e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, h]
 
 end GlobalTheory.SecGlue.Red
 end -- clump:auto
@@ -596,7 +588,7 @@ theorem comp_overR {R : Type} [CommRing R] (X : Over (Sp R)) (a : R) {S : Type} 
     (ρ : Localization.Away a →+* S) (hρ : ρ.comp (algebraMap R _) = algebraMap R S)
     (u : Sp (Localization.Away a) ⟶ X.left) (hu : u ≫ X.hom = spMap (algebraMap R _)) :
     (spMap ρ ≫ u) ≫ X.hom = spMap (algebraMap R S) := by
-  rw [Category.assoc, hu, ← spMap_comp, hρ]
+  rw [Category.assoc, hu, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ]
 
 theorem awR_comp {R : Type} [CommRing R] (x y : R) :
     (IsLocalization.Away.awayToAwayRight (P := Localization.Away (x * y)) x y).comp
@@ -702,11 +694,11 @@ theorem exists_comb_pow {R R₀ : Type} [CommRing R] [CommRing R₀] (π : R →
     have h1' : IsCombIn Va (spMap ι ≫ spMap ρa ≫ ea) (spMap ι ≫ spMap ρa ≫ ta)
         ![spMap εk ≫ ek] ![ι fS ^ N] := by
       refine isCombIn_congr ?_ ?_ ?_ ?_ h1
-      · rw [← Category.assoc, ← spMap_comp, e1, spMap_comp, Category.assoc]
-      · rw [← Category.assoc, ← spMap_comp, e1, spMap_comp, Category.assoc]
+      · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+      · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       · funext i; fin_cases i
         simp only [Fin.zero_eta, Fin.isValue, Matrix.cons_val_fin_one]
-        rw [← Category.assoc, ← spMap_comp, e2]
+        rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e2]
       · funext i; fin_cases i
         simp only [Fin.zero_eta, Fin.isValue, Matrix.cons_val_fin_one, map_pow]
         rw [← RingHom.comp_apply, hβ, ← hι, RingHom.comp_apply]
@@ -846,7 +838,7 @@ theorem GlobalTheory.SecGlue.exists_pow_cocycle : ∀ (R R₀ : Type) [CommRing 
     simp only [ρL]; rw [RingHom.comp_assoc, awL_comp, ← IsScalarTower.algebraMap_eq]
   have hA : ∀ j l i, (spMap (ρR j l i) ≫ e j) ⁻¹ᵁ W j l i = ⊤ := fun j l i => by
     have := hej j l i
-    rwa [← Category.assoc, ← spMap_comp] at this
+    rwa [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at this
   have hQ := fun j l k (i : Fin (n j l)) => exists_comb_pow π hπ hsq X hsm g₀ (f j) (f l) (f k)
     (V j) (V l) (W j l i) (hV j) (hV l) (hW j l i) (e j) (t k j) (e l) (t k l) (e k) (he j) (ht k j)
     (he l) (ht k l) (hered j) (htred k j) (hered l) (htred k l) (hered k) N (hcomb k j) (hcomb k l)
@@ -870,7 +862,7 @@ theorem GlobalTheory.SecGlue.exists_pow_cocycle : ∀ (R R₀ : Type) [CommRing 
       (e j) (t k j) (t' k j) (e l) (t k l) (t' k l) (hered j) (htred k j) (hered l) (htred k l)
       N M (M₀ j l k i) (hMle j l k i) (ht'c k j) (ht'c k l) _ (ρR j l i) (ρL j l i) (hρR j l i)
       (hρL j l i) (hA j l i) (c j l k i) (hc j l k i) (hM₀ j l k i)
-    simpa only [ρR, ρL, spMap_comp, Category.assoc] using h
+    simpa only [ρR, ρL, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc] using h
 end -- clump:auto
 end -- clump:auto
 end -- clump:auto
@@ -1049,11 +1041,6 @@ noncomputable section
 
 namespace GlobalTheory.SecGlue.Pair
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := by
-  show Spec.map (CommRingCat.ofHom (g.comp f)) = Spec.map _ ≫ Spec.map _
-  rw [← Spec.map_comp]; rfl
-
 theorem chart_rebuild {Y : Scheme.{0}} {V : Y.Opens} (hV : IsAffineOpen V) {S : Type} [CommRing S]
     (x : Sp S ⟶ Y) (hx : x ⁻¹ᵁ V = ⊤) : spMap (chartHom V x hx) ≫ hV.fromSpec = x := by
   have h := IsAffineOpen.SpecMap_appLE_fromSpec x hV (isAffineOpen_top (Sp S)) hx.ge
@@ -1093,7 +1080,7 @@ theorem chartHom_comp_strHom {R : Type} [CommRing R] (X : Over (Sp R)) {V : X.le
     (hV : IsAffineOpen V) {S : Type} [CommRing S] (f : R →+* S) (u : Sp S ⟶ X.left) (hu : u ⁻¹ᵁ V = ⊤)
     (hf : u ≫ X.hom = spMap f) : (chartHom V u hu).comp (strHom X V) = f := by
   have e : spMap ((chartHom V u hu).comp (strHom X V)) = spMap f := by
-    rw [spMap_comp', ← fromSpec_over X hV, ← Category.assoc, chart_rebuild, hf]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← fromSpec_over X hV, ← Category.assoc, chart_rebuild, hf]
   exact congrArg CommRingCat.Hom.hom (Spec.map_injective e)
 
 theorem smooth_strHom {R : Type} [CommRing R] (X : Over (Sp R)) [Smooth X.hom] {V : X.left.Opens}
@@ -1141,8 +1128,8 @@ theorem red_comp {R R₀ : Type} [CommRing R] [CommRing R₀] (π : R →+* R₀
     apply IsLocalization.ringHom_ext (Submonoid.powers c)
     rw [RingHom.comp_assoc, hr, awayMap_comp_algebraMap, RingHom.comp_assoc, awayMap_comp_algebraMap,
       ← RingHom.comp_assoc, IsLocalization.Away.lift_comp]
-  rw [← Category.assoc, ← spMap_comp', e1, spMap_comp', Category.assoc, he, ← Category.assoc,
-    ← spMap_comp', IsLocalization.Away.lift_comp]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, he, ← Category.assoc,
+    ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, IsLocalization.Away.lift_comp]
 
 end GlobalTheory.SecGlue.Pair
 
@@ -1172,7 +1159,7 @@ namespace GlobalTheory.SecGlue.Pair
 theorem comp_over {Y : Scheme.{0}} {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (e : Sp B ⟶ Y)
     (p : Y ⟶ Sp A) (f : A →+* B) (he : e ≫ p = spMap f) (r : B →+* C) (g : A →+* C) (hr : r.comp f = g) :
     (spMap r ≫ e) ≫ p = spMap g := by
-  rw [Category.assoc, he, ← spMap_comp', hr]
+  rw [Category.assoc, he, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hr]
 
 end GlobalTheory.SecGlue.Pair
 
@@ -1263,10 +1250,10 @@ theorem exists_pair_lift_comb : ∀ (R R₀ : Type) [CommRing R] [CommRing R₀]
   obtain ⟨χ, hχJ, hχ⟩ := hN N hN'
   have htop := fromSpec_comp_top hV (χ : Γ(X.left, V) →+* Localization.Away a)
   refine ⟨spMap (χ : Γ(X.left, V) →+* Localization.Away a) ≫ hV.fromSpec, ?_, ?_, htop, ?_⟩
-  · rw [Category.assoc, fromSpec_over, ← spMap_comp']
+  · rw [Category.assoc, fromSpec_over, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun r => χ.commutes r)
-  · rw [← hea₀, ← chart_rebuild hV ea heaV, ← Category.assoc, ← Category.assoc, ← spMap_comp',
-      ← spMap_comp']
+  · rw [← hea₀, ← chart_rebuild hV ea heaV, ← Category.assoc, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     refine congrArg (fun f => spMap f ≫ hV.fromSpec) (RingHom.ext fun x => ?_)
     have := hχJ x
     rw [RingHom.mem_ker, map_sub, sub_eq_zero] at this

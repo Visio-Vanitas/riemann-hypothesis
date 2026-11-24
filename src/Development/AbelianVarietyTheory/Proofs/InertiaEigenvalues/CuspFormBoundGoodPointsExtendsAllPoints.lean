@@ -657,10 +657,7 @@ set_option synthInstance.maxHeartbeats 400000
 
 namespace GlobalTheory.GoodRefine
 
-alias sp_comp := _root_.GlobalTheory.TanMod.spMap_comp'
-
-theorem sp_inj {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem exists_lift {X : Scheme.{0}} {C A : Type} [CommRing C] [CommRing A] (ι : Sp C ⟶ X) [IsOpenImmersion ι]
     (f : Sp A ⟶ X) (h : Set.range f ⊆ Set.range ι) : ∃ φ : C →+* A, spMap φ ≫ ι = f := by
@@ -711,12 +708,12 @@ theorem exists_gens {O : Type} [CommRing O] {X : Scheme.{0}} (s : X ⟶ Sp O) [L
     exact (show PrimeSpectrum R' from p).isPrime.ne_top (Ideal.eq_top_of_isUnit_mem _ hm hu)
   obtain ⟨φ, hφ⟩ := exists_lift ι _ hri
   have hφβ : φ.comp β = i.comp b := by
-    apply sp_inj
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
     rw [← sp_comp, ← sp_comp, hβ, ← hb, ← Category.assoc, hφ, Category.assoc]
   refine ⟨t.image φ, fun ψ' hψ x hx => ?_, fun V₁ F₁ _ _ a₁ ha ψ₁ h1 h2 => ?_⟩
   · obtain ⟨u, -, rfl⟩ := Finset.mem_image.1 hx
     have : ψ'.comp φ = a.comp γ := by
-      apply sp_inj
+      apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
       rw [← cancel_mono ι, ← sp_comp, ← sp_comp, Category.assoc, Category.assoc, hφ, hγ, ← hy, ← hψ, ← sp_comp,
         Category.assoc]
     exact ⟨γ u, (DFunLike.congr_fun this u).symm⟩
@@ -1137,7 +1134,7 @@ theorem exists_model (hr : 1 ≤ Dw.p + Dw.q) (Xo : Moduli Dw l) (c : Coeff l) (
   rw [he, hX] at h'
   exact h'
 
-alias sp_comp := _root_.Formalism.L2.Pj.spMap_comp_ring
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem coeff_neg_eq_zero {r : ℕ} (U : ∀ σ : c.F →+* ℂ, Formalism.L2.PjFree.Unf Xo c σ r)
     (hU : ∀ σ', Formalism.L2.PjFree.GoodEmb c σ' → Formalism.L2.PjFree.IsUnf (U σ')) (σ : c.F →+* ℂ)

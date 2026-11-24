@@ -336,9 +336,6 @@ end Cart
 
 section Geo
 
-theorem sp_inj {R R' : Type} [CommRing R] [CommRing R'] {f g : R →+* R'} (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
-
 theorem exists_sp {R R' : Type} [CommRing R] [CommRing R'] (w : Sp R ⟶ Sp R') : ∃ f : R' →+* R, spMap f = w :=
   ⟨(Spec.preimage w).hom, by unfold spMap; simp⟩
 
@@ -450,7 +447,7 @@ theorem cst_eq (A : HodgeCpt Y S y) (hm : Mono (spMap β)) (x₀ : Sp A.Ω₀ �
     unfold Model.j
     rw [Category.assoc, pullback.condition, ← Category.assoc, Y.jQ_over]
   have e₂ : A.ξ ≫ A.f = spMap A.fn ≫ A.ξ₀ := A.fn_over
-  apply sp_inj
+  apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
   rw [← cancel_mono (spMap β), sp_comp, ← A.cst_over, ← sp_comp A.fn c₀, hc₀, ← Category.assoc A.ξ, e₂, h]
   simp only [Category.assoc]
   rw [e₁]
@@ -510,7 +507,7 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
   obtain ⟨c₀', hc₀'⟩ := exists_sp (x₀' ≫ pullback.snd _ _)
   have hcst := cst_eq A mβ x₀ hξ c₀ hc₀
   have hcst' := cst_eq A' mβ' x₀' hξ' c₀' hc₀'
-  have hψ : c₀ = ψ.toRingHom.comp c₀' := sp_inj (by
+  have hψ : c₀ = ψ.toRingHom.comp c₀' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
     rw [hc₀, ← sp_comp, hc₀', h2])
   refine ⟨θ, hθ, fun e => ?_, fun s s' hs e => ?_⟩
   · obtain ⟨u, u₃, a1, a2, a3, a4, a5⟩ := hpts e
@@ -1294,7 +1291,7 @@ theorem pair_iso : HodgeComparisonCompatibility → ThetaUnifAV → ∀ (E : Typ
     have := congrArg (fun f => f (ψ a)) hi
     simpa [a₁, a₂, RingHom.algebraMap_toAlgebra] using this
   have hkey : spMap i₁ ≫ spMap T.A.fn ≫ spMap ψ.toRingHom = spMap i₂ ≫ spMap T'.A.fn := by
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, hi']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hi']
   have hk3 : ∀ {W : Scheme.{0}} (t : Sp T'.A.Ω₀ ⟶ W), spMap i₂ ≫ spMap T'.A.fn ≫ t =
       spMap i₁ ≫ spMap T.A.fn ≫ spMap ψ.toRingHom ≫ t := by
     intro W t
@@ -1321,12 +1318,12 @@ theorem pair_iso : HodgeComparisonCompatibility → ThetaUnifAV → ∀ (E : Typ
     simp only [Category.assoc]
     rw [hk3, hsnd]
   have hc₁ : (spMap i₁ ≫ spMap T.A.fn ≫ x₀) ≫ Limits.pullback.snd _ _ = spMap A₁.cst := by
-    rw [p3, ← _root_.GlobalTheory.spMap_comp_ring, ← hcst]
+    rw [p3, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hcst]
     simp only [Category.assoc]
   have hc₂ : (spMap i₂ ≫ spMap T'.A.fn ≫ x₀') ≫ Limits.pullback.snd _ _ = spMap A₂.cst := by
-    rw [q3, ← _root_.GlobalTheory.spMap_comp_ring, ← hcst']
+    rw [q3, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hcst']
     simp only [Category.assoc]
-  have hAc : A₁.cst = A₂.cst := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← hc₁, ← hc₂, hsnd₃])
+  have hAc : A₁.cst = A₂.cst := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← hc₁, ← hc₂, hsnd₃])
   have hξe : A₂.ξ ≫ (e₂ ≪≫ e₁.symm).hom = A₁.ξ := by
     simp only [Iso.trans_hom, Iso.symm_hom]
     rw [← Category.assoc, q1, ← p1, Category.assoc, Iso.hom_inv_id, Category.comp_id]
@@ -1352,7 +1349,7 @@ theorem pair_iso : HodgeComparisonCompatibility → ThetaUnifAV → ∀ (E : Typ
   have htw : ∀ e, TwTan n Y Y (Fl₁.M₀.pt e).left (spMap (dualMap ψ₃.toRingHom) ≫ (Fl₂.M₀.pt (θ₃ e)).left) := by
     intro e
     obtain ⟨e₀, rfl⟩ := θ₁.surjective e
-    rw [hθ₃, q8, p8, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, hψc, ← _root_.GlobalTheory.spMap_comp_ring, Category.assoc]
+    rw [hθ₃, q8, p8, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     exact twTan_pre _ (hθt e₀)
   obtain ⟨-, hsteps⟩ := _root_.GlobalTheory.CompanionTheory.Ar.FlagMatch.matched_generic_flags_carried E H D l Xo c O O β β Y Y g Φ n S Ω₃ K ι y A₁ A₂ Fl₁ Fl₂ ψ₃ θ₃ φ hβ hβ hfn hφt htw
   have hst : ∀ s k, (flagStep Ω₃ (Fl₁.b s) k).map (φ : A₁.Li →ₗ[Ω₃] A₂.Li) =

@@ -431,7 +431,7 @@ private theorem projRep_map_of_secCoord_iff {A B σ : Type} [CommRing A] [CommRi
     rw [reassoc_of% hjz, hψ, Category.comp_id]
   have hcomp : ∀ (T : Type) [CommRing T] (β : B →+* T), spMap β ≫ spMap ψ = spMap (β.comp ψ) := by
     intro T _ β
-    exact (spMap_comp β ψ).symm
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β ψ).symm
   have hker : ∀ (T : Type) [CommRing T] (β : B →+* T) (v : σ → T),
       (∀ F ∈ I, MvPolynomial.eval₂ (β.comp ψ) v F = 0) →
         ∀ F ∈ I.map (MvPolynomial.map ψ), MvPolynomial.eval₂ β v F = 0 := by
@@ -532,7 +532,7 @@ theorem secCoord_of_local {X : Scheme.{0}} {M : LB X} (hM : M.IsLB) {I : Type} {
   obtain ⟨ψ, hψ⟩ := exists_retraction φ hφ p hp
   have h' := GlobalTheory.ZM.Coord.baseChange h ψ
   have e1 : spMap ψ ≫ spMap φ ≫ y = y := by
-    rw [← Category.assoc, GlobalTheory.ZM.spMap_comp_ringHom_comp, hψ, spMap_id, Category.id_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψ, spMap_id, Category.id_comp]
   have e2 : (fun i => ψ (φ (v i))) = v :=
     funext fun i => congrArg (fun f : K →+* K => f (v i)) hψ
   rw [e1, e2] at h'
@@ -565,7 +565,7 @@ theorem exists_fibData : Out.Laws → Out.Laws2 → ∀ (g : ℕ) (J : Type) [Fi
   refine ⟨fun h a => β (b.ζ ^ e a h : oˣ) * v (idx a h), Hh, hfin, hh, Q, d, ?_⟩
   intro K _ _ x s t hgood
   obtain ⟨hs, -, hth⟩ := hgood
-  rw [GlobalTheory.ZM.spMap_comp_ringHom_comp] at hs
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hs
   subst hs
   obtain ⟨σ, hemb, hproj⟩ := _root_.GlobalTheory.ZM.EmbField.exists_emb_field l1 l2 o g (n ^ j) J b K _ t (n ^ 2) (fun a => x (v a)) hdvd2 htwo hth
   have hLB := (GlobalTheory.T.thetaSections_veryAmple_periodic l1 l2 o g (n ^ j) J b K (x.comp β) t (n ^ 2) σ hoddN hdvd htwo hemb).2.1
@@ -1531,10 +1531,10 @@ theorem genericObj_of (h₂ : Out.Laws2) (w w' : J)
   obtain ⟨β, hβ⟩ := exists_spMap (x ≫ Y.s)
   obtain ⟨K, _, y, e, t, tc, hker, he, hC, htc, hsh, -, hth⟩ := H R β x v hx hβ hsc q hq
   have hbase : spMap em = spMap (e.comp y) ≫ x ≫ Y.s := by
-    rw [hβ, GlobalTheory.ThetaClosed.spMap_comp', ← he, RingHom.comp_assoc]
+    rw [hβ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← he, RingHom.comp_assoc]
   have hbase' : spMap em = 𝟙 _ ≫ (spMap (e.comp y) ≫ x ≫ Y.s) := by
     rw [Category.id_comp]; exact hbase
-  have hb1 : spMap y ≫ spMap β = spMap (y.comp β) := GlobalTheory.ThetaClosed.spMap_comp' β y
+  have hb1 : spMap y ≫ spMap β = spMap (y.comp β) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β y).symm
   refine ⟨ℂ, inferInstance, inferInstance, e.comp y, cast tc hbase, ?_, ?_, ?_, ?_⟩
   · rw [← hker]
     first
@@ -1544,7 +1544,7 @@ theorem genericObj_of (h₂ : Out.Laws2) (w w' : J)
   · rw [hasTh_cast]
     exact hasTh_pull h₂ htc hth
   · refine ⟨K, inferInstance, y.comp β, e, e, cast t hb1, cast tc hbase', tc, he, ?_, ?_, ?_, ?_, hC⟩
-    · rw [← hbase', GlobalTheory.ThetaClosed.spMap_comp', he]
+    · rw [← hbase', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he]
     · rw [tmap_cast_left, tmap_cast_right]; exact TMap.refl tc
     · rw [tmap_cast_left, tmap_cast_right]; exact htc
     · rw [tmap_cast_right]; exact htc
@@ -1613,7 +1613,7 @@ theorem exists_chart [IsNoetherianRing o] (hG : GenericObj C Y Mat κ)
   obtain ⟨f, t, hf, hth0, huniv⟩ := hB R0 β v0 hD _ hq0
   have hbt : spMap ((algebraMap R0 (Localization.Away f)).comp β) =
       (spMap (algebraMap R0 (Localization.Away f)) ≫ x0) ≫ Y.s := by
-    rw [Category.assoc, hβ, GlobalTheory.ThetaClosed.spMap_comp']
+    rw [Category.assoc, hβ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   haveI : IsOpenImmersion (spMap (algebraMap R0 (Localization.Away f))) := by
     first
     | infer_instance

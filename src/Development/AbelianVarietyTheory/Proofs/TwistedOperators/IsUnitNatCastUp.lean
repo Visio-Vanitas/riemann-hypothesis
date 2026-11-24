@@ -709,10 +709,6 @@ open GlobalTheory.HkIntegral
 
 namespace GlobalTheory.LieImageBC
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) :=
-  (Spec.map_comp (CommRingCat.ofHom f) (CommRingCat.ofHom g)).symm
-
 theorem epi_of_local {A B : Type} [CommRing A] [CommRing B] [IsLocalRing A] [IsLocalRing B] (d : A →+* B)
     [IsLocalHom d] (hd : Function.Injective d) : Epi (spMap d) := by
   refine ⟨fun {X} a b h => ?_⟩
@@ -748,13 +744,13 @@ theorem epi_dualMap {K L : Type} [Field K] [Field L] (φ : K →+* L) : Epi (spM
 
 theorem dual_eps {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* T) (a : S) :
     spMap (dualMap ψ) ≫ spMap (epsMul a) = spMap (epsMul (ψ a)) ≫ spMap (dualMap ψ) := by
-  rw [sp_comp, sp_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext s <;> simp [dualMap, epsMul, TrivSqZeroExt.algebraMap_eq_inl]
 
 theorem dual_alg {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* T) :
     spMap (dualMap ψ) ≫ spMap (algebraMap S (DualNumber S)) = spMap (algebraMap T (DualNumber T)) ≫ spMap ψ := by
-  rw [sp_comp, sp_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext s <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
 
@@ -1230,7 +1226,7 @@ theorem exists_hkOver {K Ω : Type} [Field K] [Field Ω] [IsAlgClosed Ω] [Algeb
     subst e₁
     exact hk
   have sq : ∀ x : Sp L₁ ⟶ Xo.X, spMap j₁.toRingHom ≫ x = spMap j₃ ≫ spMap a ≫ x := fun x => by
-    rw [← Category.assoc, TorsionRat.sp_comp, e₃]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e₃]
   obtain ⟨M, _, i₄, j₄, e₄, f₄, hM⟩ := GlobalTheory.T.fibreIsogenyPair_defined_over_finite_subextension E H Dw l Xo L₃ Ω j₃ (spMap a ≫ y₁.x) (spMap a ≫ z₁.x) w.x z.x g g'
     hint (hw₁.1.trans (sq _)) (hz₁.1.trans (sq _)) h.1.1 h.1.2.1
   letI : Algebra c.F M := ((i₄.comp a).comp (algebraMap c.F L₁)).toAlgebra
@@ -1241,14 +1237,14 @@ theorem exists_hkOver {K Ω : Type} [Field K] [Field Ω] [IsAlgClosed Ω] [Algeb
   obtain ⟨y', hy'⟩ := exists_frMap b y₁
   obtain ⟨z', hz'⟩ := exists_frMap b z₁
   have sq' : ∀ x : Sp L₁ ⟶ Xo.X, spMap b.toRingHom ≫ x = spMap i₄ ≫ spMap a ≫ x := fun x => by
-    rw [← Category.assoc, TorsionRat.sp_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨f, f', hf, hf'⟩ := hM y'.x z'.x (hy'.1.trans (sq' _)) (hz'.1.trans (sq' _))
   have hyw : FrMap j y' w := frMap_of_comp hy' hw₁ eb
   have hzz : FrMap j z' z := frMap_of_comp hz' hz₁ eb
   have R₁ : AllRat Xo y'.x (p ^ 2) := allRat_up (i₄.comp (algebraMap L₂ L₃)) (pow_pos hp _)
-    (hy'.1.trans (by rw [← Category.assoc, TorsionRat.sp_comp])) r₂
+    (hy'.1.trans (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])) r₂
   have R₂ : AllRat Xo z'.x (p ^ 3) := allRat_up i₄ (pow_pos hp _)
-    (hz'.1.trans (by rw [← Category.assoc, ← Category.assoc, TorsionRat.sp_comp, TorsionRat.sp_comp])) r₃
+    (hz'.1.trans (by rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])) r₃
   refine ⟨M, inferInstance, inferInstance, b.comp i₁, j, y', z', AlgHom.ext fun u => (eb _).trans
     (DFunLike.congr_fun e₁ u), (f₄.comp fa).comp f₁, frMap_comp hy₁ hy' fun _ => rfl, hzz, R₁, R₂, f, f',
     (hkWith_iff j hp hyw hzz hf hf' R₁).2 h⟩
@@ -1463,7 +1459,7 @@ theorem heckeFrameInt (cls : PtClass Xo c)
     obtain ⟨T₁, iT, r, ψ, -, a, b, d, -, g⟩ := GlobalTheory.PlaceExtField.exists_cdvr_finite_extension T L
     exact ⟨T₁, iT, r, ψ, a, b, d, g hy⟩
   obtain ⟨T₂, i₂, r₂, hr₂, hv₂, hT₂, y₀, hx₀⟩ := intFrExt Xo c T₁ (iT.comp io) hT₁ (spMap ψ.toRingHom ≫ z₁.x) (by
-    rw [Category.assoc, z₁.x_over, sOf, sOf, TorsionRat.sp_comp]
+    rw [Category.assoc, z₁.x_over, sOf, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     refine RingHom.ext fun a => ?_
     exact (congrArg ψ (i₁.commutes _).symm).trans (hψ _))
@@ -1485,7 +1481,7 @@ theorem heckeFrameInt (cls : PtClass Xo c)
   obtain ⟨z₂, hz₂⟩ := exists_frMap b z₁
   obtain ⟨y', u, hg, hb⟩ := exists_frBor_unit (io := i.comp io) hpp
     (isUnit_natCast_up (PullbackSections.isUnit_natCast_of_overLa T ho hla) i fun a _ => hv a) hT₂ y₂ y₀ z₂
-    (hz₂.1.trans (hx₀.trans (by rw [← Category.assoc, TorsionRat.sp_comp])).symm)
+    (hz₂.1.trans (hx₀.trans (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])).symm)
     (h₁.up b hpp.pos (frMap_of_comp hy₁ hy₂ hφ) hz₂)
   obtain ⟨w', hw'⟩ := exists_frMap J y'.1
   refine ⟨T₂, i, ⟨(GlobalTheory.T.ringHom_finite_and_isIntegral_of_valuation_scaled T T₂ i _ hr hv hT₂).1, _, hr, hv⟩, J, RingHom.ext hjk, y', hT₂,

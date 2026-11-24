@@ -60,7 +60,7 @@ open GlobalTheory.ZM
 
 namespace GlobalTheory.LevelTheta
 
-alias spMap_comp := _root_.GlobalTheory.ThetaClosed.spMap_comp'
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem spMap_id {A : Type} [CommRing A] : spMap (RingHom.id A) = 𝟙 _ := Spec.map_id _
 
@@ -151,8 +151,8 @@ theorem exists_level_with_theta_point : Out.Laws → Out.Laws2 → ∀ (g n j : 
       y.comp (algebraMap R R₁) = x → y'.comp (algebraMap R R₁) = x → (∀ r ∈ 𝔞, y r = 0) → (∀ r ∈ 𝔞, y' r = 0) →
       y = y' := by
     intro K _ _ x y y' e e' k k'
-    have d : spMap y ≫ spMap (algebraMap R R₁) = spMap x := by rw [spMap_comp, e]
-    have d' : spMap y' ≫ spMap (algebraMap R R₁) = spMap x := by rw [spMap_comp, e']
+    have d : spMap y ≫ spMap (algebraMap R R₁) = spMap x := by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
+    have d' : spMap y' ≫ spMap (algebraMap R R₁) = spMap x := by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e']
     obtain ⟨u, hu⟩ := GlobalTheory.tObj_pull o g _ J b _ _ _ (spMap x ≫ spMap β) (spMap y) t₁ (by rw [← Category.assoc, d])
     obtain ⟨u', hu'⟩ := GlobalTheory.tObj_pull o g _ J b _ _ _ (spMap x ≫ spMap β) (spMap y') t₁ (by rw [← Category.assoc, d'])
     have T := (hth K x y _ u e hu).2 k
@@ -191,7 +191,7 @@ theorem exists_level_with_theta_point : Out.Laws → Out.Laws2 → ∀ (g n j : 
   have hρ' : ∀ r, r - algebraMap R R₁ (ρ r) ∈ 𝔞 := fun r =>
     Ideal.Quotient.eq.1 (ε.apply_symm_apply (Ideal.Quotient.mk 𝔞 r)).symm
   obtain ⟨t, ht⟩ := GlobalTheory.tObj_pull o g _ J b _ _ _ (spMap β) (spMap ρ) t₁
-    (by rw [← Category.assoc, spMap_comp, hρ, spMap_id, Category.id_comp])
+    (by rw [← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ, spMap_id, Category.id_comp])
   refine ⟨t, (hth R (RingHom.id R) ρ _ t hρ ht).2 fun r hr => ?_, fun K _ _ x t' ψ T A => ?_⟩
   · show ε.symm (Ideal.Quotient.mk 𝔞 r) = 0
     rw [Ideal.Quotient.eq_zero_iff_mem.2 hr, map_zero]
@@ -202,6 +202,6 @@ theorem exists_level_with_theta_point : Out.Laws → Out.Laws2 → ∀ (g n j : 
       rw [map_sub, sub_eq_zero] at this
       rw [this, ← e]; rfl
     refine ((GlobalTheory.ZM.tmap_id_comp_cancel o g _ J b _ _ _ _ _ _ t₁ t t').2 _ _ ht).2 ?_
-    rwa [spMap_comp ρ x, hy]
+    rwa [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ x, hy]
 
 end GlobalTheory.LevelTheta

@@ -105,7 +105,7 @@ theorem exists_fg_over_lbIso {R₁ : Subalgebra k A} (h₁ : R₁.FG) (y : Sp R�
   have e₃ : ψ () ≫ pullback.snd q y = pullback.snd _ _ ≫ spMap (Subalgebra.inclusion le).toRingHom := by
     refine hom_ext_bcMap pB R₂.val Subtype.val_injective (spMap (algebraMap k R₁)) ?_ ?_
     · rw [Category.assoc, e₁, Category.assoc, spMap_algHom_comp, pullback.condition]
-    · rw [← Category.assoc, e₂, pullback.lift_snd, bcMap_snd_assoc, spMap_comp_ring]
+    · rw [← Category.assoc, e₂, pullback.lift_snd, bcMap_snd_assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
   have e₄ : Φ = bcMap pB R₂.val ≫ ψ () ≫ pullback.fst q y := by rw [← Category.assoc, e₂, pullback.lift_fst]
   obtain ⟨R, le', hR, hI⟩ := exists_fg_lbIso pB h₂ (L.pull (ψ () ≫ pullback.fst q y)) (M.pull (pullback.fst _ _))
@@ -115,7 +115,7 @@ theorem exists_fg_over_lbIso {R₁ : Subalgebra k A} (h₁ : R₁.FG) (y : Sp R�
         (lbIso_pull_pull hM _ (bcMap_fst pB R₂.val).symm)))
   refine ⟨R, le.trans le', bcMap pB (Subalgebra.inclusion le') ≫ ψ () ≫ pullback.fst q y, hR, ?_, ?_, ?_⟩
   · rw [Category.assoc, Category.assoc, pullback.condition, reassoc_of% e₃, bcMap_snd_assoc, ← Category.assoc (spMap _),
-      spMap_comp_ring]
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · rw [e₄, bcMap_comp_of_eq_assoc pB _ _ R₂.val fun _ => rfl]
   · exact LBIso.trans (pull_isLB hL _) (pull_isLB (pull_isLB hL _) _) (pull_isLB hM _) (lbIso_pull_pull hL _ rfl)
@@ -135,7 +135,7 @@ theorem exists_fg_forall_over_lbIso {R₁ : Subalgebra k A} (h₁ : R₁.FG) (y 
   refine ⟨R₁ ⊔ ⨆ i, R i, le_sup_left, h₁.sup (fg_iSup hR), fun i =>
     ⟨bcMap pB (Subalgebra.inclusion (hle i)) ≫ ψ i, ?_, ?_,
       lbIso_pull_comp _ rfl (bcMap_fst pB _).symm (e₃ i)⟩⟩
-  · rw [Category.assoc, e₁, bcMap_snd_assoc, ← Category.assoc (spMap _), spMap_comp_ring]
+  · rw [Category.assoc, e₁, bcMap_snd_assoc, ← Category.assoc (spMap _), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · rw [bcMap_comp_of_eq_assoc pB _ _ (R i).val fun _ => rfl, e₂]
 
@@ -219,7 +219,7 @@ theorem cmPoint (hT : ThetaUnifAV) (hW : Out.WeilSt) : CMPoint := by
 
   obtain ⟨R₁, y₁, h₁, le₁, hy₁⟩ := Spread.exists_fg_points
     (pullback.snd Xo.s (spMap (IntermediateField.inclusion hk).toRingHom))
-    (fun _ : Unit => pullback.lift y' (spMap (algebraMap k ℂ)) (hy'.trans (spMap_comp_ring _ _).symm))
+    (fun _ : Unit => pullback.lift y' (spMap (algebraMap k ℂ)) (hy'.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)))
     (fun _ => pullback.lift_snd _ _ _) R₀ hR₀
   have e₁ : spMap R₁.val.toRingHom ≫ y₁ () ≫ pullback.fst _ _ = y' := by
     rw [← Category.assoc, (hy₁ ()).2, pullback.lift_fst]
@@ -243,7 +243,7 @@ theorem cmPoint (hT : ThetaUnifAV) (hW : Out.WeilSt) : CMPoint := by
         (pull_isLB (isLB_lbPow P₀.isLB _) _) (hI a.1 a.2) (lbIso_lbPow_pull P₀.isLB _ _)))
   set y : Sp R ⟶ Xo.X := spMap (Subalgebra.inclusion le).toRingHom ≫ y₁ () ≫ pullback.fst _ _ with hy
   have e₂ : spMap R.val.toRingHom ≫ y = y' := by
-    rw [hy, ← Category.assoc, spMap_comp_ring]
+    rw [hy, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact e₁
   obtain ⟨t, m, -⟩ : ∃ (t : SAB H (Sp R)) (m : SABMap t Xo.univ.t y), True := by
     obtain ⟨_, _, _, _, _, m, -⟩ := sabPull Out.CubePf.cubePull y Xo.univ.t
@@ -261,7 +261,7 @@ theorem cmPoint (hT : ThetaUnifAV) (hW : Out.WeilSt) : CMPoint := by
     apply pullback.hom_ext
     · rw [Category.assoc, Spread.bcMap_fst, hv', Category.assoc]
       erw [hvv]
-      rw [← Category.assoc, spMap_comp_ring]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 2
       exact (dualMapR_comp (algebraMap k R) R.val.toRingHom).symm
     · rw [Category.assoc, Spread.bcMap_snd, Category.assoc]
@@ -290,8 +290,8 @@ theorem cmPoint (hT : ThetaUnifAV) (hW : Out.WeilSt) : CMPoint := by
             (isLB_lbPow (pull_isLB P₀.isLB _) _) c₃ (lbIso_lbPow_pull P₀.isLB _ _).symm))
   refine ⟨R, hR, le₁.trans le, y, t, m, v, φ, ?_, (Category.id_comp _).symm.trans (hid ▸ hyu), hv, hvv,
     fun ε => ⟨hφ₁ ε, fun a z x hx hx' => ?_⟩⟩
-  · rw [hy, Category.assoc, Category.assoc, pullback.condition, reassoc_of% (hy₁ ()).1, spMap_comp_ring,
-      spMap_comp_ring]
+  · rw [hy, Category.assoc, Category.assoc, pullback.condition, reassoc_of% (hy₁ ()).1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · let x' : Sp ℂ ⟶ pullback P₀.A.hom (spMap (algebraMap k ℂ)) := pullback.lift (x ≫ pullback.fst _ _) (𝟙 _) (by
       rw [Category.assoc, pullback.condition, reassoc_of% hx', Spread.spMap_algHom_comp, Category.id_comp])

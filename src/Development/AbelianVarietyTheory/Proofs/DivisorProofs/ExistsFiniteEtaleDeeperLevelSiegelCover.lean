@@ -497,7 +497,7 @@ theorem exists_levelCover : ∀ (h n N : ℕ) (B B' : Type) [CommRing B] [CommRi
         Units.map β.toMonoidHom b.ζ ^ (2 * omegaStd a a') from map_zpow _ _ _] at hu
       constructor
       · intro e β' hβ'
-        obtain rfl : β' = β := spMap_inj' (hβ'.symm.trans hβ)
+        obtain rfl : β' = β := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hβ'.symm.trans hβ)
         rw [← hu, ← e]
         exact hW'
       · intro H
@@ -577,7 +577,7 @@ theorem exists_levelCover : ∀ (h n N : ℕ) (B B' : Type) [CommRing B] [CommRi
     have hwl : Set.range w.left ⊆ Ul := (HUl (Over.mk x) w).1 fun a => by
       rw [MonObj.comp_pow, hw, l1, comp_toUnit_assoc]
     have hwW : w.left (default : PrimeSpectrum k) ∈ Wp := (HWp k w.left).2 fun a a' β' hβ' => by
-      obtain rfl : β' = β := spMap_inj' (hβ'.symm.trans (by rw [← Category.assoc, hx', hβ]))
+      obtain rfl : β' = β := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hβ'.symm.trans (by rw [← Category.assoc, hx', hβ]))
       exact weilIs_congr_base hx'.symm (by rw [← hw a]; rfl) (by rw [← hw a']; rfl) (w1 a a')
     obtain ⟨w', hw'⟩ := (Hi _ w).1 fun _ hq => ⟨hwl hq, (HkClopen.range_subset_iff w.left Wp).2 hwW hq⟩
     obtain ⟨p, hp⟩ : pt ∈ Set.range x := by rw [hx]; rfl

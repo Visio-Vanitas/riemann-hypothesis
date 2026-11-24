@@ -99,7 +99,7 @@ def Data.ofQuot {R : Type} [CommRing R] {I : Ideal R} (κ : DividedPowers I) (h�
     let e' := RingHom.quotientKerEquivOfSurjective hπ
     let e : R ⧸ RingHom.ker π →+* R₀ := e'
     have he : spMap e ≫ spMap (Ideal.Quotient.mk (RingHom.ker π)) = spMap π := by
-      rw [← Cris.spMap_comp]; rfl
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
     haveI : IsIso (spMap e) := (inferInstance : IsIso (Spec.map e'.toCommRingCatIso.hom))
     refine ⟨s₀ ≫ spMap e, ?_, by rw [ht, Category.assoc, he]⟩
     exact h.of_iso (Iso.refl _) (Iso.refl _) (asIso (spMap e)) (Iso.refl _) (by simp) (by simp) (by simp)

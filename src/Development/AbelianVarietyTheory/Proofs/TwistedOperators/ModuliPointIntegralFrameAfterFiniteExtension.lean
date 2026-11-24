@@ -95,7 +95,7 @@ theorem exists_obj_of_rational {B B₂ K Ω : Type} [CommRing B] [CommRing B₂]
   subst hs
   let T : PAT H (Sp K) := ⟨o.t, ObjDim.isAbelianScheme o, _, ObjDim.smoothOfRelativeDimension o, ObjDim.sym,
     o.ample, o.ktriv⟩
-  obtain ⟨-, I, -⟩ := o.geom Ω (spMap σ) _ (TorsionRat.sp_comp _ _)
+  obtain ⟨-, I, -⟩ := o.geom Ω (spMap σ) _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have hM : 0 < l₂.M := lt_of_lt_of_le (by norm_num) l₂.three_le
   have hA : 0 < l₂.A := l₂.A_pos
   have hsec : ∀ n : ℕ, 0 < n → n ∣ l₂.M' → ∀ a, ∃ s : 𝟙_ (Over (Sp K)) ⟶ o.t.G, toUnit _ ≫ s = I.ev n a := by
@@ -135,7 +135,7 @@ theorem exists_obj_of_rational {B B₂ K Ω : Type} [CommRing B] [CommRing B₂]
   subst hβ
   refine ⟨?_, ?_⟩
   · rw [RingHom.comp_apply, hρ]
-    exact (o.geom k (spMap ν) _ (TorsionRat.sp_comp _ _)).1
+    exact (o.geom k (spMap ν) _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).1
   obtain ⟨i, hi⟩ := exists_algClosure_lift σ
   obtain ⟨i', hi'⟩ := exists_algClosure_lift ν
   obtain ⟨I', -, hev⟩ := cmTorsionIsometry_transport_geometricPoint abelianSchemeLaws_all.1 D T.pol (fun a => T.t.act.act a) T.t.act.hom i i'
@@ -240,7 +240,7 @@ theorem exists_obj_level (c : Coeff l) (c₂ : Coeff l₂) (hle : c.F ≤ c₂.F
     let w := ObjPull.pushEquiv m.cart (Over.mk (spMap (algebraMap L F))) x
     have hw : ObjPull.pushEquiv m.cart (Over.mk (spMap (algebraMap L F))) x ^ l₂.M' = 1 := by rw [← map_pow, hx, map_one]
     have e : spMap (algebraMap k F) ≫ 𝟙 _ = spMap (algebraMap L F) ≫ spMap (algebraMap k L) := by
-      rw [Category.comp_id, TorsionRat.sp_comp]
+      rw [Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
     let g₂ : Over.mk (spMap (algebraMap k F) ≫ 𝟙 _) ⟶
         Over.mk (spMap (algebraMap L F) ≫ spMap (algebraMap k L)) := Over.homMk (𝟙 _) ((Category.id_comp _).trans e.symm)
@@ -258,7 +258,7 @@ theorem exists_obj_level (c : Coeff l) (c₂ : Coeff l₂) (hle : c.F ≤ c₂.F
   obtain ⟨o₂, ho₂⟩ := exists_obj_of_rational (b₂ := baseKA l₂) (s := spMap (algebraMap k L) ≫ s)
     ((algebraMap k L).comp (io.comp (IntermediateField.inclusion c.le).toRingHom))
     (j.comp (IntermediateField.inclusion c₂.le).toRingHom) (algebraMap L F)
-    (by rw [hs, TorsionRat.sp_comp]) (objOfSABMap o m) hA
+    (by rw [hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) (objOfSABMap o m) hA
     hρ hrat
   exact ⟨L, inferInstance, inferInstance, inferInstance, j, o₂, ho₂ ▸ ⟨m⟩⟩
 
@@ -448,7 +448,7 @@ theorem intFrExt : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : H
   obtain ⟨O, _, β, Y, hPI, b, hb⟩ := GlobalTheory.exists_model_pushInvertible_under_cdvr GlobalTheory.partI_closed
     GlobalTheory.Moduli.moduli_scheme_exists E H D l₂ X₂ c₂ hpq T' io₂ p hp hpm (hgood p hp)
   have hcond : x₂ ≫ X₂.s = spMap io₂ ≫ spMap (IntermediateField.inclusion c₂.le).toRingHom := by
-    rw [hx₂, TorsionRat.sp_comp, TorsionRat.sp_comp]
+    rw [hx₂, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let z : Sp T'.Fr ⟶ X₂.XF c₂ := pullback.lift x₂ (spMap io₂) hcond
   have hzs : z ≫ pullback.snd _ _ = spMap io₂ := pullback.lift_snd _ _ _
   have hzf : z ≫ pullback.fst _ _ = x₂ := pullback.lift_fst _ _ _
@@ -467,8 +467,8 @@ theorem intFrExt : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : H
   obtain ⟨a₃, -⟩ := sabComp pullCubComp E H _ _ _ t₀ o₂.t t' _ _ n₂ a₂
   obtain ⟨a₄, -⟩ := sabComp pullCubComp E H _ _ _ Xo.univ.t t₀ t' _ _ m₀ a₃
   have e₂ : ((𝟙 _ ≫ spMap ψ.toRingHom) ≫ spMap (algebraMap T.Fr L)) ≫ x = spMap i ≫ x := by
-    rw [Category.id_comp, TorsionRat.sp_comp, show ψ.toRingHom.comp (algebraMap T.Fr L) = i from RingHom.ext hψ]
+    rw [Category.id_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, show ψ.toRingHom.comp (algebraMap T.Fr L) = i from RingHom.ext hψ]
   refine exists_intFr (Xo := Xo) (c := c) T' (i.comp io) (spMap i ≫ x) ?_ G t' (e₂ ▸ a₄) m2 θ hθ w2 σ' gr2 hcl hgen
-  rw [Category.assoc, hx, sOf, sOf, TorsionRat.sp_comp]
+  rw [Category.assoc, hx, sOf, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 end GlobalTheory.AnyLevelFrame

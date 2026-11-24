@@ -378,16 +378,12 @@ theorem FGAbove.exists_ringHom (h : R₀.FG) {S : Type} [CommRing S] (φ : ∀ R
     rw [key T x hx, key T y hy, key T _ (add_mem hx hy), ← map_add (f := _)]
     rfl
 
-theorem spMap_comp_ring {A A' A'' : Type} [CommRing A] [CommRing A'] [CommRing A''] (f : A →+* A')
-    (g : A' →+* A'') : spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 variable {B : Scheme.{0}} (pB : B ⟶ Sp k)
 
 def baseChangeMap {A A' : Type} [CommRing A] [CommRing A'] [Algebra k A] [Algebra k A'] (f : A →ₐ[k] A') :
     pullback pB (spMap (algebraMap k A')) ⟶ pullback pB (spMap (algebraMap k A)) :=
   pullback.lift (pullback.fst _ _) (pullback.snd _ _ ≫ spMap f.toRingHom) (by
-    rw [pullback.condition, Category.assoc, spMap_comp_ring]
+    rw [pullback.condition, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact f.comp_algebraMap.symm)
 
@@ -405,7 +401,7 @@ theorem baseChangeMap_comp (f : A →ₐ[k] A') (g : A' →ₐ[k] A'') :
     baseChangeMap pB g ≫ baseChangeMap pB f = baseChangeMap pB (g.comp f) := by
   apply pullback.hom_ext
   · rw [Category.assoc, baseChangeMap_fst, baseChangeMap_fst, baseChangeMap_fst]
-  · rw [Category.assoc, baseChangeMap_snd, baseChangeMap_snd_assoc, baseChangeMap_snd, spMap_comp_ring]
+  · rw [Category.assoc, baseChangeMap_snd, baseChangeMap_snd_assoc, baseChangeMap_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
 
 theorem baseChangeMap_id : baseChangeMap pB (AlgHom.id k A) = 𝟙 _ := by
@@ -473,7 +469,7 @@ theorem nonempty_isLimit_baseChange (h : R₀.FG) :
   have hf : ∀ R : FGAbove R₀, a R ≫ pullback.fst _ _ = a o ≫ pullback.fst _ _ := fun R => by
     rw [← ha o R R.2.2, Category.assoc, baseChangeMap_fst]
   refine ⟨pullback.lift (a o ≫ pullback.fst _ _) b ?_, fun R => ?_, fun m hm => ?_⟩
-  · rw [Category.assoc, pullback.condition, ← Category.assoc, ← hb' o, Category.assoc, spMap_comp_ring]
+  · rw [Category.assoc, pullback.condition, ← Category.assoc, ← hb' o, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
   · show _ ≫ baseChangeMap pB R.unop.1.val = a R.unop
     apply pullback.hom_ext

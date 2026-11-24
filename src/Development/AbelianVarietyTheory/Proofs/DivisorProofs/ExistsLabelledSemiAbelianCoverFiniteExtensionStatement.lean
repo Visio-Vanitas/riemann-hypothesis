@@ -186,7 +186,7 @@ theorem theta_consts_algebraic : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLoc
   obtain ⟨e, he⟩ : ∃ e : (T ⟶ B.A) ≃* (Over.mk (T.hom ≫ f₀) ⟶ A'.A), ∀ y, (e y).left = y.left ≫ b :=
     LiePull.exists_pushEquiv hb T _ rfl
   have heq : spMap gam ≫ f₀ = jFK (R := W) C := by
-    rw [← Geo.Tor.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext hgam)
   let Ix := {z : baseOver (Sp (Kb W)) ⟶ B.A // z ^ (m ^ 2) = 1}
   have tz : ∀ i : Ix, (ιC ≫ i.1) ^ (m ^ 2) = 1 := fun i => by rw [← MonObj.comp_pow, i.2, MonObj.comp_one]
@@ -779,8 +779,8 @@ theorem isThetaPt_fibre : ∀ (F Ω T : Type) [Field F] [IsAlgClosed F] [CharZer
   obtain ⟨w, hwR⟩ := GlobalTheory.Ex.Specialise.exists_isThetaPt_local hL hL2 P s hm hu _ hmo
 
   have e1 : spMap jR ≫ s = 𝟙 (Sp Ω) ≫ spMap jT := by
-    rw [Category.id_comp, _root_.GlobalTheory.spMap_comp_ring, hjR]
-  have e2 : spMap r ≫ s = spMap tR := by rw [_root_.GlobalTheory.spMap_comp_ring, hr]
+    rw [Category.id_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hjR]
+  have e2 : spMap r ≫ s = spMap tR := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hr]
   have hΩ := GlobalTheory.Ex.Specialise.isThetaPt_map hL2 P jR e1 hwR
   have hF := GlobalTheory.Ex.Specialise.isThetaPt_map hL2 P r e2 hwR
 

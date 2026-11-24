@@ -95,12 +95,6 @@ theorem spMap_res_chart {X : Scheme.{0}} (U W : X.affineOpens) (hW : W.1 ≤ U.1
     spMap (X.presheaf.map (homOfLE hW).op).hom ≫ GlobalTheory.LogKS.chart U = GlobalTheory.LogKS.chart W :=
   U.2.map_fromSpec W.2 (homOfLE hW).op
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (α : A →+* B) (β : B →+* C) :
-    spMap β ≫ spMap α = spMap (β.comp α) := by
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
-alias dualMap_comp' := _root_.GlobalTheory.Frames.Glue.dual_comp
-
 theorem isKS_basicOpen : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : ReciprocityTheory.ChartRestriction.G.Geo.Tor.Host E) (X : Scheme.{0}) (t : SAB H X) (V : X.Opens) (U W : X.affineOpens) (hW : W.1 ≤ U.1) (f : Γ(X, U.1)), W.1 = X.basicOpen f → ∀ (n : ℕ) (v : Fin n → (Sp (DualNumber Γ(X, U.1)) ⟶ t.G.left)) (D : Derivation ℤ Γ(X, U.1) Γ(X, U.1)) (DW : Derivation ℤ Γ(X, W.1) Γ(X, W.1)) (Θ : Matrix (Fin n) (Fin n) Γ(X, U.1)), (∀ r, DW ((X.presheaf.map (homOfLE hW).op).hom r) = (X.presheaf.map (homOfLE hW).op).hom (D r)) → GlobalTheory.LogKS.IsKS t V U v D Θ → GlobalTheory.LogKS.IsKS t V W (fun i => spMap (dualMap (X.presheaf.map (homOfLE hW).op).hom) ≫ v i) DW ((X.presheaf.map (homOfLE hW).op).hom.mapMatrix Θ) := by
   intro E _ _ _ H X t V U W hW f hf n v D DW Θ hD ⟨J, Wc, j, d, hsup, hj, hfld, hcomp, htest⟩
   have hWU : ∀ i, Wc i ≤ t.G.hom ⁻¹ᵁ U.1 := fun i =>
@@ -127,9 +121,9 @@ theorem isKS_basicOpen : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] 
     exact leibniz_frac _ _ ((hfld i).2.1 _ inf_le_left) DW hu hb (key u) (key r)
   · refine htest i i' O (hO.trans (inf_le_inf inf_le_left inf_le_left)) g S
       (φ.comp (X.presheaf.map (homOfLE hW).op).hom) g₀ w ?_ hO' fun a => ?_
-    · rw [hg₀, ← spMap_res_chart U W hW, ← Category.assoc, spMap_comp']
+    · rw [hg₀, ← spMap_res_chart U W hW, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · obtain ⟨g', v', h₁, h₂, h₃⟩ := hw a
       refine ⟨g', v', h₁, ?_, h₃⟩
-      rw [h₂, ← Category.assoc, spMap_comp', dualMap_comp']
+      rw [h₂, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp']
 
 end GlobalTheory.LogKSLoc

@@ -1490,7 +1490,7 @@ theorem GlobalTheory.UnifFrameChange.exists_holomorphic_frame_change : ∀ (E : 
     have hov : σ = (evHom hzV).comp φ := by
       generalize cxOf e σ hj (pt b) = z at hzV
       exact GlobalTheory.ShFam.EigLoc.spMap_inj (z.2.symm.trans (by
-        rw [← ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap, ← hφ', ← Category.assoc, GlobalTheory.LieMet.spMap_evHom hzV]))
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hφ', ← Category.assoc, GlobalTheory.LieMet.spMap_evHom hzV]))
     have hx : (cxOf e σ hj (pt b)).1 ≫ genι T.Z = spMap (evHom hzV) ≫ LogKS.chart V ≫ genι T.Z := by
       rw [← Category.assoc, GlobalTheory.LieMet.spMap_evHom hzV]
     obtain ⟨f, hf⟩ := Φ.exists_isMap (evHom hzV) hov hx

@@ -187,14 +187,14 @@ def epsHom (φ : S →+* S') {x : Sp S ⟶ X0} {x' : Sp S' ⟶ X0} (h : spMap φ
     overAt x' (DualNumber S') ⟶ overAt x (DualNumber S) :=
   Over.homMk (spMap (dualMap φ)) (by
     show spMap (dualMap φ) ≫ spMap (algebraMap S (DualNumber S)) ≫ x = spMap (algebraMap S' (DualNumber S')) ≫ x'
-    rw [← h, ← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_alg])
+    rw [← h, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg])
 
 omit [IsCommMonObj G] in
 theorem smT_epsHom (φ : S →+* S') {x : Sp S ⟶ X0} {x' : Sp S' ⟶ X0} (h : spMap φ ≫ x = x') (a : S)
     (v : overAt x (DualNumber S) ⟶ G) : smT x' (φ a) (epsHom φ h ≫ v) = epsHom φ h ≫ smT x a v := by
   apply Over.OverMorphism.ext
   show spMap (epsMul (φ a)) ≫ spMap (dualMap φ) ≫ v.left = spMap (dualMap φ) ≫ spMap (epsMul a) ≫ v.left
-  rw [← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_epsMul]
+  rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul]
 
 def tanPull (φ : S →+* S') {x : Sp S ⟶ X0} {x' : Sp S' ⟶ X0} (h : spMap φ ≫ x = x') :
     TanM x G →ₛₗ[φ] TanM x' G where
@@ -288,7 +288,7 @@ theorem tanPull_lieBasis (M : MChart Y) (φ : S →+* S') {x : Sp S ⟶ Y.X} {x'
     tanPull φ e (lieBasis M x h j) = lieBasis M x' h' j := by
   subst e
   apply tan_ext_left
-  rw [tanPull_left, lieBasis_left, lieBasis_left, ev_spMap φ x M.U h, dualMap_comp, ← spMap_comp', Category.assoc]
+  rw [tanPull_left, lieBasis_left, lieBasis_left, ev_spMap φ x M.U h, dualMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 def vec (M : MChart Y) (x : Sp S ⟶ Y.X) (h : ⊤ ≤ x ⁻¹ᵁ M.U) : (Fin M.n → S) ≃ₗ[S] TanM x Y.t.G :=
   (lieBasis M x h).equivFun.symm
@@ -446,12 +446,12 @@ theorem exists_gChart [IsNoetherianRing O] (hP : PushInvertible Y.t.G Y.t.PP.L) 
       rintro p q rfl n
       exact ⟨n, rfl⟩
     obtain ⟨m', hm'⟩ := cast _ (spMap (f.comp r) ≫ M.hU.fromSpec)
-      (by rw [← spMap_comp', Category.assoc, hr]) m
+      (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hr]) m
     obtain ⟨v', hv', hb, ha⟩ := M.lie R' (f.comp r) t' m'
     refine ⟨v', fun j => ?_, hb, ha⟩
     rw [← hm', hv']
     show spMap (dualMap (f.comp r)) ≫ _ = spMap (dualMap f) ≫ _
-    rw [dualMap_comp, ← spMap_comp', Category.assoc]
+    rw [dualMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · simp only [resG_resG]
     exact hg W' (hW'.trans hUV) s hs
 

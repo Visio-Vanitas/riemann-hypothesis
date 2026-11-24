@@ -44,7 +44,7 @@ theorem affPt_hom : affPt (𝔰) V ≫ A.hom = spMap (algebraMap R 𝔅) :=
 theorem derHom_hom (δ : Ω[𝔅⁄R] →ₗ[𝔅] 𝔅) :
     (spMap (derHom δ : 𝔅 →+* DualNumber 𝔅) ≫ affPt (𝔰) V) ≫ A.hom =
       spMap (algebraMap 𝔅 (DualNumber 𝔅)) ≫ spMap (algebraMap R 𝔅) := by
-  rw [Category.assoc, affPt_hom, ← Cris.spMap_comp, ← Cris.spMap_comp, AlgHom.comp_algebraMap,
+  rw [Category.assoc, affPt_hom, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, AlgHom.comp_algebraMap,
     ← IsScalarTower.algebraMap_eq]
 
 def ptOf (δ : Ω[𝔅⁄R] →ₗ[𝔅] 𝔅) : epsR 𝔅 ⟶ 𝔄 :=
@@ -72,7 +72,7 @@ theorem ptOf_zero : (ptOf A V 0).left = spMap (algebraMap 𝔅 (DualNumber 𝔅)
 
 theorem fst_derHom_spMap (δ : Ω[𝔅⁄R] →ₗ[𝔅] 𝔅) : spMap (TrivSqZeroExt.fstHom 𝔅 𝔅 𝔅).toRingHom ≫
     spMap (derHom δ : 𝔅 →+* DualNumber 𝔅) = 𝟙 _ := by
-  refine (Cris.spMap_comp _ _).symm.trans ((congrArg spMap ?_).trans (Cris.spMap_id _))
+  refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap ?_).trans (Cris.spMap_id _))
   ext b
   exact fst_derHom δ b
 
@@ -89,7 +89,7 @@ theorem over_fst (y : epsR 𝔅 ⟶ 𝔄) : (y.left ≫ 𝔣) ≫ 𝔰 = spMap (
   rw [Category.assoc, pullback.condition, ← Category.assoc]
   erw [Over.w y]
   change spMap _ ≫ spMap _ = _
-  rw [← Cris.spMap_comp, ← IsScalarTower.algebraMap_eq]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← IsScalarTower.algebraMap_eq]
 
 theorem isMor_fst : IsMor (dp0 R) (𝔰) (dp0 𝔅) ((𝔄).hom ≫ 𝟙 (Sp 𝔅)) (algebraMap R 𝔅) 𝔣 :=
   IsMor.of_dividedPowersZeroIdeal _ (by rw [Category.comp_id, Category.comp_id]; exact pullback.condition)

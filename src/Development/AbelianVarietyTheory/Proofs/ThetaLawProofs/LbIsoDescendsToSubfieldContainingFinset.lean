@@ -89,7 +89,7 @@ theorem lbIso_descends_to_subfield_containing_finset :
   have hρ₂ : ρ.comp (algebraMap k _) = α := RingHom.ext fun r ↦ β.injective
     ((hρ₀ _).trans (RingHom.congr_fun hαβ r).symm)
   let j : X₁.left ⟶ pullback X₀.hom (spMap (algebraMap k (Algebra.adjoin k (s : Set K)))) :=
-    pullback.lift χ (X₁.hom ≫ spMap ρ) (by rw [Category.assoc, spMap_comp_ring, hρ₂, hχ.w])
+    pullback.lift χ (X₁.hom ≫ spMap ρ) (by rw [Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ₂, hχ.w])
   have hj₁ : j ≫ pullback.fst _ _ = χ := pullback.lift_fst _ _ _
   refine same _ j χ ?_ H₂
   rw [baseChangeMap_fst, hj₁]

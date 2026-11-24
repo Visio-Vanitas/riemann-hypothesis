@@ -1375,11 +1375,11 @@ theorem isPrincipal_of_subring : ∀ (h : ℕ) (R : Type) [CommRing R] (R₁ : S
       refine _root_.GlobalTheory.KTrivDvrSpread.trivAlong_of_generic _ _ hG hL hLa hrig hsym V (spMap ρ) ?_
       have t1 := hfT.comp (spMap (algebraMap R Q.asIdeal.ResidueField))
       have e1 : spMap (algebraMap R Q.asIdeal.ResidueField) ≫ spMap R₁.subtype = spMap j ≫ spMap i := by
-        rw [← Geo.Tor.spMap_comp, ← Geo.Tor.spMap_comp, h1]
+        rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h1]
       rw [e1] at t1
       have t2 := (_root_.GlobalTheory.KTrivFlatDescent.trivAlong_of_flat_surjective _ _ (spMap i) (spMap j) hL t1).comp (spMap e)
       have e2 : spMap e ≫ spMap i = spMap (algebraMap V (FractionRing V)) ≫ spMap ρ := by
-        rw [← Geo.Tor.spMap_comp, ← Geo.Tor.spMap_comp, h2]
+        rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h2]
       rwa [e2] at t2
   have hT : GlobalTheory.KTrivSpread.TrivAlong (Out.powObj A₁ 8) (powLB A₁ P₁) (𝟙 _) :=
     fun T a ha x hx => GlobalTheory.UU.kTriv_iff_forall.1 hK T x hx

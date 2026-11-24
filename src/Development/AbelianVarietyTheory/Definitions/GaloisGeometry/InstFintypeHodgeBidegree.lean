@@ -533,13 +533,7 @@ def resHom (σ : k →+* k') {B B' : CommAlgCat.{0} k'} (f : B ⟶ B') : resAlg 
   letI : Algebra k B' := Algebra.compHom B' σ
   CommAlgCat.ofHom { (f.hom : B →+* B') with commutes' := fun r ↦ f.hom.commutes (σ r) }
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := Spec.map_comp _ _
-
 theorem spMap_id' (A : Type) [CommRing A] : spMap (RingHom.id A) = 𝟙 _ := Spec.map_id _
-
-theorem eq_of_spMap_eq {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) :
-    f = g := congrArg CommRingCat.Hom.hom (Spec.map_injective h)
 
 structure AffPt (s : X ⟶ Sp k) : Type 1 where
 
@@ -560,7 +554,7 @@ instance : Category.{0} (AffPt s) where
   comp {T T' T''} φ ψ := ⟨φ.1 ≫ ψ.1, by
     have e : ((φ.1 ≫ ψ.1).hom : T.B →+* T''.B) =
         (ψ.1.hom : T'.B →+* T''.B).comp (φ.1.hom : T.B →+* T'.B) := rfl
-    rw [e, spMap_comp', Category.assoc, φ.2, ψ.2]⟩
+    rw [e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, φ.2, ψ.2]⟩
   id_comp _ := Subtype.ext (Category.id_comp _)
   comp_id _ := Subtype.ext (Category.comp_id _)
   assoc _ _ _ := Subtype.ext (Category.assoc _ _ _)
@@ -626,27 +620,27 @@ def toPt (T : AffPt (algStr k B)) : B →ₐ[k] T.B :=
   { (Spec.preimage T.x).hom with
     commutes' := fun r ↦ by
       have e : spMap (((Spec.preimage T.x).hom).comp (algebraMap k B)) = spMap (algebraMap k T.B) := by
-        rw [spMap_comp', ← T.w]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← T.w]
         exact congrArg (· ≫ algStr k B) (Spec.map_preimage T.x)
-      exact congrArg (fun g : k →+* T.B ↦ g r) (eq_of_spMap_eq e) }
+      exact congrArg (fun g : k →+* T.B ↦ g r) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq e) }
 
 theorem spMap_toPt (T : AffPt (algStr k B)) : spMap (toPt T : B →+* T.B) = T.x := Spec.map_preimage T.x
 
 theorem toPt_comp ⦃T T' : AffPt (algStr k B)⦄ (φ : T ⟶ T') (b : B) :
     mp (OPt (algStr k B)) φ (toPt T b) = toPt T' b := by
   have e : spMap (((φ.1.hom : T.B →+* T'.B)).comp (toPt T : B →+* T.B)) = spMap (toPt T' : B →+* T'.B) := by
-    rw [spMap_comp', spMap_toPt, spMap_toPt]; exact φ.2
-  exact congrArg (fun g : B →+* T'.B ↦ g b) (eq_of_spMap_eq e)
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, spMap_toPt, spMap_toPt]; exact φ.2
+  exact congrArg (fun g : B →+* T'.B ↦ g b) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq e)
 
 def idPt_isInitial : Limits.IsInitial (idPt k B) :=
   Limits.IsInitial.ofUniqueHom (fun T ↦ ⟨CommAlgCat.ofHom (toPt T), (Category.comp_id _).trans (spMap_toPt T)⟩)
-    fun T φ ↦ AffPt.hom_ext (CommAlgCat.hom_ext (AlgHom.toRingHom_injective (eq_of_spMap_eq
+    fun T φ ↦ AffPt.hom_ext (CommAlgCat.hom_ext (AlgHom.toRingHom_injective (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
       (((Category.comp_id _).symm.trans φ.2).trans (spMap_toPt T).symm))))
 
 theorem toPt_idPt (b : B) : toPt (idPt k B) b = b := by
   have e : spMap (toPt (idPt k B) : B →+* (idPt k B).B) = spMap (RingHom.id B) :=
     (spMap_toPt _).trans (spMap_id' B).symm
-  exact congrArg (fun g : B →+* B ↦ g b) (@eq_of_spMap_eq B (idPt k B).B _ _ (toPt (idPt k B)) (RingHom.id B) e)
+  exact congrArg (fun g : B →+* B ↦ g b) (@ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq B (idPt k B).B _ _ (toPt (idPt k B)) (RingHom.id B) e)
 
 theorem toPt_idPt_bijective : Function.Bijective (toPt (idPt k B)) :=
   Function.bijective_iff_has_inverse.2 ⟨fun b ↦ b, fun b ↦ toPt_idPt b, fun b ↦ toPt_idPt b⟩

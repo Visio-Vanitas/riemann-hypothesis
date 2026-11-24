@@ -76,10 +76,6 @@ open GlobalTheory.ZM
 
 namespace GlobalTheory.ZM.SiegelArithFamily
 
-theorem spMap_comp_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : B →+* C) (g : A →+* B) :
-    spMap f ≫ spMap g = spMap (f.comp g) := by
-  rw [spMap, spMap, ← Spec.map_comp]; rfl
-
 theorem comp_spMap_id {A : Type} [CommRing A] {S : Scheme.{0}} (s : S ⟶ Sp A) : s ≫ spMap (RingHom.id A) = s := by
   have : spMap (RingHom.id A) = 𝟙 _ := Spec.map_id _
   rw [this, Category.comp_id]
@@ -104,7 +100,7 @@ theorem charZero_residueField {o : Type} [CommRing o] [CharZero o] {S : Scheme.{
 theorem dir_over {o K : Type} [CommRing o] [Field K] {r : ℕ} (β : o →+* K) (lam : (Fin r → K) →ₗ[K] K) :
     spMap (dirMap lam) ≫ spMap ((algebraMap K (TrivSqZeroExt K (Fin r → K))).comp β) =
       constPt (spMap (dirMap lam)) ≫ spMap ((algebraMap K (TrivSqZeroExt K (Fin r → K))).comp β) := by
-  rw [constPt, spMap_comp_spMap, spMap_comp_spMap, spMap_comp_spMap, spMap_comp_spMap]
+  rw [constPt, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   refine RingHom.ext fun a => ?_
   ext <;> simp [dirMap, TrivSqZeroExt.algebraMap_eq_inl]

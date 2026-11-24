@@ -1234,7 +1234,7 @@ theorem char_eq_weil_of_label : ∀ (o Ω : Type) [CommRing o] [Field Ω] [Algeb
   have := ρ.P.isAb.comm
   have hy : (TFK (R := u.V) (PadicAlgCl p)).hom ≫ spMap u.yK = spMap y₀ := by
     have e1 : (TFK (R := u.V) (PadicAlgCl p)).hom ≫ spMap u.yK =
-        spMap ((algebraMap (FractionRing u.V) (PadicAlgCl p)).comp u.yK) := (spMap_comp _ _).symm
+        spMap ((algebraMap (FractionRing u.V) (PadicAlgCl p)).comp u.yK) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
     rw [e1, u.fac]
   let h : Over.mk ((TFK (R := u.V) (PadicAlgCl p)).hom ≫ spMap u.yK) ⟶ baseOver (Sp S.R) :=
     Over.homMk ((TFK (R := u.V) (PadicAlgCl p)).hom ≫ spMap u.yK) (by simp)

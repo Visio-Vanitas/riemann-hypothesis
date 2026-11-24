@@ -929,10 +929,6 @@ theorem pow_left_congr {S X : Scheme.{0}} {G : Over S} [GrpObj G] {a b : X ⟶ S
   subst h
   rw [Over.OverMorphism.ext hx]
 
-private theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C]
-    (f : A →+* B) (g : B →+* C) : spMap g ≫ spMap f = spMap (g.comp f) :=
-  (Spec.map_comp (CommRingCat.ofHom f) (CommRingCat.ofHom g)).symm
-
 set_option synthInstance.maxHeartbeats 200000 in
 private theorem fixed_of_jointlyMonic_over {S S' : Scheme.{0}} (f : S' ⟶ S)
     (T : Over S') (b : T.left ⟶ S) (hb : T.hom ≫ f = b)
@@ -978,11 +974,11 @@ theorem fixed_of_jointlyMonic : ∀ (V W : Type) [CommRing V] [IsDomain V] [Comm
   have hT : spMap σ.toRingHom ≫ (TF (R := W) F).hom = (TF (R := W) F).hom := by
     have e : σ.toRingHom.comp (w₂.comp w₁) = w₂.comp w₁ := RingHom.ext hσ
     change spMap σ.toRingHom ≫ spMap w₂ ≫ spMap w₁ = spMap w₂ ≫ spMap w₁
-    simp only [spMap_comp, e]
+    simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
   have hV : (TF (R := W) F).hom ≫ spMap io = (TF (R := V) F).hom := by
     have e : (w₂.comp w₁).comp io = v₂.comp v₁ := RingHom.ext hF
     change (spMap w₂ ≫ spMap w₁) ≫ spMap io = spMap v₂ ≫ spMap v₁
-    simp only [spMap_comp, e]
+    simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
   exact fixed_of_jointlyMonic_over (spMap io) (TF (R := W) F) (TF (R := V) F).hom hV
     (spMap σ.toRingHom) hT G H r hr (hmono _) m hfix x hx
 

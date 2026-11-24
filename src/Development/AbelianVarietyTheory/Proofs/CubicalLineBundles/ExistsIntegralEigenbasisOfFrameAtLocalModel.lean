@@ -52,7 +52,7 @@ noncomputable section
 namespace GlobalTheory.LamT.LocLie
 
 open GlobalTheory.IntRebase
-open Formalism.L2.PjFree (spMap_comp' epsMul_comp_alg)
+open Formalism.L2.PjFree (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp epsMul_comp_alg).symm
 
 attribute [local instance] Over.cartesianMonoidalCategory
 
@@ -109,7 +109,7 @@ theorem lieInt_change (T : CDVR) (io : c.F →+* T.Fr) {G : SAB H (Sp T.V)} {t' 
     have hδ : spMap (Formalism.L2.Pj.dualMap (algebraMap T.V T.Fr)) ≫
         spMap ((algebraMap T.V (DualNumber T.V)).comp (algebraMap T.V T.V)) =
         spMap (algebraMap T.Fr (DualNumber T.Fr)) ≫ spMap (algebraMap T.V T.Fr) := by
-      rw [spMap_comp', spMap_comp']
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       show spMap ((Formalism.L2.Pj.dualMap (algebraMap T.V T.Fr)).comp (algebraMap T.V (DualNumber T.V))) = _
       rw [dualMap_comp_alg]
     have hov : ∀ j, u' j ≫ t'.G.hom = spMap (algebraMap T.Fr (DualNumber T.Fr)) := by
@@ -121,7 +121,7 @@ theorem lieInt_change (T : CDVR) (io : c.F →+* T.Fr) {G : SAB H (Sp T.V)} {t' 
     let cf : Fin (Dw.mult τ) → T.Fr := fun j => algebraMap T.V T.Fr (k τ j i)
     let Y : Fin (Dw.mult τ) → (T' ⟶ t'.G) := fun j => Over.homMk (spMap (epsMul (cf j)) ≫ u' j) (by
       show (spMap (epsMul (cf j)) ≫ u' j) ≫ t'.G.hom = spMap (algebraMap T.Fr (DualNumber T.Fr))
-      rw [Category.assoc, hov, spMap_comp', epsMul_comp_alg])
+      rw [Category.assoc, hov, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, epsMul_comp_alg])
     refine ⟨(∏ j, Y j).left, ?_, ?_⟩
     · have hA := grpPull_prod m1.cart T' Finset.univ Y
         (fun j => smT x (cf j) (ovT (t := Xo.univ.t) (hu τ j))) (fun j => by
@@ -134,7 +134,7 @@ theorem lieInt_change (T : CDVR) (io : c.F →+* T.Fr) {G : SAB H (Sp T.V)} {t' 
         (fun j => δ ≫ kapI ≫ smT (𝟙 (Sp T.V)) (k τ j i) (Ub τ j)) (fun j => by
           simp only [Over.comp_left, δ, kapI, IntRebase.kap, Ub, smT_left, Over.homMk_left, Category.id_comp, Y,
             Category.assoc]
-          rw [hu2 j, ← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_epsMul])
+          rw [hu2 j, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul])
       rw [← hB, ← comp_prodT, ← comp_prodT]
       rfl
 

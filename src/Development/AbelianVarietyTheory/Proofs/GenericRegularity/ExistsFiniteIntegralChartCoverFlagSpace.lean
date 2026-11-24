@@ -85,7 +85,7 @@ theorem MChart.Lift.exists_coordinates (E : Type) [Field E] [NumberField E] [IsC
   have h := (y.6 τ (y.u τ k) (y.4 τ k) (y.5 τ k)).unique e1 e2
   simpa using congrFun h k
 
-private alias spMap_comp_moduli_spaces := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+private alias spMap_comp_moduli_spaces := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem exists_integral_lift (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (Dw : Datum H)
     (l : Level H) (Xo : Moduli Dw l) (c : Coeff l) (O : Type) [CommRing O] (β : O →+* c.F) (Y : Model Xo c β)
@@ -96,7 +96,7 @@ theorem exists_integral_lift (E : Type) [Field E] [NumberField E] [IsCMField E] 
   have hx : y.x ≫ Xo.s = spMap (algebraMap c.F L) ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
     rw [y.2]
     unfold sOf
-    exact spMap_comp_moduli_spaces _ _
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   obtain ⟨yt, ⟨-, hyt⟩, -⟩ := (GlobalTheory.ModelPoints.model_points_charts E H Dw l Xo c O β Y).1 W L
     (((algebraMap c.F L).comp β).codRestrict W hW) (algebraMap c.F L)
     (pullback.lift y.x (spMap (algebraMap c.F L)) hx) (RingHom.ext fun _ => rfl) (pullback.lift_snd _ _ _)
@@ -105,7 +105,7 @@ theorem exists_integral_lift (E : Type) [Field E] [NumberField E] [IsCMField E] 
   refine ⟨j, (algebraMap W L).comp ψ, fun a => (ψ a).2, ?_⟩
   have key : pullback.lift y.x (spMap (algebraMap c.F L)) hx ≫ Y.j =
       spMap ((algebraMap W L).comp ψ) ≫ (M j).hU.fromSpec := by
-    rw [spMap_comp_moduli_spaces, Category.assoc, hψ, hyt]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hψ, hyt]
   have hn := MChart.nonempty_lift E H Dw l Xo c O β Y (M j) L ((algebraMap W L).comp ψ)
     (pullback.lift y.x (spMap (algebraMap c.F L)) hx) (pullback.lift_snd _ _ _) key
   rwa [pullback.lift_fst] at hn

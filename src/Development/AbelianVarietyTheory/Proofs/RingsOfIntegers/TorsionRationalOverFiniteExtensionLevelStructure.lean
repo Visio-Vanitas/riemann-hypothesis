@@ -57,10 +57,6 @@ namespace GlobalTheory
 
 namespace TorsionRat
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) :=
-  (Spec.map_comp (CommRingCat.ofHom f) (CommRingCat.ofHom g)).symm
-
 theorem sp_epi {K L : Type} [Field K] [Field L] (i : K →+* L) : Epi (spMap i) := by
   have : Flat (spMap i) := by
     letI := i.toAlgebra
@@ -123,7 +119,7 @@ theorem exists_finset_over {K F : Type} [Field K] [Field F] [Algebra K F] {X : S
   rw [← cancel_epi (spMap (algebraMap L F))]
   change spMap (algebraMap L F) ≫ (q ≫ pullback.fst G.hom x) ≫ G.hom =
     spMap (algebraMap L F) ≫ spMap (algebraMap K L) ≫ x
-  rw [← Category.assoc, h1, ← Category.assoc, sp_comp]
+  rw [← Category.assoc, h1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact Over.w p
 
 theorem comp_injective {X : Scheme.{0}} {G : Over X} {K L : Type} [Field K] [Field L] {x : Sp K ⟶ X} {y : Sp L ⟶ X}
@@ -194,7 +190,7 @@ theorem allRat_of_isAlgClosure (Xo : Moduli Dw l) {M : ℕ} (hM : 0 < M) {L F : 
   let g₁ : ptO Xo (spMap i ≫ spMap ψ ≫ x) ⟶ ptO Xo (spMap ψ ≫ x) := Over.homMk (spMap i) rfl
   let g₂ : ptO Xo (spMap i ≫ spMap ψ ≫ x) ⟶ ptO Xo y := Over.homMk (spMap (σ : F →+* Ω')) (by
     change spMap (σ : F →+* Ω') ≫ y = spMap i ≫ spMap ψ ≫ x
-    rw [← hy, ← Category.assoc, ← Category.assoc, sp_comp, sp_comp, hσ])
+    rw [← hy, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ])
   obtain ⟨b, hb, hb'⟩ := exists_eq_comp_of_isAlgClosed Xo hM (σ : F →+* Ω') g₂ rfl (g₁ ≫ w)
     (by rw [← MonObj.comp_pow, hw, MonObj.comp_one])
   obtain ⟨a, ha⟩ := h b hb
@@ -202,7 +198,7 @@ theorem allRat_of_isAlgClosure (Xo : Moduli Dw l) {M : ℕ} (hM : 0 < M) {L F : 
   haveI := sp_epi i
   have h1 : spMap (σ : F →+* Ω') ≫ b.left = spMap i ≫ w.left := congrArg CommaMorphism.left hb'
   refine (cancel_epi (spMap i)).1 (h1.symm.trans ?_)
-  rw [← ha, ← Category.assoc, ← Category.assoc, sp_comp, sp_comp, hσ]
+  rw [← ha, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ]
 
 theorem exists_finite_allRat (Xo : Moduli Dw l) {K : Type} [Field K] (x : Sp K ⟶ Xo.X) {M : ℕ} (hM : 0 < M) :
     ∃ (L : Type) (_ : Field L) (_ : Algebra K L), FiniteDimensional K L ∧
@@ -218,7 +214,7 @@ theorem exists_finite_allRat (Xo : Moduli Dw l) {K : Type} [Field K] (x : Sp K �
   refine ⟨L, inferInstance, inferInstance,
     IntermediateField.finiteDimensional_adjoin fun x _ => (Algebra.IsAlgebraic.isAlgebraic x).isIntegral, ?_⟩
   refine allRat_of_isAlgClosure Xo hM (F := F) _ (spMap (algebraMap K F) ≫ x) ?_ fun w hw => ?_
-  · rw [← Category.assoc, sp_comp]
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · obtain ⟨j, rfl⟩ := (hu w).1 hw
     exact hS j L ((Set.subset_iUnion (fun j => (S j : Set F)) j).trans (IntermediateField.subset_adjoin _ _))
@@ -231,11 +227,11 @@ theorem allRat_baseChange (Xo : Moduli Dw l) {K : Type} [Field K] {x : Sp K ⟶ 
     subst hy
     exact h Ω ψ
   intro Ω _ χ w hw
-  obtain ⟨a, ha⟩ := key Ω (χ.comp ψ) _ (by rw [← Category.assoc, sp_comp]) w hw
+  obtain ⟨a, ha⟩ := key Ω (χ.comp ψ) _ (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) w hw
   let g' : ptO Xo (spMap ψ ≫ x) ⟶ ptO Xo x := Over.homMk (spMap ψ) rfl
   have h1 : (g' ≫ a).left = spMap ψ ≫ a.left := rfl
   refine ⟨g' ≫ a, ha.trans ?_⟩
-  exact (congrArg (· ≫ a.left) (sp_comp ψ χ).symm).trans
+  exact (congrArg (· ≫ a.left) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ψ χ)).trans
     ((Category.assoc _ _ _).trans (congrArg (spMap χ ≫ ·) h1.symm))
 
 theorem exists_level_of_allRat (Xo : Moduli Dw l) {K : Type} [Field K] {x : Sp K ⟶ Xo.X} {M : ℕ} (hM : 0 < M)

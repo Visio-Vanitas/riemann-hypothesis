@@ -121,7 +121,7 @@ theorem exists_derHom (y : Sp (DualNumber (Sec s U.1)) ⟶ X)
         (α : Sec s U.1 →+* DualNumber (Sec s U.1)) = RingHom.id _ := by
       refine GlobalTheory.CechKS.FormLocal.ringHom_ext_affPt (s := s) U.2 ?_
       change spMap _ ≫ affPt s U = spMap _ ≫ affPt s U
-      rw [Cris.spMap_comp, Category.assoc, hα, he, Cris.spMap_id, Category.id_comp]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hα, he, Cris.spMap_id, Category.id_comp]
     exact fun b ↦ RingHom.congr_fun k b
   let d : Derivation R (Sec s U.1) (Sec s U.1) :=
     { toFun := fun b ↦ (α b).snd
@@ -174,7 +174,7 @@ theorem snd_val_derHom (δ : Ω[Sec s U.1⁄R] →ₗ[Sec s U.1] Sec s U.1) (y :
     fun c ↦ by simp [Φ, α₀]
   have e₀ : spMap (α₀ : Sec s U.1 →+* Sec s U.1) ≫ affPt s U =
       spMap ((SqExt.ofModule R (Sec s U.1) (Sec s U.1)).π : TrivSqZeroExt (Sec s U.1) (Sec s U.1) →+* Sec s U.1) ≫ y := by
-    rw [← e, ← Category.assoc, ← Cris.spMap_comp]
+    rw [← e, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     ext b
     simp [α₀, fst_derHom]

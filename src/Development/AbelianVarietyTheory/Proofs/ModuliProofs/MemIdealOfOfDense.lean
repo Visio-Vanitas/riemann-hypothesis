@@ -55,17 +55,9 @@ open GlobalTheory.ZM
 
 namespace GlobalTheory.ZM.DenseFib
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 theorem exists_spMap {A B : Type} [CommRing A] [CommRing B] (f : Sp B ⟶ Sp A) :
     ∃ φ : A →+* B, spMap φ = f :=
   ⟨(Spec.preimage f).hom, Spec.map_preimage f⟩
-
-theorem spMap_inj {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) :
-    f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
 
 theorem eval₂_scale {R L σ : Type} [CommRing R] [CommRing L] (φ : R →+* L) (x : σ → L) (c : L)
     {F : MvPolynomial σ R} {e : ℕ} (hF : F.IsHomogeneous e) :
@@ -122,8 +114,8 @@ theorem mem_idealOf_of_dense : ∀ (R σ : Type) [CommRing R] (Y : Scheme.{0}) (
   have hψx : spMap ψ ≫ x = yL := by rw [hψ, IsOpenImmersion.lift_fac]
   obtain ⟨α, hα⟩ := exists_spMap (x ≫ s)
   have hcomp : ψ.comp α = φ.comp β := by
-    apply spMap_inj
-    rw [← sp_comp, ← sp_comp, hα, ← Category.assoc, hψx, ← hy, Category.assoc]
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα, ← Category.assoc, hψx, ← hy, Category.assoc]
   have h1 := (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique Y N σ ty A x w hN hw).1 L ψ
   have h2 := (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique Y N σ ty R' y v hN hv).1 L φ
   rw [hψx] at h1
@@ -136,9 +128,9 @@ theorem mem_idealOf_of_dense : ∀ (R σ : Type) [CommRing R] (Y : Scheme.{0}) (
     rw [MvPolynomial.eval₂_comp_left]
     refine H K (κ.comp α) (spMap κ ≫ x) _ ?_ ?_
       ((GlobalTheory.ZM.Coord.secCoord_bc_scale_unique Y N σ ty A x w hN hw).1 K κ)
-    · rw [Category.assoc, ← hα, sp_comp]
+    · rw [Category.assoc, ← hα, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · rintro _ ⟨p, rfl⟩
-      rw [← sp_comp, hα, Scheme.Hom.comp_apply]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα, Scheme.Hom.comp_apply]
       exact hκ ⟨p, rfl⟩
   change φ (MvPolynomial.eval₂ β v F) = 0
   rw [MvPolynomial.eval₂_comp_left, ← hcomp]

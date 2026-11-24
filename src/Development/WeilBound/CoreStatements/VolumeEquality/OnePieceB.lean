@@ -95,7 +95,7 @@ theorem const_chart {K : Type} [Field K] (σ : K →+* ℂ) {X : Scheme.{0}} (s 
   obtain ⟨χ', hχ'⟩ := GagaRat.exists_ringHom_of_mem a x' (by rw [hr]; exact GagaRat.centre_mem hxV')
   have hφK : φ.comp (algebraMap K A) = algebraMap K Ω := by
     have e : spMap (φ.comp (algebraMap K A)) = spMap (algebraMap K Ω) := by
-      rw [← GagaRat.spMap_comp, ← has, ← Category.assoc, hφ, hξs]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← has, ← Category.assoc, hφ, hξs]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective e)
   have hinj : Function.Injective φ := by
     refine (injective_iff_map_eq_zero φ).2 fun b hb => ?_

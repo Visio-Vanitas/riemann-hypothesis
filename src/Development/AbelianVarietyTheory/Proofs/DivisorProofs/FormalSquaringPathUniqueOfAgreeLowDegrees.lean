@@ -215,17 +215,17 @@ theorem path_unique : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] (R : Type) [C
       k.comp π = PowerSeries.C.comp β := by
     intro k hk
     apply ringHom_eq_of_fromSpecStalk s
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp π k, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β PowerSeries.C, Category.assoc, Category.assoc, hβ, hSD.str, ← Category.assoc, hk.base]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp π k, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β PowerSeries.C, Category.assoc, Category.assoc, hβ, hSD.str, ← Category.assoc, hk.base]
   have E2 : ∀ (k : G.left.presheaf.stalk x →+* PowerSeries R), IsPath G c b (spMap k ≫ G.left.fromSpecStalk x) →
       PowerSeries.constantCoeff.comp k = β.comp ε := by
     intro k hk
     apply ringHom_eq_of_fromSpecStalk x
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp k PowerSeries.constantCoeff, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ε β, Category.assoc, Category.assoc, hSD.unit, ← Category.assoc (spMap β), hβ, hk.zero]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp k PowerSeries.constantCoeff, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ε β, Category.assoc, Category.assoc, hSD.unit, ← Category.assoc (spMap β), hβ, hk.zero]
   have E3 : ∀ (k : G.left.presheaf.stalk x →+* PowerSeries R), IsPath G c b (spMap k ≫ G.left.fromSpecStalk x) →
       (PowerSeries.rescale c).comp k = k.comp m := by
     intro k hk
     apply ringHom_eq_of_fromSpecStalk x
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp k (PowerSeries.rescale c), _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp m k, Category.assoc, Category.assoc, hSD.sq, hk.scale, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp k (PowerSeries.rescale c), ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp m k, Category.assoc, Category.assoc, hSD.sq, hk.scale, Category.assoc]
   subst hg hg'
   have hlow' : ∀ j < n, ∀ f, PowerSeries.coeff j (g f) = PowerSeries.coeff j (g' f) := by
     intro j hj f

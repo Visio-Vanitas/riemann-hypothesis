@@ -79,7 +79,7 @@ theorem derMor (D : Derivation ℤ R R) :
     GrpMor (dp0 R) (𝟙 _) A (epsDP R) (epsRed R) A (derHom D) (𝟙 _) (Over.Hom.left (𝟙 A)) :=
   GrpMor.of_hom (isDPMorphism_of_eq_bot _ rfl _ _)
     (by
-      rw [← Cris.spMap_comp, show (TrivSqZeroExt.fstHom R R R).toRingHom.comp (derHom D) = RingHom.id R from
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, show (TrivSqZeroExt.fstHom R R R).toRingHom.comp (derHom D) = RingHom.id R from
         RingHom.ext fun r ↦ by simp [derHom_apply]]
       exact (Cris.spMap_id R).symm) (𝟙 A)
 

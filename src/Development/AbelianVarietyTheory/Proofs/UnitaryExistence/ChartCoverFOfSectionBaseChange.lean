@@ -124,7 +124,7 @@ variable {Xo : Moduli Dw l} {c : Coeff l}
 theorem ChartCover.exists_lift {S : Type} [CommRing S] [Algebra c.F S] (w : FrPt Xo c S) :
     ∃ xF : Sp S ⟶ Xo.XF c, xF ≫ pullback.fst _ _ = w.x ∧ xF ≫ pullback.snd _ _ = spMap (algebraMap c.F S) := by
   refine ⟨pullback.lift w.x (spMap (algebraMap c.F S)) ?_, pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
-  rw [w.x_over, spMap_comp_ring]
+  rw [w.x_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem ChartCover.near (hS : Out.SecBaseChangeSt) {R A : Type} [CommRing R] [Algebra c.F R] [CommRing A]
@@ -163,7 +163,7 @@ theorem ChartCover.cls_loc (hS : Out.SecBaseChangeSt) {R : Type} [CommRing R] [A
   have e : spMap φ.toRingHom ≫ yF = xF := by
     apply pullback.hom_ext
     · rw [Category.assoc, k1, h1, hy.1]
-    · rw [Category.assoc, k2, h2, spMap_comp_ring]
+    · rw [Category.assoc, k2, h2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       exact φ.comp_algebraMap
   have hq : yF (spMap φ.toRingHom (⟨m, hm⟩ : PrimeSpectrum S)) ∈ Set.range j := by

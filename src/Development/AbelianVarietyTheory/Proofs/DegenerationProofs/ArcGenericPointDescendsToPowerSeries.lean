@@ -133,11 +133,11 @@ alias epi_spMap := _root_.GlobalTheory.ThetaDescent.epi_spMap
 
 theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] {f : A →+* B} {g : B →+* C} {h : A →+* C}
     (e : ∀ a, g (f a) = h a) : spMap g ≫ spMap f = spMap h := by
-  rw [← spMap_comp]; exact congrArg spMap (RingHom.ext e)
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact congrArg spMap (RingHom.ext e)
 
 theorem sp_sq {A B B' C : Type} [CommRing A] [CommRing B] [CommRing B'] [CommRing C] {f : A →+* B} {g : B →+* C}
     {f' : A →+* B'} {g' : B' →+* C} (e : ∀ a, g (f a) = g' (f' a)) : spMap g ≫ spMap f = spMap g' ≫ spMap f' := by
-  rw [← spMap_comp, ← spMap_comp]; exact congrArg spMap (RingHom.ext e)
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact congrArg spMap (RingHom.ext e)
 
 theorem exists_frac {A K : Type} [CommRing A] [IsDomain A] [Field K] (f : A →+* K) (hf : Function.Injective f) :
     ∃ t : FractionRing A →+* K, ∀ a, t (algebraMap A _ a) = f a :=
@@ -221,7 +221,7 @@ theorem traitData_desc {O : Type} [CommRing O] {β : O →+* c.F} {Y : Model Xo 
     refine ⟨W', inferInstance, inferInstance, inferInstance, io.comp α, hW', ioi.comp αi, iof.comp αf, ?_⟩
     have e₁ : io.comp (ρ.comp (g.comp PowerSeries.C)) =
         (io.comp α).comp (φ.comp ((RingHom.id _).comp PowerSeries.C)) := RingHom.ext fun x => congrArg io (hc _)
-    rw [e₁, ← Category.assoc, ← spMap_comp] at hd
+    rw [e₁, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hd
     exact hd
 
 variable {W₀ : ValuationSubring ℂ} {Y : Model Xo c (c.V W₀).subtype} {b : c.V W₀ →+* O'}
@@ -238,13 +238,13 @@ theorem exists_ext (h : TraitData Y a g y₁) {W : Type} [CommRing W] [IsDomain 
   have ho : (algebraMap W (FractionRing W)).comp ((ρ.comp (g.comp PowerSeries.C)).comp b) = fK.comp (c.V W₀).subtype := by
     have e : spMap ((algebraMap W (FractionRing W)).comp ((ρ.comp (g.comp PowerSeries.C)).comp b)) =
         spMap (fK.comp (c.V W₀).subtype) := by
-      rw [spMap_comp _ fK, hf, Category.assoc, Category.assoc, ← hj, h.1, ← Category.assoc,
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ fK, hf, Category.assoc, Category.assoc, ← hj, h.1, ← Category.assoc,
         sp_sq (f := algebraMap R₁ (FractionRing R₁)) (g := gW) (f' := ρ) hgW]
-      simp only [spMap_comp, Category.assoc]
+      simp only [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective e)
   obtain ⟨⟨χ, ⟨h₁, h₂⟩, -⟩, -⟩ := GlobalTheory.ValuativeExtension.valuation_extension E H D l Xo c _ _ Y W (FractionRing W) _ fK
     (spMap gW ≫ y₁) ho (by rw [hf, Category.assoc])
-  exact ⟨χ, by rw [h₁, spMap_comp], by rw [h₂, Category.assoc]⟩
+  exact ⟨χ, by rw [h₁, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp], by rw [h₂, Category.assoc]⟩
 
 theorem exists_data (hg : g.Finite) (h : TraitData Y a g y₁) {V F : Type} [CommRing V] [IsDomain V] [IsLocalRing V]
     (hV : CDvr V) [Field F] [IsAlgClosed F] [Algebra V F] [FaithfulSMul V F] [Algebra.IsAlgebraic V F]
@@ -276,8 +276,8 @@ theorem exists_data (hg : g.Finite) (h : TraitData Y a g y₁) {V F : Type} [Com
     rw [RingHom.comp_apply, hgW, RingHom.comp_apply, hωK, hρ, RingHom.comp_apply]
   refine ⟨A, inferInstance, inferInstance, inferInstance, io.comp α, ψ, io.comp ρ, spMap io ≫ χ, hA, iof.comp αf, hψi,
     fun v => (hψ _).trans (hα v), fun r => (hψ _).trans (hρ r), ?_, ?_, hd⟩
-  · rw [Category.assoc, hs, ← Category.assoc, ← spMap_comp]
-  · rw [← e, spMap_comp, Category.assoc, hχ, ← Category.assoc, ← Category.assoc, sp_comp hψ, sp_comp hωK]
+  · rw [Category.assoc, hs, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  · rw [← e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hχ, ← Category.assoc, ← Category.assoc, sp_comp hψ, sp_comp hωK]
 
 theorem point_eq (h1 : Laws) (h2 : Laws2) (h3 : Laws3) (h4 : Laws4) (h5 : Laws5) [CharZero O'] (hg : g.Finite)
     (h : TraitData Y a g y₁) {V F : Type} [CommRing V] [IsDomain V] [IsLocalRing V]
@@ -316,9 +316,9 @@ theorem point_eq (h1 : Laws) (h2 : Laws2) (h3 : Laws3) (h4 : Laws4) (h5 : Laws5)
     rw [← RingHom.comp_assoc, hc', hc] at d'
     refine ⟨spMap e ≫ χ, spMap gW ≫ y₁, ?_, ?_, p', d'⟩
     · have := epi_spMap ωK
-      rw [← cancel_epi (spMap ωK), ← Category.assoc _ (jK W), sp_comp hωK, p', ← q, spMap_comp]
+      rw [← cancel_epi (spMap ωK), ← Category.assoc _ (jK W), sp_comp hωK, p', ← q, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       simp only [Category.assoc]
-    · rw [Category.assoc, s, ← Category.assoc, ← spMap_comp, ← RingHom.comp_assoc, hc']
+    · rw [Category.assoc, s, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, hc']
   obtain ⟨χ, y, j, s, p, d⟩ := key A₁ α₁ ψ₁ ρ₁ χ₁ ka₁ e₁ hA₁ i₁ a₁ r₁ s₁ p₁ d₁ he₁
   obtain ⟨χ', y', j', s', p', d'⟩ := key A₂ α₂ ψ₂ ρ₂ χ₂ ka₂ e₂ hA₂ i₂ a₂ r₂ s₂ p₂ d₂ he₂
   have := hW.2.2
@@ -349,7 +349,7 @@ theorem point_descends : Laws → Laws2 → Laws3 → Laws4 → Laws5 → Laws6 
   obtain ⟨ka, hka⟩ := exists_frac ψ ψi
   have hka' : ∀ r, ka (algebraMap R₁ _ (g r)) = algebraMap V F (φ r) := fun r => (hka _).trans (hψ r)
   have inv : ∀ s : F →+* F, (∀ x, s (ka (gam x)) = ka (gam x)) → spMap s ≫ spMap ka ≫ y₁ = spMap ka ≫ y₁ := fun s hs => by
-    rw [← Category.assoc, ← spMap_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     refine point_eq h1 h2 h3 h4 h5 hg h hV φ φi hu _ _ (fun r => ?_) hka'
     rw [RingHom.comp_apply, ← hgam, hs, hgam, hka']
   letI := gam.toAlgebra

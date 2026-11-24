@@ -125,18 +125,18 @@ theorem exists_witness (h : IsBC f a a' hD) (hf₀ : f₀ = g.comp f) (W : ArcWi
   obtain ⟨t, m, P, φ, he, w, e, s1, s2, s3, s4, s5, s6⟩ := W
   have gpD := pull_grp hD
   have sq : φ ≫ a.D₀.P.A.hom = (P.D.toPre.P.A.hom ≫ spMap g) ≫ spMap f := by
-    rw [s1.1.w, spMap_comp, Category.assoc]
+    rw [s1.1.w, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   obtain ⟨φ', rfl, hb⟩ : ∃ φ' : P.D.toPre.P.A.left ⟶ a'.D₀.P.A.left, φ' ≫ proj hD = φ ∧
       φ' ≫ a'.D₀.P.A.hom = P.D.toPre.P.A.hom ≫ spMap g :=
     ⟨gpD.1.lift _ _ sq, gpD.1.lift_fst _ _ _, gpD.1.lift_snd _ _ _⟩
-  have gp : IsGrpPullback P.D.toPre.P.A a'.D₀.P.A (spMap g) φ' := gpD.cancel (s1.congr (spMap_comp f g) rfl) hb
+  have gp : IsGrpPullback P.D.toPre.P.A a'.D₀.P.A (spMap g) φ' := gpD.cancel (s1.congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g) rfl) hb
   have he' : eSec P.D.toPre.P.A ≫ φ' = spMap g ≫ eSec a'.D₀.P.A := (cubeMapOf gp).e_comm
   have gD := (isGen_iff hD.w).1 hD.w_gen
   have g0 := (isGen_iff w).1 s2
   obtain ⟨w', T⟩ := exists_cancel a.D₀.P.isLB hD.w w gD g0 a'.D₀.P.isLB P.D.toPre.P.isLB
   have hc : ∀ y, (P.D.toPre.c (e (hD.xe y))).left ≫ φ' = spMap g ≫ (a'.D₀.c y).left := fun y => by
     refine gpD.1.hom_ext ?_ ?_
-    · rw [Category.assoc, Category.assoc, hD.c_pr, ← Category.assoc (spMap g), ← spMap_comp]
+    · rw [Category.assoc, Category.assoc, hD.c_pr, ← Category.assoc (spMap g), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact s5 _
     · rw [Category.assoc, hb, ← Category.assoc, Over.w, Category.assoc, Over.w]
       exact (Category.id_comp _).trans (Category.comp_id _).symm
@@ -146,7 +146,7 @@ theorem exists_witness (h : IsBC f a a' hD) (hf₀ : f₀ = g.comp f) (W : ArcWi
       (rigPull_le (φ' ≫ proj hD) (spMap (g.comp f)) he a.D₀.P.L) (fun _ => rfl)).1 s3
     have r₁ := (maps_iff hD.w _ (fun _ => eSec a.D₀.P.A) _ a'.D₀.rig a.D₀.rig (specOf f) _
       (rigPull_le (proj hD) (specOf f) hD.he a.D₀.P.L) (fun _ => rfl)).1 hD.w_rig
-    rw [spMap_comp] at r₀
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r₀
     exact (maps_iff w' _ (fun _ => eSec a'.D₀.P.A) _ P.D.toPre.rig a'.D₀.rig (spMap g) _
       (rigPull_le φ' (spMap g) he' a'.D₀.P.L) (fun _ => rfl)).2 (T.pmaps_cancel a.D₀.P.isLB (fun _ => he') r₁ r₀)
   · refine gpD.1.hom_ext ?_ ?_
@@ -350,14 +350,14 @@ theorem letBC_iff (ν : GtPt D₀ (epsR A)) (ν₁ : GtPt D₁ (epsR A')) :
 
 omit [IsDomain A] [IsDomain A'] in
 theorem dual_base (f : A →+* A') : spMap (dualMap f) ≫ (epsR A).hom = (epsR A').hom ≫ spMap f := by
-  refine (spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (spMap_comp _ _))
+  refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   refine RingHom.ext fun x => ?_
   ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
 
 omit [IsDomain A] [IsDomain A'] in
 theorem dual_fst (f : A →+* A') : spMap (TrivSqZeroExt.fstHom A' A' A').toRingHom ≫ spMap (dualMap f) =
     spMap f ≫ spMap (TrivSqZeroExt.fstHom A A A).toRingHom := by
-  refine (spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (spMap_comp _ _))
+  refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   refine RingHom.ext fun x => ?_
   simp [dualMap]
 
@@ -385,7 +385,7 @@ theorem gtTanR_of_letBC (hG : GlobalFnsSt) {ν : GtPt D₀ (epsR A)} {ν' : GtPt
     (T := Over.mk (𝟙 (Sp A))) (T' := Over.mk (𝟙 (Sp A'))) (spMap f)
     ((Category.comp_id _).trans (Category.id_comp _).symm) g₀
   let ρ : Over.mk (𝟙 (Sp A')) ⟶ epsR A' := Over.homMk (spMap (TrivSqZeroExt.fstHom A' A' A').toRingHom) (by
-    refine (spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (Spec.map_id _))
+    refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (Spec.map_id _))
     exact RingHom.ext fun x => by simp [TrivSqZeroExt.algebraMap_eq_inl])
   have hb : g.b.left ≫ prj p = spMap f ≫ g₀.b.left := (hg 0).1 2
   have b₀ : g.b = 1 := Over.OverMorphism.ext (gp.1.hom_ext (hb.trans (by

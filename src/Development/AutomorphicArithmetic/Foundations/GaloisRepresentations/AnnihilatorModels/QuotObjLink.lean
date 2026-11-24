@@ -1144,11 +1144,11 @@ private def toR {t : S ⟶ Sp R'} {s : S ⟶ Sp R} (h : t ≫ spMap φ = s) (o :
   rosati := o.rosati
   lie R₁ _ β x hx v hv := by
     obtain ⟨β', hβ'⟩ := _root_.GlobalTheory.ZM.RepMap.exists_spMap (x ≫ t)
-    obtain rfl : β = β'.comp φ := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← hx, ← h, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
+    obtain rfl : β = β'.comp φ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← hx, ← h, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
     exact o.lie R₁ β' x hβ' v hv
   lieRank k _ _ x β hx i := by
     obtain ⟨β', hβ'⟩ := _root_.GlobalTheory.ZM.RepMap.exists_spMap (x ≫ t)
-    obtain rfl : β = β'.comp φ := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← hx, ← h, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
+    obtain rfl : β = β'.comp φ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← hx, ← h, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
     exact o.lieRank k x β' hβ' i
   eta := o.eta
   eta_add := o.eta_add
@@ -1156,7 +1156,7 @@ private def toR {t : S ⟶ Sp R'} {s : S ⟶ Sp R} (h : t ≫ spMap φ = s) (o :
   eta_ker := o.eta_ker
   geom k _ _ x β hx := by
     obtain ⟨β', hβ'⟩ := _root_.GlobalTheory.ZM.RepMap.exists_spMap (x ≫ t)
-    obtain rfl : β = β'.comp φ := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← hx, ← h, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
+    obtain rfl : β = β'.comp φ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← hx, ← h, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
     exact o.geom k x β' hβ'
 
 private def ofR {t : S ⟶ Sp R'} {s : S ⟶ Sp R} (h : t ≫ spMap φ = s) (o : Obj b N s) :
@@ -1172,13 +1172,13 @@ private def ofR {t : S ⟶ Sp R'} {s : S ⟶ Sp R} (h : t ≫ spMap φ = s) (o :
   ample := o.ample
   kerP := o.kerP
   rosati := o.rosati
-  lie R₁ _ β x hx v hv := o.lie R₁ (β.comp φ) x (by rw [← h, ← Category.assoc, hx, _root_.GlobalTheory.spMap_comp_ring]) v hv
-  lieRank k _ _ x β hx i := o.lieRank k x (β.comp φ) (by rw [← h, ← Category.assoc, hx, _root_.GlobalTheory.spMap_comp_ring]) i
+  lie R₁ _ β x hx v hv := o.lie R₁ (β.comp φ) x (by rw [← h, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) v hv
+  lieRank k _ _ x β hx i := o.lieRank k x (β.comp φ) (by rw [← h, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) i
   eta := o.eta
   eta_add := o.eta_add
   eta_lin := o.eta_lin
   eta_ker := o.eta_ker
-  geom k _ _ x β hx := o.geom k x (β.comp φ) (by rw [← h, ← Category.assoc, hx, _root_.GlobalTheory.spMap_comp_ring])
+  geom k _ _ x β hx := o.geom k x (β.comp φ) (by rw [← h, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
 
 local macro "cp " m:term:max : term =>
   `(⟨($m).φ, ($m).φ₂, ($m).cart, ($m).sq, ($m).act, ($m).pol, ($m).eta⟩)

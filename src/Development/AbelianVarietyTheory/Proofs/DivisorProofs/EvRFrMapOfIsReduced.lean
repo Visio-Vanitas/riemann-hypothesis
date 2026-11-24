@@ -175,7 +175,7 @@ theorem exists_coef [IsReduced X.Yo] {f : Rul Xo c}
     refine ⟨evR Xo c f Q₀, fun L _ z hzW _ hz Q hQ ez => ?_⟩
     have e1 : spMap (ev z W hzW) ≫ tau hW = z := spMap_ev z hW hzW
     have e2 : spMap ((ev z W hzW).comp (algebraMap c.F Γ(X.Yo, W))) = spMap (algebraMap c.F L) := by
-      rw [← spMap_comp', ← frX_snd Q₀, ← frX_snd Q, ← X.pt_snd Q₀, ← X.pt_snd Q, e₀, ez]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← frX_snd Q₀, ← frX_snd Q, ← X.pt_snd Q₀, ← X.pt_snd Q, e₀, ez]
       simp only [← Category.assoc, e1]
     have e3 : (ev z W hzW).comp (algebraMap c.F Γ(X.Yo, W)) = algebraMap c.F L :=
       congrArg CommRingCat.Hom.hom (Spec.map_injective e2)

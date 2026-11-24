@@ -72,7 +72,7 @@ theorem comb_exists {x : Sp R ⟶ Xo.X} {m : ℕ}
   show (spMap (epsMul (a i)) ≫ v i) ≫ Xo.univ.t.G.hom = spMap (algebraMap R (DualNumber R)) ≫ x
   have e : (epsMul (a i)).comp (algebraMap R (DualNumber R)) = algebraMap R (DualNumber R) :=
     RingHom.ext fun r => by simp [epsMul, TrivSqZeroExt.algebraMap_eq_inl]
-  rw [Category.assoc, hv i, ← Category.assoc, ← spMap_comp, e]
+  rw [Category.assoc, hv i, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
 
 variable [Algebra c.F R] {f : Γ(Y.X, M.U) →+* R} {x : Sp R ⟶ Xo.X}
 

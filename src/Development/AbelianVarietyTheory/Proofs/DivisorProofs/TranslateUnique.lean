@@ -129,7 +129,7 @@ theorem translate_red {x : Sp R ⟶ X} (hv : IsTanAtG t x v) (hg : g ≫ t.G.hom
     (h : IsTranslate t φ g v w) : spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ w = g := by
   obtain ⟨g', v', h₁, h₂, rfl⟩ := h
   have e : spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (algebraMap S (DualNumber S)) = 𝟙 _ := by
-    rw [GlobalTheory.LogKSLoc.spMap_comp', ← Spec.map_id]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Spec.map_id]
     congr 1
   let s : Over.mk (g ≫ t.G.hom) ⟶ tEpsG (g ≫ t.G.hom) :=
     Over.homMk (spMap (TrivSqZeroExt.fstHom S S S).toRingHom) (by
@@ -140,7 +140,7 @@ theorem translate_red {x : Sp R ⟶ X} (hv : IsTanAtG t x v) (hg : g ≫ t.G.hom
     rw [← MonObj.comp_one k]
     refine Over.OverMorphism.ext ?_
     change spMap _ ≫ v'.left = spMap φ ≫ (1 : Over.mk x ⟶ t.G).left
-    rw [h₂, ← hv.2, ← Category.assoc, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.spMap_comp']
+    rw [h₂, ← hv.2, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     ext a <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
   change (s ≫ (g' * v')).left = g
@@ -153,7 +153,7 @@ theorem translate_map (h : IsTranslate t φ g v w) {S' : Type} [CommRing S'] (ρ
   obtain ⟨g', v', h₁, h₂, rfl⟩ := h
   have e : spMap (dualMap ρ) ≫ spMap (algebraMap S (DualNumber S)) =
       spMap (algebraMap S' (DualNumber S')) ≫ spMap ρ := by
-    rw [GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.spMap_comp']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
   let k : tEpsG ((spMap ρ ≫ g) ≫ t.G.hom) ⟶ tEpsG (g ≫ t.G.hom) := Over.homMk (spMap (dualMap ρ)) (by
@@ -164,7 +164,7 @@ theorem translate_map (h : IsTranslate t φ g v w) {S' : Type} [CommRing S'] (ρ
   · change spMap _ ≫ g'.left = _
     rw [h₁, ← Category.assoc, e, Category.assoc]
   · change spMap _ ≫ v'.left = _
-    rw [h₂, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.dualMap_comp']
+    rw [h₂, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.LogKSLoc.dualMap_comp']
   · rw [← MonObj.comp_mul]
     rfl
 
@@ -223,7 +223,7 @@ theorem exists_invField (U : X.affineOpens) {v : Sp (DualNumber Γ(X, U.1)) ⟶ 
         obtain ⟨φ, h₁, h₂⟩ := htr S g (le_preimage_mono g hO hg)
         obtain ⟨φ', h₁', h₂'⟩ := htr S' (spMap ρ ≫ g) (fun p _ => hO (hg (Set.mem_univ (spMap ρ p))))
         have h₃ : (spMap ρ ≫ g) ≫ t.G.hom = spMap (ρ.comp φ) ≫ chart U := by
-          rw [Category.assoc, h₁, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp']
+          rw [Category.assoc, h₁, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         rw [translate_unique U hv h₁' h₃ h₂' (translate_map h₂ ρ), GlobalTheory.Points.valR_spMap_comp _ _ _
           (GlobalTheory.CechKS.le_preimage_of_red (translate_red hv h₁ h₂) hg)]
         simp [dualMap])

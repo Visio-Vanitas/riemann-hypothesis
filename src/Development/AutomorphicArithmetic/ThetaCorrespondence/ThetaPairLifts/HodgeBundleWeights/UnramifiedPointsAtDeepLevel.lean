@@ -99,10 +99,10 @@ theorem exists_intFr_index_one : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
   let _ := (k.comp (algebraMap c.F K)).toAlgebra
   have hz : ptF y ≫ Limits.pullback.snd _ _ = spMap (algebraMap c.F K) := Limits.pullback.lift_snd _ _ _
   have hs : (spMap k ≫ ptF y) ≫ Limits.pullback.snd _ _ = spMap (k.comp (algebraMap c.F K)) := by
-    rw [Category.assoc, ← GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg _ hz
   have hx : ((spMap k ≫ ptF y) ≫ Limits.pullback.fst _ _) ≫ Xo.s = sOf c T.Fr := by
-    rw [Category.assoc, Limits.pullback.condition, ← Category.assoc, hs, GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [Category.assoc, Limits.pullback.condition, ← Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   obtain ⟨y₀, -, h0, -, -⟩ := gfp_frPt_gen (Xo := Xo) (c := c) (L := T.Fr) (L' := T.Fr) hT (fun _ => rfl) _ hx
     (fun _ i j => if i = j then 1 else 0) (fun _ _ => if_pos rfl) (fun _ _ _ h => if_neg h.ne')

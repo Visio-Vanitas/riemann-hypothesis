@@ -134,7 +134,7 @@ theorem exists_pelUnif_pull (hC : CubePullSt) (hP : PolBaseChangeSt) (hU : UnifB
     IsFractionRing.lift (g := (algebraMap R' (FractionRing R')).comp g) ((IsFractionRing.injective R' _).comp hg)
   have hgam : ∀ r, gam (algebraMap R _ r) = algebraMap R' _ (g r) := fun r => IsFractionRing.lift_algebraMap _ r
   have sq : spMap gam ≫ Out.jK R = Out.jK R' ≫ spMap g :=
-    (spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (spMap_comp g _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g _))
   obtain ⟨A', gA, pA, dA, mA, tA⟩ := hP _ _ (spMap gam) P.A
   have gpA : IsGrpPullback A'.A P.A.A (spMap gam) gA := ⟨pA, fun T x y x₀ y₀ hx hy => by
     have e₁ : x₀ = Out.toBase pA.w x := Over.OverMorphism.ext hx
@@ -220,8 +220,8 @@ theorem jFK_comm {R R' : Type} [CommRing R] [IsDomain R] [CommRing R'] [IsDomain
     (hF : ∀ r : R, algebraMap (FractionRing R) F (algebraMap R (FractionRing R) r) =
       algebraMap (FractionRing R') F (algebraMap R' (FractionRing R') (g r))) :
     jFK (R := R') F ≫ jK R' ≫ spMap g = jFK (R := R) F ≫ jK R :=
-  ((congrArg (jFK (R := R') F ≫ ·) (spMap_comp g _).symm).trans (spMap_comp _ _).symm).trans
-    ((congrArg spMap (RingHom.ext fun r => (hF r).symm)).trans (spMap_comp _ _))
+  ((congrArg (jFK (R := R') F ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g _).symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans
+    ((congrArg spMap (RingHom.ext fun r => (hF r).symm)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
 
 theorem pmaps_of_isPullGtF {R R' : Type} [CommRing R] [IsDomain R] [CommRing R'] [IsDomain R'] {g : R →+* R'}
     {D : DegPre R} {D' : DegPre R'} {hD : IsPullDeg g D D'} {F : Type} [Field F] [Algebra (FractionRing R) F]
@@ -367,7 +367,7 @@ theorem exists_match (hL : Laws) (h2 : Laws2) (hR : AdmBase R I) (hV : AdmBase V
   obtain ⟨s1, s2, s3, s4, s5, s6⟩ := W.spec
   have gD := pull_grp hD
   have gN := pull_grp hN
-  have hs : spMap h = spMap i ≫ spMap g := by rw [hig, spMap_comp]
+  have hs : spMap h = spMap i ≫ spMap g := by rw [hig, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have a₁ := fun x => act_proj hD (el x)
   have a₂ := fun x => act_proj hN (elN x)
   have c₁ := hD.c_pr
@@ -385,7 +385,7 @@ theorem exists_match (hL : Laws) (h2 : Laws2) (hR : AdmBase R I) (hV : AdmBase V
     ((isGen_iff hN.w).1 hN.w_gen)
   have g0 := (isGen_iff W.w).1 s2
   obtain ⟨w, T⟩ := exists_comp W.P.D.toPre.P.isLB W.w v g0 gv a.D₀.P.isLB N.P.isLB
-  have hs' : spMap (h.comp f) = spMap i ≫ spMap (g.comp f) := by rw [hig, ← spMap_comp]
+  have hs' : spMap (h.comp f) = spMap i ≫ spMap (g.comp f) := by rw [hig, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have he : eSec N.P.A ≫ r ≫ W.φ = spMap (h.comp f) ≫ eSec a.D₀.P.A := by
     rw [reassoc_of% er, W.he, hs', Category.assoc]
   have cr : ∀ y, (N.c (e y)).left ≫ r = spMap i ≫ (W.P.D.toPre.c (W.e y)).left := fun y => by
@@ -493,7 +493,7 @@ theorem agree (hL : Laws) (h2 : Laws2) (h5 : Laws5) (hR : AdmBase R I) (hV : Adm
   have gD := pull_grp hD
   have k₀ : ∀ (x : Sp S ⟶ W.P.D.toPre.P.A.left) (i : V →+* S), x ≫ W.P.D.toPre.P.A.hom = spMap i →
       (x ≫ hD.e.hom.left ≫ pullback.fst P.D.toPre.P.A.hom (specOf g)) ≫ P.D.toPre.P.A.hom = spMap (i.comp g) :=
-    fun x i e => by rw [Category.assoc, gD.1.w, reassoc_of% e, spMap_comp]
+    fun x i e => by rw [Category.assoc, gD.1.w, reassoc_of% e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨h, e₁⟩ : ∃ h : R →+* S, h = i₁.comp g := ⟨_, rfl⟩
   have e₂ : h = i₂.comp g := e₁.trans (congrArg (fun q => q.hom)
     (Spec.map_injective ((k₀ x₁ i₁ hx₁).symm.trans ((congrArg (· ≫ _) hx).trans (k₀ x₂ i₂ hx₂)))))

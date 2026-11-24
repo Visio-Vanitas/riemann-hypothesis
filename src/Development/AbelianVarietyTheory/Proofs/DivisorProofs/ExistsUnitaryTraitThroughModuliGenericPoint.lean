@@ -119,7 +119,7 @@ theorem dominates_of_above {l : Level H} {Xo : Moduli D l} {c : Coeff l} {O O' :
     Dominates Y Y' b := by
   have hrB : r ≫ C₀.j ≫ C₀.s = pullback.snd _ _ ≫ spMap (β'.comp b₀) := by
     rw [← Category.assoc, ← a₀.j_comm, Category.assoc, a₀.π_over, ← Category.assoc, Cpt.openImmersion_comp_structure_eq_generic, Category.assoc,
-      ← spMap_comp]
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨ido, hid⟩ := ObjMaps.exists_sab_id Y.oF.t
   obtain ⟨C, a, hiso⟩ := GlobalTheory.Models.Cpt.exists_above_isIso_of_overring E H _ c.F O _ Y.oF.t β O' β' b (ofModel Y) ido hid
     hβ hβ' hb
@@ -154,7 +154,7 @@ theorem dominates_of_above {l : Level H} {Xo : Moduli D l} {c : Coeff l} {O O' :
         infer_instance
       exact isReduced_of_isReduced_stalk _
     apply ext_of_isDominant C.j
-    rw [← Category.assoc, hjf, Category.assoc, hrB, ← Category.assoc, Cpt.openImmersion_comp_structure_eq_generic, Category.assoc, ← spMap_comp]
+    rw [← Category.assoc, hjf, Category.assoc, hrB, ← Category.assoc, Cpt.openImmersion_comp_structure_eq_generic, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨h₀, κ₀, hh₀, -, -, hjh₀, hmh₀, -⟩ := Cpt.Above.exists_lift E H _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ C₀
     (ofModel Y') C b₀ (RingHom.id O') (RingHom.id c.F) r ν₀ a₀ (𝟙 _) ν' (e ≫ f) κ₂ hover hβ' rfl
     (by rw [LevelCover.spMap_id', Category.id_comp, Category.comp_id]) (by rw [hjf, Category.id_comp])
@@ -250,7 +250,7 @@ theorem dominates_up {O₁ O V₁ V : Type} [CommRing O₁] [CommRing O] [CommRi
     have q₃ : Y₁'.j ≫ Y₁'.s = pullback.snd _ _ ≫ spMap β₁' := Cpt.openImmersion_comp_structure_eq_generic (ofModel Y₁')
     have q₄ : Y'.j ≫ Y'.s = pullback.snd _ _ ≫ spMap β' := Cpt.openImmersion_comp_structure_eq_generic (ofModel Y')
     rw [← cancel_mono (spMap β₁'), Category.assoc, ← q₃, ← Category.assoc, ← q₂, Category.assoc, q₁,
-      ← Category.assoc, q₄, Category.assoc, Category.assoc, ← spMap_comp, ← spMap_comp, he]
+      ← Category.assoc, q₄, Category.assoc, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he]
   obtain ⟨νa, hνa⟩ := LevelCover.sab_comp ν Y₁.m0.toSABMap rfl
   obtain ⟨ν₁, hν₁⟩ := LevelCover.sab_comp ν' ν₀ (Category.id_comp r₀)
   obtain ⟨νb, hνb⟩ := LevelCover.sab_comp ν₁ Y₁'.m0.toSABMap rfl
@@ -291,7 +291,7 @@ theorem dominates_up {O₁ O V₁ V : Type} [CommRing O₁] [CommRing O] [CommRi
       Y.j ≫ ρ = r ≫ Y₁.j ∧ Y.m.φ ≫ mu.φ = ν.φ ≫ Y₁.m.φ := ⟨A.π, A.mu, A.π_over, A.j_comm, A.φ_comm⟩
   have w₀ : (pullback.fst Y.s (spMap b) ≫ ρ) ≫ Y₁.s = (pullback.snd _ _ ≫ spMap e) ≫ spMap b₁ := by
     rw [Category.assoc, hρ, ← Category.assoc, pullback.condition, Category.assoc, Category.assoc,
-      ← spMap_comp, ← spMap_comp, hbb]
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hbb]
   obtain ⟨g₀, hg₀⟩ : ∃ g₀ : pullback Y.s (spMap b) ⟶ pullback Y₁.s (spMap b₁),
       g₀ ≫ pullback.fst _ _ = pullback.fst _ _ ≫ ρ := ⟨_, pullback.lift_fst _ _ w₀⟩
   have hpull {S S' : Scheme.{0}} (f : S' ⟶ S) (t : SAB H S) : ∃ t' : SAB H S', Nonempty (SABMap t' t f) := by
@@ -352,7 +352,7 @@ theorem dominates_up {O₁ O V₁ V : Type} [CommRing O₁] [CommRing O] [CommRi
   obtain ⟨n₂, hn₂⟩ := LevelCover.sab_comp k₂ p₂ rfl
   have hj₁ : Y₁.j ≫ Y₁.s = pullback.snd _ _ ≫ spMap β₁ := Cpt.openImmersion_comp_structure_eq_generic (ofModel Y₁)
   have w₁ : Y₁.j ≫ Y₁.s = (pullback.snd _ _ ≫ spMap β₁') ≫ spMap b₁ := by
-    rw [hj₁, Category.assoc, ← spMap_comp, hb₁]
+    rw [hj₁, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hb₁]
   refine dominates_of_above Y Y' b (ofModel Y₁') a₀ ν' hν' (g₀ ≫ f₁) _ n₁ n₂ hβ hβ' hb (fun g hg => ?_) fun y hy => ?_
   · have hg₁ : (g ≫ g₀) ≫ pullback.fst _ _ = r ≫ Y₁.j := by
       rw [Category.assoc, hg₀, ← Category.assoc, hg, hρj]
@@ -386,7 +386,7 @@ theorem exists_model_above (Xo : ∀ l : Level H, Moduli D l) (hN : ToroidalLeve
   obtain ⟨r', hr₁, hr₂⟩ : ∃ r' : (Xo l).XF c ⟶ (Xo l₁).XF c₁, r' ≫ pullback.fst _ _ = r ∧
       r' ≫ pullback.snd _ _ = pullback.snd _ _ ≫ spMap (IntermediateField.inclusion hc).toRingHom :=
     ⟨pullback.lift r (pullback.snd _ _ ≫ spMap (IntermediateField.inclusion hc).toRingHom)
-      (by rw [hr, hkk, spMap_comp, Category.assoc]), pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
+      (by rw [hr, hkk, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]), pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
   obtain ⟨ν', hν'⟩ := LevelCover.sab_cancel Y₁.m0.toSABMap ν r' hr₁
   have hl' : LevComp oF Y₁.oF r' ν' :=
     ⟨fun x => LevelCover.sec_cancel ν' Y₁.m0.toSABMap _ _ (by
@@ -404,12 +404,12 @@ theorem exists_model_above (Xo : ∀ l : Level H, Moduli D l) (hN : ToroidalLeve
         (spMap (IntermediateField.inclusion hc).toRingHom) ⟶ pullback (Xo l₁).s
           (spMap ((IntermediateField.inclusion hc).toRingHom.comp (IntermediateField.inclusion c₁.le).toRingHom)) :=
       pullback.lift (pullback.fst _ _ ≫ pullback.fst _ _) (pullback.snd _ _) (by
-        rw [Category.assoc, pullback.condition, ← Category.assoc, pullback.condition, spMap_comp, Category.assoc])
+        rw [Category.assoc, pullback.condition, ← Category.assoc, pullback.condition, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
     have hm : IsIso m := by
       have h₁ := (IsPullback.of_hasPullback (pullback.snd (Xo l₁).s (spMap (IntermediateField.inclusion c₁.le).toRingHom))
         (spMap (IntermediateField.inclusion hc).toRingHom)).paste_horiz
         (IsPullback.of_hasPullback (Xo l₁).s (spMap (IntermediateField.inclusion c₁.le).toRingHom))
-      rw [← spMap_comp] at h₁
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at h₁
       have : m = h₁.isoPullback.hom := by
         apply pullback.hom_ext
         · rw [pullback.lift_fst, IsPullback.isoPullback_hom_fst]
@@ -499,7 +499,7 @@ attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace GlobalTheory.TraitSemi
 
-alias spMap_comp'' := _root_.Formalism.L2.Pj.spMap_comp_ring
+alias spMap_comp'' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem exists_int_map (F : Type) [Field F] [NumberField F] (V : Type) [CommRing V] [IsDomain V] [IsIntegrallyClosed V]
     (g : F →+* FractionRing V) :

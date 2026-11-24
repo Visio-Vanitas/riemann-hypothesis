@@ -90,7 +90,7 @@ theorem exists_finite_pt {R K L : Type} [CommRing R] [Field K] [Field L] [Algebr
     | mul a b _ _ ha hb => rw [map_mul]; exact mul_mem ha hb
   refine ⟨M, IntermediateField.finiteDimensional_adjoin fun y _ => Algebra.IsIntegral.isIntegral y,
     spMap (ψ.hom.codRestrict M hM) ≫ u, ?_⟩
-  rw [← Category.assoc, ← spMap_comp, ← hψ]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hψ]
   rfl
 
 attribute [local instance] gtGroup
@@ -104,7 +104,7 @@ theorem gtExt_gtExt (f : F →+* F') (hf : f.comp (algebraMap (FractionRing R) F
     (f' : F' →+* F'') (hf' : f'.comp (algebraMap (FractionRing R) F') = algebraMap (FractionRing R) F'')
     (f'' : F →+* F'') (hf'' : f''.comp (algebraMap (FractionRing R) F) = algebraMap (FractionRing R) F'')
     (e : f'.comp f = f'') (g : GtPtF D F) : gtExt D f' hf' (gtExt D f hf g) = gtExt D f'' hf'' g := by
-  have hs : spMap f'' = spMap f' ≫ spMap f := by rw [← e, spMap_comp]
+  have hs : spMap f'' = spMap f' ≫ spMap f := by rw [← e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨b, v⟩ := (eq_gtExt_iff f hf g _).1 rfl
   obtain ⟨b', v'⟩ := (eq_gtExt_iff f' hf' (gtExt D f hf g) _).1 rfl
   refine (eq_gtExt_iff f'' hf'' g _).2 ⟨?_, fun χ => corr_of_val D.P.isLB fun y J hJ => ?_⟩
@@ -152,7 +152,7 @@ theorem exists_definedOver (g : GtPtF D L) :
     ∃ M : IntermediateField (FractionRing R) L, FiniteDimensional (FractionRing R) M ∧ g ∈ definedOver D M := by
   have := D.P.isAb.proper
   obtain ⟨M₀, h₀, x, hx⟩ := exists_finite_pt (K := FractionRing R) (L := L) (algebraMap R (FractionRing R)) D.P.A.hom
-    g.b.left ((Over.w g.b).trans (spMap_comp _ _).symm)
+    g.b.left ((Over.w g.b).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm)
   have := epi_spMap M₀.val.toRingHom
   let b : TF (R := R) M₀ ⟶ D.P.A := Over.homMk x ((cancel_epi (spMap M₀.val.toRingHom)).1
     ((Category.assoc _ _ _).symm.trans ((congrArg (· ≫ _) hx).trans ((Over.w g.b).trans
@@ -240,7 +240,7 @@ open GlobalTheory.FieldPull in
 theorem exists_isTower (h₁ : IsPullDeg α D₀ D₁) (h : IsPullDeg (β.comp α) D₀ D) :
     ∃ h₂ : IsPullDeg β D₁ D, IsTower h₁ h₂ h := by
   have p₁ : IsGrpPullback D₁.P.A D₀.P.A (spMap α) (proj h₁) := pull_grp h₁
-  have sc : spMap β ≫ spMap α = spMap (β.comp α) := (spMap_comp α β).symm
+  have sc : spMap β ≫ spMap α = spMap (β.comp α) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp α β).symm
   have p : IsGrpPullback D.P.A D₀.P.A (spMap β ≫ spMap α) (proj h) := (pull_grp h).congr sc.symm rfl
   obtain ⟨Φ, e₁, e₂⟩ : ∃ Φ : D.P.A.left ⟶ D₁.P.A.left, Φ ≫ proj h₁ = proj h ∧ Φ ≫ D₁.P.A.hom = D.P.A.hom ≫ spMap β :=
     ⟨p₁.1.lift (proj h) (D.P.A.hom ≫ spMap β) (p.1.w.trans (Category.assoc _ _ _).symm), p₁.1.lift_fst _ _ _,

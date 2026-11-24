@@ -81,7 +81,7 @@ theorem isCombAtG_bc {X : Scheme.{0}} (t : SAB H X) {S S' : Type} [CommRing S] [
   have he : spMap (dualMap ψ) ≫ (tEpsG x).hom = (tEpsG (spMap ψ ≫ x)).hom := by
     show spMap (dualMap ψ) ≫ spMap (algebraMap S (DualNumber S)) ≫ x =
       spMap (algebraMap S' (DualNumber S')) ≫ spMap ψ ≫ x
-    rw [← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp]
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     apply RingHom.ext
     intro r
@@ -89,7 +89,7 @@ theorem isCombAtG_bc {X : Scheme.{0}} (t : SAB H X) {S S' : Type} [CommRing S] [
   let e : tEpsG (spMap ψ ≫ x) ⟶ tEpsG x := Over.homMk (spMap (dualMap ψ)) he
   refine ⟨fun i => e ≫ u i, fun i => ?_, ?_⟩
   · show spMap (dualMap ψ) ≫ (u i).left = spMap (epsMul (ψ (a i))) ≫ spMap (dualMap ψ) ≫ v i
-    rw [hu i, ← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp]
+    rw [hu i, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     apply RingHom.ext
     intro r

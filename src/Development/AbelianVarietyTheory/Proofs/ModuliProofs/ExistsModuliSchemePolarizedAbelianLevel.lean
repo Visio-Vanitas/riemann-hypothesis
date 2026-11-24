@@ -638,7 +638,7 @@ theorem exists_tObj : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E] [Numbe
       have h₂ := I.isom l.A l.A_pos (bas (Pi.single i 1)) (bas (Pi.single i' 1))
       refine (CommutatorPairing.weilIs_unique hG (ObjDim.isAbelianScheme ob) ob.t.PP.isLB h₁ h₂).trans ?_
       rw [hbas, map_zpow, map_unitS (s ≫ spMap j) x ((Spec.preimage (x ≫ s)).hom.comp j)
-        (by rw [← Category.assoc, Geo.Tor.spMap_comp, ← hβ K x]), unitOn, unitOn, map_zpow]
+        (by rw [← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hβ K x]), unitOn, unitOn, map_zpow]
       congr 2
       exact Units.ext (hIζ.trans (congrArg _ hζ.symm))
     exact this ▸ hc
@@ -649,7 +649,7 @@ theorem exists_tObj : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E] [Numbe
     exact (Category.comp_id _).trans (Category.id_comp _).symm
   · have e : (Spec.preimage (x ≫ s)).hom.comp j = β := by
       have : spMap ((Spec.preimage (x ≫ s)).hom.comp j) = spMap β := by
-        rw [Geo.Tor.spMap_comp, ← hβ K x, Category.assoc, hx]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hβ K x, Category.assoc, hx]
       exact congrArg CommRingCat.Hom.hom (Spec.map_injective this)
     have e₁ : (Spec.preimage (x ≫ s)).hom bB.ρ = β ρ := by rw [← hρ]; exact RingHom.congr_fun e ρ
     have e₂ : (Spec.preimage (x ≫ s)).hom bB.ζ = β b.ζ := by rw [← hζ]; exact RingHom.congr_fun e b.ζ
@@ -1082,7 +1082,7 @@ theorem moduli_of_family (hL : Out.Laws) (hL2 : Out.Laws2)
         rw [map_pow, hρ, (baseKA l).ρ_sq]; simp
       have hb : x ≫ sX ≫ spMap (algebraMap o (KA l)) =
           spMap ((algebraMap K' (TrivSqZeroExt K' (Fin r → K'))).comp (β.comp (algebraMap o (KA l)))) := by
-        rw [← Category.assoc, hxs, ← spMap_comp]
+        rw [← Category.assoc, hxs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       obtain ⟨t1, ht1⟩ := tObj_pull o g l.A J b X _ (sX ≫ spMap (algebraMap o (KA l))) _ x tX hb
       obtain ⟨τ1, hτ1⟩ := exists_isPEL_of_tmap E H D g J a bas l.A o b ρ X _
         (sX ≫ spMap (algebraMap o (KA l))) _ tX t1 τX x hb ht1 hτX

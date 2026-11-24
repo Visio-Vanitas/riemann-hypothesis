@@ -73,7 +73,7 @@ private theorem frobN_succ' (X : Scheme.{0}) (h : (p : Γ(X, ⊤)) = 0) (j : ℕ
 private theorem smor_comp {A : Over (Sp k)} [GrpObj A] {σ τ : k →+* k} {ψ φ : A.left ⟶ A.left}
     (m : SMor A σ ψ) (n : SMor A τ φ) : SMor A (τ.comp σ) (φ ≫ ψ) := by
   have hc := GrpMor.comp m n
-  rwa [← GlobalTheory.Cris.spMap_comp] at hc
+  rwa [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hc
 
 private noncomputable def rho {A : Over (Sp k)} [GrpObj A] {C : Type} [CommRing C] (i : OAct C A) (c : C) :
     Module.End k (primDR A) :=

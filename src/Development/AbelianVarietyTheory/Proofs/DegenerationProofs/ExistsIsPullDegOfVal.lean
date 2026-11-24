@@ -62,10 +62,10 @@ theorem nonempty_psiOn_field {K : Type} [Field K] (D : DegPre K) : Nonempty (Psi
   let σ : FractionRing K ≃+* K := (FractionRing.algEquiv K K).toRingEquiv
   let s : Sp K ⟶ (TK K).left := spMap σ.toRingHom
   have h₁ : s ≫ jK K = 𝟙 _ := by
-    refine (spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun x => ?_)).trans (Spec.map_id (CommRingCat.of K)))
+    refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun x => ?_)).trans (Spec.map_id (CommRingCat.of K)))
     exact (FractionRing.algEquiv K K).commutes x
   have h₂ : jK K ≫ s = 𝟙 _ := by
-    refine (spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun x => ?_)).trans (Spec.map_id (CommRingCat.of (FractionRing K))))
+    refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun x => ?_)).trans (Spec.map_id (CommRingCat.of (FractionRing K))))
     exact (FractionRing.algEquiv K K).injective ((FractionRing.algEquiv K K).commutes _)
   obtain ⟨t, ht, vt⟩ := exists_gen D.P.isLB (K' := PUnit) (φ' := fun _ => ((D.c χ).left : Sp K ⟶ _)) (ε' := fun _ => -1)
     (fun U _ h => Finset.prod_congr rfl fun _ _ => congrArg (fun q => h q ^ (-1 : ℤ)) (by

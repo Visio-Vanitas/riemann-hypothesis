@@ -114,10 +114,10 @@ theorem UpperTheory.Gal.Ord.tan :
     change (spMap d ≫ v.left ≫ ψ) ≫ A.hom = spMap alg
     rw [Category.assoc, Category.assoc, h2, ← Category.assoc v.left, hv0]
     change spMap d ≫ spMap alg ≫ spMap σ = _
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, dalg])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dalg])
   have e1 : v.left ≫ ψ = spMap u ≫ v'.left := by
     change _ = spMap u ≫ spMap d ≫ v.left ≫ ψ
-    rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, ud, spMap_id, Category.id_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ud, spMap_id, Category.id_comp]
   have hval := fun f ↦ GlobalTheory.LieDual.tanVal_pullForm_baseChange (v := v') (v' := v) hψ.isMor e1 f
   have htan : IsTangent v' := by
     rw [GlobalTheory.GrpTangent.isTangent_iff]
@@ -126,11 +126,11 @@ theorem UpperTheory.Gal.Ord.tan :
     change spMap fst ≫ spMap d ≫ v.left ≫ ψ = 𝟙 _ ≫ η[A].left
     have h00 : spMap fst ≫ v.left = η[A].left := tan_left hv
     calc spMap fst ≫ spMap d ≫ v.left ≫ ψ = (spMap fst ≫ spMap d) ≫ v.left ≫ ψ := by rw [Category.assoc]
-      _ = (spMap τ ≫ spMap fst) ≫ v.left ≫ ψ := by rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, fd]
+      _ = (spMap τ ≫ spMap fst) ≫ v.left ≫ ψ := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fd]
       _ = spMap τ ≫ (spMap fst ≫ v.left) ≫ ψ := by simp only [Category.assoc]
       _ = spMap τ ≫ η[A].left ≫ ψ := by rw [h00]
       _ = (spMap τ ≫ spMap σ) ≫ η[A].left := by rw [eta_comp hψ, Category.assoc]
-      _ = 𝟙 _ ≫ η[A].left := by rw [_root_.GlobalTheory.spMap_comp_ring, τσ, spMap_id]; rfl
+      _ = 𝟙 _ ≫ η[A].left := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, τσ, spMap_id]; rfl
   obtain ⟨g, hg⟩ := GlobalTheory.AV.exists_smoothOfRelativeDimension_of_isAbelianScheme k A hA
   have L : LieExact A := (GlobalTheory.abelianDeRham.2.1 k A g hA hg).1
   constructor
@@ -142,7 +142,7 @@ theorem UpperTheory.Gal.Ord.tan :
     have h1 : v' = 1 := (L.1 H).unique hH (isLieImage_one_iff.2 hF)
     have h2 : v'.left = spMap alg ≫ η[A].left := by rw [h1, _root_.GlobalTheory.TorsFrameInt.one_left]; rfl
     have h3 : spMap (alg.comp fst) ≫ spMap u ≫ spMap alg = spMap u ≫ spMap alg := by
-      rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, cu]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, cu]
     change spMap (alg.comp fst) ≫ v.left ≫ ψ = v.left ≫ ψ
     rw [e1, h2]
     simpa only [Category.assoc] using h3 =≫ η[A].left
@@ -152,10 +152,10 @@ theorem UpperTheory.Gal.Ord.tan :
       change spMap d ≫ v.left ≫ ψ = spMap (alg.comp fst) ≫ spMap d ≫ v.left ≫ ψ
       calc spMap d ≫ v.left ≫ ψ = spMap d ≫ spMap (alg.comp fst) ≫ v.left ≫ ψ := by rw [h']
         _ = (spMap d ≫ spMap (alg.comp fst)) ≫ v.left ≫ ψ := by rw [Category.assoc]
-        _ = (spMap (alg.comp fst) ≫ spMap d) ≫ v.left ≫ ψ := by rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, dc]
+        _ = (spMap (alg.comp fst) ≫ spMap d) ≫ v.left ≫ ψ := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dc]
         _ = _ := by rw [Category.assoc]
     have h2 : v' = 1 := by
       apply Over.OverMorphism.ext
-      rw [_root_.GlobalTheory.TorsFrameInt.one_left, h1, ← _root_.GlobalTheory.spMap_comp_ring, Category.assoc, tan_left htan]
+      rw [_root_.GlobalTheory.TorsFrameInt.one_left, h1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, tan_left htan]
       rfl
     rw [hval, h2, tanVal_one, map_zero]

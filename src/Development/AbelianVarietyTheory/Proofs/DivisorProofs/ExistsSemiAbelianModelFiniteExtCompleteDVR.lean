@@ -61,7 +61,7 @@ open Classical
 
 namespace GlobalTheory.PolSemiAbModel
 
-alias spMap_comp' := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem exists_model : ∀ (W : Type) [CommRing W] [IsDomain W] [IsLocalRing W], GlobalTheory.LN.CDvr W → ∀ (P : PolAV (Sp (FractionRing W))),
     ∃ (V₁ : Type) (_ : CommRing V₁) (_ : IsDomain V₁) (_ : IsLocalRing V₁) (f : W →+* V₁)
@@ -101,11 +101,11 @@ theorem exists_model : ∀ (W : Type) [CommRing W] [IsDomain W] [IsLocalRing W],
     have h₁ := isGrpPullback_pullback G (jK W')
     have hTX := isGrpPullback_pullback X (spMap (ε.symm : L →+* FractionRing W'))
     have hXG := isGrpPullback_pullback G (spMap (algebraMap W' L))
-    have hTG := (hTX.comp hXG).congr (by rw [spMap_comp', hε]) rfl
+    have hTG := (hTX.comp hXG).congr (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hε]) rfl
     obtain ⟨e₁, he₁, -⟩ := grpPullback_iso h₁ hTG
     have hXY := isGrpPullback_of_iso e
     have hYP := isGrpPullback_pullback P.A (spMap (algebraMap (FractionRing W) L))
-    have hTP := (hTX.comp (hXY.comp hYP)).congr (by rw [Category.id_comp, spMap_comp']) rfl
+    have hTP := (hTX.comp (hXY.comp hYP)).congr (by rw [Category.id_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) rfl
     obtain ⟨e₂, he₂, -⟩ := grpPullback_iso hTP hpb
     exact ⟨G, inferInstance, inferInstance, e₁ ≪≫ e₂, hG, by simp only [Iso.trans_hom]; infer_instance⟩
 

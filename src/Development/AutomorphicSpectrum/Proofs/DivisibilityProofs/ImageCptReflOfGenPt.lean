@@ -86,16 +86,12 @@ end GlobalTheory.CompanionTheory.Ar.Indep
 
 namespace GlobalTheory.CompanionTheory.Ar.Indep
 
-theorem spectrumMap_comp {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R') (g : R' →+* R'') :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp]; rfl
-
 theorem cst_of_factor {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {D : Datum H} {l : Level H}
     {Xo : Moduli D l} {c : Coeff l} {O : Type} [CommRing O] {β : O →+* c.F} {Y : Model Xo c β} {S : Finset ℕ}
     {Ω : Type} [Field Ω] {K : Type} [Fintype K] {J : K → Type} {y : (Σ k, J k) → Ω} (A : HodgeCpt Y S y)
     (hβ : Mono (spMap β)) (x : Sp A.Ω₀ ⟶ Xo.XF c) (hx : A.ξ₀ = x ≫ Y.j) :
     spMap A.fn ≫ x ≫ Limits.pullback.snd _ _ = spMap A.cst := by
-  rw [← cancel_mono (spMap β), spectrumMap_comp, ← A.cst_over, ← Y.jQ_over]
+  rw [← cancel_mono (spMap β), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← A.cst_over, ← Y.jQ_over]
   have h1 : A.ξ ≫ A.f = spMap A.fn ≫ x ≫ Y.jQ ≫ Limits.pullback.fst _ _ := by
     have := A.fn_over
     unfold GlobalTheory.CompanionTheory.Ar.Dominates at this

@@ -984,11 +984,11 @@ theorem descAt_of_isPullDeg : ∀ (V V₁ : Type) [CommRing V] [IsDomain V] [Com
   obtain ⟨w', hw'⟩ := hL
   refine ⟨B₀, i₁, i₂, M₀, fun a => c₀ (p.xe.symm a), B', i₃, π₁ ≫ (p.e.hom.left ≫ pullback.fst Q.P.A.hom (specOf ρ)),
     π₀, w', fun a => c' (p.xe.symm a), hab, hM, ?_, h₀, hw', fun a => ⟨(hc _).1, ?_, (hc _).2.2⟩⟩
-  · exact (h₁.comp gp).congr (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ ev).symm rfl
+  · exact (h₁.comp gp).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ ev).symm rfl
   · have e₁ := (hc (p.xe.symm a)).2.1
     have e₂ := p.c_pr (p.xe.symm a)
     rw [AddEquiv.apply_symm_apply] at e₂
-    rw [← Category.assoc, e₁, Category.assoc, e₂, ← Category.assoc, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [← Category.assoc, e₁, Category.assoc, e₂, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 end GlobalTheory.USep
 end -- clump:auto

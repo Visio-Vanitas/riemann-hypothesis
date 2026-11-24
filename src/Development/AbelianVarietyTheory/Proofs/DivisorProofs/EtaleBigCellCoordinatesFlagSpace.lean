@@ -242,7 +242,7 @@ theorem tanPull_valV (hv : IsEigBasis TF U e v) {S S' : Type} [CommRing S] [Comm
     (m : Fin n) : tanPull φ h (valV TF hv x hU m) = valV TF hv x' hU' m := by
   subst h
   apply tan_ext_left
-  rw [tanPull_left, valV_left, valV_left, ev_spMap φ x U.1 hU, FlagMod.dualMap_comp, ← spMap_comp', Category.assoc]
+  rw [tanPull_left, valV_left, valV_left, ev_spMap φ x U.1 hU, FlagMod.dualMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 theorem valV_block (hv : IsEigBasis TF U e v) {S : Type} [CommRing S] [Algebra c.F S] (x : Sp S ⟶ TF.Y.X)
     (hU : ⊤ ≤ x ⁻¹ᵁ U.1) (hs : x ≫ TF.Y.s = spMap (algebraMap c.F S)) (σ : E →+* ℂ) :
@@ -431,7 +431,7 @@ theorem Carries.nonempty (hC : IsCell TF Z U e v W k L N) (a : Γ(TF.Y.X, U.1)) 
   have hx' : spMap ψ ≫ x = zw ≫ toBase TF Z := by
     have e1 : ψ.comp (ev x U.1 hU) = ev (zw ≫ toBase TF Z) U.1 hUw :=
       RingHom.ext fun r => by rw [RingHom.comp_apply, hρ, hψ, hψC]
-    rw [← spMap_ev x U.2 hU, ← Category.assoc, spMap_comp', e1]
+    rw [← spMap_ev x U.2 hU, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e1]
     exact spMap_ev _ U.2 hUw
   have h1 := h.map ψ hx' hUw
   have hTN : (fun σ => ((univN Dw Γ(TF.Y.X, U.1) σ).map (algebraMap _ S)).map ψ) =
@@ -805,7 +805,7 @@ theorem exists_isOpenImmersion : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
       exact (Iso.eq_inv_comp _).2 (Scheme.Hom.isoOpensRange_hom_ι _)
     have hfac : spMap (algebraMap Γ(Y₀ TF.X Z, W) (Localization.Away (φ g))) ≫ spMap φ =
         spMap θ ≫ spMap (algebraMap _ (Localization.Away g)) :=
-      (_root_.GlobalTheory.spMap_comp_ring φ _).trans ((congrArg spMap hθc.symm).trans (_root_.GlobalTheory.spMap_comp_ring _ θ).symm)
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ _).symm.trans ((congrArg spMap hθc.symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ θ))
     haveI : IsIso (spMap θ) := isIso_spMap_of_inverse θ ψ' h2 h1
     haveI := _root_.GlobalTheory.SecGlue.away_open g
     have hoi : IsOpenImmersion ((spMap (algebraMap Γ(Y₀ TF.X Z, W) (Localization.Away (φ g)))).isoOpensRange.inv ≫
@@ -1090,7 +1090,7 @@ theorem GlobalTheory.LogPole.locallyQuasiFinite_cellMap : ∀ (E : Type) [Field 
       (MvPolynomial.eval₂Hom ((toBase TF Z).appLE U.1 W h.2.1).hom (cellCoord N))) = y},
       spMap ((ev (x.1 ≫ h.1.fromSpec) W (hzW x.1)).comp
         (MvPolynomial.eval₂Hom ((toBase TF Z).appLE U.1 W h.2.1).hom (cellCoord N))) = y := fun x => by
-    rw [← spMap_comp', hsp]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hsp]
     exact x.2
   have hρ : ∀ x x' : {x : Spec (CommRingCat.of Ω) ⟶ Spec Γ(Y₀ TF.X Z, W) // x ≫ Spec.map (CommRingCat.ofHom
       (MvPolynomial.eval₂Hom ((toBase TF Z).appLE U.1 W h.2.1).hom (cellCoord N))) = y},

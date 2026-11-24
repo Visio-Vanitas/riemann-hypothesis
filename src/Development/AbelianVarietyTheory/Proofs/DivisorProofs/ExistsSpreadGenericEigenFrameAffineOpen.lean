@@ -179,7 +179,7 @@ theorem GlobalTheory.LogKSDiv.spread_genFrame : ∀ (E : Type) [Field E] [Number
   let φ₁ := cst TF.Y.s U₁
   have hφ₁ : spMap φ₁ = hU₁.fromSpec ≫ TF.Y.s := spMap_cst _ hU₁
   have hρφ : ρ₁.comp φ₁ = φ₀ := spMap_inj (by
-    rw [ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp, hφ₁, ← Category.assoc, hK, ← hφ₀, Category.assoc])
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ₁, ← Category.assoc, hK, ← hφ₀, Category.assoc])
   open ReciprocityTheory.ChartRestriction.G.PullbackSections in
   open ReciprocityTheory.ChartRestriction.G.Chart (IsUnivChart sp tvec) in
   open ReciprocityTheory.ChartRestriction.G.Chart in
@@ -320,7 +320,7 @@ theorem GlobalTheory.LogKSDiv.spread_genFrame : ∀ (E : Type) [Field E] [Number
       (barComp TF.Y Z).ι.stalkMap ξ).hom = _
     rw [TopCat.Presheaf.germ_res]
   have hψφ : ψ.comp φ₁ = cst TF.Y.s (TF.Y.X.basicOpen g') := spMap_inj (by
-    rw [ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp, hφ₁, ← Category.assoc, hmap, spMap_cst _ hU])
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ₁, ← Category.assoc, hmap, spMap_cst _ hU])
   let u := hs0.unit
   let cU : Fin n → Fin n → Γ(TF.Y.X, TF.Y.X.basicOpen g') := fun j => (↑u⁻¹ : Γ(TF.Y.X, TF.Y.X.basicOpen g')) • (ψ ∘ B₀ j)
   have hdetU : IsUnit (Matrix.of fun i j => cU j i).det := by
@@ -347,7 +347,7 @@ theorem GlobalTheory.LogKSDiv.spread_genFrame : ∀ (E : Type) [Field E] [Number
       rw [h2, smul_smul, hρu, one_smul]
     show f₀.v τ i = spMap (dualMap ρ) ≫ vec TF.Y.t _ xcU (cU (e ⟨τ, i⟩))
     rw [hcUd, hBv τ i, key, vec_smul hxK, hcK, vec_smul hxU, hcU, ← hρψ]
-    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp]
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     refine RingHom.ext fun w => ?_
     ext <;> simp [dualMap, ReciprocityTheory.ChartRestriction.G.Chart.dualMapR, epsMul]

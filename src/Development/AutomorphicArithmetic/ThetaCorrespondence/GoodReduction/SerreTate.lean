@@ -343,8 +343,8 @@ theorem torsionUnramified_of_hasGoodReduction : ∀ (R K Ω : Type) [CommRing R]
     exact h.1
   let S : ValuativeCommSq G.hom := ⟨V, Ω, (Φ x).left, spMap rV, ⟨by
     change (x.left ≫ φ) ≫ G.hom = spMap (algebraMap V Ω) ≫ spMap rV
-    rw [Category.assoc, hP.1.w, ← Category.assoc, Over.w x, GlobalTheory.RedPts.spMap_comp, hrV]
-    exact GlobalTheory.RedPts.spMap_comp _ _⟩⟩
+    rw [Category.assoc, hP.1.w, ← Category.assoc, Over.w x, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hrV]
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm⟩⟩
   obtain ⟨l, hl1, hl2⟩ := (hE S).exists_lift.some
   change spMap (algebraMap V Ω) ≫ l = x.left ≫ φ at hl1
   change l ≫ G.hom = spMap rV at hl2
@@ -352,22 +352,22 @@ theorem torsionUnramified_of_hasGoodReduction : ∀ (R K Ω : Type) [CommRing R]
   let a : P ⟶ G := Over.homMk l hl2
   let b : P ⟶ G := Over.homMk (spMap σV ≫ l) (by
     change (spMap σV ≫ l) ≫ G.hom = spMap rV
-    rw [Category.assoc, hl2, GlobalTheory.RedPts.spMap_comp, F2])
+    rw [Category.assoc, hl2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, F2])
   let u : T0 ⟶ P := Over.homMk (spMap (algebraMap V Ω)) (by
     change spMap (algebraMap V Ω) ≫ spMap rV = (ptOver K Ω).hom ≫ spMap (algebraMap R K)
-    rw [GlobalTheory.RedPts.spMap_comp, hrV]
-    exact (GlobalTheory.RedPts.spMap_comp _ _).symm)
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hrV]
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   have hua : u ≫ a = Φ x := Over.OverMorphism.ext hl1
   have hub : u ≫ b = Φ (galPts A σ x) := Over.OverMorphism.ext (by
     change spMap (algebraMap V Ω) ≫ spMap σV ≫ l = (galPts A σ x).left ≫ φ
-    rw [galPts_left, ← Category.assoc, GlobalTheory.RedPts.spMap_comp, F1, ← GlobalTheory.RedPts.spMap_comp, Category.assoc, hl1,
+    rw [galPts_left, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, F1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hl1,
       Category.assoc])
 
   let Z : Over (Sp R) := Over.mk (spMap ((residue V).comp rV))
-  let j : Z ⟶ P := Over.homMk (spMap (residue V)) (GlobalTheory.RedPts.spMap_comp _ _)
+  let j : Z ⟶ P := Over.homMk (spMap (residue V)) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have hjb : j ≫ b = j ≫ a := Over.OverMorphism.ext (by
     change spMap (residue V) ≫ spMap σV ≫ l = spMap (residue V) ≫ l
-    rw [← Category.assoc, GlobalTheory.RedPts.spMap_comp, F3])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, F3])
   have hdom : IsDominant (spMap (algebraMap V Ω)) :=
     ⟨(PrimeSpectrum.denseRange_comap_iff_ker_le_nilRadical _).2 (by
       change RingHom.ker (algebraMap V Ω) ≤ _

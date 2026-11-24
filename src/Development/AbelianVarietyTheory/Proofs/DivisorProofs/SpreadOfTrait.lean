@@ -68,7 +68,7 @@ theorem pull_cancel {S S' S'' : Scheme.{0}} {G : Over S} [GrpObj G] {G₁ : Over
   ⟨h₁.1.lift φl (Gl.hom ≫ u) (by rw [hGl.1.w, Category.assoc]),
     h₁.cancel (hGl.congr rfl (h₁.1.lift_fst _ _ _).symm) (h₁.1.lift_snd _ _ _), h₁.1.lift_fst _ _ _⟩
 
-alias spMap_comp' := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem spread_of_trait {R : Type} [CommRing R] [IsDomain R] [IsLocalRing R] {D : DegData R (maximalIdeal R)}
     {A : PolAV (Sp (FractionRing R))} {G : Over (Sp R)} [GrpObj G] [IsCommMonObj G]
@@ -89,7 +89,7 @@ theorem spread_of_trait {R : Type} [CommRing R] [IsDomain R] [IsLocalRing R] {D 
   haveI := hj
   have hm₁ := isGrpPullback_pullback G (spMap ψ)
   have hm₀ := isGrpPullback_pullback ((Over.pullback (spMap ψ)).obj G) (spMap (residue V₁))
-  have hm₀' := (hm₀.comp hm₁).congr (spMap_comp' ψ (residue V₁)) rfl
+  have hm₀' := (hm₀.comp hm₁).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ψ (residue V₁)).symm rfl
   have h₀ : ∀ x ∈ maximalIdeal R, (residue V₁).comp ψ x = 0 := GlobalTheory.TorusPart.map_eq_zero_of_isLocalHom _
   obtain ⟨ρ, hρ⟩ := (GlobalTheory.TorusPart.mono_gtTorus_and_factor (U.gt 0) (GlobalTheory.TorusPart.map_pow_one_eq_zero h₀)
     hm₀').2 _ (GlobalTheory.TorusPart.pullTorus hm₀ j) inferInstance
@@ -118,9 +118,9 @@ theorem exists_spread : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R]
     have hb : ∀ x ∈ maximalIdeal V ^ (0 + 1), b x = 0 := fun x hx => by
       simp [b, hc x hx]
     have hm₁ := isGrpPullback_pullback G (spMap ψ)
-    obtain ⟨mc, hmc, hmcβ⟩ := pull_cancel hβ (spMap c) (hm₁.congr (spMap_comp' g c).symm rfl)
+    obtain ⟨mc, hmc, hmcβ⟩ := pull_cancel hβ (spMap c) (hm₁.congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g c) rfl)
     have hn := isGrpPullback_pullback ((Over.pullback (spMap ψ)).obj G) (spMap α)
-    have hn' : IsGrpPullback _ G' (spMap b) _ := (hn.comp hmc).congr (spMap_comp' c α) rfl
+    have hn' : IsGrpPullback _ G' (spMap b) _ := (hn.comp hmc).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp c α).symm rfl
     have hnn : pullback.fst ((Over.pullback (spMap ψ)).obj G).hom (spMap α) ≫ pullback.fst G.hom (spMap ψ) =
         (pullback.fst ((Over.pullback (spMap ψ)).obj G).hom (spMap α) ≫ mc) ≫ β := by
       rw [Category.assoc, hmcβ]
@@ -135,11 +135,11 @@ theorem exists_spread : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R]
     have hm₁ := isGrpPullback_pullback G (spMap ψ)
     have hG₁ : IsSemiAbelian ((Over.pullback (spMap ψ)).obj G) := IsSemiAbelian.pullback _ G hG
     obtain ⟨φ₁, hφ₁, -⟩ := pull_cancel hm₁ (spMap alg)
-      ((isGrpPullback_pullback G (spMap (alg.comp ψ))).congr (spMap_comp' ψ alg).symm rfl)
+      ((isGrpPullback_pullback G (spMap (alg.comp ψ))).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ψ alg) rfl)
     have hn' := isGrpPullback_pullback G' (spMap b)
     obtain ⟨n, hn, hnm⟩ := pull_cancel hm₁ (spMap (αK.comp alg))
-      ((hn'.comp hβ).congr ((spMap_comp' g b).trans ((congrArg spMap eα.symm).trans
-        (spMap_comp' ψ (αK.comp alg)).symm)) rfl)
+      ((hn'.comp hβ).congr ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g b).symm.trans ((congrArg spMap eα.symm).trans
+        (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ψ (αK.comp alg)))) rfl)
     have hb' : ∀ x ∈ maximalIdeal V ^ (0 + 1), b x = 0 := GlobalTheory.TorusPart.map_pow_one_eq_zero hb
     obtain ⟨j, hj, ej⟩ := _root_.GlobalTheory.TorusPart.extend_torus_hom_dvr V₁ ((Over.pullback (spMap ψ)).obj G) hG₁ _ φ₁ hφ₁ hT Ω αK _ n hn _
       (GlobalTheory.TorusPart.gtTorus (U'.gt 0) hb' hn') inferInstance

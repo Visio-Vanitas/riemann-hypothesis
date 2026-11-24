@@ -261,9 +261,6 @@ theorem away_range {S : Type} [CommRing S] (r : S) (p : PrimeSpectrum S) :
     (∃ y, spMap (algebraMap S (Localization.Away r)) y = p) ↔ r ∉ p.asIdeal :=
   Set.ext_iff.1 (PrimeSpectrum.localization_away_comap_range (Localization.Away r) r) p
 
-theorem spMap_comp' {R S T : Type} [CommRing R] [CommRing S] [CommRing T] (φ : R →+* S) (ψ : S →+* T) :
-    spMap ψ ≫ spMap φ = spMap (ψ.comp φ) := (Spec.map_comp _ _).symm
-
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
 variable {Xo : Moduli Dw l}
 
@@ -317,15 +314,15 @@ theorem existsUnique_glue : ∀ (E : Type) [Field E] [NumberField E] [IsCMField 
     obtain ⟨b, hb⟩ := exists_can (G := Xo.univ.t.G) (f := spMap α)
       (x := spMap (algebraMap S (Localization.Away (h i))) ≫ x)
       (x' := spMap (algebraMap S (Localization.Away (h i * h j))) ≫ x)
-      (by rw [← Category.assoc, spMap_comp', hα])
+      (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα])
     obtain ⟨c, hc⟩ := exists_can (G := Xo.univ.t.G) (f := spMap β)
       (x := spMap (algebraMap S (Localization.Away (h j))) ≫ x)
       (x' := spMap (algebraMap S (Localization.Away (h i * h j))) ≫ x)
-      (by rw [← Category.assoc, spMap_comp', hβ])
+      (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβ])
     have h1 := (ha i).comp hb
     have h2 := (ha j).comp hc
-    rw [spMap_comp', hα] at h1
-    rw [spMap_comp', hβ] at h2
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα] at h1
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβ] at h2
     obtain ⟨t, ht⟩ := exists_rel hb.1 (s i)
     obtain ⟨z, hz⟩ := (hra _ h1 (a i y)).2 fun hm => by
       rcases (PrimeSpectrum.isPrime _).mem_or_mem hm with hm | hm

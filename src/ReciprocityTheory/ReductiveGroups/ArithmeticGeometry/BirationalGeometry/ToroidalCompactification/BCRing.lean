@@ -85,7 +85,7 @@ theorem frameLieBC_loc {S : Type} [CommRing S] (G : Over (Spec (CommRingCat.of S
   let φp : Localization.AtPrime p →+* k := IsLocalization.lift hunit
   have hφ : φp.comp (algebraMap S (Localization.AtPrime p)) = φ := IsLocalization.lift_comp hunit
   have hsp : Geo.Tor.spMap φ = Geo.Tor.spMap φp ≫ fB S (Localization.AtPrime p) := by
-    rw [← hφ, Geo.Tor.spMap_comp]
+    rw [← hφ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have h2 : Geo.Tor.IsGrpPullback G' G (Geo.Tor.spMap φp ≫ fB S (Localization.AtPrime p)) F :=
     h.congr hsp rfl
   haveI hGs : ∀ s : S, Smooth (Gs G s).hom := fun s => by
@@ -98,13 +98,13 @@ theorem frameLieBC_loc {S : Type} [CommRing S] (G : Over (Spec (CommRingCat.of S
   refine isLieBasis_baseChange φp h3 (isLieBasis_local (p := p) hu) (fun i => ?_)
   apply pullback.hom_ext
   · rw [Category.assoc, pullback.lift_fst, hu' i, Category.assoc, ← pushR_left, pushR_resP, ← hφ,
-      dualMapR_comp, Geo.Tor.spMap_comp, Category.assoc]
+      dualMapR_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     rfl
   · rw [Category.assoc, pullback.lift_snd, ← Category.assoc, Over.w (u' i), Category.assoc,
       show (resP p (u i)).left ≫ pullback.snd G.hom (fB S (Localization.AtPrime p)) = _ from
         Over.w (resP p (u i))]
     simp
-    rw [← Geo.Tor.spMap_comp, ← Geo.Tor.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext x <;> simp [dualMapR, TrivSqZeroExt.algebraMap_eq_inl]
 
@@ -189,10 +189,10 @@ theorem frameLieBCR {S : Type} [CommRing S] (G : Over (Spec (CommRingCat.of S)))
   have : Smooth G'.hom := MorphismProperty.of_isPullback (P := @Smooth) h.1 ‹_›
   refine isLieBasis_of_local hadd (fun i => (isTan_iff _).2 (hT i)) fun p _ => ?_
   have c := (Geo.Tor.isGrpPullback_pullback G' (fB k (Localization.AtPrime p))).comp h
-  refine frameLieBC_loc G hu ((algebraMap k (Localization.AtPrime p)).comp φ) (by rw [Geo.Tor.spMap_comp]; exact c) fun i => ?_
+  refine frameLieBC_loc G hu ((algebraMap k (Localization.AtPrime p)).comp φ) (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact c) fun i => ?_
   have e := congrArg (fun q => Over.Hom.left q) (pushR_resP (G := G') p (u' i))
   simp only [pushR_left, Over.comp_left] at e
-  rw [← Category.assoc, e, Category.assoc, hu', ← Category.assoc, dualMapR_comp, Geo.Tor.spMap_comp]
+  rw [← Category.assoc, e, Category.assoc, hu', ← Category.assoc, dualMapR_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 end ReciprocityTheory.ChartRestriction.G.Chart
@@ -353,7 +353,7 @@ theorem gen_baseChangeR (hS : SecBaseChangeAnySt) (hT : SecTwistSt) (o : Obj D l
           cst_comp, (IsLocalRing.residue_eq_zero_iff _).2 hne, cst, map_zero, gs_zero _ y ⊤ trivial, zero_mul, mul_zero, mul_zero]
       clear e₃
       revert n₃
-      rw [← spMap_comp, ← spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact fun n₃ key => gen_ne_zero hS o m₀ θ hθ _ n₃ key
     obtain ⟨u, rfl⟩ := h₀
     have iff : ∀ a : Localization.AtPrime p, (∀ y j, m₁.φ y ∈ t'.PP.L.U j → gs m₁.φ y _ (τ.f j) = cst _ y a * gs m₁.φ y _ (σ'.f j)) ↔

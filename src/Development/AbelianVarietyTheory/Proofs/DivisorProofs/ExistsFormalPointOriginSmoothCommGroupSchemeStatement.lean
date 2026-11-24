@@ -1125,10 +1125,6 @@ theorem fst_comp_dualMap (φ : R →+* S) : (fstH S).comp (dualMap φ) = φ.comp
 
 end Rings2
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (ψ' : A →+* B) (ψ : B →+* C) :
-    spMap ψ ≫ spMap ψ' = spMap (ψ.comp ψ') := by
-  simp only [spMap, ← Spec.map_comp]; rfl
-
 theorem dual_pt {S : Type} [CommRing S] (x : Sp (DualNumber S)) :
     (spMap (fstH S)) ((spMap (algebraMap S (DualNumber S))) x) = x := by
   apply PrimeSpectrum.ext
@@ -1204,8 +1200,8 @@ theorem fst_tv (v : TanM (𝟙 (Sp R)) G) : spMap (fstH R) ≫ (tv v).left = η[
     simpa using hh
   have e2 := gen _ (fun x => by ext <;> simp [tm, TrivSqZeroExt.algebraMap_eq_inl]) h
   have h2 := congrArg (fun k => spMap (fstH R) ≫ k) e2
-  simp only [← _root_.GlobalTheory.spMap_comp_ring, ← Category.assoc] at h2
-  simp only [_root_.GlobalTheory.spMap_comp_ring, fst_comp_inc, _root_.GlobalTheory.LN.Cmp.spMap_ringHom_id] at h2
+  simp only [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc] at h2
+  simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_inc, _root_.GlobalTheory.LN.Cmp.spMap_ringHom_id] at h2
   simpa using h2
 
 variable {S : Type} [CommRing S]
@@ -1216,7 +1212,7 @@ def gW (g : Sp S ⟶ G.left) : tEpsG (g ≫ G.hom) ⟶ G :=
 def vW (φ : R →+* S) (g : Sp S ⟶ G.left) (hg : g ≫ G.hom = spMap φ) (v : TanM (𝟙 (Sp R)) G) :
     tEpsG (g ≫ G.hom) ⟶ G :=
   Over.homMk (spMap (dualMap φ) ≫ (tv v).left) (by
-    simp only [tEpsG, Over.mk_hom, Category.assoc, tv_hom, hg, spMap_comp, dualMap_comp_inc])
+    simp only [tEpsG, Over.mk_hom, Category.assoc, tv_hom, hg, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_inc])
 
 def trP (φ : R →+* S) (g : Sp S ⟶ G.left) (hg : g ≫ G.hom = spMap φ) (v : TanM (𝟙 (Sp R)) G) :
     Sp (DualNumber S) ⟶ G.left :=
@@ -1229,22 +1225,22 @@ theorem isTr_trP (φ : R →+* S) (g : Sp S ⟶ G.left) (hg : g ≫ G.hom = spMa
 theorem translateTangent_comp_hom (φ : R →+* S) (g : Sp S ⟶ G.left) (hg : g ≫ G.hom = spMap φ) (v : TanM (𝟙 (Sp R)) G) :
     trP G φ g hg v ≫ G.hom = spMap ((inc S).comp φ) := by
   rw [trP, Over.w]
-  simp only [tEpsG, Over.mk_hom, hg, _root_.GlobalTheory.spMap_comp_ring]
+  simp only [tEpsG, Over.mk_hom, hg, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 theorem fst_trP (φ : R →+* S) (g : Sp S ⟶ G.left) (hg : g ≫ G.hom = spMap φ) (v : TanM (𝟙 (Sp R)) G) :
     spMap (fstH S) ≫ trP G φ g hg v = g := by
   let E : Over.mk (g ≫ G.hom) ⟶ tEpsG (g ≫ G.hom) :=
     Over.homMk (spMap (fstH S)) (by
       show spMap (fstH S) ≫ spMap (inc S) ≫ g ≫ G.hom = g ≫ G.hom
-      rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, fst_comp_inc, _root_.GlobalTheory.LN.Cmp.spMap_ringHom_id]; exact Category.id_comp _)
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_inc, _root_.GlobalTheory.LN.Cmp.spMap_ringHom_id]; exact Category.id_comp _)
   have e1 : E ≫ gW G g = Over.homMk g rfl := by
     ext
     show spMap (fstH S) ≫ spMap (inc S) ≫ g = g
-    rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, fst_comp_inc, _root_.GlobalTheory.LN.Cmp.spMap_ringHom_id]; exact Category.id_comp _
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_inc, _root_.GlobalTheory.LN.Cmp.spMap_ringHom_id]; exact Category.id_comp _
   have e2 : E ≫ vW G φ g hg v = 1 := by
     ext
     simp only [E, vW, Over.comp_left, Over.homMk_left, one_left', Over.mk_hom]
-    rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, fst_comp_dualMap, ← _root_.GlobalTheory.spMap_comp_ring, Category.assoc, fst_tv, hg]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_dualMap, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, fst_tv, hg]
   have := congrArg (fun k => k.left) (MonObj.comp_mul E (gW G g) (vW G φ g hg v))
   simpa only [e1, e2, _root_.mul_one, Over.comp_left, Over.homMk_left, E, trP] using this
 
@@ -1284,26 +1280,26 @@ theorem swap_trP (φ : R →+* S) (g : Sp S ⟶ G.left) (hg : g ≫ G.hom = spMa
     Over.homMk (spMap (swap S)) (by
       show spMap (swap S) ≫ spMap (inc (DualNumber S)) ≫ trP G φ g hg v' ≫ G.hom =
         spMap (inc (DualNumber S)) ≫ trP G φ g hg v ≫ G.hom
-      rw [hw, hu, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, swap_inc_inc_comp])
+      rw [hw, hu, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, swap_inc_inc_comp])
   have e1 : gW G (trP G φ g hg v') = P ≫ (gW G g * vW G φ g hg v') := Over.OverMorphism.ext rfl
   have e2 : gW G (trP G φ g hg v) = P' ≫ (gW G g * vW G φ g hg v) := Over.OverMorphism.ext rfl
   have hx : Q ≫ P ≫ gW G g = P' ≫ gW G g := by
     ext
     show spMap (swap S) ≫ spMap (inc (DualNumber S)) ≫ spMap (inc S) ≫ g =
       spMap (inc (DualNumber S)) ≫ spMap (inc S) ≫ g
-    simp only [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rw [swap_inc_inc]
   have hb : Q ≫ P ≫ vW G φ g hg v' = vW G ((inc S).comp φ) (trP G φ g hg v) hu v' := by
     ext
     show spMap (swap S) ≫ spMap (inc (DualNumber S)) ≫ spMap (dualMap φ) ≫ (tv v').left =
       spMap (dualMap ((inc S).comp φ)) ≫ (tv v').left
-    simp only [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rw [swap_inc_dualMap]
   have hc : Q ≫ vW G ((inc S).comp φ) (trP G φ g hg v') hw v = P' ≫ vW G φ g hg v := by
     ext
     show spMap (swap S) ≫ spMap (dualMap ((inc S).comp φ)) ≫ (tv v).left =
       spMap (inc (DualNumber S)) ≫ spMap (dualMap φ) ≫ (tv v).left
-    simp only [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rw [swap_dualMap_inc]
   have key : gW G (trP G φ g hg v) * vW G ((inc S).comp φ) (trP G φ g hg v) hu v' =
       Q ≫ (gW G (trP G φ g hg v') * vW G ((inc S).comp φ) (trP G φ g hg v') hw v) := by

@@ -133,7 +133,7 @@ section Kappa
 
 variable {R R₁ R₂ : Type} [CommRing R] [IsDomain R] [CommRing R₁] [IsDomain R₁] [CommRing R₂] [IsDomain R₂]
 
-alias spMap_comp_spMap' := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp_spMap' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem gam_comm (σ : R₁ →+* R₂) (gam : FractionRing R₁ →+* FractionRing R₂)
     (hg : ∀ r, gam (algebraMap R₁ _ r) = algebraMap R₂ _ (σ r)) : spMap gam ≫ jK R₁ = jK R₂ ≫ spMap σ := by

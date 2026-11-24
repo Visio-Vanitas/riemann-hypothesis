@@ -1415,9 +1415,9 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.G
 
 namespace One
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
-alias spMap_inj := _root_.GlobalTheory.Reg.CellChart.spMap_inj
+alias spMap_inj := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
 
 theorem spec_map_factorisation {X : Scheme.{0}} {A A' B B' : CommRingCat.{0}} (u : A ⟶ B) [IsIso u] (r : A ⟶ A') (v : A' ⟶ B')
     (a : Spec A ⟶ X) (a' : Spec A' ⟶ X) (x : Spec B ⟶ X) (x' : Spec B' ⟶ X) (e : Spec.map u ≫ a = x)
@@ -1474,7 +1474,7 @@ theorem onePiece : OnePiece := by
   letI : Algebra c.F Ω₀ := b.toAlgebra
   have hb : (g.comp i).comp b = cst := by
     refine ext_int (spMap_inj ?_)
-    rw [← hover, ← hi, ← hF1, spMap_comp', spMap_comp', spMap_comp', ← hF2]
+    rw [← hover, ← hi, ← hF1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hF2]
     simp only [Category.assoc, pullback.condition]
   have hcl : ConstClosed c.F Ω₀ := constClosed_of i g cst hb halg
   have hβ := int_frac c.F
@@ -1546,7 +1546,7 @@ theorem onePiece : OnePiece := by
       x ≫ π = B.pt k t ∧ x ≫ s' = spMap κ ∧ ⊤ ≤ x ⁻¹ᵁ W' ∧ genPt (ξW ≫ W'.ι) ⤳ centre x := by
     intro k hk t ht hu
     let z : Sp ℂ ⟶ pullback Y.s (spMap (algebraMap (𝓞 c.F) c.F)) :=
-      pullback.lift (B.pt k t) (spMap κ) (by rw [B.comp_s_eq_spMap_of_isOver k t ht, hk, spMap_comp'])
+      pullback.lift (B.pt k t) (spMap κ) (by rw [B.comp_s_eq_spMap_of_isOver k t ht, hk, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     have z1 : z ≫ pullback.fst _ _ = B.pt k t := pullback.lift_fst _ _ _
     have z2 : z ≫ pullback.snd _ _ = spMap κ := pullback.lift_snd _ _ _
     obtain ⟨z', hz'⟩ := hlift ℂ z (by
@@ -1572,7 +1572,7 @@ theorem onePiece : OnePiece := by
   obtain ⟨k, t, ht, e⟩ := B.onto _ (hab x fun q hq => (hxU hq).1)
   have hk : B.κ k = κ := by
     refine ext_int (spMap_inj ?_)
-    rw [← B.comp_s_eq_spMap_of_isOver k t ht, e, Category.assoc, hπs, ← Category.assoc, hx, spMap_comp']
+    rw [← B.comp_s_eq_spMap_of_isOver k t ht, e, Category.assoc, hπs, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hu : ⊤ ≤ B.pt k t ⁻¹ᵁ U := by
     rw [e]
     exact fun q hq => (hxU hq).2

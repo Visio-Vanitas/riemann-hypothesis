@@ -918,11 +918,6 @@ open GlobalTheory.CompanionTheory.Ar.TorusModel
 
 variable {S : Scheme.{0}} {G : Over S} [GrpObj G] {X : Type} [AddCommGroup X]
 
-theorem spMap_comp_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]
-  rfl
-
 theorem killed_of_eq {u : splitTorus S X ⟶ G} {Y : AddSubgroup X} {B : Type} [CommRing B] {b : Sp B ⟶ S}
     (h : KillsOver u Y b) {A : Type} [CommRing A] (g : B →+* A) {a : Sp A ⟶ S} (ha : a = spMap g ≫ b)
     (t : Over.mk a ⟶ splitTorus S X) (ht : ∀ y ∈ Y, charVal t y = 1) : t ≫ u = 1 := by
@@ -933,7 +928,7 @@ theorem killsOver_comp {u : splitTorus S X ⟶ G} {Y : AddSubgroup X} {B C : Typ
     (c : B →+* C) {b : Sp B ⟶ S} (h : KillsOver u Y b) : KillsOver u Y (spMap c ≫ b) := by
   intro A _ g t ht
   refine killed_of_eq h (g.comp c) ?_ t ht
-  rw [← Category.assoc, spMap_comp_spMap]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 theorem killsOver_descent [IsSeparated G.hom] {u : splitTorus S X ⟶ G} {Y : AddSubgroup X} {κ k : Type}
     [Field κ] [Field k] (c : κ →+* k) {b : Sp κ ⟶ S} (h : KillsOver u Y (spMap c ≫ b)) : KillsOver u Y b := by
@@ -949,7 +944,7 @@ theorem killsOver_descent [IsSeparated G.hom] {u : splitTorus S X ⟶ G} {Y : Ad
     change (algebraMap κ A a) ⊗ₜ[κ] (1 : k) = (1 : A) ⊗ₜ[κ] (algebraMap κ k a)
     rw [Algebra.algebraMap_eq_smul_one, Algebra.algebraMap_eq_smul_one, TensorProduct.smul_tmul]
   have hw : spMap i ≫ spMap g ≫ b = spMap j ≫ spMap c ≫ b := by
-    simp only [← Category.assoc, spMap_comp_spMap, hij]
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hij]
   let φ : Over.mk (spMap j ≫ spMap c ≫ b) ⟶ Over.mk (spMap g ≫ b) := Over.homMk (spMap i) hw
   have h1 := h _ j (φ ≫ t) (fun y hy => by rw [charVal_comp i t (φ ≫ t) rfl, ht y hy, map_one])
   have h2 : φ ≫ (t ≫ u) = φ ≫ 1 :=
@@ -987,7 +982,7 @@ theorem killsOver_of_residue [IsSeparated G.hom] {u : splitTorus S X ⟶ G} [IsM
     have he : e.comp (IsLocalRing.residue R) = Ideal.Quotient.mk _ := by
       ext a; rfl
     have := killsOver_comp e h
-    rwa [← Category.assoc, spMap_comp_spMap, he] at this
+    rwa [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he] at this
   | succ n ih =>
     set m := IsLocalRing.maximalIdeal R with hm
     have hne : m ^ (n + 1 + 1) ≠ ⊤ := fun htop =>
@@ -1007,7 +1002,7 @@ theorem killsOver_of_residue [IsSeparated G.hom] {u : splitTorus S X ⟶ G} [IsM
     have he : e.comp (Ideal.Quotient.mk (m ^ (n + 1))) = (Ideal.Quotient.mk I).comp q := by
       ext a; rfl
     have := killsOver_comp e ih
-    rw [← Category.assoc, spMap_comp_spMap, he, ← spMap_comp_spMap, Category.assoc] at this
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc] at this
     exact this
 
 theorem lie_injective : ∀ (Z : Scheme.{0}) [IsIntegral Z] [IsLocallyNoetherian Z] (G : Over Z) [GrpObj G] [IsSeparated G.hom] (X : Type) [AddCommGroup X] [Module.Finite ℤ X] (u : splitTorus Z X ⟶ G) [IsMonHom u] (U : Z.Opens), (U : Set Z).Nonempty → (∀ (k : Type) [Field k] (x : Sp k ⟶ Z), ⊤ ≤ x ⁻¹ᵁ U → ∀ (A : Type) [CommRing A] (g : k →+* A) (t : Over.mk (spMap g ≫ x) ⟶ splitTorus Z X), t ≫ u = 1 → t = 1) → ∀ (k : Type) [Field k] (x : Sp k ⟶ Z) (M : LieModel (splitTorus Z X) x (X →+ k)), IsCocharLie M → ∀ δ, M.pt δ ≫ u = 1 → δ = 0 := by
@@ -1038,7 +1033,7 @@ theorem lie_injective : ∀ (Z : Scheme.{0}) [IsIntegral Z] [IsLocallyNoetherian
     IsLocalRing.ResidueField.map jv
   have e1 : spMap rm ≫ Z.fromSpecResidueField z = spMap (IsLocalRing.residue V) ≫ b := by
     have e0 : spMap rm ≫ Spec.map (Z.residue z) = spMap (IsLocalRing.residue V) ≫ spMap jv := by
-      rw [spMap_comp_spMap, ← IsLocalRing.ResidueField.map_comp_residue jv, ← spMap_comp_spMap]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← IsLocalRing.ResidueField.map_comp_residue jv, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
     simp only [b, Scheme.fromSpecResidueField]
     exact (Category.assoc _ _ _).symm.trans ((congrArg (· ≫ Z.fromSpecStalk z) e0).trans (Category.assoc _ _ _))
@@ -1048,7 +1043,7 @@ theorem lie_injective : ∀ (Z : Scheme.{0}) [IsIntegral Z] [IsLocallyNoetherian
   have hU'' : ⊤ ≤ (spMap V.subtype ≫ b) ⁻¹ᵁ U := by
     have e2 : spMap V.subtype ≫ b = Z.fromSpecStalk (genericPoint Z) := by
       simp only [b]
-      rw [← Category.assoc, spMap_comp_spMap]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact Scheme.SpecMap_stalkSpecializes_fromSpecStalk ((genericPoint_spec Z).specializes trivial)
     intro p _
     change (spMap V.subtype ≫ b) p ∈ U
@@ -1197,10 +1192,6 @@ theorem cv_nat {a : Sp A ⟶ S} {B : Type} [CommRing B] (h : A →+* B) {b : Sp 
 
 end Pts
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (g : A →+* B) (h : B →+* C) :
-    spMap (h.comp g) = spMap h ≫ spMap g := by
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem exists_pullback_ext {k Ω : Type} [Field k] [Field Ω] (f : Sp Ω ⟶ Sp k)
     (G : Over (Sp k)) [GrpObj G] (T : TorusExtension G) :
     ∃ T' : TorusExtension ((Over.pullback f).obj G), ∀ (W : Over (Sp Ω)) (p : W ⟶ (Over.pullback f).obj G)
@@ -1347,8 +1338,8 @@ theorem PositivityTheory.Xgn.torus_uniformization_compare : ∀ (X Z' : Scheme.{
       rw [h4])
     (by
       rintro A B _ _ g h θ θ' ⟨t, t', rfl, rfl, e⟩
-      obtain ⟨r, hr, hr1⟩ := cv_nat h (b := spMap (h.comp g) ≫ x) (by rw [spMap_comp', Category.assoc]) t
-      obtain ⟨r', hr', hr1'⟩ := cv_nat h (b := spMap (h.comp g) ≫ s) (by rw [spMap_comp', Category.assoc]) t'
+      obtain ⟨r, hr, hr1⟩ := cv_nat h (b := spMap (h.comp g) ≫ x) (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]) t
+      obtain ⟨r', hr', hr1'⟩ := cv_nat h (b := spMap (h.comp g) ≫ s) (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]) t'
       refine ⟨r, r', hr1, hr1', ?_⟩
       change (r.left ≫ u.left) ≫ Φ = (r'.left ≫ τ.i.left) ≫ φ
       change (t.left ≫ u.left) ≫ Φ = (t'.left ≫ τ.i.left) ≫ φ at e
@@ -1363,7 +1354,7 @@ theorem PositivityTheory.Xgn.torus_uniformization_compare : ∀ (X Z' : Scheme.{
       exact this _ _ (by rw [Category.assoc, Category.assoc, hx]))
   refine ⟨e, ?_⟩
   intro A _ g b hb b' hb' t t' h
-  rw [spMap_comp'] at hb'
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hb'
   subst hb hb'
   obtain ⟨r, r', hr, hr', H⟩ := he A g (cv t)
   obtain rfl : r = t := cv_inj hr

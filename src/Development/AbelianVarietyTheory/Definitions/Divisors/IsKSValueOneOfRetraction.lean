@@ -188,7 +188,7 @@ theorem comp {τ : R' →+* R''} {b' : S'' ⟶ S'} {ψ : A''.left ⟶ A'.left}
     (m : GrpMor κ t A κ' t' A' σ b φ) (m' : GrpMor κ' t' A' κ'' t'' A'' τ b' ψ) :
     GrpMor κ t A κ'' t'' A'' (τ.comp σ) (b' ≫ b) (ψ ≫ φ) := by
   refine { dp := IsDPMorphism.comp _ m'.dp m.dp, base := ?_, w := ?_, mul := ?_ }
-  · rw [Category.assoc, m.base, ← Category.assoc, m'.base, Category.assoc, Cris.spMap_comp]
+  · rw [Category.assoc, m.base, ← Category.assoc, m'.base, Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   · rw [Category.assoc, m.w, ← Category.assoc, m'.w, Category.assoc]
   · intro T x y x₀ y₀ hx hy
     let x₁ : Over.mk (T.hom ≫ b') ⟶ A' := Over.homMk (x.left ≫ ψ) (by
@@ -469,14 +469,14 @@ def spOver {D D' : Type} [CommRing D] [Algebra R D] [CommRing D'] [Algebra R D']
     Over.mk (spMap (algebraMap R D')) ⟶ Over.mk (spMap (algebraMap R D)) :=
   Over.homMk (spMap (φ : D →+* D')) (by
     change spMap _ ≫ spMap _ = spMap _
-    rw [← Cris.spMap_comp, φ.comp_algebraMap])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, φ.comp_algebraMap])
 
 theorem spOver_comp {D D' D'' : Type} [CommRing D] [Algebra R D] [CommRing D'] [Algebra R D']
     [CommRing D''] [Algebra R D''] (φ : D →ₐ[R] D') (ψ : D' →ₐ[R] D'') :
     spOver ψ ≫ spOver φ = spOver (ψ.comp φ) := by
   apply Over.OverMorphism.ext
   simp only [spOver, Over.comp_left, Over.homMk_left]
-  rw [← Cris.spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem tanVal_mul {v w : epsR R ⟶ A} (hv : IsTangent v) (hw : IsTangent w)
@@ -504,7 +504,7 @@ theorem tanVal_mul {v w : epsR R ⟶ A} (hv : IsTangent v) (hw : IsTangent w)
     rw [Over.comp_left, Hom.one_def, Over.comp_left, Over.toUnit_left]
     show spMap ((TrivSqZeroExt.map (0 : R →ₗ[R] R) : DualNumber R →ₐ[R] DualNumber R) :
         DualNumber R →+* DualNumber R) ≫ u.left = spMap (algebraMap R (DualNumber R)) ≫ η[A].left
-    rw [hk, Cris.spMap_comp, Category.assoc, hu']
+    rw [hk, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hu']
   have e1 : dg.comp p₁ = AlgHom.id R _ :=
     AlgHom.ext fun x ↦ TrivSqZeroExt.ext (by simp [dg, p₁, TrivSqZeroExt.fst_map, TrivSqZeroExt.snd_map]) (by simp [dg, p₁, TrivSqZeroExt.fst_map, TrivSqZeroExt.snd_map])
   have e2 : dg.comp p₂ = AlgHom.id R _ :=
@@ -558,7 +558,7 @@ theorem isLieImage_one_iff {h : HdR A} : IsLieImage h 1 ↔ h ∈ Fil A := by
     rw [Hom.one_def, Over.comp_left, Over.toUnit_left]
     show spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ spMap (algebraMap R (DualNumber R)) ≫
       η[A].left = η[A].left
-    rw [← Category.assoc, ← Cris.spMap_comp, e, Cris.spMap_id, Category.id_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, Cris.spMap_id, Category.id_comp]
   rw [mem_Fil]
   unfold IsLieImage
   exact ⟨fun H f hf ↦ (H.2 f hf).trans (tanVal_one f),
@@ -591,7 +591,7 @@ theorem IsLieImage.smul {h : HdR A} {v : epsR R ⟶ A} (e : IsLieImage h v) (r :
   unfold IsLieImage
   refine ⟨?_, fun f hf ↦ ?_⟩
   · show spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ (epsScale r ≫ v).left = η[A].left
-    rw [Over.comp_left, hl, ← Category.assoc, ← Cris.spMap_comp, ee]
+    rw [Over.comp_left, hl, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ee]
     exact t1
   · rw [LinearMap.smul_apply, e.2 f hf, tanVal_epsScale, smul_eq_mul]
 
@@ -744,7 +744,7 @@ theorem constMor : GrpMor (dp0 R) (𝟙 _) A (epsDP R) (epsRed R) A (algebraMap 
       have e : (TrivSqZeroExt.fstHom R R R).toRingHom.comp (algebraMap R (DualNumber R)) =
           RingHom.id R := RingHom.ext fun _ ↦ rfl
       show 𝟙 _ ≫ 𝟙 _ = spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ spMap (algebraMap R (DualNumber R))
-      rw [Category.comp_id, ← Cris.spMap_comp, e, Cris.spMap_id]
+      rw [Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, Cris.spMap_id]
     w := by simp
     mul := fun T x y x₀ y₀ hx hy ↦ by
       rw [Over.id_left, Category.comp_id (Over.Hom.left (x * y)), GrpMor.mul_left_eq_lift_comp_mu,

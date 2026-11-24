@@ -1004,14 +1004,6 @@ end GlobalTheory.CompanionTheory.Ar.OrLinked
 
 namespace GlobalTheory.CompanionTheory.Ar.OrLinked
 
-theorem spMap_spMap' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp [spMap, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
-theorem spMap_inj' {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) : f = g := by
-  have := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom this
-
 theorem mono_int' {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {l : Level H} (c : Coeff l) :
     Mono (spMap (algebraMap (𝓞 c.F) c.F)) := by
   have := c.fin
@@ -1104,7 +1096,7 @@ theorem common : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Hos
     have g0 : ξ ≫ h₀ = spMap i₀ ≫ o₀.𝔐.ξ := hd₀
     have g1 : ξ ≫ h₁ = spMap i₁ ≫ o₁.𝔐.ξ := hd₁
     rw [← Category.assoc, ← Category.assoc, g0, g1, Category.assoc, Category.assoc, o₀.g_over, o₁.g_over,
-      ← Category.assoc, ← Category.assoc, spMap_spMap', spMap_spMap', e01]
+      ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e01]
   let e : 𝔐.X ≅ A.X := a₁ ≪≫ a₀.symm
   have he : 𝔐.ξ ≫ e.hom = A.ξ := by
     simp only [e, Iso.trans_hom, Iso.symm_hom]
@@ -1114,7 +1106,7 @@ theorem common : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Hos
     rw [p2, q2, ← hZ]
     simp
   have hc : A.cst = 𝔐.cst := by
-    refine ringHom_ext_int c (spMap_inj' ?_)
+    refine ringHom_ext_int c (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_)
     rw [← A.cst_over, ← 𝔐.cst_over, ← hf, ← he]
     simp only [Category.assoc]
   obtain ⟨φ, φt, φV, φr, φp⟩ := same_base_cmp A 𝔐 e he hf hc
@@ -1125,7 +1117,7 @@ theorem common : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Hos
     refine Over.OverMorphism.ext (𝔐.m.cart.1.hom_ext ?_ ((Over.w _).trans (Over.w _).symm))
     show (𝔐.M.pt (Fl.b s k)).left ≫ 𝔐.m.φ = (𝔐.M.pt (φ (Fl₀.b s k))).left ≫ 𝔐.m.φ
     rw [φt, hb₀, hb₁, p3, q3, ← Category.assoc, ← Category.assoc, q7, p7, Category.assoc, Category.assoc,
-      o₀.g_flag, o₁.g_flag, ← Category.assoc, ← Category.assoc, spMap_spMap', spMap_spMap',
+      o₀.g_flag, o₁.g_flag, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       ← FlagPull.dualMap_comp, ← FlagPull.dualMap_comp, e01]
   have hbf : ∀ s, Fl.b s = fun k => φ (Fl₀.b s k) := fun s => funext (hbφ s)
   have hm := φp S₀ hRS

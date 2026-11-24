@@ -423,7 +423,7 @@ end GlobalTheory.CompanionTheory.Ar.OrVert
 namespace GlobalTheory.CompanionTheory.Ar.OrVert
 open _root_.GlobalTheory.CompanionTheory.Ar.Top HodgeCpt
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem dualMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (a : A →+* B) (b : B →+* C) :
     dualMap (b.comp a) = (dualMap b).comp (dualMap a) := by

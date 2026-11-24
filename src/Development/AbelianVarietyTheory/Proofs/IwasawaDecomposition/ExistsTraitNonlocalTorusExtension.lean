@@ -82,10 +82,6 @@ theorem torusExtension_compose {K : Type} [Field K] {S S₁ : Scheme.{0}} (a : S
   haveI : IsMonHom (pullCompIso b a G).symm.hom := inferInstanceAs (IsMonHom (pullCompIso b a G).inv)
   exact ⟨torusExtOfIso (pullCompIso b a G).symm T⟩
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (h : B →+* C) :
-    spMap (h.comp f) = spMap h ≫ spMap f := by
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 end GlobalTheory.NonlocalTrait
 
 
@@ -150,7 +146,7 @@ theorem GlobalTheory.exists_trait_nonlocal_torusExtension : ∀ (R : Type) [Comm
   haveI := hG₀.quasiCompact
   haveI := hG₀.separated
   have T₀ : Nonempty (TorusExtension ((Over.pullback (spMap σ)).obj G₀)) :=
-    torusExtension_iterate _ _ G (by rw [← spMap_comp']; exact hG.fibres _ _)
+    torusExtension_iterate _ _ G (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact hG.fibres _ _)
   obtain ⟨T⟩ := T₀
   obtain ⟨s, hs, H⟩ := FieldModel.exists_finite_torusExtension_range σ G₀ T
   haveI : Finite s := hs.to_subtype
@@ -216,5 +212,5 @@ theorem GlobalTheory.exists_trait_nonlocal_torusExtension : ∀ (R : Type) [Comm
     show i (α₀ (algebraMap (R ⧸ p) k₀ (Ideal.Quotient.mk p r))) = _
     rw [h1]
     simp [g₀, gA, IsFractionRing.lift_algebraMap]
-  · rw [← key, spMap_comp']
+  · rw [← key, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact T₂

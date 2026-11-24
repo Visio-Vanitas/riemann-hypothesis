@@ -173,7 +173,7 @@ theorem const_on_component_of_closed {K : IntermediateField ℚ ℂ} [FiniteDime
   haveI : IsScalarTower ℚ K F := IsScalarTower.of_algebraMap_eq' (Subsingleton.elim _ _)
   haveI : FiniteDimensional K F := Module.Finite.of_restrictScalars_finite ℚ K F
   obtain ⟨σ', hσ⟩ := exists_extension (F := F) σ
-  have e : spMap σ' ≫ spMap (algebraMap K F) = spMap σ := by rw [CompIdem.spMap_comp, hσ]
+  have e : spMap σ' ≫ spMap (algebraMap K F) = spMap σ := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ]
   let Y' := pullback s (spMap (algebraMap K F))
   let π : Y' ⟶ Y := pullback.fst _ _
   let s' : Y' ⟶ Sp F := pullback.snd _ _
@@ -212,7 +212,7 @@ theorem exists_idempotent (hA : AllTest Xo c) (σ : c.F →+* ℂ) {g : ℕ} {ty
   have hover : ∀ p : Sp ℂ ⟶ Xo.XF c, p ≫ s = spMap σ →
       (p ≫ pr) ≫ Xo.s = spMap (σ.comp (IntermediateField.inclusion c.le).toRingHom) := by
     intro p hp
-    rw [Category.assoc, pullback.condition, ← Category.assoc, hp, CompIdem.spMap_comp]
+    rw [Category.assoc, pullback.condition, ← Category.assoc, hp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hconst : ∀ p q : Sp ℂ ⟶ Xo.XF c, p ≫ s = spMap σ → q ≫ s = spMap σ →
       p (IsLocalRing.closedPoint ℂ) ∈ connectedComponent (q (IsLocalRing.closedPoint ℂ)) →
       t (p ≫ pr) = t (q ≫ pr) := by

@@ -313,8 +313,8 @@ theorem exists_fam_field_pull : GlobalFnsSt → ∀ (R R' : Type) [CommRing R] [
   intro hG R R' _ _ _ _ φ D D' hD F _ _ _ hF Θ h₁ h₂ k s
   have hT : (TF (R := R') F).hom ≫ specOf φ = (TF (R := R) F).hom :=
     (Category.assoc _ _ _).trans
-      (((congrArg (jFK (R := R') F ≫ ·) (Geo.Tor.spMap_comp φ _).symm).trans (Geo.Tor.spMap_comp _ _).symm).trans
-        ((congrArg Geo.Tor.spMap (RingHom.ext fun r => (hF r).symm)).trans (Geo.Tor.spMap_comp _ _)))
+      (((congrArg (jFK (R := R') F ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ _).symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans
+        ((congrArg Geo.Tor.spMap (RingHom.ext fun r => (hF r).symm)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)))
   choose s' hs using fun x : D'.X => (SecPull.existsUnique_secPull _ _ _ _ D.P.L D'.P.L _ D.P.isLB D'.P.isLB hD.w
     hD.w_gen _ (DegPre.famφ D' F x) (DegPre.famφ D F (hD.xe x)) (DegPre.famε k) Θ
     (FamFieldPull.famφ_pr hD F hT h₁ h₂ x) (s.s (hD.xe x))).exists

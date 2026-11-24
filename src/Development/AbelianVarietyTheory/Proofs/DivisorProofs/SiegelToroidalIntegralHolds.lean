@@ -481,7 +481,7 @@ theorem GlobalTheory.ChartAbelian.mem_abLocus_of_mem_range : ∀ (g n : ℕ) (F 
   · have := p.isPrime
     obtain ⟨T, hT, gT, hg, hgp⟩ := exists_dvr_centre (K := K) (L := K) p.asIdeal hp0
     have hc : spMap (algebraMap T K) ≫ spMap gT = jK R := by
-      rw [← spMap_comp, hg]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hg]
     have hginj : Function.Injective gT := by
       refine Function.Injective.of_comp (f := algebraMap T K) ?_
       rw [← RingHom.coe_comp, hg]

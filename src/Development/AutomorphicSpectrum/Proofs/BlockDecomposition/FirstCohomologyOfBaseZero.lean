@@ -767,13 +767,13 @@ theorem bijective_tens (U : X.affineOpens) (V : Y.affineOpens) (W : (pullback f 
   have hL : a.hom.comp Algebra.TensorProduct.includeLeftRingHom = secPull (φ := pullback.fst f g) f s' ⟨(W, U), hU⟩ := by
     have k : spMap (a.hom.comp Algebra.TensorProduct.includeLeftRingHom) ≫ affPt f U =
         spMap (secPull (φ := pullback.fst f g) f s' ⟨(W, U), hU⟩) ≫ affPt f U := by
-      rw [secPull_affPt (φ := pullback.fst f g) f s' ⟨(W, U), hU⟩, spMap_comp, Category.assoc, ha, ← tensPt_fst, ← Category.assoc, he]
+      rw [secPull_affPt (φ := pullback.fst f g) f s' ⟨(W, U), hU⟩, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ha, ← tensPt_fst, ← Category.assoc, he]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective ((cancel_mono (affPt f U)).1 k))
   have hR : a.hom.comp ((Algebra.TensorProduct.includeRight : Sec g V.1 →ₐ[R] Sec f U.1 ⊗[R] Sec g V.1) : Sec g V.1 →+* _) =
       secPull (φ := pullback.snd f g) g s' ⟨(W, V), hV⟩ := by
     have k : spMap (a.hom.comp ((Algebra.TensorProduct.includeRight : Sec g V.1 →ₐ[R] Sec f U.1 ⊗[R] Sec g V.1) : Sec g V.1 →+* _)) ≫ affPt g V =
         spMap (secPull (φ := pullback.snd f g) g s' ⟨(W, V), hV⟩) ≫ affPt g V := by
-      rw [secPull_affPt (φ := pullback.snd f g) g s' ⟨(W, V), hV⟩, spMap_comp, Category.assoc, ha, ← tensPt_snd, ← Category.assoc, he]
+      rw [secPull_affPt (φ := pullback.snd f g) g s' ⟨(W, V), hV⟩, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ha, ← tensPt_snd, ← Category.assoc, he]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective ((cancel_mono (affPt g V)).1 k))
   have hEq : ∀ t, α t = a.hom t := fun t ↦ by
     induction t using TensorProduct.induction_on with

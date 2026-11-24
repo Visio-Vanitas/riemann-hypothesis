@@ -59,7 +59,7 @@ theorem Cpt.openImmersion_comp_structure_eq_generic {E : Type} [Field E] [Number
     C.j ≫ C.s = c ≫ spMap β := by
   rw [Cpt.j, Category.assoc, pullback.condition, ← Category.assoc, C.jQ_over]
 
-private alias spMap_comp_moduli_spaces := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+private alias spMap_comp_moduli_spaces := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem Cpt.Above.exists_lift : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (U : Scheme.{0}) (F O : Type) [Field F] [CommRing O] (c : U ⟶ Sp F) (t : SAB H U) (β : O →+* F) (U' : Scheme.{0}) (F' O' : Type) [Field F'] [CommRing O'] (c' : U' ⟶ Sp F') (t' : SAB H U') (β' : O' →+* F') (U'' : Scheme.{0}) (F'' O'' : Type) [Field F''] [CommRing O''] (c'' : U'' ⟶ Sp F'') (t'' : SAB H U'') (β'' : O'' →+* F'') (C : Cpt c t β) (C' : Cpt c' t' β') (C'' : Cpt c'' t'' β'') (b : O →+* O') (b' : O' →+* O'') (k' : F' →+* F'') (r : U' ⟶ U) (ν : SABMap t' t r) (a : C'.Above C b r ν) (r' : U'' ⟶ U') (ν' : SABMap t'' t' r') (f : C''.X ⟶ C.X) (mu : SABMap C''.t C.t f) (hf : f ≫ C.s = C''.s ≫ spMap (b'.comp b)), IsDedFrac β'' → β''.comp b' = k'.comp β' → r' ≫ c' = c'' ≫ spMap k' → C''.j ≫ f = r' ≫ r ≫ C.j → C''.m.φ ≫ mu.φ = ν'.φ ≫ ν.φ ≫ C.m.φ → ∃ (h : C''.X ⟶ C'.X) (mu' : SABMap C''.t C'.t h) (hh : h ≫ C'.s = C''.s ≫ spMap b'), h ≫ a.π = f ∧ mu'.φ ≫ a.mu.φ = mu.φ ∧ C''.j ≫ h = r' ≫ C'.j ∧ C''.m.φ ≫ mu'.φ = ν'.φ ≫ C'.m.φ ∧ (IsFinite (pullback.lift f C''.s hf) → IsFinite (pullback.lift h C''.s hh)) := by
   intro E _ _ _ H U F O _ _ c t β U' F' O' _ _ c' t' β' U'' F'' O'' _ _ c'' t'' β'' C C' C'' b b' k' r ν a r' ν' f mu hf
@@ -74,7 +74,7 @@ theorem Cpt.Above.exists_lift : ∀ (E : Type) [Field E] [NumberField E] [IsCMFi
   have : IsLocallyNoetherian C''.X := hN
 
   have hbase : f ≫ C.s = (C''.s ≫ spMap b') ≫ spMap b := by
-    rw [hf, Category.assoc, spMap_comp_moduli_spaces]
+    rw [hf, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hq : IsIntegralHom (pullback.lift a.π C'.s a.π_over) := by
     have := a.fin
     infer_instance
@@ -82,8 +82,8 @@ theorem Cpt.Above.exists_lift : ∀ (E : Type) [Field E] [NumberField E] [IsCMFi
     apply pullback.hom_ext
     · simp only [Category.assoc, pullback.lift_fst, a.j_comm, hj]
     · simp only [Category.assoc, pullback.lift_snd]
-      rw [Cpt.openImmersion_comp_structure_eq_generic C', ← Category.assoc r', hc, Category.assoc, ← spMap_comp_moduli_spaces, ← hβ,
-        spMap_comp_moduli_spaces, ← Category.assoc C''.j, Cpt.openImmersion_comp_structure_eq_generic C'', Category.assoc]
+      rw [Cpt.openImmersion_comp_structure_eq_generic C', ← Category.assoc r', hc, Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hβ,
+        ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc C''.j, Cpt.openImmersion_comp_structure_eq_generic C'', Category.assoc]
   obtain ⟨h, ⟨h1, h2⟩, -⟩ := GlobalTheory.existsUnique_lift_of_densePart C''.X U'' (pullback C.s (spMap b)) C'.X C''.j C''.normal
     hPre hFl hDom hQC _ _ _ hq hsq
   have hπ : h ≫ a.π = f := by
@@ -109,7 +109,7 @@ theorem Cpt.Above.exists_lift : ∀ (E : Type) [Field E] [NumberField E] [IsCMFi
     have : IsProper C'.s := projProper O' C'.X C'.s C'.proj
     let p : pullback C'.s (spMap b') ⟶ pullback C.s (spMap (b'.comp b)) :=
       pullback.lift (pullback.fst _ _ ≫ a.π) (pullback.snd _ _) (by
-        rw [Category.assoc, a.π_over, ← Category.assoc, pullback.condition, Category.assoc, spMap_comp_moduli_spaces])
+        rw [Category.assoc, a.π_over, ← Category.assoc, pullback.condition, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     have hp : pullback.lift h C''.s hh ≫ p = pullback.lift (h ≫ a.π) C''.s hf := by
       apply pullback.hom_ext
       · simp only [p, Category.assoc]

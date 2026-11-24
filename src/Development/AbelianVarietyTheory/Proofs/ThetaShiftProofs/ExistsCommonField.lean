@@ -223,8 +223,8 @@ variable {F : Type} [Field F] [Algebra (FractionRing R) F] [Algebra (FractionRin
 theorem base_comm (hF : ∀ r : R, algebraMap (FractionRing R) F (algebraMap R (FractionRing R) r) =
       algebraMap (FractionRing R') F (algebraMap R' (FractionRing R') (f r))) :
     (TF (R := R') F).hom ≫ spMap f = (TF (R := R) F).hom :=
-  (Category.assoc _ _ _).trans (((congrArg (jFK (R := R') F ≫ ·) (spMap_comp f _).symm).trans (spMap_comp _ _).symm).trans
-      ((congrArg spMap (RingHom.ext fun r => (hF r).symm)).trans (spMap_comp _ _)))
+  (Category.assoc _ _ _).trans (((congrArg (jFK (R := R') F ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f _).symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans
+      ((congrArg spMap (RingHom.ext fun r => (hF r).symm)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)))
 
 def wVal (w : LB.Iso D'.P.L (D.P.L.pull Φ)) (y : Sp F) (J : (Sp F ⟶ D.P.A.left) → D.P.L.ι)
     (J' : (Sp F ⟶ D'.P.A.left) → D'.P.L.ι) (x : TF (R := R') F ⟶ D'.P.A) : ((Sp F).presheaf.stalk y)ˣ :=

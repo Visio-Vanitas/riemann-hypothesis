@@ -970,11 +970,11 @@ theorem extend (O K : Type) [CommRing O] [IsRegularLocalRing O] [Field K] [Algeb
   let k₀ := AlgebraicClosure K
   let xk : Sp k₀ ⟶ Sp K := spMap (algebraMap K k₀)
   let j : O →+* k₀ := (algebraMap K k₀).comp (algebraMap O K)
-  have hj : xk ≫ spMap (algebraMap O K) = spMap j := Models.RankZero.spMap_comp _ _
+  have hj : xk ≫ spMap (algebraMap O K) = spMap j := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have hjinj : Function.Injective j := (algebraMap K k₀).injective.comp (IsFractionRing.injective O K)
   let ζO : Oˣ := (hζ.map σ).unit
   have hβ₀ : xk ≫ spMap (algebraMap O K) ≫ spMap σ = spMap (j.comp σ) := by
-    rw [← Category.assoc, hj, Models.RankZero.spMap_comp]
+    rw [← Category.assoc, hj, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨g1, g2, g3⟩ := c'.geom k₀ xk (j.comp σ) (Units.map j.toMonoidHom ζO) hβ₀ rfl
   have pl : ∀ a, pushHom h (Over.mk xk) (toUnit _ ≫ c'.lev a) =
       toUnit (Over.mk (xk ≫ spMap (algebraMap O K))) ≫ lev a := fun a => push_lev h (hl a) _
@@ -1010,7 +1010,7 @@ theorem extend (O K : Type) [CommRing O] [IsRegularLocalRing O] [Field K] [Algeb
   obtain ⟨ρ, rfl⟩ := Models.RankZero.exists_spMap x
   obtain ⟨c1, c2⟩ := TT k (spMap ρ)
   refine ⟨c1, c2, fun a b => ?_⟩
-  have hβ : ρ.comp σ = β := _root_.GlobalTheory.ZM.DenseFib.spMap_inj ((Models.RankZero.spMap_comp σ ρ).symm.trans hx)
+  have hβ : ρ.comp σ = β := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ((Models.RankZero.spMap_comp σ ρ).symm.trans hx)
   have hzz : Units.map ρ.toMonoidHom ζO = z := Units.ext (by rw [hz, ← hβ]; rfl)
   have := GlobalTheory.T.commutatorPairing_determined_at_genericPoint O A hA P hP r₁ r₂ amp n (Nat.pos_of_ne_zero hn) hnO (lev a) (lev b) (tors a) (tors b)
     (ζO ^ (2 * omegaStd a b)) k₀ j hjinj (w0 a b) k ρ
@@ -1063,7 +1063,7 @@ theorem exists_principal_extension : ∀ (g n : ℕ) (F : SFam g n (zetaAway n))
   have : IsRegularLocalRing O := isRegularRing_iff.mp (isRegularRing_of_isRegularLocalRing R) p.asIdeal
   obtain ⟨κ₀, rfl⟩ := Models.RankZero.exists_spMap κ
   have hκ₀ : κ₀.comp (algebraMap R O) = algebraMap R (FractionRing R) :=
-    _root_.GlobalTheory.ZM.DenseFib.spMap_inj ((Models.RankZero.spMap_comp _ _).symm.trans hκ)
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ((Models.RankZero.spMap_comp _ _).symm.trans hκ)
   letI : Algebra O (FractionRing R) := κ₀.toAlgebra
   haveI : IsScalarTower R O (FractionRing R) :=
     IsScalarTower.of_algebraMap_eq fun r => (RingHom.congr_fun hκ₀ r).symm
@@ -1259,7 +1259,7 @@ theorem exists_spMap_ext : ∀ (n : ℕ) (R : Type) [CommRing R] [IsDomain R] [I
     have h := congrArg Subtype.val (e.apply_symm_apply ⟨φ z, hgen z.1 z.2⟩)
     exact h
   refine ⟨spMap ψ, ?_⟩
-  exact (spMap_comp ψ A).symm.trans (congrArg spMap hψ)
+  exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ψ A).symm.trans (congrArg spMap hψ)
 
 theorem asIdeal_eq_bot_of_charZero : ∀ (n : ℕ) (K : Type) [Field K] [CharZero K] (x : Sp K ⟶ Sp (cycAway n)) (q : Sp K), (x q).asIdeal = ⊥ := by
   intro n K _ _ x q
@@ -1300,7 +1300,7 @@ theorem mem_range_of_mem_abLocus : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (
   let ιp := spMap (algebraMap R (Localization.AtPrime p.asIdeal))
   let κ : Sp (FractionRing R) ⟶ Sp (Localization.AtPrime p.asIdeal) := spMap lf
   have hκ : κ ≫ ιp = jK R := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (IsLocalization.lift_comp hu)
   have hnorm := (GlobalTheory.isDomain_and_isIntegrallyClosed_of_isRegularLocalRing R).2
   obtain ⟨s, hs⟩ := exists_spMap_ext n R b (y ≫ F.s)

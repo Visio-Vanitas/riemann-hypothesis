@@ -83,7 +83,7 @@ def ptsDown (m : GrpMor κ u A κ' u' A' ρ (spMap σ) φ) (B : Type) [CommRing 
     [Algebra O' B] (hB : ∀ r, algebraMap O B r = algebraMap O' B (σ r)) :
     (SpAlg O' B ⟶ A') →* (SpAlg O B ⟶ A) :=
   have e : spMap (algebraMap O' B) ≫ spMap σ = spMap (algebraMap O B) := by
-    rw [← Cris.spMap_comp]; exact congrArg spMap (RingHom.ext hB).symm
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact congrArg spMap (RingHom.ext hB).symm
   MonoidHom.mk' (fun z => Over.homMk (z.left ≫ φ) (by
       rw [Category.assoc, m.w, ← Category.assoc, Over.w]; exact e))
     fun x y => Over.OverMorphism.ext (by
@@ -112,7 +112,7 @@ theorem ptsDown_bijective (m : GrpMor κ u A κ' u' A' ρ (spMap σ) φ)
   refine ⟨fun x y e => Over.OverMorphism.ext (h.hom_ext (congrArg Over.Hom.left e)
     ((Over.w x).trans (Over.w y).symm)), fun z => ?_⟩
   have e : z.left ≫ A.hom = spMap (algebraMap O' B) ≫ spMap σ := by
-    rw [Over.w, ← Cris.spMap_comp]; exact congrArg spMap (RingHom.ext hB)
+    rw [Over.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact congrArg spMap (RingHom.ext hB)
   exact ⟨Over.homMk (h.lift _ _ e) (h.lift_snd _ _ e), Over.OverMorphism.ext (h.lift_fst _ _ e)⟩
 
 end Down
@@ -280,7 +280,7 @@ theorem ringHom_ext {n : ℕ} {B : Type} [CommRing B] {f g : G.A n →+* B}
     have h1 := congrArg (· ≫ A.hom) h
     simp only [Category.assoc, Over.w] at h1
     have h2 : spMap (f.comp (algebraMap O _)) = spMap (g.comp (algebraMap O (G.A n))) := by
-      rw [Cris.spMap_comp, Cris.spMap_comp]; exact h1
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact h1
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective h2).symm
   exact congrArg AlgHom.toRingHom (t.inj n B { f with commutes' := fun _ => rfl }
     { g with commutes' := RingHom.congr_fun e } (Over.OverMorphism.ext h))
@@ -300,7 +300,7 @@ theorem pts_eq_ptsDown (m : GrpMor κ u A κ' u' A' ρ (spMap σ) φ) {n : ℕ} 
     t.pts n B x₀ = ptsDown m B hB (t'.pts n B x) ↔ ∀ a, x₀.ofConv a = x.ofConv (g a) := by
   have e : (ptsDown m B hB (t'.pts n B x)).left =
       spMap ((x.ofConv : G'.A n →+* B).comp g) ≫ (t.y n).left := by
-    rw [Cris.spMap_comp, Category.assoc, hg]; exact Category.assoc _ _ _
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hg]; exact Category.assoc _ _ _
   constructor
   · intro h
     exact RingHom.congr_fun (t.ringHom_ext ((congrArg Over.Hom.left h).trans e))
@@ -325,7 +325,7 @@ def semiOf (m : GrpMor κ u A κ' u' A' ρ (spMap σ) φ) : SemiHom σ G' G wher
     refine RingHom.congr_fun (t.ringHom_ext (n := n + 1)
       (f := (G'.res n : G'.A (n + 1) →+* G'.A n).comp (t'.exists_ringHom t m (n + 1)).choose)
       (g := (t'.exists_ringHom t m n).choose.comp (G.res n : G.A (n + 1) →+* G.A n)) ?_)
-    rw [Cris.spMap_comp, Cris.spMap_comp, Category.assoc, Category.assoc, h, ← Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, h, ← Category.assoc]
     exact (congrArg (·.left ≫ φ) (t'.res n)).trans ((h n).symm.trans
       (congrArg (_ ≫ ·.left) (t.res n)).symm)
 
@@ -353,7 +353,7 @@ theorem semiOf_semiOf {τ : O' →+* O''} {υ : O →+* O''} {G'' : PDivGroup p 
       calc
         _ = (t''.y n).left ≫ ψ ≫ φ := h'' n
         _ = (spMap (s'.app n).toRingHom ≫ (t'.y n).left) ≫ φ := by rw [h' n, Category.assoc]
-        _ = _ := by simp only [Cris.spMap_comp, Category.assoc, h n])) a
+        _ = _ := by simp only [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, h n])) a
 
 end Semi
 
@@ -432,7 +432,7 @@ theorem ptsDown_baseChangeY (n : ℕ) (B : Type) [CommRing B] [Algebra O B] [Alg
       t.pts n B ((toBaseChange O O' (G.A n)).pts B hB x) :=
   Over.OverMorphism.ext (by
     rw [ptsDown_left, Over.comp_left, Category.assoc, baseChangeY_left, spOver_left,
-      ← Category.assoc, ← Cris.spMap_comp]
+      ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl)
 
 def baseChange : (G.baseChange O').TorsionTower A' where
@@ -459,7 +459,7 @@ def baseChange : (G.baseChange O').TorsionTower A' where
     refine Over.OverMorphism.ext (h.1.hom_ext ?_ (by rw [Over.w, Over.w]))
     rw [Over.comp_left, Category.assoc, baseChangeY_left, baseChangeY_left, ← t.res n,
       Over.comp_left, spOver_left, spOver_left, ← Category.assoc, ← Category.assoc,
-      ← Cris.spMap_comp, ← Cris.spMap_comp]
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
 
 theorem toBase_y (n : ℕ) : spMap ((G.toBase O').app n).toRingHom ≫ (t.y n).left =

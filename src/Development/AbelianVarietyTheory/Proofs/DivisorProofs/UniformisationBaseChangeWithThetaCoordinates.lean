@@ -70,7 +70,7 @@ theorem exists_with_theta_coordinates
     have e₂ : y₀ = Out.toBase pA.w y := Over.OverMorphism.ext hy
     rw [e₁, e₂, ← mA]; rfl⟩
   have sq : spMap f ≫ jK V = jK V' ≫ spMap io :=
-    (spMap_comp _ f).symm.trans ((congrArg spMap (RingHom.ext hf)).trans (spMap_comp io _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ f).symm.trans ((congrArg spMap (RingHom.ext hf)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp io _))
   have gpG : IsGrpPullback A.A G (jK V) (U.gen.inv.left ≫ pullback.fst G.hom (jK V)) := by
     have := U.gen_hom
     have : IsMonHom U.gen.symm.hom := by show IsMonHom U.gen.inv; infer_instance

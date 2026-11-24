@@ -65,11 +65,11 @@ theorem qkExt_trans {R : Type} [CommRing R] [IsDomain R] {D : DegPre R} {F₀ F�
     (h : QkExt f p₀ p₁) (h' : QkExt g p₁ p₂) : QkExt (g.comp f) p₀ p₂ := by
   refine ⟨h'.1.trans h.1, ?_, fun χ => corr_of_val D.P.isLB fun (y : Sp F₂) J hJ => ?_⟩
   · exact h'.2.1.trans ((congrArg (spMap g ≫ ·) h.2.1).trans ((Category.assoc _ _ _).symm.trans
-      (congrArg (· ≫ p₀.g.b.left) (spMap_comp f g).symm)))
+      (congrArg (· ≫ p₀.g.b.left) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g).symm)))
   · refine (val_corr hJ (h'.2.2 χ) _).trans ((val_pull hJ _ _ _).trans ((val_corr hJ (h.2.2 χ) _).trans
       ((val_pull hJ _ _ _).trans (Eq.trans ?_ (val_pull hJ _ _ _).symm))))
     exact congrArg (fun q => val (p₀.g.s χ) q y J) ((Category.assoc _ _ _).trans
-      (congrArg (𝟙 (Sp F₂) ≫ ·) (spMap_comp f g).symm))
+      (congrArg (𝟙 (Sp F₂) ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g).symm))
 
 theorem val_eq_of_genRel {F : Type} [Field F] {B B₀ : Scheme.{0}} {M : LB B} {M₀ : LB B₀} (hM₀ : M₀.IsLB)
     {φ : B ⟶ B₀} {w : LB.Iso M (M₀.pull φ)} {K : Type} [Fintype K] {pt pt' : K → (Sp F ⟶ B)} {pt₀ : K → (Sp F ⟶ B₀)}
@@ -143,8 +143,8 @@ theorem toA_of_toA : GlobalTheory.UT.LL → ∀ (E : Type) [Field E] [NumberFiel
   letI : Algebra F F' := τ.toAlgebra
   haveI : IsScalarTower (FractionRing R) C F' := IsScalarTower.of_algebraMap_eq' hσ.symm
   haveI : IsScalarTower (FractionRing R) F F' := IsScalarTower.of_algebraMap_eq' hτ.symm
-  have hj : spMap σ ≫ jFK (R := R) C = jFK (R := R) F' := (spMap_comp _ _).symm.trans (congrArg spMap hσ)
-  have hj' : spMap τ ≫ jFK (R := R) F = jFK (R := R) F' := (spMap_comp _ _).symm.trans (congrArg spMap hτ)
+  have hj : spMap σ ≫ jFK (R := R) C = jFK (R := R) F' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap hσ)
+  have hj' : spMap τ ≫ jFK (R := R) F = jFK (R := R) F' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap hτ)
   have ex : TorsionExt.fieldMap (R := R) C F' ≫ x = TorsionExt.fieldMap (R := R) F F' ≫ x' := by
     refine Over.OverMorphism.ext ?_
     show spMap σ ≫ x.left = spMap τ ≫ x'.left

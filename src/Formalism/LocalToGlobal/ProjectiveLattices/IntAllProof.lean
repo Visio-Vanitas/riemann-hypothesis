@@ -156,11 +156,6 @@ theorem isCombAt_unique {S : Type} [CommRing S] {Xo : Moduli Dw l} {x : Sp S ⟶
   have huu : u = u' := funext fun i => Over.OverMorphism.ext ((hu i).trans (hu' i).symm)
   rw [huu]
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp]
-  rfl
-
 theorem epsMul_comp_alg {S : Type} [CommRing S] (a : S) :
     (epsMul a).comp (algebraMap S (DualNumber S)) = algebraMap S (DualNumber S) := by
   exact RingHom.ext fun y => by simp [epsMul]
@@ -168,7 +163,7 @@ theorem epsMul_comp_alg {S : Type} [CommRing S] (a : S) :
 def epsPt {S : Type} [CommRing S] {Xo : Moduli Dw l} {x : Sp S ⟶ Xo.X}
     {v : Sp (DualNumber S) ⟶ Xo.univ.t.G.left} (hv : IsTanAt x v) (a : S) : tEps x ⟶ Xo.univ.t.G :=
   Over.homMk (spMap (epsMul a) ≫ v) (by
-    rw [Category.assoc, hv.1, ← Category.assoc, spMap_comp', epsMul_comp_alg]
+    rw [Category.assoc, hv.1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, epsMul_comp_alg]
     rfl)
 
 theorem epsPt_left {S : Type} [CommRing S] {Xo : Moduli Dw l} {x : Sp S ⟶ Xo.X}
@@ -195,7 +190,7 @@ theorem epsPt_zero {S : Type} [CommRing S] {Xo : Moduli Dw l} {x : Sp S ⟶ Xo.X
   apply Over.OverMorphism.ext
   rw [← h1]
   simp only [epsPt, Over.homMk_left, Over.comp_left, φ]
-  rw [he, ← spMap_comp', Category.assoc, hv.2]
+  rw [he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hv.2]
 
 theorem epsPt_one_left {S : Type} [CommRing S] {Xo : Moduli Dw l} {x : Sp S ⟶ Xo.X}
     {v : Sp (DualNumber S) ⟶ Xo.univ.t.G.left} (hv : IsTanAt x v) : (epsPt hv 1).left = v := by

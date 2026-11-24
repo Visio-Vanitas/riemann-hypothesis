@@ -80,15 +80,15 @@ theorem keyPB_trans : ∀ (R R' R'' : Type) [CommRing R] [CommRing R'] [CommRing
   have g' := (isGen_iff w').1 hw'
   obtain ⟨w'', T⟩ := exists_comp x'.P.isLB w w' g g' x.P.isLB x''.P.isLB
   have he'' : eSec x''.P.A ≫ φ' ≫ φ = spMap (f'.comp f) ≫ eSec x.P.A := by
-    rw [← Category.assoc, he', Category.assoc, he, spMap_comp, Category.assoc]
-  refine ⟨φ' ≫ φ, he'', w'', hg'.trans hg, F'.comp F, (hp'.comp hp).congr (spMap_comp f f').symm rfl,
+    rw [← Category.assoc, he', Category.assoc, he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+  refine ⟨φ' ≫ φ, he'', w'', hg'.trans hg, F'.comp F, (hp'.comp hp).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f f').symm rfl,
     (isGen_iff w'').2 (T.pgen_comp x'.P.isLB g g'), ?_, ?_, fun a => ?_, ?_, fun i => ?_⟩
   · have r₀ := (maps_iff w _ (fun _ => eSec x.P.A) _ x'.rig x.rig (spMap f) _
       (rigPull_le φ (spMap f) he x.P.L) (fun _ => rfl)).1 hr
     have r₁ := (maps_iff w' _ (fun _ => eSec x'.P.A) _ x''.rig x'.rig (spMap f') _
       (rigPull_le φ' (spMap f') he' x'.P.L) (fun _ => rfl)).1 hr'
     have r₂ := T.pmaps_comp x'.P.isLB (fun _ => he') r₀ r₁
-    rw [← spMap_comp] at r₂
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r₂
     exact (maps_iff w'' _ (fun _ => eSec x.P.A) _ x''.rig x.rig (spMap (f'.comp f)) _
       (rigPull_le (φ' ≫ φ) (spMap (f'.comp f)) he'' x.P.L) (fun _ => rfl)).2 r₂
   · refine KeyPow.appLE_eq_of_stalk w'' x.th x''.th fun z j k hj hk => ?_
@@ -98,7 +98,7 @@ theorem keyPB_trans : ∀ (R R' R'' : Type) [CommRing R] [CommRing R'] [CommRing
     rw [T _ (𝟙 _) z j i k hj hi hk, ← Category.assoc, a, b, Units.val_mul, _root_.mul_assoc]
   · rw [RingHom.comp_apply, hF, hF', RingHom.comp_apply]
   · rw [RingHom.comp_apply, hε, hε']
-  · rw [← Category.assoc, hv', Category.assoc, hv, spMap_comp, Category.assoc]
+  · rw [← Category.assoc, hv', Category.assoc, hv, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     rfl
 
 end GlobalTheory

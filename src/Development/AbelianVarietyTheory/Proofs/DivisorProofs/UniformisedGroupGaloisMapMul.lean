@@ -122,7 +122,7 @@ theorem exists_isPullDeg_comp {R R' R'' : Type} [CommRing R] [IsDomain R] [CommR
     ∃ (r : IsPullDeg (j.comp i) D D'') (w : LB.Iso D''.P.L (D.P.L.pull (proj q ≫ proj p))),
       proj r = proj q ≫ proj p ∧ r.xe = q.xe.trans p.xe ∧ HEq r.w w ∧ Tri p.w q.w w := by
   have hji : Function.Injective (j.comp i) := hj.comp hi
-  have sc : spMap j ≫ spMap i = spMap (j.comp i) := (spMap_comp i j).symm
+  have sc : spMap j ≫ spMap i = spMap (j.comp i) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i j).symm
   have gp : IsGrpPullback D''.P.A D.P.A (spMap (j.comp i)) (proj q ≫ proj p) :=
     ((pull_grp q).comp (pull_grp p)).congr sc rfl
   have g₁ := (isGen_iff _).1 p.w_gen
@@ -202,7 +202,7 @@ theorem isPullUnif_comp {R R' R'' : Type} [CommRing R] [IsDomain R] [CommRing R'
       (b₂.hom.left ≫ pullback.fst G'.hom (specOf j)) ≫ (b₁.hom.left ≫ pullback.fst G.hom (specOf i)))
     {U : Unif I D A G} {U' : Unif I' D' A' G'} {U'' : Unif I'' D'' A'' G''}
     (H₁ : IsPullUnif i p b₁ U U') (H₂ : IsPullUnif j q b₂ U' U'') : IsPullUnif (j.comp i) r b U U'' := by
-  have sc : specOf j ≫ specOf i = specOf (j.comp i) := (spMap_comp i j).symm
+  have sc : specOf j ≫ specOf i = specOf (j.comp i) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i j).symm
   obtain ⟨w₁, g₁, e₁, m₁, K₁⟩ := (isPullUnif_iff_stalks _ _ _ _ _ _ _ _ _ _ _ _ _ _ _).1 H₁
   obtain ⟨w₂, g₂, e₂, m₂, K₂⟩ := (isPullUnif_iff_stalks _ _ _ _ _ _ _ _ _ _ _ _ _ _ _).1 H₂
   replace g₁ := (isGen_iff _).1 g₁
@@ -254,7 +254,7 @@ namespace GlobalTheory.Mum
 theorem galMap_mul : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R], Base R → ∀ (R' : Type) [CommRing R'] [IsDomain R'] [IsLocalRing R'] (ρ : R →+* R'), FinExt ρ → ∀ (D : DegData R (maximalIdeal R)) (D' : DegData R' (maximalIdeal R')) (hD : IsPullDeg ρ D.toPre D'.toPre) (A' : PolAV (Sp (FractionRing R'))) (G' : Over (Sp R')) [GrpObj G'] [IsCommMonObj G'], IsSemiAbelian G' → ∀ (U' : Unif (maximalIdeal R') D' A' G') (σ τ : Gal ρ) (a b : G'.left ⟶ G'.left), GalMap hD U' σ a → GalMap hD U' τ b → GalMap hD U' (σ * τ) (a ≫ b) := by
   intro R _ _ _ _ R' _ _ _ ρ _ D D' hD A' G' _ _ _ U' σ τ a b ⟨ga, q, b₂, ha, H₂, x₂, c₂⟩ ⟨gb, p, b₁, hb, H₁, x₁, c₁⟩
   have gp : IsGrpPullback G' G' (spMap ((Gal.hom σ).comp (Gal.hom τ))) (a ≫ b) :=
-    (ga.comp gb).congr (spMap_comp _ _).symm rfl
+    (ga.comp gb).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm rfl
   obtain ⟨r, w, r₁, r₂, r₃, T⟩ := GalMul.exists_isPullDeg_comp (i := Gal.hom τ) (j := Gal.hom σ) τ.1.injective σ.1.injective p q
   obtain ⟨bc, -, hbc⟩ := grpPullback_iso gp (isGrpPullback_pullback G' (specOf ((Gal.hom σ).comp (Gal.hom τ))))
   refine ⟨gp, r, bc, hbc, GalMul.isPullUnif_comp r₁ r₂ r₃ T (hbc.trans (by rw [ha, hb])) H₁ H₂, fun x => ?_, ?_⟩

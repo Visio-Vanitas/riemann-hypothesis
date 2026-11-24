@@ -438,7 +438,7 @@ theorem integral_baseChange_chg [StarRing (𝓞 E)] (z : CMPt Xo c) (T T' : CDVR
   intro iA y y' w X hi hy hL hS hm hX hw
   obtain ⟨M', n, n', h1, h2⟩ := (_root_.GlobalTheory.LamT.locMod_exists E H Dw l Xo c z T iK).2 M T' ψ i hψ
   have hx : spMap (i.comp iK) ≫ z.x = spMap i ≫ spMap iK ≫ z.x := by
-    rw [ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have hy' : y'.x = spMap (i.comp iK) ≫ z.x := by rw [hm.1, hi, hy, hx]
   have hL' : LieInt T' (i.comp io) M'.m1 M'.m2 y'.u := by
     have := _root_.GlobalTheory.LamT.lieInt_baseChange E H Dw l Xo c T T' ψ i hψ _ _ M.G M'.G M.t'.t M'.t'.t M.m1 M.m2 M'.m1 M'.m2 n n' hx h1 h2

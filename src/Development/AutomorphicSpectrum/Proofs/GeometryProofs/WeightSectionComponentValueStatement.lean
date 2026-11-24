@@ -808,7 +808,7 @@ theorem Crd.bc (ψ : R →+* R') {f : Γ(Y.X, U) →+* R} {cv : Fin n → R} {w 
     refine RingHom.ext fun x => ?_
     ext <;> simp [dualMapR]
   unfold Crd
-  rw [e, spMap_comp, spMap_comp, Category.assoc]
+  rw [e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   simpa only [Category.assoc] using h1
 
 theorem IsChart.crd_bor (hC : IsChart Y hU v₀) [Algebra c.F R] {t : Ix Dw → Rˣ} {y y' : FrPt Xo c R}
@@ -849,7 +849,7 @@ theorem IsChart.integral (hExt : GlobalTheory.Published.SemiAbelianHomExtension)
   have gpa : IsGrpPullback t'.G Y.oF.t.G (Small.ptF y.1) a :=
     IsGrpPullback.cancel Y.m0.cart (m1.cart.congr (Small.ptF_fst y.1).symm ha1.symm) ha2
   have hg : Small.ptY Y y.1 = spMap (algebraMap T.V T.Fr) ≫ spMap f₀ ≫ hU.fromSpec := by
-    rw [hf, spMap_comp, Category.assoc]
+    rw [hf, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have gpY : IsGrpPullback t'.G Y.t.G (spMap (algebraMap T.V T.Fr) ≫ spMap f₀ ≫ hU.fromSpec) (a ≫ Y.m.φ) :=
     (gpa.comp Y.m.cart).congr hg rfl
   have acta : ∀ r, (t'.act.act r).left ≫ a = a ≫ (Y.oF.t.act.act r).left := by
@@ -913,7 +913,7 @@ theorem ModelDimension.integral_frame_over_cdvr : Top.Given → ∀ (E : Type) [
   obtain ⟨b, hb⟩ := GlobalTheory.Reg.GenInt.exists_factor (algebraMap T.V T.Fr) hinj (io.comp (algebraMap (𝓞 c.F) c.F))
     (fun o => GlobalTheory.Reg.GenInt.int_mem_range io o)
   obtain ⟨yt, -, hyt⟩ := valCrit_proj Y.s Y.proj T.V T.Fr b (Small.ptY Y y.1) (by
-    rw [Small.ptY_over, ← Tor.spMap_comp, hb])
+    rw [Small.ptY_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hb])
   have := Y.t.semi.smooth
   have := projProper _ _ _ Y.proj
   obtain ⟨U, hU, hxU, -, n, v₀, hC⟩ :=
@@ -923,7 +923,7 @@ theorem ModelDimension.integral_frame_over_cdvr : Top.Given → ∀ (E : Type) [
   obtain ⟨α, hα, hαf⟩ := GlobalTheory.ModelPoints.exists_chart_finiteType Y.s hU
   obtain ⟨gens, hgens⟩ := fin_gen hαf
   have hy : Small.ptY Y y.1 = Tor.spMap ((algebraMap T.V T.Fr).comp f₀) ≫ hU.fromSpec := by
-    rw [← hyt, ← hf₀, Tor.spMap_comp f₀, Category.assoc]
+    rw [← hyt, ← hf₀, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f₀, Category.assoc]
   have hz₀Y : Small.ptY Y z₀ = Tor.spMap ((algebraMap T.V T.Fr).comp f₀) ≫ hU.fromSpec :=
     (ptY_bor Y hb₀).symm.trans hy
   obtain ⟨h, hh, fh, hfh⟩ := exists_spread hU (Small.ptY Y w) ψ.toRingHom _
@@ -939,9 +939,9 @@ theorem ModelDimension.integral_frame_over_cdvr : Top.Given → ∀ (E : Type) [
         ∀ τ i, Crd Y hU v₀ (χ.comp fh) (fun j => ((g τ).map χ) j i) (Small.tanY Y z' τ i) := by
     intro ψ' z' hz' χ hχ
     refine ⟨?_, fun τ i => ?_⟩
-    · rw [Small.ptY_map Y hz', ← hχ, Tor.spMap_comp _ χ, Tor.spMap_comp fh χ, Category.assoc, Category.assoc, hfh]
+    · rw [Small.ptY_map Y hz', ← hχ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ χ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp fh χ, Category.assoc, Category.assoc, hfh]
     · have h1 := (hcv τ i).bc χ
-      rw [← Category.assoc, ← Tor.spMap_comp, ← dualMapR_comp, hχ] at h1
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMapR_comp, hχ] at h1
       rw [Small.tanY_map Y hz']
       exact h1
   let χ₀ : Localization.Away h →+* T.Fr := IsLocalization.Away.lift h (Ne.isUnit hh)
@@ -977,7 +977,7 @@ theorem ModelDimension.integral_frame_over_cdvr : Top.Given → ∀ (E : Type) [
   obtain ⟨k3, k4⟩ := key ψ' z' hz' χ hχ'
   have hα' : (χ.comp fh).comp α = (algebraMap T.V T.Fr).comp b := by
     apply spMap_inj
-    rw [Tor.spMap_comp, ← hα, ← Category.assoc, ← k3, Small.ptY_over, hb]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hα, ← Category.assoc, ← k3, Small.ptY_over, hb]
   obtain ⟨f', hf'⟩ := GlobalTheory.Reg.GenInt.exists_factor (algebraMap T.V T.Fr) hinj (χ.comp fh)
     (hgens ((algebraMap T.V T.Fr).range.comap (χ.comp fh)) (fun o => ⟨b o, (RingHom.congr_fun hα' o).symm⟩) q2)
   choose W hW1 hW2 using q3
@@ -996,7 +996,7 @@ theorem ModelDimension.integral_frame_over_cdvr : Top.Given → ∀ (E : Type) [
   have hF : φ.toRingHom.comp (χ.comp fh) = (algebraMap T'.V T'.Fr).comp (φ₀.comp f') := by
     rw [← hf', ← RingHom.comp_assoc, ← hφ₀, RingHom.comp_assoc]
   have k5 : Small.ptY Y z'' = Tor.spMap (φ.toRingHom.comp (χ.comp fh)) ≫ hU.fromSpec := by
-    rw [Small.ptY_map Y hz'', k3, Tor.spMap_comp (χ.comp fh), Category.assoc]
+    rw [Small.ptY_map Y hz'', k3, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (χ.comp fh), Category.assoc]
   obtain ⟨C', hC1', hC2', hC3'⟩ := hC.crd_bor hb'' τ
   obtain ⟨u', hu1', hu2'⟩ := hC.integral hExt y' (φ₀.comp f') (by rw [ptY_bor Y hb'', k5, hF]) τ
   have e1 : ((g τ).map χ).map φ.toRingHom * C' = u'.map (algebraMap T'.V T'.Fr) :=

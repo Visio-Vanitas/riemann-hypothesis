@@ -174,13 +174,13 @@ theorem GlobalTheory.HorFrame.exists_deform_of_comb : ∀ {E : Type} [Field E] [
   have hψα : ψ.comp (algebraMap c.F Γ(M.X, W₁)) = algebraMap c.F K := by
     have h2 := congrArg (· ≫ Y.s) e1
     simp only [Category.assoc] at h2
-    rw [hjs Q, hjs Q₀, spMap_comp'] at h2
+    rw [hjs Q, hjs Q₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at h2
     exact (hinj _ _ h2).symm
 
   let ψA : Γ(M.X, W₁) →ₐ[c.F] K := ⟨ψ, fun r => RingHom.congr_fun hψα r⟩
   have hfrX : frX Q = spMap ψ ≫ frX Q₀ := by
     refine xF_ext (Y := Y) (frX_snd Q) ?_ (by rw [e1, Category.assoc])
-    rw [Category.assoc, frX_snd, spMap_comp', hψα]
+    rw [Category.assoc, frX_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψα]
   have hQx : Q.x = spMap ψ ≫ Q₀.x := by
     rw [← frX_fst, hfrX, Category.assoc, frX_fst]
   have hFQ : FrMap ψA Q₀ Q := by
@@ -205,7 +205,7 @@ theorem GlobalTheory.HorFrame.exists_deform_of_comb : ∀ {E : Type} [Field E] [
   have hdef : IsDef Q w := by
     obtain ⟨Q', hQ'⟩ := exists_frMap (GlobalTheory.FlagTan.red c K) w
     have hc := hwc.frMap hQ' (z' := (spMap ψ ≫ tau hW₁) ≫ toFlag M)
-      (by rw [← Category.assoc, spMap_comp', hred]; simp only [Category.assoc]) hk
+      (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hred]; simp only [Category.assoc]) hk
     show FrMap _ w Q
     rwa [hc.unique hQ] at hQ'
 
@@ -217,14 +217,14 @@ theorem GlobalTheory.HorFrame.exists_deform_of_comb : ∀ {E : Type} [Field E] [
     refine ⟨?_, ?_⟩
     · rw [Category.assoc, Q₀.x_over]
       unfold sOf
-      rw [spMap_comp', ← RingHom.comp_assoc, hdu φ hφ]
-    · rw [← Category.assoc, spMap_comp', hQx]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, hdu φ hφ]
+    · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hQx]
       have : (GlobalTheory.FlagTan.red c K).toRingHom.comp φ = ψ := RingHom.ext fun s => hφ s
       rw [this]
   have hKSa : ∀ a, GlobalTheory.FlagTan.IsKS (psiSet H) Q (spMap ((dualMap ψ).comp (d a)) ≫ Q₀.x) (ψ ∘ Mx a) := by
     intro a
     have := hMx a K ψA Q hFQ
-    rwa [← Category.assoc, spMap_comp'] at this
+    rwa [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at this
   refine ⟨w, hdef, ?_, hwpt⟩
   rw [hwx]
   refine _root_.GlobalTheory.FlagTan.IsKS.sum_of_der (hKS K Q) (x := fun a => spMap ((dualMap ψ).comp (d a)) ≫ Q₀.x)

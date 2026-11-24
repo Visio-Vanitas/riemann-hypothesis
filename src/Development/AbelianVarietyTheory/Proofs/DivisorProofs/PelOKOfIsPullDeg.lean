@@ -71,7 +71,7 @@ theorem pelOK_of_isPullDeg : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRi
   refine ⟨fun τ => ?_, fun ζ hζ hζ' => ?_⟩
   · obtain ⟨n, hn, hn'⟩ := hL τ
     refine ⟨n, (LiePull.lieMult_pull _ _ _ _ _ _ _ (ofRingAct o.onB.toRingAct) _ (pull_grp hD) ho F _ τ n).2 ?_, ?_⟩
-    · rw [← spMap_comp, show ((algebraMap (FractionRing R') F).comp (algebraMap R' _)).comp φ =
+    · rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, show ((algebraMap (FractionRing R') F).comp (algebraMap R' _)).comp φ =
         (algebraMap (FractionRing R) F).comp (algebraMap R _) from RingHom.ext fun r => (hc r).symm]
       exact hn
     · rw [(({ hD.xe with map_smul' := hx } : D'.toPre.X ≃ₗ[𝓞 E] D.toPre.X)).finrank_eq]

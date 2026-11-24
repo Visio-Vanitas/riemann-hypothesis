@@ -237,7 +237,7 @@ theorem exists_transl_val : ∀ (R : Type) [CommRing R] (A : Over (Sp R)) [GrpOb
   have hfst : dualProjection.toRingHom.comp ψ.toRingHom = τ.toRingHom := by
     apply GlobalTheory.CechKS.FormLocal.ringHom_ext_affPt (s := A.hom) U.unop.2
     change spMap _ ≫ affPt A.hom U.unop = spMap _ ≫ affPt A.hom U.unop
-    rw [Cris.spMap_comp, Category.assoc, hψ]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hψ]
     exact h3Left
   refine ⟨ψ, fun b ↦ RingHom.congr_fun hfst b, fun w ↦ ?_⟩
   have hp : p.left = spMap φ.toRingHom ≫ affPt A.hom V.unop := by

@@ -250,13 +250,13 @@ theorem exists_arcIn_of_unif {V : ValuationSubring c.F} (Y : Model Xo c V.subtyp
       rw [hf]
       exact congrArg (algebraMap T.Fr F) ((congrArg io e).trans (RingHom.congr_fun hb y).symm)
     obtain ⟨det, J, hζ, jA, jM⟩ := Y.oF.geom F (jFK (R := T.V) F ≫ z) B (by
-      rw [pullback.condition, Category.assoc, ← Category.assoc z, hz, spMap_comp, spMap_comp])
+      rw [pullback.condition, Category.assoc, ← Category.assoc z, hz, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     have finj : Function.Injective f := by
       rw [hf]; exact (algebraMap T.Fr F).injective.comp (IsFractionRing.injective T.V T.Fr)
     refine ⟨fun τ => _root_.GlobalTheory.LieUnif.lieMult_unif E H T t P F f finj τ _ ?_, ?_⟩
     · rw [LiePull.lieMult_pull _ _ _ _ _ _ _ _ _ m.cart m.act]
       have e : spMap f ≫ χ = (jFK (R := T.V) F ≫ z) ≫ Y.j := by
-        rw [Category.assoc, hj, hf, spMap_comp]; exact Category.assoc _ _ _
+        rw [Category.assoc, hj, hf, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact Category.assoc _ _ _
       rw [e]
       refine (LiePull.lieMult_pull _ _ _ _ _ _ _ _ _ Y.m.cart Y.m.act F _ _ _).1 ?_
       rw [← hBv (baseKA l).ρ r hr₀]
@@ -379,11 +379,11 @@ theorem exists_arcIn_of_bad_reduction : ∀ (E : Type) [Field E] [NumberField E]
   have ig : Function.Injective g := i₂.comp W.inj
   obtain ⟨gam, hgam⟩ := ArcPointDescent.exists_frac ((algebraMap T'.V T'.Fr).comp g) ((IsFractionRing.injective _ _).comp ig)
   have hχ : spMap g₂ ≫ Pt.ξ W = spMap g ≫ y' :=
-    (Category.assoc _ _ _).symm.trans (congrArg (· ≫ y') (spMap_comp g₁ g₂).symm)
+    (Category.assoc _ _ _).symm.trans (congrArg (· ≫ y') (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g₁ g₂).symm)
   rw [hχ] at m'
   obtain ⟨a, ha⟩ := exists_arcIn_of_unif Y T' (gam.comp io) (g.comp b) (spMap g ≫ y') (spMap gam ≫ z)
     (RingHom.ext fun x => (hgam (b x)).symm.trans (congrArg gam (RingHom.congr_fun hb x)))
-    (by rw [Category.assoc, hz, spMap_comp])
+    (by rw [Category.assoc, hz, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     (by
       rw [Category.assoc, hj, ← Category.assoc, ← Category.assoc]
       exact congrArg (· ≫ y') (ArcPointDescent.sp_sq (f' := g) (g' := algebraMap T'.V T'.Fr) hgam))

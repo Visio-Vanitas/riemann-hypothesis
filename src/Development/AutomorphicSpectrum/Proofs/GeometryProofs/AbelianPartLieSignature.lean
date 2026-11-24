@@ -641,7 +641,7 @@ theorem detCond_at_point : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E
       exact congrArg 𝔐.ξ (Subsingleton.elim _ _)
     · have h := 𝔐.cst_over
       change (spMap i ≫ 𝔐.ξ) ≫ 𝔐.f ≫ Y.s = _
-      rw [Category.assoc, h, _root_.GlobalTheory.ZM.ClosedCoord.spMap_comp_eq]
+      rw [Category.assoc, h, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · intro τ
       have hβ : (i.comp (𝔐.cst.comp (algebraMap (𝓞 c.F) c.F))) (rtO c) = (i.comp 𝔐.cst) (rtF c) := by
         simp only [RingHom.comp_apply, algebraMap_rtO]
@@ -666,7 +666,7 @@ theorem detCond_at_point : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E
     refine GlobalTheory.DetSpread.detCond_of_dense E H D 𝔐.X 𝔐.t.G n 𝔐.t.act (𝓞 c.F) s (rtO c) hn (rtO_sq c) hd k
       (spMap g ≫ z) (g.comp b.hom) ?_
     rw [Category.assoc, ← hb]
-    exact _root_.GlobalTheory.ZM.ClosedCoord.spMap_comp_eq b.hom g
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp b.hom g).symm
 
 end GlobalTheory.CompanionTheory.Ar.PointDet
 end -- clump:auto

@@ -64,7 +64,7 @@ section Lat
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] (H : ReciprocityTheory.ChartRestriction.G.Geo.Tor.Host E) {X : Scheme.{0}}
 
-alias sp_comp := _root_.GlobalTheory.spMap_comp_ring
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 end Lat
 

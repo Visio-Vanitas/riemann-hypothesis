@@ -819,7 +819,7 @@ theorem weil_open : ∀ (S : Scheme.{0}) [IsLocallyNoetherian S] (M : ℕ) (t : 
         rw [Units.coe_map]; rfl
       constructor
       · intro E β' z hβ' hz
-        obtain rfl : β = β' := spMap_inj' (hβ.symm.trans hβ')
+        obtain rfl : β = β' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hβ.symm.trans hβ')
         obtain rfl : z = Units.map β.toMonoidHom ζu := Units.ext (hz.trans hzβ.symm)
         rw [← hu, ← E]
         exact hW'
@@ -853,7 +853,7 @@ theorem weil_open : ∀ (S : Scheme.{0}) [IsLocallyNoetherian S] (M : ℕ) (t : 
   obtain ⟨V, hV, HV⟩ := localization₂
   refine ⟨⟨V, hV.isOpen⟩, ?_, fun k' _ _ x β z hxW hβ hz a b => ?_⟩
   · refine (HkClopen.range_subset_iff x₀ V).2 ((HV k x₀).2 fun a b β z hβ hz => ?_)
-    obtain rfl : β₀ = β := spMap_inj' (hx₀.symm.trans hβ)
+    obtain rfl : β₀ = β := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hx₀.symm.trans hβ)
     obtain rfl : z₀ = z := Units.ext (hz₀.trans hz.symm)
     exact Hx₀ a b
   · exact (HV k' x).1 ((HkClopen.range_subset_iff x V).1 hxW) a b β z hβ hz

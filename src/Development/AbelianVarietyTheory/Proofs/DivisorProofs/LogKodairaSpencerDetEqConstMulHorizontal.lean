@@ -244,7 +244,7 @@ theorem GlobalTheory.LogPole.exists_tanPt_of_logDer : ∀ {E : Type} [Field E] [
   let z : Sp (DualNumber K) ⟶ TF.Y.X := spMap θ ≫ U.2.fromSpec
   have hred : spMap (FlagTan.red c K).toRingHom ≫ z = frX P₀ ≫ TF.Y.j := by
     have e : (FlagTan.red c K).toRingHom.comp θ = φ := RingHom.ext fun r => by simp [hθ]
-    rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, e]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
     exact FlagMod.spMap_ev _ U.2 hU
   have hint : Set.range z ⊆ Set.range TF.Y.j := by
     have h1 : ⊤ ≤ z ⁻¹ᵁ TF.Y.j.opensRange :=
@@ -313,16 +313,16 @@ theorem exists_snd_ev_eq_sum_of_ksIso : ∀ {E : Type} [Field E] [NumberField E]
   let S := TrivSqZeroExt K (HIx Dw (psiSet H) → K)
   obtain ⟨XF, h1, h2⟩ : ∃ XF : Sp S ⟶ Xo.XF c, XF ≫ pullback.fst _ _ = X ∧
       XF ≫ pullback.snd _ _ = spMap (algebraMap c.F S) :=
-    ⟨pullback.lift X (spMap (algebraMap c.F S)) (hX.trans (GlobalTheory.DualEval.spMap_comp_ring _ _)),
+    ⟨pullback.lift X (spMap (algebraMap c.F S)) (hX.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)),
       pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
   have hred : ∀ M : HIx Dw (psiSet H) → K, spMap (FlagTan.red c K).toRingHom ≫
       spMap (FlagTan.dir c M).toRingHom ≫ XF = frX P₀ := fun M => by
     have e : (FlagTan.red c K).toRingHom.comp (FlagTan.dir c M).toRingHom =
         (TrivSqZeroExt.fstHom c.F K (HIx Dw (psiSet H) → K)).toRingHom :=
       RingHom.ext fun a => FlagTan.fst_dir (c := c) M a
-    rw [← Category.assoc, ← GlobalTheory.DualEval.spMap_comp_ring, e]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
     refine GlobalTheory.FlagMod.eq_frX P₀ (by rw [Category.assoc, h1, hP]) ?_
-    rw [Category.assoc, h2, ← GlobalTheory.DualEval.spMap_comp_ring]
+    rw [Category.assoc, h2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (TrivSqZeroExt.fstHom c.F K (HIx Dw (psiSet H) → K)).comp_algebraMap
   have hmem : ∀ M : HIx Dw (psiSet H) → K,
       ⊤ ≤ (spMap (FlagTan.dir c M).toRingHom ≫ XF ≫ TF.Y.j) ⁻¹ᵁ U := fun M =>
@@ -333,12 +333,12 @@ theorem exists_snd_ev_eq_sum_of_ksIso : ∀ {E : Type} [Field E] [NumberField E]
   have ht : FlagTan.IsTanX P₀ (y' ≫ pullback.fst _ _) := by
     refine ⟨?_, by rw [← Category.assoc, hr, GlobalTheory.FlagMod.frX_fst]⟩
     rw [Category.assoc, pullback.condition, ← Category.assoc, hs]
-    exact (GlobalTheory.DualEval.spMap_comp_ring _ _).symm
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have e : y' = spMap (FlagTan.dir c M).toRingHom ≫ XF := by
     refine pullback.hom_ext ?_ ?_
     · rw [Category.assoc, h1]
       exact ((hk _ ht).2 M).1 hM
-    · rw [Category.assoc, h2, hs, ← GlobalTheory.DualEval.spMap_comp_ring]
+    · rw [Category.assoc, h2, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (FlagTan.dir c M).comp_algebraMap.symm
   subst e
   exact GlobalTheory.DualEval.evalPt_snd_sum (XF ≫ TF.Y.j) (TrivSqZeroExt.fstHom c.F K (HIx Dw (psiSet H) → K)).toRingHom

@@ -82,7 +82,7 @@ namespace GlobalTheory.VertSpan
 theorem exists_coeffs_translate : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (X : Scheme.{0}) (t : SAB H X) (U : X.affineOpens) (n : ℕ) (v : Fin n → (Sp (DualNumber Γ(X, U.1)) ⟶ t.G.left)), (∀ a, IsTanAtG t (chart U) (v a)) → (∀ w, IsTanAtG t (chart U) w → ∃! cf : Fin n → Γ(X, U.1), IsCombAtG t (chart U) v cf w) → ∀ (S : Type) [CommRing S] (φ : Γ(X, U.1) →+* S) (g₀ : Sp S ⟶ t.G.left) (w : Sp (DualNumber S) ⟶ t.G.left), g₀ ≫ t.G.hom = spMap φ ≫ chart U → spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ w = g₀ → w ≫ t.G.hom = spMap (algebraMap S (DualNumber S)) ≫ g₀ ≫ t.G.hom → ∃ c : Fin n → S, ∀ (S' : Type) [CommRing S'] (ρ : S →+* S') (φ' : Γ(X, U.1) →+* S') (wt : Fin n → (Sp (DualNumber S') ⟶ t.G.left)), (spMap ρ ≫ g₀) ≫ t.G.hom = spMap φ' ≫ chart U → (∀ a, IsTranslate t φ' (spMap ρ ≫ g₀) (v a) (wt a)) → ∀ (O : t.G.left.Opens), ⊤ ≤ (spMap ρ ≫ g₀) ⁻¹ᵁ O → ∀ f : Γ(t.G.left, O), (valR (spMap (dualMap ρ) ≫ w) O f).snd = ∑ a, ρ (c a) * (valR (wt a) O f).snd := by
   intro E _ _ _ H X t U n v hv hb S _ φ g₀ w hg hred hw
   have e : spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (algebraMap S (DualNumber S)) = 𝟙 _ := by
-    rw [GlobalTheory.LogKSLoc.spMap_comp', ← Spec.map_id]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Spec.map_id]
     congr 1
   let g' : tEpsG (g₀ ≫ t.G.hom) ⟶ t.G :=
     Over.homMk (spMap (algebraMap S (DualNumber S)) ≫ g₀) (Category.assoc _ _ _)
@@ -106,7 +106,7 @@ theorem exists_coeffs_translate : ∀ (E : Type) [Field E] [NumberField E] [IsCM
     rw [show (List.ofFn u).prod = g'⁻¹ * w' from Over.OverMorphism.ext hux, mul_inv_cancel_left]
   refine ⟨c, fun S' _ ρ φ' wt hg' hwt O hO f => ?_⟩
   have h₃ : (spMap ρ ≫ g₀) ≫ t.G.hom = spMap (ρ.comp φ) ≫ chart U := by
-    rw [Category.assoc, hg, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp']
+    rw [Category.assoc, hg, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hU : ⊤ ≤ (spMap ρ ≫ g₀) ⁻¹ᵁ (t.G.hom ⁻¹ᵁ U.1) := by
     change ⊤ ≤ ((spMap ρ ≫ g₀) ≫ t.G.hom) ⁻¹ᵁ U.1
     rw [hg']
@@ -116,7 +116,7 @@ theorem exists_coeffs_translate : ∀ (E : Type) [Field E] [NumberField E] [IsCM
   choose g'' v'' hg'' hv'' hw'' using hwt
   have e' : spMap (dualMap ρ) ≫ spMap (algebraMap S (DualNumber S)) =
       spMap (algebraMap S' (DualNumber S')) ≫ spMap ρ := by
-    rw [GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.spMap_comp']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
   let k : tEpsG ((spMap ρ ≫ g₀) ≫ t.G.hom) ⟶ tEpsG (g₀ ≫ t.G.hom) := Over.homMk (spMap (dualMap ρ)) (by
@@ -135,7 +135,7 @@ theorem exists_coeffs_translate : ∀ (E : Type) [Field E] [NumberField E] [IsCM
     refine Over.OverMorphism.ext ?_
     change spMap (dualMap ρ) ≫ (u a).left = spMap (epsMul (ρ (c a))) ≫ (v'' a).left
     rw [hu a, hv'' a]
-    simp only [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     refine RingHom.ext fun z => ?_
     ext <;> simp [epsMul, dualMap]
@@ -480,7 +480,7 @@ theorem vert_span : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : 
     have hz := _root_.GlobalTheory.VertSpan.coeffs_zero E H X t U n v hv hb S' (spMap ρ ≫ g) W hW hg'
       (fun a => F S' (spMap ρ ≫ g) a - ρ (F S g a)) (fun S'' _ ρ' φ' wt h₁ h₂ O hO hgO f => by
         have hc : spMap (ρ'.comp ρ) ≫ g = spMap ρ' ≫ spMap ρ ≫ g := by
-          rw [← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp']
+          rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         have e₁ := (hE S' (spMap ρ ≫ g) hg').choose_spec S'' ρ' φ' wt h₁ h₂ O hO hgO f
         have e₂ := (hE S g hg).choose_spec S'' (ρ'.comp ρ) φ' wt (by rw [hc]; exact h₁) (by rw [hc]; exact h₂) O hO
           (by rw [hc]; exact hgO) f

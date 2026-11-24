@@ -162,7 +162,7 @@ theorem exists_arcDatum : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E] [N
     have hflat : ((arcι Dw K₁).comp (PowerSeries.C (R := K₁))).Flat := flat_of_field _
     have hz3 : z ≫ pullback.fst _ _ ≫ Xo.s = sOf c (ArcS Dw K₁) := by
       rw [Y.jQ_over] at hz2
-      rw [pullback.condition, ← Category.assoc, hz2, ← spMap_comp]
+      rw [pullback.condition, ← Category.assoc, hz2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
     obtain ⟨y₀, -, hy₀⟩ := GlobalTheory.ArcQ.exists_isArcFr hL hL2 E H Dw l Xo c _ _ Y K₁ _ (a.restrict (c.V Wp).subtype) χ W
       (fun τ => (algebraMap c.F K₁).comp (embK c τ)) e th he hnz (Or.inl (Field.toIsField K₁))

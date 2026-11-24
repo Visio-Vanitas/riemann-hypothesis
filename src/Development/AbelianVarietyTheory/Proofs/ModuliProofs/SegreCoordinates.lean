@@ -111,9 +111,6 @@ theorem secCoord_box {σ₁ σ₂ : Type} (s : σ₁ → H.Sec) (t : σ₂ → K
     rfl
 end Box
 
-theorem spc {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := (spMap_comp f g).symm
-
 section General
 variable {X : Scheme.{0}} {M : LB X} {σ : Type} {th : σ → M.Sec}
 
@@ -135,7 +132,7 @@ theorem eval_smul {R : Type} [CommRing R] {I : Ideal (MvPolynomial σ R)} {s : X
     MvPolynomial.eval₂ β (fun i => c * v i) F = 0 := by
   let φ : T →+* LaurentPolynomial T := (Polynomial.toLaurent (R := T)).comp Polynomial.C
   have h1 := scale hI.1 (bc hI.1 h φ) (LaurentPolynomial.isUnit_T (R := T) 1).unit
-  have h2 := (hI.2.1 _ (φ.comp β) _ _ (by rw [Category.assoc, hx, spc]) h1).2 F hF
+  have h2 := (hI.2.1 _ (φ.comp β) _ _ (by rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) h1).2 F hF
   have h3 : MvPolynomial.eval₂ (Polynomial.C.comp β) (fun i => Polynomial.X * Polynomial.C (v i)) F = 0 := by
     apply Polynomial.toLaurent_injective
     rw [map_zero, MvPolynomial.eval₂_comp_left, ← h2]
@@ -175,19 +172,19 @@ theorem glue_points (hM : M.IsLB) {R : Type} [CommRing R] (s : X ⟶ Sp R) {T : 
     refine hom_ext_affine _ _ _ _ fun T' _ y φ₁ φ₂ e₁ e₂ => ?_
     have e : φ₁.comp (algebraMap T _) = φ₂.comp (algebraMap T _) := by
       have : spMap (φ₁.comp (algebraMap T _)) = spMap (φ₂.comp (algebraMap T _)) := by
-        rw [← spc _ φ₁, ← spc _ φ₂, ← e₁, ← e₂]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ φ₁, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ φ₂, ← e₁, ← e₂]
         exact (Category.assoc _ _ _).trans ((congrArg (y ≫ ·) (pullback.condition (f := 𝒰.f k) (g := 𝒰.f l))).trans
           (Category.assoc _ _ _).symm)
       exact congrArg CommRingCat.Hom.hom (Spec.map_injective this)
     refine (h T' (φ₁.comp (algebraMap T _)) k ((hu k).map φ₁)).unique ⟨?_, bc hM (hx k).2 φ₁⟩ ⟨?_, ?_⟩
-    · rw [Category.assoc, (hx k).1, spc, RingHom.comp_assoc]
-    · rw [Category.assoc, (hx l).1, spc, e, RingHom.comp_assoc]
+    · rw [Category.assoc, (hx k).1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingHom.comp_assoc]
+    · rw [Category.assoc, (hx l).1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, RingHom.comp_assoc]
     · rw [e]; exact bc hM (hx l).2 φ₂
   obtain ⟨g, hg⟩ : ∃ g : Sp T ⟶ X, ∀ k, spMap (algebraMap T (Localization.Away (w k))) ≫ g = x k :=
     ⟨𝒰.glueMorphisms x hc, fun k => 𝒰.ι_glueMorphisms x hc k⟩
   refine ⟨g, ⟨𝒰.hom_ext _ _ fun (k : σ) => ?_, ?_⟩, fun y hy => 𝒰.hom_ext _ _ fun (k : σ) => ?_⟩
   · change spMap (algebraMap T (Localization.Away (w k))) ≫ _ = spMap (algebraMap T (Localization.Away (w k))) ≫ _
-    rw [← Category.assoc, hg, (hx k).1, spc]
+    rw [← Category.assoc, hg, (hx k).1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   · refine _root_.GlobalTheory.ZM.secCoord_of_locally X M σ th T _ w hM hw fun p => ?_
     obtain ⟨k, hk⟩ : ∃ k : σ, p ∈ Set.range (spMap (algebraMap T (Localization.Away (w k)))) := 𝒰.exists_eq p
     refine ⟨Localization.Away (w k), inferInstance, algebraMap _ _, inferInstance, hk, ?_⟩
@@ -196,7 +193,7 @@ theorem glue_points (hM : M.IsLB) {R : Type} [CommRing R] (s : X ⟶ Sp R) {T : 
   · change spMap (algebraMap T (Localization.Away (w k))) ≫ _ = spMap (algebraMap T (Localization.Away (w k))) ≫ _
     rw [hg]
     refine hx' k _ ⟨?_, bc hM hy.2 _⟩
-    rw [Category.assoc, hy.1, spc]
+    rw [Category.assoc, hy.1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 end General
 
 section Main
@@ -252,15 +249,15 @@ theorem split_near (hH : H.IsLB) (hK : K.IsLB) {T : Type} [CommRing T] (x : Sp T
   obtain ⟨z'', hz''⟩ : z' ∈ Set.range (spMap (algebraMap _ (Localization.Away g))) :=
     (PrimeSpectrum.localization_away_comap_range (Localization.Away g) g).ge hg
   have ha' := bc hH ha (algebraMap _ (Localization.Away g))
-  rw [← Category.assoc, spc] at ha' hb
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at ha' hb
   set φ := (algebraMap _ (Localization.Away g)).comp (algebraMap T (Localization.Away f)) with hφ
   obtain ⟨u, hu⟩ := uniq (hbox)
     (secCoord_box p q s t (spMap φ ≫ x) _ b (by rw [Category.assoc]; exact ha') (by rw [Category.assoc]; exact hb))
     (bc (hbox) hw φ)
   refine ⟨_, inferInstance, φ, ?_, ⟨z'', ?_⟩, _, b, scale hH ha' u, hb,
     fun i => (hu i).trans (_root_.mul_assoc _ _ _).symm⟩
-  · rw [hφ, ← spc]; infer_instance
-  · rw [hφ, ← spc, Scheme.Hom.comp_apply, hz'', hz']
+  · rw [hφ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; infer_instance
+  · rw [hφ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Scheme.Hom.comp_apply, hz'', hz']
 
 theorem col_row (hH : H.IsLB) (hK : K.IsLB) {T : Type} [CommRing T] (x : Sp T ⟶ P)
     (w : σ₁ × σ₂ → T) (hw : SecCoord (box p q H K) (fun i : σ₁ × σ₂ => boxSec p q (s i.1) (t i.2)) x w)
@@ -313,9 +310,9 @@ theorem projRep_box {R : Type} [CommRing R] {f : X ⟶ Sp R} {g : Y ⟶ Sp R} (s
     letI := Ideal.Quotient.field m
     obtain ⟨a, b, ha, hb, e⟩ := split_local p q s t h₁.1 h₂.1 _ _ (bc hB hw (Ideal.Quotient.mk m))
     have ua := (h₁.2.1 _ ((Ideal.Quotient.mk m).comp β) _ a
-      (by rw [Category.assoc, Category.assoc, hx, spc]) ha).1
+      (by rw [Category.assoc, Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) ha).1
     have ub := (h₂.2.1 _ ((Ideal.Quotient.mk m).comp β) _ b
-      (by rw [Category.assoc, Category.assoc, ← sq.w, hx, spc]) hb).1
+      (by rw [Category.assoc, Category.assoc, ← sq.w, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) hb).1
     have na : ∃ i, a i ≠ 0 := by
       by_contra! h
       exact bot_ne_top ((Ideal.span_eq_bot.2 (by rintro _ ⟨i, rfl⟩; exact h i)).symm.trans ua)
@@ -330,7 +327,7 @@ theorem projRep_box {R : Type} [CommRing R] {f : X ⟶ Sp R} {g : Y ⟶ Sp R} (s
     obtain ⟨a, b, ha, hb, e⟩ := split_local p q s t h₁.1 h₂.1 _ _ (bc hB hw (algebraMap T (Localization.AtPrime m)))
     rw [MvPolynomial.eval₂_comp_left]
     have := (mem_graphIdeal p q s t _ F).1 hF _ ((algebraMap T (Localization.AtPrime m)).comp β) _ a b
-      (by rw [Category.assoc, hx, spc]) ha hb
+      (by rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) ha hb
     rw [← e] at this
     exact this
   · refine glue_points hB _ β w hw fun T' _ φ k hk => ?_

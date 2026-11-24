@@ -59,7 +59,7 @@ theorem base_cellPt (hZ : Cells A π g κ) (k : A.B × Pm Dw.mult) (z : Sp S ⟶
     (hz : ⊤ ≤ z ⁻¹ᵁ (κ k.1 k.2).opensRange) :
     z ≫ π = spMap (((ev z _ hz).comp (cellθ κ k).toRingHom).comp MvPolynomial.C) ≫ tau (A.aff k.1) := by
   conv_lhs => rw [← eq_spMap_ev k z hz]
-  rw [Category.assoc, hZ.plk.base, cbase, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+  rw [Category.assoc, hZ.plk.base, cbase, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem le_cellPt (hZ : Cells A π g κ) (k : A.B × Pm Dw.mult) (z : Sp S ⟶ Z)
@@ -81,7 +81,7 @@ theorem g_cellPt (hZ : Cells A π g κ) (ht : FlagCellFrameChangeTriangular hZ) 
     exact ev_spMap_tau _ _ _
   have hstr : str x = (φ.comp MvPolynomial.C).comp (A.alpha k.1) := by
     refine LowRank.str_eq ?_
-    rw [← hx, hb, Category.assoc, ← _root_.GlobalTheory.spMap_comp_ring (A.alpha k.1) (φ.comp MvPolynomial.C)]
+    rw [← hx, hb, Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (A.alpha k.1) (φ.comp MvPolynomial.C)]
     congr 1
     exact (spMap_ev_top _).symm
   obtain ⟨hu, e⟩ := hZ.plk.plk k.1 k.2 en

@@ -254,7 +254,7 @@ theorem exists_factor {X : Scheme.{0}} (U W : X.affineOpens) (h : W.1 ≤ U.1) {
   have hfac : spMap (Spec.preimage ψ).hom ≫ GlobalTheory.LogKS.chart W = spMap φ ≫ GlobalTheory.LogKS.chart U := by
     simp only [spMap, CommRingCat.ofHom_hom, Spec.map_preimage]
     exact hψ
-  rw [← chart_res' U W h, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring] at hfac
+  rw [← chart_res' U W h, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hfac
   have h2 := Spec.map_inj.1 ((cancel_mono (GlobalTheory.LogKS.chart U)).1 hfac)
   simpa using (congrArg CommRingCat.Hom.hom h2).symm
 
@@ -281,11 +281,11 @@ theorem isKS_of_inf : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H 
       exact hWW i (inf_le_left (a := Wc i) (b := Wc i') (hO hz))
     obtain ⟨φ', hfac⟩ := exists_factor U W hWU φ hr
     have hg₀' : g₀ ≫ t.G.hom = spMap φ' ≫ GlobalTheory.LogKS.chart W := by
-      rw [hg₀, hfac, ← _root_.GlobalTheory.spMap_comp_ring, Category.assoc, chart_res']
+      rw [hg₀, hfac, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, chart_res']
     have := htest i i' O hO f S φ' g₀ w hg₀' hO' fun a => by
       obtain ⟨g', v', h₁, h₂, h₃⟩ := hw a
       refine ⟨g', v', h₁, ?_, h₃⟩
-      rw [h₂, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.Frames.Glue.dual_comp, ← hfac]
+      rw [h₂, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.GlobalTheory.Frames.Glue.dual_comp, ← hfac]
     rw [this]
     refine Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun b _ => ?_
     rw [hfac]

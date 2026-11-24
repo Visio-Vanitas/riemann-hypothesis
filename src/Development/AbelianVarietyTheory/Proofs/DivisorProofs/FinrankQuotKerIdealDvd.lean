@@ -71,7 +71,7 @@ theorem finrank_eq_of_kerPow {f : A ⟶ B} {c c' : ℕ} {H H' : Type} [CommRing 
     obtain ⟨χ, -, hχ⟩ := h.2 H i h.1.1 h.1.2
     refine (hχ _ ?_).trans (hχ _ ?_).symm
     · change spMap ((ψ : H' →+* H).comp (φ : H →+* H')) ≫ i.left = i.left
-      rw [Cris.spMap_comp, Category.assoc]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       exact (congrArg (spMap (ψ : H' →+* H) ≫ ·) hφ).trans hψ
     · change spMap (RingHom.id H) ≫ i.left = i.left
       rw [Cris.spMap_id, Category.id_comp]
@@ -79,7 +79,7 @@ theorem finrank_eq_of_kerPow {f : A ⟶ B} {c c' : ℕ} {H H' : Type} [CommRing 
     obtain ⟨χ, -, hχ⟩ := h'.2 H' i' h'.1.1 h'.1.2
     refine (hχ _ ?_).trans (hχ _ ?_).symm
     · change spMap ((φ : H →+* H').comp (ψ : H' →+* H)) ≫ i'.left = i'.left
-      rw [Cris.spMap_comp, Category.assoc]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       exact (congrArg (spMap (φ : H →+* H') ≫ ·) hψ).trans hφ
     · change spMap (RingHom.id H') ≫ i'.left = i'.left
       rw [Cris.spMap_id, Category.id_comp]

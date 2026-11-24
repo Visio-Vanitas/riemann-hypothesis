@@ -648,7 +648,7 @@ theorem exists_isLieBasis_span : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
   let GR := (Over.pullback (spMap (algebraMap (𝓞 K) R))).obj B.t.G
   have hp : IsGrpPullback GR B.t.G (spMap (algebraMap (𝓞 K) R)) (pullback.fst _ _) := isGrpPullback_pullback _ _
   have es₁ : spMap (algebraMap (𝓞 K) K) = spMap (algebraMap R K) ≫ spMap (algebraMap (𝓞 K) R) := by
-    rw [← spMap_comp, e₁]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e₁]
   have hF : IsGrpPullback F.P₀.A B.t.G (spMap (algebraMap (𝓞 K) K)) F.φ := F.fib.2.1
   have w₁ : F.φ ≫ B.t.G.hom = (F.P₀.A.hom ≫ spMap (algebraMap R K)) ≫ spMap (algebraMap (𝓞 K) R) := by
     rw [hF.1.w, es₁, Category.assoc]
@@ -660,7 +660,7 @@ theorem exists_isLieBasis_span : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
   choose e₀ he₀ hM₀ using hx
   have hin := (_root_.GlobalTheory.CM.LieLoc.lieLat_localization K B.pol F R (Submonoid.powers (r i)) GR (pullback.fst _ _) (hp.1.lift _ _ w₁) e e₀ (M i)
     hp hψ (hp.1.lift_fst _ _ w₁) he fun k => ⟨he₀ k, hM₀ k⟩).1
-  have es₂ : spMap ρV = spMap ψ' ≫ spMap (algebraMap (𝓞 K) R) := by rw [hρ]; exact spMap_comp _ _
+  have es₂ : spMap ρV = spMap ψ' ≫ spMap (algebraMap (𝓞 K) R) := by rw [hρ]; exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   have hn : IsGrpPullback G.t.G B.t.G (spMap ρV) n.φ := n.cart
   have w₂ : n.φ ≫ B.t.G.hom = (G.t.G.hom ≫ spMap ψ') ≫ spMap (algebraMap (𝓞 K) R) := by
     rw [hn.1.w, es₂, Category.assoc]
@@ -686,7 +686,7 @@ theorem exists_isLieBasis_span : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
         exact h₂
     have es : spMap (Formalism.L2.Pj.dualMap (algebraMap T.V T.Fr)) ≫ spMap (ReciprocityTheory.ChartRestriction.G.Chart.dualMapR ψ') =
         spMap (Formalism.L2.Pj.dualMap iK) ≫ spMap (ReciprocityTheory.ChartRestriction.G.Chart.dualMapR (algebraMap R K)) := by
-      rw [← spMap_comp, ← spMap_comp, ed]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ed]
     have eL : (v' k).left ≫ n.φ =
         spMap (ReciprocityTheory.ChartRestriction.G.Chart.dualMapR ψ') ≫ (e k).left ≫ pullback.fst _ _ := by
       rw [← hp.1.lift_fst _ _ w₂, ← Category.assoc, hv' k, Category.assoc]
@@ -1030,12 +1030,12 @@ theorem generic_coords_in_span : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
     apply spMap_frac_cancel (V := T.V)
     rw [Category.assoc, ← m2'.cart.1.w, ← Category.assoc, hu'', Category.assoc, Over.w ub]
     show spMap (dualMap (algebraMap T.V T.Fr)) ≫ spMap (algebraMap T.V (DualNumber T.V)) = _
-    exact (_root_.GlobalTheory.spMap_comp_ring _ _).trans ((congrArg spMap (dualMap_alg _)).trans (_root_.GlobalTheory.spMap_comp_ring _ _).symm)
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (dualMap_alg _)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
 
   have hsq : ∀ k, (spMap (dualMap (algebraMap T.V T.Fr)) ≫ (vV k).left) ≫ G.t.G.hom =
       spMap (algebraMap T.Fr (DualNumber T.Fr)) ≫ spMap (algebraMap T.V T.Fr) := fun k => by
     rw [Category.assoc, Over.w (vV k)]
-    exact (_root_.GlobalTheory.spMap_comp_ring _ _).trans ((congrArg spMap (dualMap_alg _)).trans (_root_.GlobalTheory.spMap_comp_ring _ _).symm)
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (dualMap_alg _)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   let g : Fin F.P₀.g → (epsR T.Fr ⟶ t'.G) := fun k =>
     Over.homMk (m2'.cart.1.lift _ _ (hsq k)) (m2'.cart.1.lift_snd _ _ _)
   have hg1 : ∀ k, (g k).left ≫ m2'.φ = spMap (dualMap (algebraMap T.V T.Fr)) ≫ (vV k).left :=
@@ -1630,7 +1630,7 @@ theorem intPt : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Reci
   obtain ⟨m1', h1⟩ := sab_comp' n' m1 yT.x hx
   obtain ⟨k2, hk2⟩ := sab_comp' n' m2 _ rfl
   obtain ⟨m2', h2⟩ := sab_cancel' n k2 (spMap (algebraMap T.V T.Fr))
-    (by rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρV])
+    (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρV])
   obtain ⟨⟨g0, hg0u, hg0⟩, -⟩ := _root_.GlobalTheory.LamT.lieInt_exists_and_change E H Dw l Xo c T (iK.comp (algebraMap c.F K)) G.t _ yT.x m1' m2' yT rfl
   obtain ⟨a0, ha0⟩ := _root_.GlobalTheory.LamT.LocSec.exists_unit_secInt E H Dw l Xo c T (iK.comp (algebraMap c.F K)) G _ yT.x m1' m2' yT rfl
   choose k hk using fun σ => _root_.GlobalTheory.iwasawa_lowerTriangular_of_det T.V T.Fr (Dw.mult σ) (g0 σ) (hg0u σ).ne_zero

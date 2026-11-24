@@ -341,7 +341,7 @@ namespace GlobalTheory.KeyFam.Frames
 
 variable {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R'']
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem polPB_comp {P : Out.PolAV (Sp R)} {P' : Out.PolAV (Sp R')} {P'' : Out.PolAV (Sp R'')} {f : R →+* R'}
     {f' : R' →+* R''} {g : R →+* R''} (e : f'.comp f = g) (h' : ∃ φ', PolPB P'' P' (spMap f') φ')
@@ -350,7 +350,7 @@ theorem polPB_comp {P : Out.PolAV (Sp R)} {P' : Out.PolAV (Sp R')} {P'' : Out.Po
   obtain ⟨φ, hc, hg, w, hw⟩ := h
   subst e
   obtain ⟨w'', T⟩ := exists_comp P'.isLB w w' ((isGen_iff w).1 hw) ((isGen_iff w').1 hw') P.isLB P''.isLB
-  exact ⟨φ' ≫ φ, (hc'.comp hc).congr (spMap_comp f f').symm rfl, hg'.trans hg, w'',
+  exact ⟨φ' ≫ φ, (hc'.comp hc).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f f').symm rfl, hg'.trans hg, w'',
     (isGen_iff w'').2 (T.pgen_comp P'.isLB ((isGen_iff w).1 hw) ((isGen_iff w').1 hw'))⟩
 
 theorem polPB_cancel {P : Out.PolAV (Sp R)} {P' : Out.PolAV (Sp R')} {P'' : Out.PolAV (Sp R'')} {f : R →+* R'}
@@ -359,7 +359,7 @@ theorem polPB_cancel {P : Out.PolAV (Sp R)} {P' : Out.PolAV (Sp R')} {P'' : Out.
   obtain ⟨φ'', hc'', hg'', w'', hw''⟩ := h''
   obtain ⟨φ, hc, hg, w, hw⟩ := h
   subst e
-  have hsp := spMap_comp f f'
+  have hsp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f f'
   have hp := hc.1
   obtain ⟨φ', hφ, hw0⟩ : ∃ φ' : P''.A.left ⟶ P'.A.left, φ' ≫ φ = φ'' ∧
       φ' ≫ P'.A.hom = P''.A.hom ≫ spMap f' :=

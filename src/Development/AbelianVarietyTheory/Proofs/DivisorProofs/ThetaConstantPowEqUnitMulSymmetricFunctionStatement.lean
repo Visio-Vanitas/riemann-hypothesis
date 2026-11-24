@@ -118,7 +118,7 @@ theorem exists_scale : ∀ (o Ω : Type) [CommRing o] [Field Ω] [Algebra o Ω] 
   obtain ⟨pt', c', H'⟩ := GlobalTheory.T.exists_thetaConstantList_algClosed _ ρ.P.A ρ.P.L ρ.rig ρ.P.isLB ρ.rig_gen S.g (S.r * S.N) _ K _
     (SecAt.pull ρ.P.A ρ.P.L (x := 𝟙 (Sp S.R)) ρ.th₁ i) hko (ne hkV) rfl hfib
   have hx : spMap i ≫ 𝟙 (Sp S.R) = spMap io ≫ y := by
-    rw [Category.comp_id, ← spMap_comp]
+    rw [Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have H2 : HasTh₂ ρ.P.A ρ.P.L ρ.rig m (S.r * S.N) (spMap io ≫ y) c c' :=
     hx ▸ (⟨_, pt, pt', GlobalTheory.UMin.isGenSec_real_pull o Ω S ρ K i, H, H'⟩ :
       HasTh₂ ρ.P.A ρ.P.L ρ.rig m (S.r * S.N) (spMap i ≫ 𝟙 (Sp S.R)) c c')
@@ -131,13 +131,13 @@ theorem exists_scale : ∀ (o Ω : Type) [CommRing o] [Field Ω] [Algebra o Ω] 
   obtain ⟨r₁, r₂⟩ := _root_.GlobalTheory.UMin.thList_real o Ω S ρ K i _ pt' c' H'
   refine ⟨K, inferInstance, io, _, c, c', a, ha, h₁, h₂, ?_, r₁, r₂⟩
   have hz : spMap i ≫ 𝟙 (Sp S.R) = spMap (io.comp emb) ≫ spMap S.R.val.toRingHom ≫ 𝟙 (Sp S.R) := by
-    rw [← Category.assoc, ← spMap_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨q, Hq⟩ := thList_transport hz _
     ((Over.homMk (spMap (io.comp emb)) rfl : Over.mk (spMap (io.comp emb) ≫ spMap S.R.val.toRingHom ≫ 𝟙 (Sp S.R)) ⟶
       Over.mk (spMap S.R.val.toRingHom ≫ 𝟙 (Sp S.R))) ≫
       (Over.homMk (spMap S.R.val.toRingHom) rfl :
         Over.mk (spMap S.R.val.toRingHom ≫ 𝟙 (Sp S.R)) ⟶ Over.mk (𝟙 (Sp S.R))))
-    (spMap_comp _ _) _ H
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _) _ H
   rw [← ThetaRuleCompare.pullS_comp] at Hq
   exact hE.2.2 K (io.comp emb) q c Hq
 

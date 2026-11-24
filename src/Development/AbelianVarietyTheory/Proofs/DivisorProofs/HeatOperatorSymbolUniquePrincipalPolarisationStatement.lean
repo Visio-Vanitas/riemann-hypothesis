@@ -435,7 +435,7 @@ theorem red_of_isTr {R : Type} [CommRing R] {G : Over (Sp R)} [GrpObj G] [IsComm
     spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ w = g := by
   obtain ⟨g', v', h₁, h₂, rfl⟩ := h
   have e0 : spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (algebraMap S (DualNumber S)) = 𝟙 _ := by
-    rw [_root_.GlobalTheory.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom S S S).toRingHom.comp (algebraMap S (DualNumber S)) = RingHom.id S := by
       ext r; simp
     rw [this]; exact Spec.map_id _
@@ -451,7 +451,7 @@ theorem red_of_isTr {R : Type} [CommRing R] {G : Over (Sp R)} [GrpObj G] [IsComm
     simp only [Over.comp_left] at hr
     rw [Over.comp_left, one_left, h₂, ← Category.assoc]
     change (spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (dualMap φ)) ≫ _ = _
-    rw [_root_.GlobalTheory.spMap_comp_ring, ef, ← _root_.GlobalTheory.spMap_comp_ring, Category.assoc]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ef, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     change spMap φ ≫ ((GlobalTheory.InvFieldBase.redPt R).left ≫ (tv v).left) = _
     rw [hr, one_left]
     change spMap φ ≫ 𝟙 _ ≫ _ = (g ≫ G.hom) ≫ _
@@ -477,7 +477,7 @@ theorem isTr_push {R K : Type} [CommRing R] [CommRing K] (x₀ : R →+* K) {G :
       simp only [Category.assoc])
   refine ⟨p, q, ?_, ?_, hpq⟩
   · simp only [hp, h₁, Category.assoc]
-  · rw [hq, h₂, Category.assoc (spMap (dualMap φ)), hv, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.Frames.Glue.dual_comp]
+  · rw [hq, h₂, Category.assoc (spMap (dualMap φ)), hv, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.GlobalTheory.Frames.Glue.dual_comp]
 
 def epsOf {L : Type} [CommRing L] (D : L → L) (h1 : D 1 = 0) (ha : ∀ x y, D (x + y) = D x + D y)
     (hm : ∀ x y, D (x * y) = x * D y + y * D x) : L →+* DualNumber L where
@@ -497,7 +497,7 @@ theorem eq_of_isTr {R : Type} [CommRing R] {G : Over (Sp R)} [GrpObj G] [IsCommM
     (hw : IsTr G φ y v w) : w = spMap (epsOf D h1 ha hm) ≫ y := by
   have r1 := red_of_isTr hy hw
   have e1 : spMap (TrivSqZeroExt.fstHom L L L).toRingHom ≫ spMap (epsOf D h1 ha hm) = 𝟙 _ := by
-    rw [_root_.GlobalTheory.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom L L L).toRingHom.comp (epsOf D h1 ha hm) = RingHom.id L := by
       ext r; simp [epsOf]
     rw [this]; exact Spec.map_id _
@@ -578,7 +578,7 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
     exact fun p _ => hxU (Set.mem_univ ((spMap (algebraMap Ω (FractionRing Ω))).base p))
   have hyG : (ξ ≫ P.U.gen.inv.left ≫ pullback.fst t.G.hom (jK R)) ≫ t.G.hom =
       spMap (ψ.comp (algebraMap R (FractionRing R))) := by
-    rw [Category.assoc, hm.1.w, ← Category.assoc, hξA, _root_.GlobalTheory.spMap_comp_ring]
+    rw [Category.assoc, hm.1.w, ← Category.assoc, hξA, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hl : ∀ x y, δL a (x * y) = x * δL a y + y * δL a x := fun x y => by
     rw [(δL a).leibniz, smul_eq_mul, smul_eq_mul]
   have hDy : ∀ f, valR (ξ ≫ P.U.gen.inv.left ≫ pullback.fst t.G.hom (jK R)) U (dd' a U f) =
@@ -595,7 +595,7 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
     Over.homMk (spMap (dualMap ψ) ≫ (tv (v a)).left) (by
       rw [Category.assoc, Over.w (tv (v a)), hξA]
       change spMap (dualMap ψ) ≫ spMap (algebraMap _ _) ≫ 𝟙 _ = spMap _ ≫ spMap ψ
-      rw [Category.comp_id, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, hdual])
+      rw [Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hdual])
   have htr : IsTr P.A.A ψ ξ (v a) (g' * w').left := ⟨g', w', rfl, rfl, rfl⟩
   have key : (g' * w').left = spMap (epsOf (δL a) (δL a).map_one_eq_zero (map_add _) hl) ≫ ξ := by
     refine hm.1.hom_ext ?_ ?_
@@ -604,7 +604,7 @@ theorem main : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host 
     · rw [Over.w (g' * w')]
       change spMap (algebraMap (FractionRing Ω) (DualNumber (FractionRing Ω))) ≫ ξ ≫ P.A.A.hom =
         (spMap _ ≫ ξ) ≫ P.A.A.hom
-      rw [Category.assoc, hξA, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring]
+      rw [Category.assoc, hξA, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       ext k
       · simp [epsOf, TrivSqZeroExt.algebraMap_eq_inl]

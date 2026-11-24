@@ -107,15 +107,6 @@ theorem G_hom : (G R).hom = spMap (algebraMap R R[T;T⁻¹]) := rfl
 theorem unit_eq (B : Type) [CommRing B] [Algebra R B] :
     unitPt (G R) B = spMap (algebraMap R B) ≫ spMap (Bialgebra.counitAlgHom R R[T;T⁻¹]).toRingHom := rfl
 
-theorem comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp]
-  rfl
-
-theorem inj' {A B : Type} [CommRing A] [CommRing B] {p q : A →+* B} (h : spMap p = spMap q) : p = q := by
-  have h' := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom h'
-
 variable {R}
 
 def pre {C : Type} [CommRing C] (z : Sp C ⟶ (G R).left) : R[T;T⁻¹] →+* C :=
@@ -161,17 +152,17 @@ theorem lifts_iff {B M : Type} [CommRing B] [Algebra R B] [AddCommGroup M] [Modu
   have hεC : ∀ r : R, Bialgebra.counitAlgHom R R[T;T⁻¹] (algebraMap R _ r) = r := fun r =>
     (Bialgebra.counitAlgHom R R[T;T⁻¹]).commutes r
   have e1 : spMap φ ≫ (G R).hom = spMap (φ.comp (algebraMap R _)) := by
-    rw [G_hom]; exact comp' _ _
+    rw [G_hom]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have e2 : spMap (TrivSqZeroExt.fstHom B B M).toRingHom ≫ spMap φ =
-      spMap ((TrivSqZeroExt.fstHom B B M).toRingHom.comp φ) := comp' _ _
+      spMap ((TrivSqZeroExt.fstHom B B M).toRingHom.comp φ) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have e3 : unitPt (G R) B =
       spMap ((algebraMap R B).comp (Bialgebra.counitAlgHom R R[T;T⁻¹]).toRingHom) := by
-    rw [unit_eq]; exact comp' _ _
+    rw [unit_eq]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   unfold Lifts
   constructor
   · rintro ⟨h1, h2⟩
-    have h1' := inj' (e1.symm.trans h1)
-    have h2' := inj' (e2.symm.trans (h2.trans e3))
+    have h1' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (e1.symm.trans h1)
+    have h2' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (e2.symm.trans (h2.trans e3))
     refine ⟨h1', ?_⟩
     have := congrArg (fun f : R[T;T⁻¹] →+* B => f (T 1)) h2'
     simpa [hε] using this
@@ -209,8 +200,8 @@ def tanRep : TanRep (G R) R where
   nat := by
     intro B M _ _ _ _ _ _ _ _ B' M' _ _ _ _ _ _ _ _ α f β hβ z _
     have : pre (spMap β ≫ z) = β.comp (pre z) := by
-      apply inj'
-      rw [spMap_pre, ← comp']
+      apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+      rw [spMap_pre, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       erw [spMap_pre]
       rfl
     ext

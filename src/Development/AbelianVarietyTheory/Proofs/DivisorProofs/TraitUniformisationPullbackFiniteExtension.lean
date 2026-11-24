@@ -156,7 +156,7 @@ end GlobalTheory.Mum.TraitExt
 
 namespace GlobalTheory.Mum.TraitExt
 
-alias spMap_comp := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem unifTrait_pull : ∀ (R R₁ : Type) [CommRing R] [IsDomain R] [IsLocalRing R] [CommRing R₁] [IsDomain R₁] [IsLocalRing R₁]
     (ρ : R →+* R₁), Base R → FinExt ρ → ∀ (D : DegData R (maximalIdeal R)) (D₁ : DegData R₁ (maximalIdeal R₁)),
@@ -186,7 +186,7 @@ theorem unifTrait_pull : ∀ (R R₁ : Type) [CommRing R] [IsDomain R] [IsLocalR
   have hpb1 : IsGrpPullback ((Over.pullback (specOf iw)).obj G') G' (spMap iw) (pullback.fst G'.hom (specOf iw)) :=
     isGrpPullback_pullback G' (spMap iw)
   have hsp : spMap iw ≫ spMap φ = spMap φ₁ ≫ spMap ρ := by
-    rw [spMap_comp, spMap_comp, hcomm]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomm]
   have hpb2 := hpb1.comp hpb'
   have hsq : (pullback.fst G'.hom (specOf iw) ≫ β) ≫ G.hom =
       ((Over.pullback (specOf iw)).obj G').hom ≫ spMap φ₁ ≫ spMap ρ := by

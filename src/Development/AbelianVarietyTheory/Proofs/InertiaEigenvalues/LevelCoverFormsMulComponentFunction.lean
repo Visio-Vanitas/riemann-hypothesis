@@ -357,7 +357,7 @@ theorem exists_index_map (σ : c.F →+* ℂ) {g : ℕ} {ty : Fin g → (E →+*
   have hover : ∀ p : Sp ℂ ⟶ Xo.XF c, p ≫ s = spMap σ →
       (p ≫ pr) ≫ Xo.s = spMap (σ.comp (IntermediateField.inclusion c.le).toRingHom) := by
     intro p hp
-    rw [Category.assoc, pullback.condition, ← Category.assoc, hp, CompIdem.spMap_comp]
+    rw [Category.assoc, pullback.condition, ← Category.assoc, hp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hconst : ∀ p q : Sp ℂ ⟶ Xo.XF c, p ≫ s = spMap σ → q ≫ s = spMap σ →
       p (IsLocalRing.closedPoint ℂ) ∈ connectedComponent (q (IsLocalRing.closedPoint ℂ)) →
       t (p ≫ pr) = t (q ≫ pr) := by

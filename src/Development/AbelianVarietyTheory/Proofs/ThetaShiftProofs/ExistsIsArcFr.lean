@@ -86,7 +86,7 @@ theorem tan_iff (w : epsR S ⟶ t'.G) : IsTanAt x (w.left ≫ m.φ) ↔ IsTangen
     apply m.cart.1.hom_ext
     · rw [Category.assoc]; exact h.2.trans (one_eq m).symm
     · have a : η[t'.G].left ≫ t'.G.hom = 𝟙 _ := Over.w η[t'.G]
-      rw [Category.assoc, hw, a, ← spMap_comp]
+      rw [Category.assoc, hw, a, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have : (TrivSqZeroExt.fstHom S S S).toRingHom.comp (algebraMap S (DualNumber S)) = RingHom.id S := by
         ext r; simp
       rw [this]
@@ -98,7 +98,7 @@ theorem tan_iff (w : epsR S ⟶ t'.G) : IsTanAt x (w.left ≫ m.φ) ↔ IsTangen
 
 theorem scale_over (s : S) : spMap (epsScaleR s) ≫ spMap (algebraMap S (DualNumber S)) =
     spMap (algebraMap S (DualNumber S)) := by
-  rw [← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r <;> simp [epsScaleR, TrivSqZeroExt.algebraMap_eq_inl]
 

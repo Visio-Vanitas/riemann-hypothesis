@@ -56,8 +56,4 @@ theorem j_over {O : Type} [CommRing O] {β : O →+* c.F} (Y : Model Xo c β) :
   unfold Model.j
   rw [Category.assoc, pullback.condition, ← Category.assoc, Y.jQ_over]
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 end GlobalTheory.ModelRelProbe

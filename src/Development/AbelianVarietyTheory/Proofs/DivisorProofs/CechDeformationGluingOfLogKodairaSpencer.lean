@@ -69,7 +69,7 @@ theorem epsRed_tangent_frX : ∀ (E : Type) [Field E] [NumberField E] [IsCMField
   have hfst : (TrivSqZeroExt.fstHom K K K).toRingHom.comp (algebraMap c.F (DualNumber K)) = algebraMap c.F K :=
     RingHom.ext fun r => by simp
   refine GlobalTheory.FlagMod.xF_ext (Y := TF.Y) ?_ (GlobalTheory.FlagMod.frX_snd P) ?_
-  · rw [Category.assoc, hy, GlobalTheory.DeRham.epsRed, spMap_comp', hfst]
+  · rw [Category.assoc, hy, GlobalTheory.DeRham.epsRed, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hfst]
   · have e : ev ((GlobalTheory.DeRham.epsRed K ≫ y') ≫ TF.Y.j) U.1 h1 = ev (frX P ≫ TF.Y.j) U.1 hU := by
       have e0 : ev ((GlobalTheory.DeRham.epsRed K ≫ y') ≫ TF.Y.j) U.1 h1 =
           (TrivSqZeroExt.fstHom K K K).toRingHom.comp (ev (y' ≫ TF.Y.j) U.1 hU') := by

@@ -157,11 +157,11 @@ theorem exists_fixed_point (hD : 1 ≤ Dw.p + Dw.q)
   have hover : x₀ ≫ pullback.fst Xo.s (spMap (IntermediateField.inclusion c.le).toRingHom) ≫ Xo.s = spMap σ₀ := by
     rw [pullback.condition, ← Category.assoc]
     erw [hx₀]
-    rw [_root_.Formalism.L2.Pj.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨i, P, hP, hPx⟩ := F.onto _ (by rw [Category.assoc]; exact hover)
   obtain ⟨P', hP', hs⟩ := GlobalTheory.CompRat.exists_isSplit_period_anyLevel E H Dw l Xo σ₀ g ty F hD hσ₀ hty hsig i
   have hcond : F.u i P' ≫ Xo.s = spMap (algebraMap c.F ℂ) ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [F.over_σ i P' hP', _root_.Formalism.L2.Pj.spMap_comp_ring]
+    rw [F.over_σ i P' hP', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let xs : Sp ℂ ⟶ Xo.XF c := pullback.lift (F.u i P') (spMap (algebraMap c.F ℂ)) hcond
   have hxs₁ : xs ≫ pullback.fst _ _ = F.u i P' := pullback.lift_fst _ _ _
   have hxs₂ : xs ≫ pullback.snd _ _ = spMap (algebraMap c.F ℂ) := pullback.lift_snd _ _ _
@@ -185,7 +185,7 @@ theorem exists_fixed_point (hD : 1 ≤ Dw.p + Dw.q)
     have hfixed := GlobalTheory.CompRat.AnyLevel.conj_point_eq_of_isSplit F hD hσ₀ hty τ hτσ hfix i P' hP' hs
     apply pullback.hom_ext
     · rw [Category.assoc, hxs₁, hfixed]
-    · rw [Category.assoc, hxs₂, _root_.Formalism.L2.Pj.spMap_comp_ring]
+    · rw [Category.assoc, hxs₂, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       exact RingHom.ext fun a => hτ a a.2
 
@@ -210,7 +210,7 @@ theorem exists_frPt_liesOn : ∀ (E : Type) [Field E] [NumberField E] [IsCMField
     exact congrArg (fun f => f.hom r) hab
   have hgK : g ≫ strK = spMap (algebraMap c.F K) := by
     apply hcancel
-    rw [← Category.assoc, hg, ‹x ≫ strK = spMap (algebraMap c.F ℂ)›, _root_.Formalism.L2.Pj.spMap_comp_ring]
+    rw [← Category.assoc, hg, ‹x ≫ strK = spMap (algebraMap c.F ℂ)›, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have hfr : ∀ (x : Sp K ⟶ Xo.X) (hx : x ≫ Xo.s = sOf c K), ∃ y : FrPt Xo c K, y.x = x := by
     intro x hx

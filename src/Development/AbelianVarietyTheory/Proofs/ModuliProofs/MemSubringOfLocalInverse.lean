@@ -225,7 +225,7 @@ theorem graphIdeal_eq {K σ₁ σ₂ : Type} [CommRing K] (s : Y ⟶ Sp K) (h₁
     obtain ⟨v₂, e₂⟩ := exists_secCoord_local h₂ th₂ ((spMap φ ≫ y) ≫ a₂)
     obtain ⟨u, hu⟩ := Coord.unique (isLB_tens (pull_isLB h₁ a₁) (pull_isLB h₂ a₂)) (secCoord_prod a₁ a₂ e₁ e₂)
       (Coord.baseChange hv φ)
-    have := h _ _ (φ.comp β) (spMap φ ≫ y) _ v₂ ⟨by rw [Category.assoc, hy, ← spMap_comp], Coord.scale e₁ u, e₂⟩
+    have := h _ _ (φ.comp β) (spMap φ ≫ y) _ v₂ ⟨by rw [Category.assoc, hy, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp], Coord.scale e₁ u, e₂⟩
     refine Eq.trans ?_ this
     refine (MvPolynomial.map_eval₂Hom β v φ F).trans ?_
     congr 2

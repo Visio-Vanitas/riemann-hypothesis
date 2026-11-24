@@ -69,7 +69,7 @@ def trivPt (T : Thick (dp0 R) (X.hom ≫ 𝟙 _)) (hT : T.J = ⊥) : Pt X T.B :=
     have h : T.x ≫ X.hom = spMap (T.π.comp (algebraMap R T.B)) :=
       ((Category.comp_id _).symm.trans (Category.assoc _ _ _)).trans T.w
     change (spMap _ ≫ T.x) ≫ X.hom = spMap (algebraMap R T.B)
-    rw [Category.assoc, h, ← Cris.spMap_comp]
+    rw [Category.assoc, h, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r
     exact trivEquiv_symm_π T hT _)
@@ -79,7 +79,7 @@ theorem spOver_trivPt {T T' : Thick (dp0 R) (X.hom ≫ 𝟙 _)} (hT : T.J = ⊥)
   apply Over.OverMorphism.ext
   change spMap (φ.φ : T.B →+* T'.B) ≫ spMap ((trivEquiv T hT).symm.toRingHom) ≫ T.x =
     spMap ((trivEquiv T' hT').symm.toRingHom) ≫ T'.x
-  rw [← φ.pt, ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp]
+  rw [← φ.pt, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 2
   ext b
   obtain ⟨b, rfl⟩ := T.surj b

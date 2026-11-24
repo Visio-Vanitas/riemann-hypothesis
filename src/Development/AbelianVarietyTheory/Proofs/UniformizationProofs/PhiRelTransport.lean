@@ -132,8 +132,8 @@ theorem base_eq (hF : ∀ r : R, algebraMap (FractionRing R) F (algebraMap R (Fr
     algebraMap (FractionRing R') F (algebraMap R' (FractionRing R') (φ r))) :
     (TF (R := R') F).hom ≫ spMap φ = (TF (R := R) F).hom :=
   (Category.assoc _ _ _).trans
-    (((congrArg (jFK (R := R') F ≫ ·) (spMap_comp φ _).symm).trans (spMap_comp _ _).symm).trans
-      ((congrArg spMap (RingHom.ext fun r => (hF r).symm)).trans (spMap_comp _ _)))
+    (((congrArg (jFK (R := R') F ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ _).symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans
+      ((congrArg spMap (RingHom.ext fun r => (hF r).symm)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)))
 
 variable (hD : IsPullDeg φ D D') (hT : (TF (R := R') F).hom ≫ spMap φ = (TF (R := R) F).hom)
   {Θ : (DegPre.BF D' F).left ⟶ (DegPre.BF D F).left}

@@ -155,7 +155,7 @@ theorem str_eq {x : Sp S ⟶ Y.X} {g : O →+* S} (h : x ≫ Y.s = spMap g) : st
 theorem ev_str (M : MChart Y) (x : Sp S ⟶ Y.X) (h : ⊤ ≤ x ⁻¹ᵁ M.U) (o : O) :
     ev x M.U h (str (tau M.hU) o) = str x o := by
   have : str x = (ev x M.U h).comp (str (tau M.hU)) := str_eq (by
-    rw [← spMap_comp', str, spMap_ev_top, ← Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, str, spMap_ev_top, ← Category.assoc]
     exact congrArg (· ≫ Y.s) (spMap_ev x M.hU h).symm)
   rw [this]; rfl
 
@@ -163,7 +163,7 @@ theorem str_gen [Algebra c.F S] {y : Sp S ⟶ Xo.XF c} (hy : y ≫ pullback.snd 
     str (y ≫ Y.j) o = algebraMap c.F S (β o) := by
   rw [str_eq (g := (algebraMap c.F S).comp β) (by
     rw [Model.j, Category.assoc, Category.assoc, pullback.condition, ← Category.assoc Y.jQ, Y.jQ_over,
-      ← Category.assoc, hy, spMap_comp'])]
+      ← Category.assoc, hy, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])]
   rfl
 
 variable (p : Proj β)

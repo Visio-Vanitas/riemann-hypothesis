@@ -685,7 +685,7 @@ theorem fib : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R], Base R �
   obtain ⟨Ω', _, io, i₂, hc⟩ := compositum M.S Ω (ResidueField W') x _ hpt0.symm
   have hκ : io.comp κ = i₂.comp κ' := by
     have e1 : spMap ((io.comp κ).comp (residue R)) = spMap ((i₂.comp κ').comp (residue R)) := by
-      rw [RingHom.comp_assoc, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hx, RingHom.comp_assoc, hκ', _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      rw [RingHom.comp_assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hx, RingHom.comp_assoc, hκ', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
         ← hξ, ← Category.assoc, hc]
       simp only [Category.assoc]
     have e2 := congrArg CommRingCat.Hom.hom (Spec.map_injective e1)
@@ -719,7 +719,7 @@ theorem fib : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R], Base R �
     have a3 : (e.hom.left ≫ pullback.fst Y.hom (spMap (io.comp κ)) ≫ j) ≫ PSpace.str R N =
         pullback.snd G.hom (spMap io ≫ x) ≫ spMap (io.comp κ) ≫ spMap (residue R) := by
       rw [Category.assoc, Category.assoc, hj, pullback.condition_assoc, reassoc_of% eo]
-    rw [a2, a3, hx, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [a2, a3, hx, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     simp only [Category.assoc]
   · intro K _ _ q _
     obtain ⟨⟨hs, hproj⟩, -⟩ := hptw K (q ≫ τ) (q ≫ τ ≫ pullback.fst G'.hom (spMap (residue W')))
@@ -733,7 +733,7 @@ theorem fib : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R], Base R �
         (q ≫ τ ≫ pullback.fst G'.hom (spMap (residue W'))) ≫ G'.hom ≫ spMap (io'.comp φ) := by
       have hqb' : q ≫ l ≫ (GlobalTheory.Mum.SecEmb.embH s).ι = q ≫ τ ≫ pullback.fst G'.hom (spMap (residue W')) ≫ β := by
         simp only [Category.assoc] at hqb; exact hqb
-      rw [Category.assoc q l, reassoc_of% hqb', hβ.1.w_assoc, Category.assoc (spMap io'), hξ, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+      rw [Category.assoc q l, reassoc_of% hqb', hβ.1.w_assoc, Category.assoc (spMap io'), hξ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       simp only [Category.assoc]
     have hs₂ : ⨆ i, nonzeroLocus (GlobalTheory.secPull (s i) ((q ≫ l) ≫ (GlobalTheory.Mum.SecEmb.embH s).ι)) = ⊤ := by
       rw [hqb]; exact hs
@@ -1517,10 +1517,10 @@ theorem closedFibre_iso : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing 
   let c : W ⧸ maximalIdeal W ^ (0 + 1) →+* ResidueField W :=
     Ideal.Quotient.lift _ (residue W) fun a ha => (RingHom.mem_ker).1 (hle ha)
   have hc : spMap c ≫ thick W (maximalIdeal W) 0 = spMap (residue W) := by
-    rw [show thick W (maximalIdeal W) 0 = spMap (Ideal.Quotient.mk _) from rfl, ← spMap_comp]
+    rw [show thick W (maximalIdeal W) 0 = spMap (Ideal.Quotient.mk _) from rfl, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
   have hc' : spMap c ≫ thick W (maximalIdeal W) 0 ≫ spMap T.φ = spMap κ ≫ spMap (residue R) := by
-    rw [← Category.assoc, hc, ← spMap_comp, ← spMap_comp, hκ]
+    rw [← Category.assoc, hc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hκ]
   let P := (Over.pullback (spMap c)).obj (thickObj W (maximalIdeal W) 0 T.G)
   have g1 : IsGrpPullback P T.G (spMap (residue W))
       (pullback.fst _ _ ≫ pullback.fst T.G.hom (thick W (maximalIdeal W) 0)) :=

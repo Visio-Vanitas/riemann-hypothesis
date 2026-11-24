@@ -454,7 +454,7 @@ theorem box_killed {β : R →+* T} {x : Sp T ⟶ Y} (hx : x ≫ p ≫ s = spMap
     obtain ⟨k, hk⟩ := exists_chart H.1 ((x ≫ q) y)
     obtain ⟨f, hf, hW⟩ := exists_away ((x ≫ p) ⁻¹ᵁ M.U j ⊓ (x ≫ q) ⁻¹ᵁ M.U k) y ⟨hj, hk⟩
     obtain ⟨v₁, v₂, t, ht, e, h₁, h₂⟩ := box_local H hP (β := (algebraMap T (Localization.Away f)).comp β)
-      (by rw [Category.assoc, hx, ← spMap_comp]) (hw.baseChange (algebraMap T (Localization.Away f)))
+      (by rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) (hw.baseChange (algebraMap T (Localization.Away f)))
       (fun z => (hW z).1) (fun z => (hW z).2)
     refine ⟨f, hf, ?_, fun a b c d => ?_, fun b F hF => ?_, fun a F hF => ?_⟩
     · rw [funext e]; exact unimod_smul (unimod_mul h₁.2.1 h₂.2.1) ht
@@ -482,9 +482,9 @@ theorem box_unique {β : R →+* T} {x x' : Sp T ⟶ Y} (hx : x ≫ p ≫ s = sp
     ((x' ≫ p) ⁻¹ᵁ M.U j' ⊓ (x' ≫ q) ⁻¹ᵁ M.U k')) y ⟨⟨hj, hk⟩, hj', hk'⟩
   refine ⟨f, hf, ?_⟩
   have b : (spMap (algebraMap T (Localization.Away f)) ≫ x) ≫ p ≫ s =
-      spMap ((algebraMap T (Localization.Away f)).comp β) := by rw [Category.assoc, hx, ← spMap_comp]
+      spMap ((algebraMap T (Localization.Away f)).comp β) := by rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have b' : (spMap (algebraMap T (Localization.Away f)) ≫ x') ≫ p ≫ s =
-      spMap ((algebraMap T (Localization.Away f)).comp β) := by rw [Category.assoc, hx', ← spMap_comp]
+      spMap ((algebraMap T (Localization.Away f)).comp β) := by rw [Category.assoc, hx', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨v₁, v₂, t, ht, e, h₁, h₂⟩ := box_local H hP b (hw.baseChange (algebraMap T (Localization.Away f)))
     (fun z => (hW z).1.1) (fun z => (hW z).1.2)
   obtain ⟨w₁, w₂, t', ht', e', k₁, k₂⟩ := box_local H hP b' (hw'.baseChange (algebraMap T (Localization.Away f)))
@@ -545,14 +545,14 @@ theorem box_exists {β : R →+* T} {w : σ × σ → T} (hs : Ideal.span (Set.r
       Algebra.TensorProduct.includeLeftRingHom_comp_algebraMap
     show spMap l ≫ x i = spMap r ≫ x j
     refine box_unique H hP (β := (l.comp (algebraMap T A)).comp β) ?_ ?_ ((hl i).baseChange l) ?_
-    · rw [Category.assoc, hx, ← spMap_comp, RingHom.comp_assoc]
-    · rw [Category.assoc, hx, ← spMap_comp, e, RingHom.comp_assoc]
+    · rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingHom.comp_assoc]
+    · rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, RingHom.comp_assoc]
     · convert (hl j).baseChange r using 2 with k
       exact congrArg (fun φ : T →+* A ⊗[T] B => φ (w k)) e
   have hg : ∀ i : σ × σ, spMap (algebraMap T (Localization.Away (w i))) ≫ 𝒰.glueMorphisms x hc = x i :=
     fun i => 𝒰.ι_glueMorphisms x hc i
   refine ⟨𝒰.glueMorphisms x hc, 𝒰.hom_ext _ _ fun i => ?_, loc_of_away fun y => ?_⟩
-  · exact (Category.assoc _ _ _).symm.trans ((congrArg (· ≫ p ≫ s) (hg i)).trans ((hx i).trans (spMap_comp _ _)))
+  · exact (Category.assoc _ _ _).symm.trans ((congrArg (· ≫ p ≫ s) (hg i)).trans ((hx i).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)))
   · obtain ⟨i, hi⟩ : ∃ i, w i ∉ y.asIdeal := by
       by_contra hn
       push Not at hn

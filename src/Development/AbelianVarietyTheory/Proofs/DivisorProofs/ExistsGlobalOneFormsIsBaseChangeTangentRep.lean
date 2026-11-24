@@ -165,14 +165,6 @@ noncomputable section
 
 namespace GlobalTheory.TanForms
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp]; rfl
-
-theorem sp_inj {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) : f = g := by
-  have := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom this
-
 section Der
 variable {R B M : Type} [CommRing R] [CommRing B] [Algebra R B] [AddCommGroup M] [Module B M]
   [Module Bᵐᵒᵖ M] [IsCentralScalar B M] [Module R M] [IsScalarTower R B M]
@@ -265,11 +257,11 @@ def pt (d : Derivation R (Sec A.hom U.1) M) : Sp (TrivSqZeroExt (Sec A.hom U.1) 
 
 theorem pt_lifts (d : Derivation R (Sec A.hom U.1) M) : Lifts A.hom (affPt A.hom U) (pt A U d) := by
   constructor
-  · rw [pt, Category.assoc, affPt_w, sp_comp]
+  · rw [pt, Category.assoc, affPt_w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     refine RingHom.ext fun r ↦ ?_
     simp only [RingHom.comp_apply, derHom_alg]; rfl
-  · rw [pt, ← Category.assoc, sp_comp]
+  · rw [pt, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom (Sec A.hom U.1) (Sec A.hom U.1) M).toRingHom.comp (derHom d) = RingHom.id _ := by
       ext b; simp
     rw [this, _root_.GlobalTheory.Cris.spMap_id, Category.id_comp]
@@ -280,8 +272,8 @@ theorem lifts_pt (z : Sp (TrivSqZeroExt (Sec A.hom U.1) M) ⟶ A.left) (hz : Lif
     (by rw [_root_.GlobalTheory.Cris.spMap_id, Category.id_comp]; exact hz.2)
   have h2 : c.comp (algebraMap R (Sec A.hom U.1)) =
       (TrivSqZeroExt.inlHom (Sec A.hom U.1) M).comp (algebraMap R (Sec A.hom U.1)) := by
-    apply sp_inj
-    rw [← sp_comp, ← affPt_w, ← Category.assoc, hc1]
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← affPt_w, ← Category.assoc, hc1]
     exact hz.1
   have hc2' : ∀ b, (c b).fst = b := hc2
   have h2' : ∀ r, c (algebraMap R (Sec A.hom U.1) r) = TrivSqZeroExt.inl (algebraMap R (Sec A.hom U.1) r) :=
@@ -345,7 +337,7 @@ theorem key (ψ : Ω[Sec A.hom U.1⁄R] →ₗ[Sec A.hom U.1] M) :
   obtain ⟨hl, hnat⟩ := hn (Sec A.hom U.1) Ω[Sec A.hom U.1⁄R] (Sec A.hom U.1) M (AlgHom.id R _) ψ β hβ
     (affPt A.hom U) (affPt_w A.hom U) _ hz0
   have hpt : spMap β ≫ pt A U (D R (Sec A.hom U.1)) = pt A U (ψ.compDer (D R (Sec A.hom U.1))) := by
-    rw [pt, pt, ← Category.assoc, sp_comp]
+    rw [pt, pt, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     refine RingHom.ext fun b ↦ ?_
     rw [RingHom.comp_apply, show derHom (D R (Sec A.hom U.1)) b =
@@ -418,7 +410,7 @@ theorem eU_nat {T T' : AffOp A.left} (a : T ⟶ T') (w : W) :
       rw [RingHom.comp_apply, show derHom (D R (Sec A.hom T.unop.1)) b =
         TrivSqZeroExt.inl b + TrivSqZeroExt.inr (D R (Sec A.hom T.unop.1) b) from rfl, map_add, hβ.1, hβ.2, hfD]
       rfl
-    rw [pt, pt, ← Category.assoc, sp_comp, hc, ← sp_comp, Category.assoc, hres]
+    rw [pt, pt, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hres]
   rw [hres] at hnat
   have hb' : back A T'.unop τ (pt A T'.unop (D R (Sec A.hom T'.unop.1))) =
       spMap β ≫ back A T.unop τ (pt A T.unop (D R (Sec A.hom T.unop.1))) := by

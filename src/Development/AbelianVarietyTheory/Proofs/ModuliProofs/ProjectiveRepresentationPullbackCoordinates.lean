@@ -155,7 +155,7 @@ theorem projRep_baseChange : ∀ (R R' σ : Type) [CommRing R] [CommRing R'] (φ
   refine ⟨fun i => secPull M π (th i), ⟨pull_isLB hM π, fun T _ β x v hx hv => ?_, fun T _ β v hu hF => ?_⟩,
     fun T _ x v => secCoord_pull M th π x v⟩
   · have hs : (x ≫ π) ≫ s = spMap (β.comp φ) := by
-      rw [Category.assoc, hp.w, ← Category.assoc, hx, spMap_comp]
+      rw [Category.assoc, hp.w, ← Category.assoc, hx, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     obtain ⟨h1, h2⟩ := hloc T (β.comp φ) (x ≫ π) v hs ((secCoord_pull M th π x v).1 hv)
     refine ⟨h1, fun F hF => ?_⟩
     have : I.map (MvPolynomial.map φ) ≤ RingHom.ker (MvPolynomial.eval₂Hom β v) := by
@@ -167,13 +167,13 @@ theorem projRep_baseChange : ∀ (R R' σ : Type) [CommRing R] [CommRing R'] (φ
   · obtain ⟨y, ⟨hy, hv⟩, huniq⟩ := hpts T (β.comp φ) v hu fun G hG => by
       rw [← MvPolynomial.eval₂_map]
       exact hF _ (Ideal.mem_map_of_mem _ hG)
-    have hw : y ≫ s = spMap β ≫ spMap φ := by rw [hy, spMap_comp]
+    have hw : y ≫ s = spMap β ≫ spMap φ := by rw [hy, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     refine ⟨hp.lift y (spMap β) hw, ⟨hp.lift_snd _ _ _, (secCoord_pull M th π _ v).2 (by rw [hp.lift_fst]; exact hv)⟩, ?_⟩
     rintro x ⟨hx, hxv⟩
     apply hp.hom_ext
     · rw [hp.lift_fst]
       refine huniq _ ⟨?_, (secCoord_pull M th π x v).1 hxv⟩
-      rw [Category.assoc, hp.w, ← Category.assoc, hx, spMap_comp]
+      rw [Category.assoc, hp.w, ← Category.assoc, hx, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · rw [hp.lift_snd, hx]
 
 end GlobalTheory.ZM.RepBC

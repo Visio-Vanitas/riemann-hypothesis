@@ -160,11 +160,11 @@ theorem sh_valHom {l : u.Λ} {U V : A.left.affineOpens} (h : (ch u).le l V U) (b
 def rl : Real (ch u) (str A) (algebraMap ℂ (Hol (fibFam u).V)) where
   x U := spMap (valHom u U.1 : Sec (str A) U.1 →+* Hol (W u U.1)) ≫ affPt (str A) U
   w U := by
-    rw [Category.assoc, affPt_w, ← Cris.spMap_comp]
+    rw [Category.assoc, affPt_w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun c => (valHom u U.1).commutes c
   compat {l U V} h := by
-    rw [← affPt_res (str A) (U := U) (V := V) h, ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp]
+    rw [← affPt_res (str A) (U := U) (V := V) h, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact RingHom.ext (sh_valHom u h)
 
@@ -181,7 +181,7 @@ theorem isFor : (rl u).IsFor (fibUnif u) := by
   have e : (Hol.ev p hp).toRingHom.comp (valHom u U.1 : Sec (str A) U.1 →+* Hol (W u U.1)) =
       valAtHom (u.ex p.2).left U.1 hp := RingHom.ext fun b =>
     (Hol.ev_apply p hp _).trans ((fn_valHom u _ b hp).trans (valAt'_eq_valAtHom _ hp b))
-  refine (Category.assoc _ _ _).symm.trans ((congrArg (· ≫ U.2.fromSpec) ((Cris.spMap_comp _ _).symm.trans (congrArg spMap e))).trans ?_)
+  refine (Category.assoc _ _ _).symm.trans ((congrArg (· ≫ U.2.fromSpec) ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap e))).trans ?_)
   exact spMap_valAtHom _ U.2 hp
 
 abbrev TU (U : A.left.affineOpens) : Thick (dp0 ℂ) (str A) := Thick.triv (Sec (str A) U.1) (affPt (str A) U) (affPt_w _ U)
@@ -190,7 +190,7 @@ def al (U : A.left.affineOpens) : TU U ⟶ (rl u).obj ((ch u).triv U) :=
   Thick.trivHom { (valHom u U.1 : Sec (str A) U.1 →+* Hol (W u U.1)) with commutes' := (valHom u U.1).commutes } (by
     change spMap ((Ideal.Quotient.mk ⊥).comp (valHom u U.1 : Sec (str A) U.1 →+* Hol (W u U.1))) ≫ _ =
       spMap ((Ideal.Quotient.mk ⊥).comp (RingHom.id _)) ≫ spMap _ ≫ _
-    rw [← Category.assoc, ← Cris.spMap_comp, RingHom.comp_id])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingHom.comp_id])
 
 def evc (f : Z1 (O (dp0 ℂ) (str A))) {T T' : (ch u).Obj} (φ : T ⟶ T') : T'.C := ev f ((rl u).functor.map φ)
 
@@ -251,7 +251,7 @@ def Phi (U : A.left.affineOpens) (ℓ : Ω[Sec (str A) U.1⁄ℂ] →+ (Fin g �
       rw [fst_phi, h0, map_zero]
     pt := by
       change spMap (q.comp (valHom u U.1).toRingHom) ≫ affPt (str A) U = spMap q ≫ (rl u).x U
-      rw [Cris.spMap_comp, Category.assoc] <;> rfl }
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc] <;> rfl }
 
 abbrev sec0 (U : A.left.affineOpens) : TU U ⟶ (diagExt ℂ (Sec (str A) U.1)).thick (affPt (str A) U) (affPt_w _ U) :=
   (diagExt ℂ (Sec (str A) U.1)).secHom (affPt_w _ U) (diagExt ℂ _).i fun _ => rfl

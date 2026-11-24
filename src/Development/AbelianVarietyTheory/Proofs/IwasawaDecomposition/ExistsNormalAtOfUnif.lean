@@ -439,7 +439,7 @@ attribute [local instance] Over.cartesianMonoidalCategory
 theorem zeroPt_sc {S : Type} [CommRing S] (c : S) : GlobalTheory.PowLie.zeroPt S ≫ GlobalTheory.PowLie.sc c = GlobalTheory.PowLie.zeroPt S := by
   ext1
   simp only [Over.comp_left, GlobalTheory.PowLie.zeroPt, GlobalTheory.PowLie.sc, Over.homMk_left]
-  rw [← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   refine RingHom.ext fun r => ?_
   simp [epsScaleR]
@@ -514,7 +514,7 @@ theorem comb_tan {R : Type} [CommRing R] {G : Over (Sp R)} [GrpObj G] [IsCommMon
   have e0 : ∀ a : R, GlobalTheory.PowLie.zeroPt R ≫ GlobalTheory.PowLie.sc a = GlobalTheory.PowLie.zeroPt R := fun a => by
     refine Over.OverMorphism.ext ?_
     simp only [Over.comp_left, GlobalTheory.PowLie.zeroPt, GlobalTheory.PowLie.sc, Over.homMk_left]
-    rw [GlobalTheory.TanMod.spMap_comp']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     refine RingHom.ext fun r => ?_
     simp [epsScaleR]
@@ -640,7 +640,7 @@ theorem lie_coords_hasSum : ∀ (E : Type) [Field E] [NumberField E] [IsCMField 
   let φL : Γ(Y.X, M.U) →+* ℂ⸨X⸩ := (HahnSeries.ofPowerSeries ℤ ℂ).comp (ev χ M.U hM)
   have eχ : spMap (dualMap φL) ≫ M.v₀ (Fin.cast hn.symm i) =
       spMap (dualMap (HahnSeries.ofPowerSeries ℤ ℂ)) ≫ (v' i).left ≫ W.m.φ := by
-    rw [hv' i, dualMap_comp, ← spMap_comp', Category.assoc]
+    rw [hv' i, dualMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have hc : ∀ r, Cv pw (φL r) (fun ω => ψ ω r) := by
     intro r
     obtain ⟨T', hT'⟩ := Ha.point M.U r hM
@@ -1268,7 +1268,7 @@ theorem main_of_lemmas (hFib : ∀ (E : Type) [Field E] [NumberField E] [IsCMFie
     refine ⟨pullback.lift (Uw.F.u Ha.i (Ha.Pw w)) (spMap c.F.val.toRingHom) ?_, pullback.lift_fst _ _ _,
       pullback.lift_snd _ _ _⟩
     rw [Uw.F.over_σ _ _ (Ha.period w hw)]
-    exact (_root_.Formalism.L2.Pj.spMap_comp_ring _ _).symm
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   classical
   let y : ℂ → (Sp ℂ ⟶ Y.X) := fun w =>
     if h : ∃ yF : Sp ℂ ⟶ Xo.XF c, yF ≫ pullback.fst _ _ = Uw.F.u Ha.i (Ha.Pw w) ∧

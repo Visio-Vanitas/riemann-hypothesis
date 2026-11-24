@@ -616,19 +616,19 @@ def rebase (hρ : gb.ρ = φ b.ρ) (ht : ∀ i, gb.t i = φ.comp (b.t i)) {t : S
   kerP := o.kerP
   rosati := o.rosati
   lie R₁ _ β x hx v hv := by
-    have h := o.lie R₁ (β.comp φ) x (by rw [hs, ← Category.assoc, hx, _root_.GlobalTheory.spMap_comp_ring]) v
+    have h := o.lie R₁ (β.comp φ) x (by rw [hs, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) v
       (by simpa [baseOf, hρ] using hv)
     obtain ⟨w, hw, hvw⟩ := h
     exact ⟨w, fun i c => (congrArg (fun z => IsTanScal o.act x (algebraMap (𝓞 D.F) D.O c) (β z) (w i))
       (DFunLike.congr_fun (ht i) c)).mpr (hw i c), hvw⟩
   lieRank k _ _ x β hx i :=
     (congrArg (fun z => LieMult (o.act.toF D) x (β.comp z) D.m) (ht i)).mpr
-      (o.lieRank k x (β.comp φ) (by rw [hs, ← Category.assoc, hx, _root_.GlobalTheory.spMap_comp_ring]) i)
+      (o.lieRank k x (β.comp φ) (by rw [hs, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) i)
   eta := o.eta
   eta_add := o.eta_add
   eta_lin := o.eta_lin
   eta_ker := o.eta_ker
-  geom k _ _ x β hx := o.geom k x (β.comp φ) (by rw [hs, ← Category.assoc, hx, _root_.GlobalTheory.spMap_comp_ring])
+  geom k _ _ x β hx := o.geom k x (β.comp φ) (by rw [hs, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
 
 def toGObj {t : S ⟶ Sp R'} (o : Obj (baseOf gb) N t) (h : GeomFull o t) : GObj gb N t where
   A := o.A
@@ -677,13 +677,13 @@ def toObj (hρ : gb.ρ = φ b.ρ) (ht : ∀ i, gb.t i = φ.comp (b.t i)) {t : S 
   rosati := o.rosati
   lie R₁ _ β x hx v hv := by
     obtain ⟨β', hβ'⟩ := exists_spMap (x ≫ t)
-    obtain rfl : β = β'.comp φ := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← hx, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
+    obtain rfl : β = β'.comp φ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← hx, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
     obtain ⟨w, hw, hvw⟩ := o.lie R₁ β' x hβ' v (by rw [hρ]; exact hv)
     exact ⟨w, fun i c => (congrArg (fun z => IsTanScal o.act x (algebraMap (𝓞 D.F) D.O c) (β' z) (w i))
       (DFunLike.congr_fun (ht i) c)).mp (hw i c), hvw⟩
   lieRank k _ _ x β hx i := by
     obtain ⟨β', hβ'⟩ := exists_spMap (x ≫ t)
-    obtain rfl : β = β'.comp φ := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← hx, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
+    obtain rfl : β = β'.comp φ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← hx, ← Category.assoc, hβ', _root_.GlobalTheory.spMap_comp_ring])
     exact (congrArg (fun z => LieMult (actF o.act) x (β'.comp z) D.m) (ht i)).mp (o.lieRank k x β' hβ' i)
   eta := o.eta
   eta_add := o.eta_add

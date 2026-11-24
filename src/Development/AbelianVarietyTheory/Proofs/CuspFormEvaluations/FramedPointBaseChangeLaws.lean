@@ -55,10 +55,6 @@ noncomputable section
 
 namespace GlobalTheory.FramedBaseChange
 
-theorem spec_comp {S T U : Type} [CommRing S] [CommRing T] [CommRing U] (φ : S →+* T) (ψ : T →+* U) :
-    spMap (ψ.comp φ) = spMap ψ ≫ spMap φ := by
-  simp only [spMap, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem dual_comp {S T U : Type} [CommRing S] [CommRing T] [CommRing U] (φ : S →+* T) (ψ : T →+* U) :
     dualMap (ψ.comp φ) = (dualMap ψ).comp (dualMap φ) :=
   RingHom.ext fun x => by ext <;> simp [dualMap]
@@ -131,11 +127,11 @@ theorem trans {S T U : Type} [CommRing S] [Algebra c.F S] [CommRing T] [Algebra 
   obtain ⟨hx1, hu1, pm1, hs1, hf1, ha1⟩ := h₁
   obtain ⟨hx2, hu2, pm2, hs2, hf2, ha2⟩ := h₂
   have esp : spMap (ψ.comp φ).toRingHom = spMap ψ.toRingHom ≫ spMap φ.toRingHom := by
-    exact spec_comp φ.toRingHom ψ.toRingHom
+    exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ.toRingHom ψ.toRingHom
   have edsp : spMap (dualMap (ψ.comp φ).toRingHom) =
       spMap (dualMap ψ.toRingHom) ≫ spMap (dualMap φ.toRingHom) := by
     show spMap (dualMap (ψ.toRingHom.comp φ.toRingHom)) = _
-    rw [dual_comp, spec_comp]
+    rw [dual_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   refine ⟨?_, ?_, pm2 ≫ pm1, ?_, ?_, ?_⟩
   · rw [hx2, hx1, esp, Category.assoc]
   · intro τ i
@@ -155,11 +151,11 @@ theorem cancel {S T U : Type} [CommRing S] [Algebra c.F S] [CommRing T] [Algebra
   obtain ⟨hx1, hu1, pm1, hs1, hf1, ha1⟩ := h₁
   obtain ⟨hx2, hu2, pm2, hs2, hf2, ha2⟩ := h₂
   have esp : spMap (κ.comp φ).toRingHom = spMap κ.toRingHom ≫ spMap φ.toRingHom :=
-    spec_comp φ.toRingHom κ.toRingHom
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ.toRingHom κ.toRingHom
   have edsp : spMap (dualMap (κ.comp φ).toRingHom) =
       spMap (dualMap κ.toRingHom) ≫ spMap (dualMap φ.toRingHom) := by
     show spMap (dualMap (κ.toRingHom.comp φ.toRingHom)) = _
-    rw [dual_comp, spec_comp]
+    rw [dual_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hx : spMap κ.toRingHom ≫ y.x = z.x := by rw [hx2, hx1, esp, Category.assoc]
   let pm : Gx z.x ⟶ Gx y.x :=
     ((Over.homMk (spMap κ.toRingHom) hx : Over.mk z.x ⟶ Over.mk y.x) ▷ Xo.univ.t.G).left

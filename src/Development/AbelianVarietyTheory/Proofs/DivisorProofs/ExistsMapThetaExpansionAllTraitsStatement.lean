@@ -1331,7 +1331,7 @@ theorem labExt_of_trait : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing 
     have hρ : Function.Injective ρ :=
       (algebraMap (FractionRing W) (Kb W)).injective.comp ((IsFractionRing.injective W (FractionRing W)).comp T.inj)
     have hy : (jFK (R := W) (Kb W) ≫ jK W ≫ T.ξ) ≫ C.π = spMap ρ := by
-      rw [Category.assoc, Category.assoc, T.ξ_π, spMap_comp, spMap_comp]
+      rw [Category.assoc, Category.assoc, T.ξ_π, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     obtain ⟨ga, hga, e⟩ := Modif.factor_gp R C.toModif (Kb W) ρ _ hρ hy
     have hga' : ga = algebraMap (FractionRing R) (Kb W) :=
       IsLocalization.ringHom_ext (nonZeroDivisors R) (RingHom.ext fun s => (hga s).trans (cF s).symm)
@@ -1341,7 +1341,7 @@ theorem labExt_of_trait : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing 
     intro τ x
     rw [hgp, Category.assoc, Category.assoc, C.α_cart.1.w, ← Category.assoc x.left, Over.w x, ← Category.assoc]
     show (spMap τ.toRingHom ≫ spMap (algebraMap (FractionRing R) (Kb R))) ≫ C.gp = _
-    rw [← spMap_comp]; exact congrArg (fun f => spMap f ≫ C.gp) τ.comp_algebraMap
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact congrArg (fun f => spMap f ≫ C.gp) τ.comp_algebraMap
   obtain ⟨x₁, hx₁⟩ := T.exists_lift (Kb W) _ (hz em (C.lab j q))
   obtain ⟨x₂, hx₂⟩ := T.exists_lift (Kb W) _ (hz (em.comp σ) (C.lab j p))
   have t₁ := T.lab (Kb W) em cF j q r (pullQk T.hD hGF cF hB T.D'.tau_bimult r) x₁ hr rfl hr₁ hx₁
@@ -1355,10 +1355,10 @@ theorem labExt_of_trait : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing 
   have e' := hx₁.symm.trans hx₂
   haveI : Epi (spMap em.toRingHom) := Flat.epi_of_flat_of_surjective _
   refine (cancel_epi (spMap em.toRingHom)).1 (C.α_cart.1.hom_ext ?_ ?_)
-  · rw [Category.assoc, Category.assoc, e', Category.assoc, ← Category.assoc (spMap em.toRingHom), ← spMap_comp]
+  · rw [Category.assoc, Category.assoc, e', Category.assoc, ← Category.assoc (spMap em.toRingHom), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · rw [Category.assoc, Over.w (C.lab j q), Category.assoc, Category.assoc, Over.w (C.lab j p)]
-    exact congrArg (spMap em.toRingHom ≫ ·) ((spMap_comp _ _).symm.trans (congrArg spMap σ.comp_algebraMap)).symm
+    exact congrArg (spMap em.toRingHom ≫ ·) ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap σ.comp_algebraMap)).symm
 
 end GlobalTheory.Mum
 end -- clump:auto
@@ -1512,7 +1512,7 @@ noncomputable section
 
 namespace GlobalTheory.Mum.ValDescent
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem eq_of_comp_jK {R : Type} [CommRing R] [IsDomain R] {X : Scheme.{0}} {f g : X ⟶ Sp (FractionRing R)}
     (h : f ≫ jK R = g ≫ jK R) : f = g := by
@@ -1549,7 +1549,7 @@ theorem desc : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalRing R], Base R 
   have hover : t ≫ jFK (R := R) F = d ≫ q₂ ≫ C.A.A.hom := by
     apply ValDescent.eq_of_comp_jK
     have e₁ : jFK (R := R) F ≫ jK R = spMap ρ ≫ spMap T.φ := by
-      rw [← spMap_comp, ← spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       exact RingHom.ext hF
     have e₂ : T.G.hom ≫ spMap T.φ = T.β ≫ C.G.hom ≫ C.π := by

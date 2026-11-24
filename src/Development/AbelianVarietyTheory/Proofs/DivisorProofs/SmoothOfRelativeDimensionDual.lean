@@ -531,14 +531,14 @@ theorem isWeilHom_baseChange (hA : IsAbelianScheme A) (h : IsGrpPullback A₀ A 
   refine ⟨Units.map (α : G.A n ⊗[R] G.A n →+* _).toMonoidHom U, ?_, fun χ => ?_⟩
   · have hg : spMap (algebraMap R ((R₀ ⊗[R] G.A n) ⊗[R₀] (R₀ ⊗[R] G.A n))) =
         (SpAlg R₀ ((R₀ ⊗[R] G.A n) ⊗[R₀] (R₀ ⊗[R] G.A n))).hom ≫ red R R₀ := by
-      rw [IsScalarTower.algebraMap_eq R R₀, Cris.spMap_comp]
+      rw [IsScalarTower.algebraMap_eq R R₀, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
     have hy : ∀ (bb : R₀ ⊗[R] G.A n →ₐ[R₀] (R₀ ⊗[R] G.A n) ⊗[R₀] (R₀ ⊗[R] G.A n))
         (gg : G.A n →ₐ[R] G.A n ⊗[R] G.A n), (∀ a, α (gg a) = bb (1 ⊗ₜ a)) →
         (spOver bb ≫ (t.baseChange h).y n).left ≫ i =
           spMap (α : G.A n ⊗[R] G.A n →+* _) ≫ (spOver gg ≫ t.y n).left := fun bb gg hβ => by
       rw [Over.comp_left, Over.comp_left, Category.assoc, ← t.toBase_y h n, spOver_left, spOver_left,
-        ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp]
+        ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg (fun q => spMap q ≫ (t.y n).left) (RingHom.ext fun a => (hβ a).symm)
     have hτ : spMap (α : G.A n ⊗[R] G.A n →+* _) ≫ (SpAlg R (G.A n ⊗[R] G.A n)).hom =
         (SpAlg R₀ ((R₀ ⊗[R] G.A n) ⊗[R₀] (R₀ ⊗[R] G.A n))).hom ≫ red R R₀ := (Over.w (spOver α)).trans hg

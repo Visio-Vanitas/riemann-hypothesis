@@ -360,7 +360,7 @@ theorem torsion_rational : ∀ (R₁ : Type) [CommRing R₁] [IsDomain R₁] [Is
       ← Category.assoc (x.left ≫ a), hyh, Category.assoc]
   obtain ⟨ψ, hψ⟩ := hpt (Kb R₂) y htors
   have hψφ : ψ.comp φ = j.comp ga := by
-    refine _root_.GlobalTheory.ZM.DenseFib.spMap_inj ?_
+    refine ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_
     rw [GlobalTheory.Ex.spMap_comp', GlobalTheory.Ex.spMap_comp', ← hp, ← Category.assoc, ← hψ, hyh]
   obtain ⟨ψ₀, hψ₀⟩ := hEs (FractionRing R₂) (Kb R₂) e j ψ (by rw [hψφ, hge])
   have hψ₀φ : ψ₀.comp φ = ga := by
@@ -603,7 +603,7 @@ theorem exists_rational_ext : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLocalR
   refine ⟨R₂, inferInstance, inferInstance, inferInstance, i₁₂.comp ρ, D₂, A₂, hi₁₂ρ, hP₂, hS₂,
     GlobalTheory.T.uniformisedTrait_moves_to_finite_extension R₁ hR₁ D₁ A hU R₂ i₁₂ hi₁₂ hloc D₂ hD₂ A₂ g hfib, fun σ => ⟨GlobalTheory.T.galois_fixes_quotientPoints_of_rational R₂ D₂ n hrat σ, fun x hx => ?_⟩⟩
   obtain ⟨x₀, hx₀⟩ := hA R₂ i₁₂ eA hi₁₂.2.1 (fun r => he r) A₂ g hfib x hx
-  rw [hx₀, ← Category.assoc, ← spMap_comp]
+  rw [hx₀, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg (fun f => spMap f ≫ x₀) (RingHom.ext fun a => σ.commutes a)
 
 end GlobalTheory.Mum.Enlarge

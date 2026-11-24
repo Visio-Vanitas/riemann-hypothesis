@@ -297,7 +297,7 @@ theorem exists_spread (hG : GlobalFnsSt) (hB : SecBaseChangeAnySt) {F K κ : Typ
     rw [hg, ← hx₀]
     infer_instance)
   have hφg : φ.comp g = i.comp b := by
-    have : spMap (φ.comp g) = spMap (i.comp b) := by rw [spMap_comp, hg, ← Category.assoc, hφ, hy]
+    have : spMap (φ.comp g) = spMap (i.comp b) := by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hg, ← Category.assoc, hφ, hy]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective this)
   have aff : ∀ {A : Type} [CommRing A] (t : Sp A ⟶ S), IsAffine (Over.mk t).left := fun t =>
     inferInstanceAs (IsAffine (Spec _))
@@ -315,14 +315,14 @@ theorem exists_spread (hG : GlobalFnsSt) (hB : SecBaseChangeAnySt) {F K κ : Typ
   have hne : u₀ ≠ 0 := fun h0 => u.ne_zero (hu₀.symm.trans (h0 ▸ map_zero _))
   obtain ⟨A, _, _, j, s, k, ψ, u', hj, h₁, h₂, h₃, h₄⟩ := exists_retract g hgf b i φ hφg (Units.mk0 u₀ hne)
   let hA : Over.mk (spMap ψ ≫ x₀) ⟶ Over.mk x₀ := Over.homMk (spMap ψ) rfl
-  have e₁ : spMap j ≫ spMap ψ = spMap φ := by rw [← spMap_comp, h₁]
+  have e₁ : spMap j ≫ spMap ψ = spMap φ := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h₁]
   let J : Over.mk y ⟶ Over.mk (spMap ψ ≫ x₀) := Over.homMk (spMap j) (by
     change spMap j ≫ spMap ψ ≫ x₀ = y
     rw [← Category.assoc, e₁, hφ])
   have eJ : J ≫ hA = hκ := Over.OverMorphism.ext e₁
   haveI := aff (spMap ψ ≫ x₀)
   refine ⟨A, inferInstance, inferInstance, j, s, k, _, J, fun a => hA ≫ r ≫ et a, hj, h₂, h₃, rfl, ?_, fun a => ?_, ?_⟩
-  · rw [Category.assoc, ← hg, ← spMap_comp]
+  · rw [Category.assoc, ← hg, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext c
     apply hj
@@ -401,7 +401,7 @@ theorem exists_full (hL : Laws) (hB : SecBaseChangeAnySt) {E : Type} [Field E] [
     exact e₂ ▸ hw
   have hsb : s.comp (k.comp b) = b := RingHom.ext fun c => hsk _
   obtain ⟨o, ⟨mp⟩⟩ := obj_pull E H D l B B bs bs (RingHom.id B) S _ sB (spMap (b.comp e)) (spMap s ≫ t) rfl rfl (by
-    rw [hs, Category.assoc, ← Category.assoc t, ht, ← Category.assoc, ← spMap_comp, hsb, ← spMap_comp, ← spMap_comp,
+    rw [hs, Category.assoc, ← Category.assoc t, ht, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hsb, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       RingHom.comp_id]) oF
   have lb₁ : LBIso o.t.PP.L (oF.t.PP.L.pull mp.cm.F) := by
     obtain ⟨w, hw, -⟩ := mp.lin

@@ -159,12 +159,12 @@ variable {S : Type} [CommRing S] (x : Sp S ⟶ Xo.X)
 def wtfA_sO (a : S) : tEps x ⟶ tEps x :=
   Over.homMk (spMap (epsMul a)) (by
     show spMap (epsMul a) ≫ spMap (algebraMap S (DualNumber S)) ≫ x = spMap (algebraMap S (DualNumber S)) ≫ x
-    rw [← Category.assoc, spMap_comp_spMap, wtfA_epsMul_alg])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, wtfA_epsMul_alg])
 
 def dualNumberZeroSection : Over.mk x ⟶ tEps x :=
   Over.homMk (spMap (TrivSqZeroExt.fstHom S S S).toRingHom) (by
     show spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (algebraMap S (DualNumber S)) ≫ x = x
-    rw [← Category.assoc, spMap_comp_spMap, wtfA_fst_alg, wtfA_spMap_id, Category.id_comp])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, wtfA_fst_alg, wtfA_spMap_id, Category.id_comp])
 
 def wtfA_q : tEps x ⟶ Over.mk x := Over.homMk (spMap (algebraMap S (DualNumber S))) rfl
 
@@ -191,13 +191,13 @@ theorem wtfA_pre_prod {A B : Over Xo.X} (f : A ⟶ B) {m : ℕ} (F : Fin m → (
 theorem wtfA_sO_comp (a b : S) : wtfA_sO x a ≫ wtfA_sO x b = wtfA_sO x (a * b) := by
   apply Over.OverMorphism.ext
   show spMap (epsMul a) ≫ spMap (epsMul b) = spMap (epsMul (a * b))
-  rw [spMap_comp_spMap, wtfA_epsMul_mul]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, wtfA_epsMul_mul]
 
 theorem dualNumberZero_comp_scalar (a : S) : dualNumberZeroSection x ≫ wtfA_sO x a = dualNumberZeroSection x := by
   apply Over.OverMorphism.ext
   show spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (epsMul a) =
     spMap (TrivSqZeroExt.fstHom S S S).toRingHom
-  rw [spMap_comp_spMap, wtfA_fst_epsMul]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, wtfA_fst_epsMul]
 
 theorem dualNumberZero_comp_tangent {V : tEps x ⟶ Xo.univ.t.G} (h : IsTanAt x V.left) : dualNumberZeroSection x ≫ V = 1 := Over.OverMorphism.ext h.2
 
@@ -206,7 +206,7 @@ theorem wtfA_zero {V : tEps x ⟶ Xo.univ.t.G} (h : IsTanAt x V.left) : wtfA_sO 
     apply Over.OverMorphism.ext
     show spMap (epsMul 0) =
       spMap (algebraMap S (DualNumber S)) ≫ spMap (TrivSqZeroExt.fstHom S S S).toRingHom
-    rw [spMap_comp_spMap, wtfA_epsMul_zero]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, wtfA_epsMul_zero]
   rw [hq, Category.assoc, dualNumberZero_comp_tangent x h, MonObj.comp_one]
 
 theorem wtfA_add (hA : TanAddSt Xo) {V : tEps x ⟶ Xo.univ.t.G} (h : IsTanAt x V.left) (a b : S) :

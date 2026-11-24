@@ -249,7 +249,7 @@ def Real.tenObj (T : K.Obj) : Thick κ s' where
   x := (r.obj T).x
   w := by
     refine (congrArg ((r.obj T).x ≫ ·) hs).trans ((Category.assoc _ _ _).symm.trans
-      ((congrArg (· ≫ spMap π₀) (r.obj T).w).trans ((Cris.spMap_comp _ _).symm.trans (congrArg spMap ?_))))
+      ((congrArg (· ≫ spMap π₀) (r.obj T).w).trans ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap ?_))))
     refine RingHom.ext fun d ↦ congrArg (Ideal.Quotient.mk T.J) ?_
     change algebraMap (Hol F.V) T.C (σ (π₀ d)) = T.red π (ι d ⊗ₜ 1)
     rw [Charts.Obj.red_tmul, hι, mul_one, hσ]

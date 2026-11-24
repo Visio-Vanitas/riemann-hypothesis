@@ -72,9 +72,9 @@ theorem exists_finset_fixed (hM : Out.MulNSt) (M : IntermediateField ℚ ℂ) [F
     obtain ⟨z, hz⟩ := hs k k.subtype (fun c => ⟨⟨algebraMap M F c, h₁ c c.2⟩, rfl⟩)
       (fun c hc => ⟨⟨c, h₂ c (Finset.mem_image_of_mem _ hc)⟩, rfl⟩) y hy
     have e₁ : spMap (algebraMap F ℂ) ≫ spMap k.subtype = spMap ((algebraMap F ℂ).comp k.subtype) :=
-      spMap_comp fun _ => rfl
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp fun _ => rfl
     have e₂ : spMap τ ≫ spMap ((algebraMap F ℂ).comp k.subtype) = spMap ((algebraMap F ℂ).comp k.subtype) :=
-      spMap_comp fun c => c.2
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp fun c => c.2
     rw [← hy', ← hz, reassoc_of% e₁, reassoc_of% e₂]
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E}
@@ -110,7 +110,7 @@ theorem exists_model (H : Host E) : ∃ (M : IntermediateField ℚ ℂ) (_ : Fin
     LBIso.trans PC.isLB (pull_isLB P₀.isLB ψ) (pull_isLB P.isLB _) hLC
       (LBIso.chartPull (Geo.Tor.chartPullPull P₀.L ψ ψ rfl) (Geo.Tor.chartPullSame P.L _ _ _ ψ fun _ => rfl) hL₀.symm)
   obtain ⟨c, hc, hΛ⟩ := hcm PC (ψ ≫ π)
-    ⟨hgC.trans hg₀, (hψ.comp hπ).congr (spMap_comp fun _ => rfl) rfl, hL.symm⟩ u
+    ⟨hgC.trans hg₀, (hψ.comp hπ).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp fun _ => rfl) rfl, hL.symm⟩ u
   rw [hw] at hΛ
   exact ⟨M, inferInstance, P₀, ⟨PC, hgC.trans (hg₀.trans hg), u, hu, c, hc, hΛ⟩, ψ, hψ⟩
 
@@ -124,7 +124,7 @@ theorem exists_curveOver (H : Host E) {n : ℕ} (hn : 0 < n) :
   have h₂ : ∀ z ∈ s, (τ : ℂ →+* ℂ) z = z := fun z hz =>
     hτ z (le_sup_right (a := M) (IntermediateField.subset_adjoin ℚ _ hz))
   have e : spMap (τ : ℂ →+* ℂ) ≫ spMap (algebraMap M ℂ) = spMap (algebraMap M ℂ) :=
-    spMap_comp fun c => h₁ c c.2
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp fun c => h₁ c c.2
   have w : ψ ≫ P.A.hom = (C.P.A.hom ≫ spMap (τ : ℂ →+* ℂ)) ≫ spMap (algebraMap M ℂ) := by
     rw [Category.assoc, e, hψ.1.w]
   refine ⟨C, hψ.1.lift _ _ w, hψ.cancel (hψ.congr e.symm (hψ.1.lift_fst _ _ w).symm) (hψ.1.lift_snd _ _ w),

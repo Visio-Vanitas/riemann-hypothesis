@@ -1660,7 +1660,7 @@ theorem onV_of (σ : Setup) (x : Sp σ.R) (P : Scheme.{0}) [IsIntegral P] (p : P
   haveI : IsDominant l := IsDominant.of_comp_of_isOpenImmersion l (σ.V x).ι
   refine ext_of_isDominant_of_isSeparated p ?_ l ?_
   · rw [Category.assoc, Category.assoc, hi, he, (σ.cart x).w, Category.assoc]
-  · rw [← Category.assoc, hl', ← Category.assoc, hl, hb', Category.assoc, ha', _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+  · rw [← Category.assoc, hl', ← Category.assoc, hl, hb', Category.assoc, ha', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 end GlobalTheory.Desc.EmbeddingLemmas
 

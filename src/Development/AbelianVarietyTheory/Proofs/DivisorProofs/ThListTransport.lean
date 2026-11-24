@@ -99,7 +99,7 @@ theorem thList_comp (m : ℕ) {R K₁ K₂ : Type} [CommRing R] [Field K₁] [Fi
       ThList G L ρ m (spMap k ≫ x) (SecAt.pull G L θ k) pt' c := by
   unfold SecAt.pull at H ⊢
   rw [GlobalTheory.ThetaRuleCompare.pullS_comp] at H
-  exact thList_transport m θ (by rw [← hk, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]) _ _ (by simp [← hk, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) pt c H
+  exact thList_transport m θ (by rw [← hk, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]) _ _ (by simp [← hk, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) pt c H
 
 end
 

@@ -311,7 +311,7 @@ namespace GlobalTheory.CompanionTheory.Ar.IntOpen
 theorem epi_of_mono_spMap {O F : Type} [CommRing O] [CommRing F] (β : O →+* F) (h : Mono (spMap β))
     {T : Type} [CommRing T] (g₁ g₂ : F →+* T) (e : g₁.comp β = g₂.comp β) : g₁ = g₂ := by
   have h1 : spMap g₁ ≫ spMap β = spMap g₂ ≫ spMap β := by
-    rw [← spMap_comp, ← spMap_comp, e]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
   have h2 := Spec.map_injective ((cancel_mono (spMap β)).1 h1)
   exact congrArg CommRingCat.Hom.hom h2
 
@@ -348,7 +348,7 @@ theorem interior_iff_factor : ∀ (E : Type) [Field E] [NumberField E] [IsCMFiel
       _root_.GlobalTheory.CompanionTheory.Ggeo.unit_of_local_hom_charZero_nf O c.F _ ℂ β θ (Scheme.stalkClosedPointTo z).hom (Scheme.isLocalHom_stalkClosedPointTo' z) hk b hb
     obtain ⟨χ, hχ⟩ := _root_.GlobalTheory.CompanionTheory.Ggeo.extend_to_fraction_field_relay O c.F _ β θ (_root_.GlobalTheory.CompanionTheory.Ggeo.epi_subfield_closure_range_eq_top O c.F β (fun T _ g₁ g₂ e => epi_of_mono_spMap β hβ g₁ g₂ e)) hu hk
     have w : (A.X.fromSpecStalk (centre z) ≫ A.f) ≫ Y.s = spMap χ ≫ spMap β := by
-      rw [← spMap_comp, hχ, Category.assoc]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hχ, Category.assoc]
       change g = _
       rw [← Spec.map_preimage g]
       rfl

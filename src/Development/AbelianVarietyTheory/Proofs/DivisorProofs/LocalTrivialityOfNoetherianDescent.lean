@@ -150,7 +150,7 @@ theorem fibre_triv {R R₁ : Type} [CommRing R] [CommRing R₁] (j : R₁ →+* 
     CechPic.pull (pullback.fst A₁.hom (spMap (g₀.comp j))) c = 0 := by
   have w : pullback.fst A₁.hom (spMap (g₀.comp j)) ≫ A₁.hom =
       (pullback.snd A₁.hom (spMap (g₀.comp j)) ≫ spMap g₀) ≫ spMap j := by
-    rw [pullback.condition, Category.assoc, GlobalTheory.spMap_comp_ring]
+    rw [pullback.condition, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let a := hψ.lift _ _ w
   have ha1 : a ≫ ψ = pullback.fst _ _ := hψ.lift_fst _ _ _
   have ha2 : a ≫ A.hom = pullback.snd _ _ ≫ spMap g₀ := hψ.lift_snd _ _ _

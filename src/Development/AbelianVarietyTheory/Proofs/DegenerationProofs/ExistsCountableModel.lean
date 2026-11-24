@@ -738,7 +738,7 @@ theorem det_iff {D₀ : DegPre R} {D' : DegPre K} (hD : IsPullDeg φ D₀ D') [M
       n + Module.finrank (𝓞 E) D₀.X = m := by
   let _ := H.starRing
   refine exists_congr fun n => and_congr ?_ ?_
-  · rw [LiePull.lieMult_pull _ _ _ _ _ _ _ (ofRingAct oa.onB.toRingAct) _ (pull_grp hD) ho F _ τ n, ← spMap_comp,
+  · rw [LiePull.lieMult_pull _ _ _ _ _ _ _ (ofRingAct oa.onB.toRingAct) _ (pull_grp hD) ho F _ τ n, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       show ((algebraMap (FractionRing K) F).comp (algebraMap K _)).comp φ =
         (algebraMap (FractionRing R) F).comp (algebraMap R _) from RingHom.ext fun r => (hF r).symm]
   · rw [(({ hD.xe with map_smul' := hx } : D'.X ≃ₗ[𝓞 E] D₀.X)).finrank_eq]
@@ -871,7 +871,7 @@ theorem exists_sub (hL : Laws) (hGt : BrGtSt) (hWp : BrWpSt) {R F F' : Type} [Co
         obtain ⟨n, h₁, h₂⟩ := A'.det (f.comp τ)
         have := A'.D₀.P.isAb.smooth
         refine ⟨n, (DetExtend.lieMult_extend f _ _ τ n).1 ?_, h₂.trans ?_⟩
-        · rw [← spMap_comp, ← RingHom.comp_assoc, hf]; exact h₁
+        · rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, hf]; exact h₁
         · rw [← hρ, RingHom.comp_apply, f.injective.eq_iff]
       I := T, N := N, ν := ν, q := fun n a => q n _, hq := fun n a => hq n _, closed := inferInstance }
   refine ⟨A, I, hρ, hζ, fun a y => A'.ν.eX.injective ?_, rel⟩

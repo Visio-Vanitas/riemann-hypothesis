@@ -115,7 +115,7 @@ theorem atlas : ReciprocityTheory.ChartRestriction.G.Out.SecTwistSt → ∀ (E :
   intro hS E _ _ _ H Dw l Xo c hBC h L _ _ y
   have hcond : y.x ≫ Xo.s =
       spMap (algebraMap c.F L) ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [y.x_over, spMap_comp_ring]
+    rw [y.x_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   let q : Sp L ⟶ Xo.XF c := pullback.lift y.x (spMap (algebraMap c.F L)) hcond
   obtain ⟨A, _, _, _, j, yA, hj, hp, hjs, hsm, hyA⟩ :=

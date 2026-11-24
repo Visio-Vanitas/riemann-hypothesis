@@ -1331,7 +1331,7 @@ theorem reducesAt_pack (hF : HT.FarguesHodgeTate) (E : Type) [Field E] [NumberFi
     rw [hb, hχ, P.Dh_e, hee, pow_val_mul _ _ hζ1]
   · rw [← hrk, P.toLi_bc.finrank_eq]
   · have hk : spMap (f.comp κ.symm.toRingHom) ≫ 𝔐.ξ = spMap f ≫ (BT.genPt (CR O y c')).hom ≫ P.x := by
-      rw [← hq, Tor.spMap_comp, Category.assoc]
+      rw [← hq, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     obtain ⟨I, hz, hI⟩ := hev.tate' D 𝔐.t 𝔐.ξ k _ _ hk
     refine ⟨I, ?_, fun x => ?_⟩
     · rw [hz, ← hζa, ← hκ]

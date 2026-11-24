@@ -213,7 +213,7 @@ def objOfFull (hc : l.A.Coprime l.M) {n : ℕ} {β : RZ H n l.A →+* KA l}
     have : CharZero k := (RingHom.charZero_iff δ.injective).1 inferInstance
     have hρ : β (RZ.rt H n l.A) = (baseKA l).ρ := Subtype.ext ((hβ _).trans (RZ.rt_coe _ _))
     have hζ : β (RZ.ze H n l.A) = (baseKA l).ζ := Subtype.ext (hβ _)
-    obtain ⟨hd, I, hz, ha⟩ := o.geom k x (δ.comp β) (by rw [← Category.assoc, hx, spMap_comp])
+    obtain ⟨hd, I, hz, ha⟩ := o.geom k x (δ.comp β) (by rw [← Category.assoc, hx, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     rw [RingHom.comp_apply, hρ] at hd
     rw [RingHom.comp_apply, hζ] at hz
     obtain ⟨I', h1, h2, h3⟩ := exists_tate_of_lin hc I (fun a => toUnit (Over.mk x) ≫ χ a)

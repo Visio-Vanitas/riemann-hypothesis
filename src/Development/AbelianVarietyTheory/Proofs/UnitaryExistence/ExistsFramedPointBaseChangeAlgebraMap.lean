@@ -59,7 +59,7 @@ namespace GlobalTheory.Frames.FramedBaseChange
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
   {Xo : Moduli Dw l} {c : Coeff l}
 
-alias spMap_comp_spMap := _root_.GlobalTheory.Frames.EigenBaseChange.spMap_spMap
+alias spMap_comp_spMap := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 alias dualMap_comp_alg := _root_.GlobalTheory.Frames.EigenBaseChange.dualMap_comp_alg
 

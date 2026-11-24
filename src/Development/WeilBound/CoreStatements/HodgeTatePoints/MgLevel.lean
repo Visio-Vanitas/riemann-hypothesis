@@ -68,11 +68,6 @@ theorem extPt_inj {X : Scheme.{0}} {k K : Type} [Field k] [Field K] (i : k →+*
   have h' : spMap i ≫ a.left = spMap i ≫ b.left := congrArg (fun q => q.left) h
   exact Over.OverMorphism.ext ((cancel_epi (spMap i)).1 h')
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := by
-  show Spec.map _ = Spec.map _ ≫ Spec.map _
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {D : Datum H} {X : Scheme.{0}}
   {t : SAB H X} {Ω : Type} [Field Ω] {ξ : Sp Ω ⟶ X} {N : ℕ} {z : Ωˣ} {ev : D.La → (Over.mk ξ ⟶ t.G)}
 
@@ -86,12 +81,12 @@ theorem full_desc (hN : 0 < N) (h : IsFullLevelAt D t ξ N z ev) (k : Type) [Fie
   let j : k →+* AlgebraicClosure k := algebraMap _ _
   obtain ⟨I, -, h2⟩ := h (AlgebraicClosure k) (j.comp i)
   let u : Over.mk (spMap (j.comp i) ≫ ξ) ⟶ Over.mk (spMap i ≫ ξ) :=
-    Over.homMk (spMap j) (by simp [spMap_comp])
+    Over.homMk (spMap j) (by simp [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   obtain ⟨a, ha⟩ := (I.onto N hN (u ≫ g)).1 (by rw [← MonObj.comp_pow, hg, MonObj.comp_one])
   refine ⟨a, ?_⟩
   have := epi_spMap j
   have e : spMap j ≫ g.left = (I.ev N a).left := by rw [ha]; rfl
-  rw [← cancel_epi (spMap j), e, h2, spMap_comp, Category.assoc]
+  rw [← cancel_epi (spMap j), e, h2, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 theorem level_props : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (D : Datum H), ∀ (X : Scheme.{0}) (t : SAB H X) (Ω : Type) [Field Ω] (ξ : Sp Ω ⟶ X) (N : ℕ), 0 < N → ∀ (z : Ωˣ) (ev : D.La → (Over.mk ξ ⟶ t.G)), IsFullLevelAt D t ξ N z ev → IsPrimitiveRoot z N ∧ (∀ a b, ev (a + b) = ev a * ev b) ∧ (∀ (r : 𝓞 E) a, ev (r • a) = ev a ≫ t.act.act r) ∧ (∀ a, ev a = 1 ↔ ∃ b, a = N • b) ∧ (∀ g : Over.mk ξ ⟶ t.G, g ^ N = 1 ↔ ∃ a, ev a = g) ∧ FullTorsion t.G ξ N ∧ ∀ (k : Type) [Field k] [IsAlgClosed k] (i : Ω →+* k) (a b : D.La) (g g' : Over.mk (spMap i ≫ ξ) ⟶ t.G), g.left = spMap i ≫ (ev a).left → g'.left = spMap i ≫ (ev b).left → Out.WeilIs t.G t.PP.L N g g' (unitOn (Units.map i.toMonoidHom z ^ D.EF a b)) := by
   intro E _ _ _ H D X t Ω _ ξ N hN z ev h

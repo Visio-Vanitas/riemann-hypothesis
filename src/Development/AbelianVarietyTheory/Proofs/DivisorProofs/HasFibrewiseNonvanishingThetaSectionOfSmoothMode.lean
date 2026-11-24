@@ -362,12 +362,12 @@ theorem hasTheta_of_smooth : ∀ (E : Type) [Field E] [NumberField E] [IsCMField
   have h₁ := LocM.Bdy.residue_comp (R := R) x
   have e : spMap (algebraMap (AdicCompletion (maximalIdeal (Y.X.presheaf.stalk x)) (Y.X.presheaf.stalk x)) R) ≫
       fromSpecCompletedStalk Y.X x = spMap ψ ≫ Y.X.fromSpecStalk x := by
-    rw [spMap_comp, Category.assoc]; rfl
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]; rfl
   have h₂ : spMap j ≫ spMap (algebraMap (Y.X.residueField x) k) =
       spMap ((ResidueField.map (algebraMap (AdicCompletion (maximalIdeal (Y.X.presheaf.stalk x))
         (Y.X.presheaf.stalk x)) R)).comp (ResidueField.map (algebraMap (Y.X.presheaf.stalk x)
           (AdicCompletion (maximalIdeal (Y.X.presheaf.stalk x)) (Y.X.presheaf.stalk x))))) :=
-    (spMap_comp _ _).symm.trans (congrArg spMap hj)
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap hj)
   obtain ⟨S₁, hS₁⟩ := LocM.Bdy.split_pull _ hS' j (ι := spMap ψ ≫ Y.X.fromSpecStalk x) (by
     rw [← Category.assoc]
     refine (congrArg (· ≫ Y.X.fromSpecResidueField x) h₂).trans ?_

@@ -527,10 +527,6 @@ theorem exists_finite_subfield {F k : Type} [Field F] [Field k] [Algebra F k] [A
   rw [← hf, ← Spec.map_comp_assoc]
   rfl
 
-theorem spMap_comp_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp]; rfl
-
 theorem exists_reps (M : Type) [AddCommGroup M] [Module.Finite ℤ M] (N : ℕ) (hN : 0 < N) :
     ∃ (T : Type) (_ : Finite T) (r : M → T) (u : T → M), ∀ a, ∃ b, a = u (r a) + N • b := by
   let S : Submodule ℤ M := LinearMap.range ((N : ℤ) • (LinearMap.id : M →ₗ[ℤ] M))
@@ -603,11 +599,11 @@ theorem exists_of_tateIso {D : Datum H} {l : Geo.Tor.Level H} {Xo : Moduli D l} 
   have heΩ : ∀ τ, spMap (algebraMap Ω L) ≫ eΩ τ = g (u τ) := fun τ => by
     rw [← he τ]
     simp only [eΩ]
-    rw [← Category.assoc, spMap_comp_spMap]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   haveI := _root_.PositivityTheory.HtPt.Mg.epi_spMap (algebraMap Ω L)
   have hover : ∀ τ, eΩ τ ≫ q = spMap (algebraMap K Ω) := fun τ => by
-    rw [← cancel_epi (spMap (algebraMap Ω L)), ← Category.assoc, heΩ, hg, spMap_comp_spMap]
+    rw [← cancel_epi (spMap (algebraMap Ω L)), ← Category.assoc, heΩ, hg, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have hpull : ∀ τ, eΩ τ ≫ pullback.fst _ _ ≫ Y.oF.t.G.hom = spMap (algebraMap K Ω) ≫ y := fun τ => by
     calc eΩ τ ≫ pullback.fst _ _ ≫ Y.oF.t.G.hom = eΩ τ ≫ q ≫ y := congrArg (eΩ τ ≫ ·) pullback.condition
@@ -633,7 +629,7 @@ theorem exists_of_tateIso {D : Datum H} {l : Geo.Tor.Level H} {Xo : Moduli D l} 
   have hx : spMap i ≫ spMap (algebraMap K Ω) ≫ y ≫ Y.j =
       (spMap i' ≫ spMap (algebraMap K L) ≫ y) ≫ (Y.jQ ≫ pullback.fst _ _) := by
     have h1 : spMap i ≫ spMap (algebraMap K Ω) = spMap i' ≫ spMap (algebraMap K L) := by
-      rw [spMap_comp_spMap, spMap_comp_spMap, ← hcomp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hcomp]
       rfl
     rw [← Category.assoc, h1]
     simp only [Category.assoc]
@@ -653,7 +649,7 @@ theorem exists_of_tateIso {D : Datum H} {l : Geo.Tor.Level H} {Xo : Moduli D l} 
     rw [← hev, (hI' N hN0).2 a, h2]
     show _ = spMap i ≫ eΩ (r a) ≫ pullback.fst _ _ ≫ Y.m.φ
     simp only [Category.assoc]
-    rw [← Category.assoc (spMap i'), spMap_comp_spMap, hcomp]
+    rw [← Category.assoc (spMap i'), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomp]
 
 end GlobalTheory.CompanionTheory.Ar.XR.LevelPt
 
@@ -730,14 +726,14 @@ theorem isFullLevelAt_move : ∀ (E : Type) [Field E] [NumberField E] [IsCMField
   intro k _ _ j
   obtain ⟨I, hIζ, hIev⟩ := hfull k (j.comp i)
   have hx : spMap (j.comp i) ≫ ξ = (spMap j ≫ ξ') ≫ f := by
-    rw [spMap_comp, Category.assoc, Category.assoc, hξ]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, hξ]
   obtain ⟨I', hζ, hev⟩ := (tateIsoAt_move E H D X X' t t' f m k (spMap j ≫ ξ') (spMap (j.comp i) ≫ ξ) hx).1 I
   refine ⟨I', ?_, ?_⟩
   · rw [hζ, hIζ]
     simp
   · intro a
     apply hpb.hom_ext
-    · rw [hev N a, hIev a, Category.assoc, hfst a, spMap_comp, Category.assoc]
+    · rw [hev N a, hIev a, Category.assoc, hfst a, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     · rw [Over.w (I'.ev N a), Category.assoc, hsnd a]
       rfl
 

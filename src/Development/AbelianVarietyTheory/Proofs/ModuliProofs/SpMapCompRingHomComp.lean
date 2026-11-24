@@ -90,11 +90,6 @@ theorem eval₂_homogeneousComponent_eq_zero {R R' σ : Type} [CommRing R] [Comm
   rw [h, ← map_zero Polynomial.toLaurent] at key
   rw [Polynomial.toLaurent_injective key, Polynomial.coeff_zero]
 
-theorem spMap_comp_ringHom_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (β : A →+* B) (φ : B →+* C) :
-    spMap φ ≫ spMap β = spMap (φ.comp β) := by
-  simp only [spMap, ← Spec.map_comp]
-  rfl
-
 private theorem secCoord_laurent_T_mul_C_of_secCoord {X Y : Scheme.{0}} {M : LB X} {σ : Type} {th : σ → M.Sec} {R' : Type}
     [CommRing R'] (y : Sp R' ⟶ Y) (a : Y ⟶ X) (v : σ → R') (h : SecCoord M th (y ≫ a) v) :
     SecCoord M th ((spMap (LaurentPolynomial.C : R' →+* LaurentPolynomial R') ≫ y) ≫ a)
@@ -111,7 +106,7 @@ theorem ideals_homogeneous : (∀ (R σ : Type) [CommRing R] (Y X : Scheme.{0}) 
     intro R' _ β y v hyv
     have h0 := hF (LaurentPolynomial R') inferInstance (LaurentPolynomial.C.comp β)
       (spMap LaurentPolynomial.C ≫ y) (fun i => LaurentPolynomial.T 1 * LaurentPolynomial.C (v i))
-      ⟨by rw [Category.assoc, hyv.1, spMap_comp_ringHom_comp], secCoord_laurent_T_mul_C_of_secCoord y a v hyv.2⟩
+      ⟨by rw [Category.assoc, hyv.1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp], secCoord_laurent_T_mul_C_of_secCoord y a v hyv.2⟩
     exact eval₂_homogeneousComponent_eq_zero β v F e h0
   · intro R σ₁ σ₂ _ Y X₁ X₂ s M₁ th₁ a₁ M₂ th₂ a₂ _ _ F hF e
     simp only [graphIdeal, Submodule.mem_iInf, RingHom.mem_ker] at hF ⊢
@@ -119,7 +114,7 @@ theorem ideals_homogeneous : (∀ (R σ : Type) [CommRing R] (Y X : Scheme.{0}) 
     have h0 := hF (LaurentPolynomial R') inferInstance (LaurentPolynomial.C.comp β)
       (spMap LaurentPolynomial.C ≫ y) (fun i => LaurentPolynomial.T 1 * LaurentPolynomial.C (v₁ i))
       (fun i => LaurentPolynomial.C (v₂ i))
-      ⟨by rw [Category.assoc, hyv.1, spMap_comp_ringHom_comp], secCoord_laurent_T_mul_C_of_secCoord y a₁ v₁ hyv.2.1,
+      ⟨by rw [Category.assoc, hyv.1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp], secCoord_laurent_T_mul_C_of_secCoord y a₁ v₁ hyv.2.1,
         by rw [Category.assoc]; exact Coord.baseChange hyv.2.2 LaurentPolynomial.C⟩
     have hfun : (fun i : σ₁ × σ₂ => LaurentPolynomial.T 1 * LaurentPolynomial.C (v₁ i.1 * v₂ i.2)) =
         fun i => LaurentPolynomial.T 1 * LaurentPolynomial.C (v₁ i.1) * LaurentPolynomial.C (v₂ i.2) := by

@@ -442,7 +442,7 @@ theorem exists_finset_of_lift (hT : Out.SecTwistSt) (hbc : FrBC Xo c) {Y : Model
   obtain ⟨α, hα, hfin, -⟩ := (GlobalTheory.ModelPoints.model_points_charts E H Dw l Xo c _ _ Y).2.2 M.U M.hU
   have hfα : f.comp α = (algebraMap c.F R).comp (algebraMap (𝓞 c.F) c.F) := by
     have e : spMap (f.comp α) = spMap ((algebraMap c.F R).comp (algebraMap (𝓞 c.F) c.F)) := by
-      rw [← Formalism.L2.PjFree.spMap_comp', ← Formalism.L2.PjFree.spMap_comp', ← hα, ← Category.assoc, ← Λ.xF_j,
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hα, ← Category.assoc, ← Λ.xF_j,
         Category.assoc, Y.j_s, ← Category.assoc, Λ.xF_snd]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective e)
   let _ := α.toAlgebra
@@ -513,7 +513,7 @@ theorem genFr_integral : ReciprocityTheory.ChartRestriction.G.Out.SecTwistSt →
     rw [hpt]; exact hM)
   have hs : xF ≫ pullback.snd _ _ = spMap (algebraMap c.F (Om Z)) := by
     have e : genSp Z ≫ strK = spMap (algebraMap c.F (kap Z)) := (Spec.map_preimage _).symm
-    rw [IsScalarTower.algebraMap_eq c.F (kap Z) (Om Z), ← Formalism.L2.PjFree.spMap_comp', ← e]
+    rw [IsScalarTower.algebraMap_eq c.F (kap Z) (Om Z), ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← e]
     exact Category.assoc _ _ _
   obtain ⟨Λ⟩ := GlobalTheory.Reg.MChart.nonempty_lift E H Dw l Xo c _ _ Y M (Om Z) f xF hs hf.symm
   have ex : xF ≫ pullback.fst _ _ = (genFr h Z).x := (Category.assoc _ _ _).trans (isGenFr_genFr h Z).1.symm

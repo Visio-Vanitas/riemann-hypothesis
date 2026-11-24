@@ -163,10 +163,10 @@ theorem exists_ext_lift_to_cover : ∀ (E : Type) [Field E] [NumberField E] [IsC
   haveI := epi_spMap (algebraMap K k)
   have hKk : (algebraMap K k).comp (algebraMap T.Fr K) = algebraMap T.Fr k := rfl
   have hq1 : q ≫ d.r = spMap (algebraMap T.Fr K) ≫ xOf y := by
-    rw [← cancel_epi (spMap (algebraMap K k)), ← Category.assoc, hq, hp1, ← Category.assoc, _root_.GlobalTheory.TanMod.spMap_comp', hKk]
+    rw [← cancel_epi (spMap (algebraMap K k)), ← Category.assoc, hq, hp1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hKk]
   have hq2 : q ≫ d.Xo₂.s = spMap ((algebraMap T.Fr K).comp
       ((io.comp j).comp (IntermediateField.inclusion d.c₂.le).toRingHom)) := by
-    rw [← cancel_epi (spMap (algebraMap K k)), ← Category.assoc, hq, hp2, _root_.GlobalTheory.TanMod.spMap_comp']
+    rw [← cancel_epi (spMap (algebraMap K k)), ← Category.assoc, hq, hp2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   obtain ⟨T', iT, e, ψ, φ, he, hv, hψ, -, hfin⟩ := GlobalTheory.PlaceExtField.exists_cdvr_finite_extension T K
   have hψ' : ψ.toRingHom.comp (algebraMap T.Fr K) = iT := RingHom.ext hψ
@@ -180,8 +180,8 @@ theorem exists_ext_lift_to_cover : ∀ (E : Type) [Field E] [NumberField E] [IsC
   letI := io₂.toAlgebra
   obtain ⟨y₂, -, hy₂⟩ := (GlobalTheory.frames_lift_to_cover hL E H Dw l Xo c n d).1 T'.Fr hio y'.1
     (spMap ψ.toRingHom ≫ q)
-    (by rw [Category.assoc, hq1, ← Category.assoc, _root_.GlobalTheory.TanMod.spMap_comp', hψ']; exact hx'.symm)
-    (by rw [Category.assoc, hq2, _root_.GlobalTheory.TanMod.spMap_comp', ← RingHom.comp_assoc, hψ']; rfl)
+    (by rw [Category.assoc, hq1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψ']; exact hx'.symm)
+    (by rw [Category.assoc, hq2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, hψ']; rfl)
   exact ⟨T', iT, e, y', io₂, ⟨y₂, GlobalTheory.Frames.allTest_of_secBaseChange hL.secBaseChange E H Dw d.l₂ d.Xo₂ d.c₂ _ y₂,
     _root_.GlobalTheory.PlaceInt.integral_of_frOver E H Dw l Xo c n d T' (iT.comp io) io₂ y' hio y₂ hy₂⟩, hy', hfin hT, hio, hy₂⟩
 

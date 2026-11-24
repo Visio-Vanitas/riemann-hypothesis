@@ -54,7 +54,7 @@ open GlobalTheory.Poinc
 
 namespace GlobalTheory.Poinc.TraitLift
 
-alias spMap_comp' := _root_.Formalism.L2.Pj.spMap_comp_ring
+alias spMap_comp' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem mem_of_closedPoint {Y : Scheme.{0}} (U : Set Y) (hU : IsOpen U) (V : Type) [CommRing V] [IsLocalRing V]
     (ξ : Sp V ⟶ Y) (h : ξ (closedPoint V) ∈ U) (x : Sp V) : ξ x ∈ U := by

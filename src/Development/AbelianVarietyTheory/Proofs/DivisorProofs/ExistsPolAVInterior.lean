@@ -469,7 +469,7 @@ theorem pull_diff (t : SAB H X) (V : X.Opens) (U : X.affineOpens) {n : ℕ}
   have hxA : x ≫ A.hom = spMap ψ := (Spec.map_preimage (x ≫ A.hom)).symm
   choose w hw hw' using fun a => exists_isTransl_snd (hut a) (hdd a) ψ x hxA
   have hbase : (x ≫ m) ≫ t.G.hom = spMap (ψ.comp (GlobalTheory.FlagMod.ev x0 U.1 hU)) ≫ GlobalTheory.LogKS.chart U := by
-    rw [Category.assoc, hm.1.w, ← Category.assoc, hxA, GlobalTheory.Cris.spMap_comp (GlobalTheory.FlagMod.ev x0 U.1 hU), Category.assoc]
+    rw [Category.assoc, hm.1.w, ← Category.assoc, hxA, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (GlobalTheory.FlagMod.ev x0 U.1 hU), Category.assoc]
     exact congrArg _ (GlobalTheory.FlagMod.spMap_ev x0 U.2 hU).symm
   have key := hdiff i i' O hO f S (ψ.comp (GlobalTheory.FlagMod.ev x0 U.1 hU)) (x ≫ m) (fun a => w a ≫ m) hbase hx
     (fun a => GlobalTheory.CechKS.IsTransl.isTranslate_comp t x0 A m hm _ (v a) (u a) (hu a) ψ x hxA (w a) (hw a))

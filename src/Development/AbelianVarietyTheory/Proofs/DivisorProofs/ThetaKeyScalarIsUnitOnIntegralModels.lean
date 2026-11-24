@@ -214,7 +214,7 @@ theorem mem_range_j_iff (x : (locModel Y b hb).X) :
     refine ⟨u, (pullback.fst Y.s (spMap b)).isEmbedding.injective ?_⟩
     rw [← hu, Scheme.Hom.comp_apply]
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem locModel_arc (h : Y.N4) : (locModel Y b hb).N4 := by
   intro O'' _ _ _ b' ϖ a hO
@@ -813,9 +813,6 @@ open scoped LaurentSeries
 
 namespace GlobalTheory.ArcIntegral
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : B →+* C) (g : A →+* B) :
-    spMap f ≫ spMap g = spMap (f.comp g) := (Spec.map_comp _ _).symm
-
 theorem ev_factor {Z : Scheme.{0}} {A B : Type} [CommRing A] [CommRing B] (φ : A →+* B) (z₁ : Sp A ⟶ Z) (z₂ : Sp B ⟶ Z)
     (e : z₂ = spMap φ ≫ z₁) (W : Z.Opens) (h₁ : ⊤ ≤ z₁ ⁻¹ᵁ W) (h₂ : ⊤ ≤ z₂ ⁻¹ᵁ W) (f : Γ(Z, W)) :
     ev z₂ W h₂ f = φ (ev z₁ W h₁ f) := by
@@ -977,8 +974,8 @@ theorem integral_of_arcs_of_good : ∀ (E : Type) [Field E] [NumberField E] [IsC
       ⊤ ≤ w ⁻¹ᵁ W₀ := fun w hr hu x hx => hUW _ (hu hx) (hr ⟨x, rfl⟩)
   obtain ⟨io, hio⟩ := exists_spMap (y ≫ pullback.snd _ _)
   obtain ⟨b₀, hover⟩ := exists_spMap (z ≫ Y.s)
-  have hcomp : (algebraMap R K).comp b₀ = io.comp V.subtype := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by
-    rw [← sp_comp, ← sp_comp, ← hover, ← hio, ← Category.assoc, ← hy, Model.j, ← Y.jQ_over]
+  have hcomp : (algebraMap R K).comp b₀ = io.comp V.subtype := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hover, ← hio, ← Category.assoc, ← hy, Model.j, ← Y.jQ_over]
     simp only [Category.assoc, pullback.condition])
   have hgen : Set.range (spMap (algebraMap R K) ≫ z) ⊆ Set.range Y.j := by
     rw [← hy]; rintro _ ⟨x, rfl⟩; exact ⟨y x, (Scheme.Hom.comp_apply _ _ _).symm⟩
@@ -993,14 +990,14 @@ theorem integral_of_arcs_of_good : ∀ (E : Type) [Field E] [NumberField E] [IsC
     simp only [b, io']
     rw [← RingHom.comp_assoc, ← hiK, RingHom.comp_assoc, hcomp, RingHom.comp_assoc]
   have hy' : y' ≫ Y.s = spMap b := by
-    simp only [y', Category.assoc]; rw [hover, sp_comp]
+    simp only [y', Category.assoc]; rw [hover, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let zT : Sp T.Fr ⟶ Xo.XF c := spMap iK ≫ y
   have hzT : zT ≫ Y.j = spMap (algebraMap T.V T.Fr) ≫ y' := by
     simp only [y', zT]
-    rw [Category.assoc, hy, ← Category.assoc, sp_comp, hiK, ← sp_comp, Category.assoc]
+    rw [Category.assoc, hy, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hiK, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have hzT' : zT ≫ pullback.snd _ _ = spMap io' := by
     simp only [zT, io']
-    rw [Category.assoc, hio, sp_comp]
+    rw [Category.assoc, hio, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   clear_value zT
   have hbad : ¬ Set.range y' ⊆ abLocus Y.t.G := fun hy => hab (by
     rintro _ ⟨x, rfl⟩
@@ -1018,10 +1015,10 @@ theorem integral_of_arcs_of_good : ∀ (E : Type) [Field E] [NumberField E] [IsC
   obtain ⟨-, -, evu, hevC, hevX, -⟩ := GlobalTheory.UniformiserEval.dvr_admissibleBase_and_powerSeries_evalUniformiser T'.V ϖ hϖ T'.cpl
   have hgF : Function.Injective ((algebraMap T'.V T'.Fr).comp g) := (IsFractionRing.injective T'.V T'.Fr).comp hg
   obtain ⟨gF, hgF'⟩ := exists_frac_lift (K := T.Fr) _ hgF
-  have hχy : spMap evu ≫ χ₀ = spMap g ≫ y' := hsp hϖ (spMap g ≫ y') evu (by rw [Category.assoc, hy', sp_comp]) (by
+  have hχy : spMap evu ≫ χ₀ = spMap g ≫ y' := hsp hϖ (spMap g ≫ y') evu (by rw [Category.assoc, hy', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) (by
       rintro _ ⟨x, rfl⟩
       have e : Out.jK T'.V ≫ spMap g ≫ y' = spMap gF ≫ zT ≫ Y.j := by
-        rw [hzT, ← Category.assoc, ← Category.assoc, sp_comp, ← hgF', ← sp_comp]
+        rw [hzT, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hgF', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         rfl
       exact ⟨zT (spMap gF x), by rw [e, Scheme.Hom.comp_apply, Scheme.Hom.comp_apply]⟩) hA hevC hevX
   have hχz : spMap evu ≫ χ₀ = spMap g ≫ spMap i ≫ z := hχy
@@ -1069,12 +1066,12 @@ theorem integral_of_arcs_of_good : ∀ (E : Type) [Field E] [NumberField E] [IsC
   have hιC : ∀ s, ιC (ι s) = HahnSeries.ofPowerSeries ℤ ℂ (PowerSeries.map κ₀ s) :=
     fun s => (hιC' s).trans (RingHom.comp_apply _ _ _)
   have hpt : spMap (HahnSeries.ofPowerSeries ℤ ℂ) ≫ spMap (PowerSeries.map κ₀) ≫ χ₀ = spMap ιC ≫ spMap ι ≫ χ₀ := by
-    rw [← Category.assoc, ← Category.assoc (spMap ιC), sp_comp, sp_comp,
+    rw [← Category.assoc, ← Category.assoc (spMap ιC), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       show ιC.comp ι = (HahnSeries.ofPowerSeries ℤ ℂ).comp (PowerSeries.map κ₀) from RingHom.ext hιC]
   have hLh : ⊤ ≤ (spMap (HahnSeries.ofPowerSeries ℤ ℂ) ≫ spMap (PowerSeries.map κ₀) ≫ χ₀) ⁻¹ᵁ W₀ := by
     rw [hpt]; exact le_preimage_comp _ hSW
   have hres := harc a₁ (spMap (PowerSeries.map κ₀) ≫ χ₀) ((Y.hasArcData_iff _ _ _ _ _).2 ⟨W₁⟩) (by
-      rw [Category.assoc, hover₀, sp_comp, sp_comp, sp_comp, hb']
+      rw [Category.assoc, hover₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hb']
       exact congrArg spMap (RingHom.ext fun x => PowerSeries.map_C κ₀ _)) (fun x hx => by
       refine hopen (spMap (PowerSeries.map κ₀) x) fun hm => ?_
       have hm' : PowerSeries.map κ₀ (PowerSeries.C ϖ * PowerSeries.X) ∈ x.asIdeal := hm
@@ -1086,7 +1083,7 @@ theorem integral_of_arcs_of_good : ∀ (E : Type) [Field E] [NumberField E] [IsC
   have hden := exists_denominator ϖ hϖ S (ev (spMap ι ≫ χ₀) W₀ hSW f₀) (by
     intro R' K' _ _ _ _ _ _ _ ρ ψ hψ hρ
     have e : spMap (algebraMap R' K') ≫ spMap ρ ≫ χ₀ = spMap ψ ≫ spMap ι ≫ χ₀ := by
-      rw [← Category.assoc, ← Category.assoc (spMap ψ), sp_comp, sp_comp, ← hψ]
+      rw [← Category.assoc, ← Category.assoc (spMap ψ), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hψ]
     have hW' : ⊤ ≤ (spMap (algebraMap R' K') ≫ spMap ρ ≫ χ₀) ⁻¹ᵁ W₀ := by
       rw [e]; exact le_preimage_comp _ hSW
     rw [← ev_factor ψ (spMap ι ≫ χ₀) _ e W₀ hSW hW' f₀]
@@ -1107,10 +1104,10 @@ theorem integral_of_arcs_of_good : ∀ (E : Type) [Field E] [NumberField E] [IsC
   obtain ⟨la, hla⟩ := exists_frac_lift (K := K) _ hgi
   have hpt2 : spMap la ≫ spMap (algebraMap R K) ≫ z = spMap φS ≫ spMap ι ≫ χ₀ := by
     have e1 : spMap la ≫ spMap (algebraMap R K) ≫ z = spMap ((algebraMap T'.V T'.Fr).comp (g.comp i)) ≫ z := by
-      rw [← Category.assoc, sp_comp, hla]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hla]
     have e2 : spMap φS ≫ spMap ι ≫ χ₀ = spMap ((algebraMap T'.V T'.Fr).comp (g.comp i)) ≫ z := by
-      rw [← Category.assoc, sp_comp, show φS.comp ι = (algebraMap T'.V T'.Fr).comp evu from RingHom.ext hφS,
-        ← sp_comp, Category.assoc, hχz, ← Category.assoc, ← Category.assoc, sp_comp, sp_comp]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, show φS.comp ι = (algebraMap T'.V T'.Fr).comp evu from RingHom.ext hφS,
+        ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hχz, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rw [e1, e2]
   have hval : la (ev (spMap (algebraMap R K) ≫ z) W₀ h f₀) = algebraMap T'.V T'.Fr (evu s) := by
     rw [← ev_factor la (spMap (algebraMap R K) ≫ z) _ rfl W₀ h (le_preimage_comp _ h),
@@ -1261,7 +1258,7 @@ theorem isUnit_key_of_good : ∀ (E : Type) [Field E] [NumberField E] [IsCMField
   let iK : K →+* T.Fr := IsFractionRing.lift hiF
   have hiK : ∀ r, iK (algebraMap R K r) = algebraMap T.V T.Fr (i r) := fun r => IsFractionRing.lift_algebraMap hiF r
   have hsq : spMap iK ≫ spMap (algebraMap R K) = spMap (algebraMap T.V T.Fr) ≫ spMap i := by
-    rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext hiK)
   have hpt : spMap iK ≫ spMap (algebraMap R K) ≫ z = spMap (algebraMap T.V T.Fr) ≫ spMap i ≫ z := by
     rw [← Category.assoc, hsq, Category.assoc]

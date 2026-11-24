@@ -152,7 +152,7 @@ theorem existsUnique_sum_vecAt {R : Type} [CommRing R] (j : c.F →+* R) (z : Sp
     have hz' := le_preimage_comp (spMap φ) hz
     have e : spMap φ ≫ z ≫ X.π = (spMap φ ≫ z) ≫ X.π := (Category.assoc _ _ _).symm
     obtain ⟨g, hg⟩ := VarFlag.framesExist_flagCover X _ (φ.comp j) (spMap φ ≫ z) k hz'
-      (by rw [Category.assoc, hj, spMap_comp'])
+      (by rw [Category.assoc, hj, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     obtain ⟨a, ha, -⟩ := g.existsUnique_sum σ (tanPull φ e (vec _ _ (X.F.inM hz rfl) cv)) fun b => by
       rw [← tanPull_actR, hw, map_smulₛₗ]; rfl
     have hv : ∀ i, g.vec σ i = X.F.vecAt k _ hz' rfl σ i := fun i => tan_ext_left (hg σ i)

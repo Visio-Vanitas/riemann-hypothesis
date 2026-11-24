@@ -100,7 +100,7 @@ theorem exists_unif_of_split (T T' : CDVR) (f : T.V →+* T'.V) (ψ : T.Fr →+*
   subst hx
   have hι : ψ.comp (algebraMap T.V T.Fr) = (algebraMap T'.V T'.Fr).comp f := RingHom.ext hψ
   have hio : spMap (algebraMap T'.V T'.Fr) ≫ spMap f = spMap ψ ≫ spMap (algebraMap T.V T.Fr) := by
-    rw [← spMap_comp, ← spMap_comp, hι]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hι]
   obtain ⟨tP, ⟨mP⟩⟩ : ∃ tP : SAB H (Sp T'.V), Nonempty (SABMap tP G (spMap f)) := by
     obtain ⟨_, _, _, _, _, m, -⟩ := sabPull Out.CubePf.cubePull (spMap f) G
     exact ⟨_, ⟨m⟩⟩
@@ -191,7 +191,7 @@ theorem exists_good_chart_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMFi
   refine ⟨C', hC', ?_⟩
   obtain ⟨φ, hφ, hloc⟩ := exists_local_restrict T T' iT e he hv
   have hsq : spMap iT ≫ spMap (algebraMap T.V T.Fr) = spMap (algebraMap T'.V T'.Fr) ≫ spMap φ := by
-    rw [← spMap_comp, ← spMap_comp, hφ]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ]
   have tr : ∀ {S S' : Scheme.{0}} {s : SAB H S} {s' : SAB H S'} {f g : S' ⟶ S}, f = g → SABMap s' s f →
       Nonempty (SABMap s' s g) := by
     intro S S' s s' f g h m

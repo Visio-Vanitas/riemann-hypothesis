@@ -105,7 +105,7 @@ theorem exists_local_basis {X : Scheme.{0}} (π : X ⟶ S) (s : X ⟶ Sp c.F) {m
     rw [hr] at fr fi
     refine Module.finBasisOfFinrankEq L _ ((hk τ).2.2.trans ?_)
     have h := hm k (ψk.comp φ) (spMap ψk ≫ x)
-      (by rw [Category.assoc, hφ, ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap])
+      (by rw [Category.assoc, hφ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     rw [Category.assoc] at h
     exact ReciprocityTheory.ChartRestriction.G.Chart.finrank_of_lieMult (_root_.GlobalTheory.ObjComp.isGrpPullback_id t.G) (Category.comp_id _) hxk t.act t.act.act
       (fun a => (Category.comp_id _).trans (Category.id_comp _).symm) _ (fun a => rfl)
@@ -129,7 +129,7 @@ theorem exists_affine_bases {X : Scheme.{0}} (π : X ⟶ S) (s : X ⟶ Sp c.F) (
   let φ₀ : c.F →+* Γ(X, U₀) := (Spec.preimage (j ≫ s)).hom
   have hφ₀ : spMap φ₀ = j ≫ s := Spec.map_preimage _
   have hov : ∀ {R : Type} [CommRing R] (ψ : Γ(X, U₀) →+* R), (spMap ψ ≫ j) ≫ s = spMap (ψ.comp φ₀) :=
-    fun ψ => by rw [Category.assoc, ← hφ₀, ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap]
+    fun ψ => by rw [Category.assoc, ← hφ₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   open ReciprocityTheory.ChartRestriction.G.Chart in
   let Compat (t : SAB H S) {R R' : Type} [CommRing R] [CommRing R'] (ψ : R →+* R') {x : Sp R ⟶ S} {x' : Sp R' ⟶ S} {n : ℕ}
       (xc : ∀ m : ℕ, sp (R₀ := R) (ReciprocityTheory.ChartRestriction.G.Chart.JetR R (Fin n) m) ⟶ (Over.pullback x).obj t.G)

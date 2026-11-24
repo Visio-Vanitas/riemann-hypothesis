@@ -149,7 +149,7 @@ theorem exists_trait_torusPart : ∀ (Y : Scheme.{0}) [IsIntegral Y] [IsLocallyN
   let GK := (Over.pullback (spMap (alg.comp ψ))).obj GR
   have hK : IsGrpPullback GK G (spMap alg ≫ ξ) _ :=
     ((isGrpPullback_pullback GR (spMap (alg.comp ψ))).comp (isGrpPullback_pullback G s')).congr
-      (by rw [spMap_comp', Category.assoc]) rfl
+      (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]) rfl
   let ψ' : GK.left ⟶ G₁.left := h₁.1.lift _ (GK.hom ≫ spMap alg) (by rw [hK.1.w, Category.assoc])
   have hψ' : IsGrpPullback GK G₁ (spMap alg) ψ' :=
     h₁.cancel (hK.congr rfl (h₁.1.lift_fst _ _ _).symm) (h₁.1.lift_snd _ _ _)
@@ -167,9 +167,9 @@ theorem exists_trait_torusPart : ∀ (Y : Scheme.{0}) [IsIntegral Y] [IsLocallyN
     exact not_isUnit_zero hx⟩
   have key : spMap α ≫ spMap alg ≫ ξ = spMap β ≫ Y.fromSpecStalk w := by
     calc spMap α ≫ spMap alg ≫ ξ = spMap ((α.comp alg).comp ψ) ≫ s' := by
-          simp only [ξ, spMap_comp', Category.assoc]
+          simp only [ξ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       _ = spMap (β.comp g) ≫ s' := by rw [e]
-      _ = spMap β ≫ Y.fromSpecStalk w := by rw [spMap_comp', Category.assoc, hgs]
+      _ = spMap β ≫ Y.fromSpecStalk w := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hgs]
   refine ⟨V, inferInstance, inferInstance, hV, ξ, G₁, inferInstance, inferInstance, pullback.fst G.hom ξ, E.X,
     inferInstance, inferInstance, inferInstance, j, GK, inferInstance, ψ', hψ', ?_, ?_, h₁, hj, ?_⟩
   · have h1 : (spMap ψ) (closedPoint V) = closedPoint (Y.presheaf.stalk w') := Spec_closedPoint
@@ -969,16 +969,6 @@ namespace GlobalTheory.Poinc.FibLat
 
 open GlobalTheory.SplitTorus (torusMap bcMap)
 
-theorem ringHom_eq_of_spMap {A B : Type} [CommRing A] [CommRing B] {a b : A →+* B} (h : spMap a = spMap b) : a = b := by
-  have h1 := Spec.map_injective h
-  have h2 := congrArg CommRingCat.Hom.hom h1
-  simpa using h2
-
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (a : A →+* B) (b : B →+* C) :
-    spMap b ≫ spMap a = spMap (b.comp a) := by
-  simp only [spMap, ← Spec.map_comp]
-  rfl
-
 theorem exists_spMap {A B : Type} [CommRing A] [CommRing B] (s : Sp B ⟶ Sp A) : ∃ a : A →+* B, s = spMap a := ⟨(Spec.preimage s).hom, by simp [spMap]⟩
 
 private theorem isGrpPullback_pullback_fst {S S' : Scheme.{0}} (f : S' ⟶ S) (G : Over S) [GrpObj G] :
@@ -1048,8 +1038,8 @@ theorem LatAt.transfer {X : Type} [AddCommGroup X] [Module.Free ℤ X] [Module.F
   obtain ⟨K, _, b, b', GK, _, ψ, ψ', e1, hψ, hψ', e2⟩ := exists_common_pullback (hs.trans hs'.symm) hφ hφ'
   obtain ⟨e, he⟩ := IsTorPart.exists_equiv (ht'.pull hψ') (ht.pull hψ)
   have hab : b.comp a = b'.comp a' := by
-    apply ringHom_eq_of_spMap
-    rw [← spMap_comp', ← spMap_comp', ← ha, ← ha', reassoc_of% e1]
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ha, ← ha', reassoc_of% e1]
   refine ⟨e, K, inferInstance, b', GK, inferInstance, ψ', hψ', ?_⟩
   have hc2 := hc.pull b hψ
   rw [he, e1, hab, e2] at hc2
@@ -1136,7 +1126,7 @@ theorem latAt_iff_of_specializes [IsNoetherianRing o] [IsCommMonObj G] (hG : IsS
   obtain ⟨K, _, b₀, b₁, GK', _, ψ₀, ψ₁, -, hψ₀, hψ₁, -⟩ := exists_common_pullback (hs₀.trans hcl.symm) hφ₀ (hGc.comp hφ₁)
   have hψc : IsGrpPullback GK' G₁ (spMap (b₁.comp (IsLocalRing.residue V)))
       (ψ₁ ≫ pullback.fst G₁.hom (spMap (IsLocalRing.residue V))) := by
-    rw [← spMap_comp']
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact hψ₁.comp hGc
   have ht0 : IsTorPart (pullTorus hψc j) :=
     GlobalTheory.T.splitTorusPart_generic_fibre_closed_fibre_dvr V G₁ hG₁ X₁ j hj GK ψ hψ hjt K (b₁.comp (IsLocalRing.residue V)) inferInstance GK' _ hψc X₀ _
@@ -1144,9 +1134,9 @@ theorem latAt_iff_of_specializes [IsNoetherianRing o] [IsCommMonObj G] (hG : IsS
   have hsc : (spMap (b₁.comp (IsLocalRing.residue V)) ≫ ξ) (closedPoint K) = w' :=
     (congrArg (fun x => ξ x) (GtDescent.spMap_cpt (b₁.comp (IsLocalRing.residue V)))).trans hξ'
   have ha_gen : (spMap (algebraMap V (FractionRing V)) ≫ ξ) ≫ M.s = spMap ((algebraMap V (FractionRing V)).comp a) := by
-    rw [Category.assoc, ha, spMap_comp']
+    rw [Category.assoc, ha, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have ha_cl : (spMap (b₁.comp (IsLocalRing.residue V)) ≫ ξ) ≫ M.s = spMap ((b₁.comp (IsLocalRing.residue V)).comp a) := by
-    rw [Category.assoc, ha, spMap_comp']
+    rw [Category.assoc, ha, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hextV : ∀ t, ExtNear (gγ t) (ξ (closedPoint V)) := by
     rw [hξ']
     exact hext
@@ -1154,13 +1144,13 @@ theorem latAt_iff_of_specializes [IsNoetherianRing o] [IsCommMonObj G] (hG : IsS
   · intro h
     obtain ⟨e, K₂, _, b₂, GK₂, _, ψ₂, hψ₂, hc⟩ := h.transfer hξ ha_gen hgen hjt
     have hψ₂' : IsGrpPullback GK₂ G₁ (spMap (b₂.comp (algebraMap V (FractionRing V)))) (ψ₂ ≫ ψ) := by
-      rw [← spMap_comp']
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact hψ₂.comp hψ
     have hinj : Function.Injective (b₂.comp (algebraMap V (FractionRing V))) :=
       b₂.injective.comp (IsFractionRing.injective V (FractionRing V))
     have hcV : Compat f gγ ζ L m c ξ a φ₁ (torusMap _ e.toAddMonoidHom ≫ j) := by
       refine GlobalTheory.T.torusCompat_of_compat_over_field o Ω M G hG I T f gγ ζ L hL hζ X m c V ξ a G₁ φ₁ hφ₁ _ hextV K₂ _ hinj GK₂ _ hψ₂' ?_
-      rw [pullTorus_torusMap_comp, ← pullTorus_pullTorus hψ₂ hψ hψ₂' (spMap_comp' _ _).symm rfl, ← spMap_comp']
+      rw [pullTorus_torusMap_comp, ← pullTorus_pullTorus hψ₂ hψ hψ₂' (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _) rfl, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       simpa only [Category.assoc, RingHom.comp_assoc] using hc
     have hc2 := hcV.pull (b₁.comp (IsLocalRing.residue V)) hψc
     rw [pullTorus_torusMap_comp] at hc2
@@ -1169,16 +1159,16 @@ theorem latAt_iff_of_specializes [IsNoetherianRing o] [IsCommMonObj G] (hG : IsS
     obtain ⟨e, K₂, _, b₂, GK₂, _, ψ₂, hψ₂, hc⟩ := h.transfer hsc ha_cl (hψc.comp hφ₁) ht0
     have hψ₃ : IsGrpPullback GK₂ G₁ (spMap (b₂.comp (b₁.comp (IsLocalRing.residue V))))
         (ψ₂ ≫ ψ₁ ≫ pullback.fst G₁.hom (spMap (IsLocalRing.residue V))) := by
-      rw [← spMap_comp']
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact hψ₂.comp hψc
     have hcV : Compat f gγ ζ L m c ξ a φ₁ (torusMap _ e.toAddMonoidHom ≫ j) := by
       refine GlobalTheory.T.torusCompat_of_compat_closedPoint o Ω M G hG I T f gγ ζ L hL hζ hu hf hγ X m c V ξ a G₁ φ₁ hφ₁ _ inferInstance hextV GK ψ hψ
         ?_ K₂ _ inferInstance GK₂ _ hψ₃ ?_ ?_
       · rw [pullTorus_torusMap_comp]
         exact hjt.equiv e
-      · rw [pullTorus_torusMap_comp, ← pullTorus_pullTorus hψ₂ hψc hψ₃ (spMap_comp' _ _).symm rfl]
+      · rw [pullTorus_torusMap_comp, ← pullTorus_pullTorus hψ₂ hψc hψ₃ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _) rfl]
         exact (ht0.pull hψ₂).equiv e
-      · rw [pullTorus_torusMap_comp, ← pullTorus_pullTorus hψ₂ hψc hψ₃ (spMap_comp' _ _).symm rfl, ← spMap_comp']
+      · rw [pullTorus_torusMap_comp, ← pullTorus_pullTorus hψ₂ hψc hψ₃ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _) rfl, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         simpa only [Category.assoc, RingHom.comp_assoc] using hc
     have hc3 := hcV.pull (algebraMap V (FractionRing V)) hψ
     rw [pullTorus_torusMap_comp] at hc3

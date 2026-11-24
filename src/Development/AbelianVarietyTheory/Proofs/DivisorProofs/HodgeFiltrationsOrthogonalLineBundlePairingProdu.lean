@@ -231,7 +231,7 @@ def ptBack [IsIso q] {E : Type} [CommRing E] (g : Sp E ⟶ X.left) :
 theorem ringOf_comp (w : q ≫ X.hom = X'.hom ≫ spMap σ) [IsIso q] {E : Type} [CommRing E] [Algebra R E]
     (z : Pt X E) : (ringOf (X' := X') (z.left ≫ inv q)).comp σ = algebraMap R E := by
   have h1 : spMap ((ringOf (X' := X') (z.left ≫ inv q)).comp σ) = spMap (algebraMap R E) := by
-    rw [spMap_comp, spMap_ringOf]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, spMap_ringOf]
     simp only [Category.assoc, ← w, IsIso.inv_hom_id_assoc]
     exact Over.w z
   exact congrArg CommRingCat.Hom.hom (Spec.map_injective h1)
@@ -268,7 +268,7 @@ theorem isCob_of_bcPull_isIso : ∀ (R R' : Type) [CommRing R] [CommRing R'] (σ
   letI A' : Algebra R' E' := τ'.toAlgebra
   have hτ : τ' = (φ : E →+* E').comp τ := by
     apply ringOf_eq_of_spMap
-    rw [spMap_comp, spMap_ringOf]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, spMap_ringOf]
     simp only [Over.comp_left, Category.assoc]
     rfl
   have hc : ∀ r, φ (τ r) = τ' r := fun r ↦ by rw [hτ]; rfl

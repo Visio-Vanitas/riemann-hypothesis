@@ -109,11 +109,11 @@ def ovHom {X : Scheme.{0}} (x : Sp S ⟶ X) {A B : Type} [CommRing A] [CommRing 
     (φ : A →+* B) (h : φ.comp a = b) : Over.mk (spMap b ≫ x) ⟶ Over.mk (spMap a ≫ x) :=
   Over.homMk (spMap φ) (by
     change spMap φ ≫ spMap a ≫ x = spMap b ≫ x
-    rw [← Category.assoc, ← spMap_comp_eq, h])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h])
 
 theorem spMap_comp_eq_id {A B : Type} [CommRing A] [CommRing B] (φ : A →+* B) (ψ : B →+* A)
     (h : φ.comp ψ = RingHom.id B) : spMap φ ≫ spMap ψ = 𝟙 _ := by
-  rw [← spMap_comp_eq, h]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h]
   show Spec.map (CommRingCat.ofHom (RingHom.id B)) = _
   rw [CommRingCat.ofHom_id, Spec.map_id]
 
@@ -153,7 +153,7 @@ theorem snd_valR_mul_mul {X : Scheme.{0}} {G : Over X} [GrpObj G] (g : Sp S ⟶ 
   have hC : ∀ (ρ : R2 S →+* DualNumber S) (h : ρ.comp j = α), ovHom x j α ρ h ≫ C = g' := fun ρ h =>
     Over.OverMorphism.ext (by
       change spMap ρ ≫ spMap j ≫ g = g'.left
-      rw [hg', ← Category.assoc, ← spMap_comp_eq, h])
+      rw [hg', ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h])
   have hid : ∀ (ρ : R2 S →+* DualNumber S) (h : ρ.comp j = α) (κ : DualNumber S →+* R2 S) (h' : κ.comp α = j),
       ρ.comp κ = RingHom.id _ → ovHom x j α ρ h ≫ ovHom x α j κ h' = 𝟙 _ := fun ρ h κ h' e =>
     Over.OverMorphism.ext (by
@@ -163,7 +163,7 @@ theorem snd_valR_mul_mul {X : Scheme.{0}} {G : Over X} [GrpObj G] (g : Sp S ⟶ 
       ρ.comp κ = α.comp fs → ovHom x j α ρ h ≫ ovHom x α j κ h' = φ ≫ redOver x := fun ρ h κ h' e =>
     Over.OverMorphism.ext (by
       change spMap ρ ≫ spMap κ = spMap α ≫ spMap fs
-      rw [← spMap_comp_eq, ← spMap_comp_eq, e])
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e])
   have hMK₁ : M ≫ K₁ = 𝟙 _ := hid _ hm _ rfl (by ext s <;> simp [i₁])
   have hMK₂ : M ≫ K₂ = 𝟙 _ := hid _ hm _ hi₂ (by ext s <;> simp [i₂, α, TrivSqZeroExt.algebraMap_eq_inl])
   have hR₁K₁ : R₁ ≫ K₁ = 𝟙 _ := hid _ hr₁ _ rfl (by ext s <;> simp [r₁, i₁])
@@ -270,7 +270,7 @@ theorem isCombAtG_zero {S : Type} [CommRing S] (x : Sp S ⟶ X) {n : ℕ} (e : F
     (he : ∀ i, IsTanAtG t x (e i)) : IsCombAtG t x e 0 (1 : tEpsG x ⟶ t.G).left := by
   refine ⟨fun _ => 1, fun i => ?_, ?_⟩
   · show (1 : tEpsG x ⟶ t.G).left = spMap (epsMul 0) ≫ e i
-    rw [epsMul_zero', spMap_comp_eq, Category.assoc, (he i).2]
+    rw [epsMul_zero', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, (he i).2]
     let k : tEpsG x ⟶ Over.mk x := Over.homMk (spMap (algebraMap S (DualNumber S))) rfl
     exact congrArg CommaMorphism.left (MonObj.comp_one k).symm
   · simp

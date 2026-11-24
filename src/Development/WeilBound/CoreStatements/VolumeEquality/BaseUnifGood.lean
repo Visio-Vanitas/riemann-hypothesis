@@ -728,7 +728,7 @@ theorem u_eq_of_equiv {σ : KA l →+* ℂ} {g : ℕ} {ty : Fin g → (E →+* �
 theorem j_over (Y : Model Xo c (algebraMap (𝓞 c.F) c.F)) (κ : c.F →+* ℂ) (x : Sp ℂ ⟶ Xo.XF c)
     (hx : x ≫ pullback.snd _ _ = spMap κ) : (x ≫ Y.j) ≫ Y.s = spMap (κ.comp (algebraMap (𝓞 c.F) c.F)) := by
   rw [Category.assoc, Model.j, Category.assoc, pullback.condition, ← Category.assoc Y.jQ, Y.jQ_over, ← Category.assoc, hx,
-    spMap_comp]
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 theorem j_inj (Y : Model Xo c (algebraMap (𝓞 c.F) c.F)) {x x' : Sp ℂ ⟶ Xo.XF c}
     (hx : x ≫ pullback.snd _ _ = x' ≫ pullback.snd _ _) (h : x ≫ Y.j = x' ≫ Y.j) : x = x' := by
@@ -748,7 +748,7 @@ theorem j_interior (Y : Model Xo c (algebraMap (𝓞 c.F) c.F)) (x : Sp ℂ ⟶ 
 theorem exists_j (Y : Model Xo c (algebraMap (𝓞 c.F) c.F)) (κ : c.F →+* ℂ) (p : Sp ℂ ⟶ Y.X)
     (hp : centre p ∈ abLocus Y.t.G) (hs : p ≫ Y.s = spMap (κ.comp (algebraMap (𝓞 c.F) c.F))) :
     ∃ x : Sp ℂ ⟶ Xo.XF c, x ≫ Y.j = p ∧ x ≫ pullback.snd _ _ = spMap κ := by
-  have hc : p ≫ Y.s = spMap κ ≫ spMap (algebraMap (𝓞 c.F) c.F) := by rw [hs, spMap_comp]
+  have hc : p ≫ Y.s = spMap κ ≫ spMap (algebraMap (𝓞 c.F) c.F) := by rw [hs, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let w : Sp ℂ ⟶ pullback Y.s (spMap (algebraMap (𝓞 c.F) c.F)) := pullback.lift p (spMap κ) hc
   have hw₁ : w ≫ pullback.fst _ _ = p := pullback.lift_fst _ _ _
   have hw₂ : w ≫ pullback.snd _ _ = spMap κ := pullback.lift_snd _ _ _
@@ -769,7 +769,7 @@ theorem isHolTo_of_j (Y : Model Xo c (algebraMap (𝓞 c.F) c.F)) (κ : c.F →+
     (h : IsHolTo T fun b => x b ≫ Y.j) : IsHolTo T x := by
   have := Y.jQ_open
   have he : ∀ b, (x b ≫ Y.j) ≫ Y.s = spMap κ ≫ spMap (algebraMap (𝓞 c.F) c.F) := fun b => by
-    rw [j_over Y κ _ (hs b), spMap_comp]
+    rw [j_over Y κ _ (hs b), ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hq : ∀ b, x b ≫ Y.jQ = pullback.lift (x b ≫ Y.j) (spMap κ) (he b) := fun b => by
     apply pullback.hom_ext
     · rw [pullback.lift_fst, Category.assoc]
@@ -848,7 +848,7 @@ theorem kUnif_good (hV : VecOfPeriods) (Y : Model Xo c (algebraMap (𝓞 c.F) c.
     obtain ⟨e, he⟩ := exists_equiv_of_det h hd
     exact hu k t ht P hP e fun x => by rw [he, hh]
   have hc : ∀ (k : ι) t, FU.u k.1 (Pt k t) ≫ Xo.s = spMap κ ≫ spMap (IntermediateField.inclusion c.le).toRingHom :=
-    fun k t => by rw [FU.over_σ _ _ (hPt k t), spMap_comp]
+    fun k t => by rw [FU.over_σ _ _ (hPt k t), ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let xF : ι → (Fin n → ℂ) → (Sp ℂ ⟶ Xo.XF c) := fun k t => pullback.lift _ _ (hc k t)
   have hx₁ : ∀ k t, xF k t ≫ pullback.fst _ _ = FU.u k.1 (Pt k t) := fun k t => pullback.lift_fst _ _ _
   have hx₂ : ∀ k t, xF k t ≫ pullback.snd _ _ = spMap κ := fun k t => pullback.lift_snd _ _ _
@@ -908,7 +908,7 @@ theorem kUnif_good (hV : VecOfPeriods) (Y : Model Xo c (algebraMap (𝓞 c.F) c.
       simp
   · obtain ⟨x, hx, hxs⟩ := exists_j Y κ p hp hps
     obtain ⟨i, P, hP, hui⟩ := FU.onto (x ≫ pullback.fst _ _) (by
-      rw [Category.assoc, pullback.condition, ← Category.assoc, hxs, spMap_comp])
+      rw [Category.assoc, pullback.condition, ← Category.assoc, hxs, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     obtain ⟨R, h₁, h₂, h₃⟩ := hriem i P hP
     let k : ι := ⟨i, P, hP⟩
     obtain ⟨t, ⟨ht, e, he⟩, -⟩ := (F k).univ R (h₂.trans (hform k).symm) (by rw [hσ]; exact h₃)
@@ -943,7 +943,7 @@ theorem kUnif_good (hV : VecOfPeriods) (Y : Model Xo c (algebraMap (𝓞 c.F) c.
     choose x hxs hxj using hx
     have hol := isHolTo_of_j Y κ hT hxs (GlobalTheory.HolPeriods.isHolTo_congr hy hxj)
     obtain ⟨i, hi⟩ := Flat.exists_index_of_isPreconnected E H D l Xo _ g ty FU m T (fun a => x a ≫ pullback.fst _ _) hT hTc
-      ⟨b, hb⟩ (fun a _ => by rw [Category.assoc, pullback.condition, ← Category.assoc, hxs, spMap_comp])
+      ⟨b, hb⟩ (fun a _ => by rw [Category.assoc, pullback.condition, ← Category.assoc, hxs, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
       (PullbackSections.isHolTo_comp hol _)
     have key : ∀ a ∈ T, ∀ (k : ι) (t : Fin n → ℂ), y a = xF k t ≫ Y.j → k.1 = i := fun a ha k t e => by
       obtain ⟨B', P, -, haB, -, hP, hu'⟩ := hi a ha

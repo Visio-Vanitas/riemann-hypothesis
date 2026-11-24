@@ -57,15 +57,6 @@ open GlobalTheory.ZM
 
 namespace GlobalTheory.CoordChart
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (h : B →+* C) :
-    spMap h ≫ spMap f = spMap (h.comp f) := by
-  unfold spMap
-  rw [← Spec.map_comp]; rfl
-
-theorem sp_inj {A B : Type} [CommRing A] [CommRing B] {f h : A →+* B} (e : spMap f = spMap h) : f = h := by
-  have := Spec.map_injective e
-  exact congrArg CommRingCat.Hom.hom this
-
 theorem sp_surj {A B : Type} [CommRing A] [CommRing B] (z : Sp B ⟶ Sp A) : ∃ f : A →+* B, spMap f = z :=
   ⟨(Spec.preimage z).hom, Spec.map_preimage z⟩
 
@@ -79,7 +70,7 @@ theorem lift_chart {o : Type} [CommRing o] {g n N' : ℕ} {I : Ideal (MvPolynomi
     ∃ φ : R →+* L, ψ.comp φ = y ∧ φ.comp β = β' ∧ ∃ u : Lˣ, ∀ a, w a = u * φ (v a) := by
   have h1 := (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB hv).1 K y
   have h2 := (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB h1).2.1 c
-  have h3 : (spMap y ≫ x) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hx, sp_comp]
+  have h3 : (spMap y ≫ x) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hK := Y.loc K _ _ _ h3 h2
   have hL : InMM n N' I β' w := by
     refine ⟨hI, fun q hq a => ?_⟩
@@ -89,7 +80,7 @@ theorem lift_chart {o : Type} [CommRing o] {g n N' : ℕ} {I : Ideal (MvPolynomi
     simpa using hd
   obtain ⟨z, ⟨hz1, hz2⟩, -⟩ := Y.pts L β' w hL
   have h4 := (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB hz2).1 K ψ
-  have h5 : (spMap ψ ≫ z) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hz1, sp_comp, hβ]
+  have h5 : (spMap ψ ≫ z) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hz1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβ]
   have heq : spMap ψ ≫ z = spMap y ≫ x := by
     refine (Y.pts K _ _ hK).unique ⟨h5, ?_⟩ ⟨h3, h2⟩
     simpa only [hw] using h4
@@ -106,9 +97,9 @@ theorem lift_chart {o : Type} [CommRing o] {g n N' : ℕ} {I : Ideal (MvPolynomi
     rw [← Scheme.Hom.comp_apply, ← Scheme.Hom.comp_apply, heq]
   obtain ⟨φ, hφ⟩ := sp_surj (IsOpenImmersion.lift x z hr)
   have hz : spMap φ ≫ x = z := by rw [hφ, IsOpenImmersion.lift_fac]
-  refine ⟨φ, sp_inj ?_, sp_inj ?_, ?_⟩
-  · rw [← cancel_mono x, ← sp_comp, Category.assoc, hz, heq]
-  · rw [← sp_comp, ← hx, ← Category.assoc, hz, hz1]
+  refine ⟨φ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_, ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_, ?_⟩
+  · rw [← cancel_mono x, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hz, heq]
+  · rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hx, ← Category.assoc, hz, hz1]
   · have h6 := (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB hv).1 L φ
     rw [hz] at h6
     exact (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB h6).2.2 w hz2
@@ -137,7 +128,7 @@ theorem residue_generic : ∀ (o : Type) [CommRing o] (g n N' : ℕ) (I : Ideal 
     simp [c, div_eq_inv_mul]
   have h1 := (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB hv).1 K y
   have h2 := (GlobalTheory.ZM.Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB h1).2.1 c
-  have h3 : (spMap y ≫ x) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hx, sp_comp]
+  have h3 : (spMap y ≫ x) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hK : ∀ F ∈ I, MvPolynomial.eval₂ (y.comp β) (fun a => y (v a) / y (v a₀)) F = 0 := by
     simpa only [hc] using (Y.loc K _ _ _ h3 h2).1
   constructor

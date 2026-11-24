@@ -277,14 +277,14 @@ theorem big (ρ : S.Real) (h : S.Big) : Big S.g S.N (S.r * S.N) := by
   rw [ρ.N_eq]
   omega
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 section Cover
 variable {p : ℕ} [Fact p.Prime] {y₀ : S.R →+* PadicAlgCl p} (t : ρ.GeoTest p y₀)
 
 theorem crd_generic [ArithBase o Ω] (hL : GlobalTheory.UT.LL) (hb : t.b.det ≠ 0) (a : Sp (PadicAlgCl p) ⟶ t.u.G.left)
     (ha : a ≫ t.u.G.hom = spMap ((OO p).subtype.comp t.u.j)) : ∃ w, w ≠ 0 ∧ Crd (t.u.H S.N) t.σ a w := by
-  obtain ⟨a', h⟩ := exists_ptC t.u a (ha.trans (spMap_comp _ _))
+  obtain ⟨a', h⟩ := exists_ptC t.u a (ha.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   obtain ⟨v, hv, hc⟩ := exists_real_crd (GlobalTheory.ZH.ThetaSys.Real.immBy_basis hL o Ω S ρ) (t.u.toA a')
   have hd : (t.b.map (algebraMap _ (PadicAlgCl p))).det ≠ 0 := by
     have := (map_ne_zero (algebraMap _ (PadicAlgCl p))).2 hb
@@ -299,7 +299,7 @@ theorem crd_special (hL : GlobalTheory.UT.LL) (hS : S.Big) (a : Sp (kb p) ⟶ t.
   haveI : IsAlgClosed (kb p) := (GlobalTheory.ZJ.kb_isAlgClosed_and_conj p).1
   have pb : IsPullback t.mod.r t.mod.Φ.G.hom t.u.G.hom (rPt p ≫ spMap t.u.j) := t.mod.cart.1
   have hsq : a ≫ t.u.G.hom = 𝟙 _ ≫ rPt p ≫ spMap t.u.j :=
-    (ha.trans (spMap_comp _ _)).trans (Category.id_comp _).symm
+    (ha.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)).trans (Category.id_comp _).symm
   let x : t.mod.Φ.Pt := Over.homMk (pb.lift a (𝟙 _) hsq) (pb.lift_snd _ _ hsq)
   have hx : x.left ≫ t.mod.r = a := pb.lift_fst _ _ hsq
   obtain ⟨v, hv⟩ := CrdCalc.crd_exists (R := kb p) (t.mod.Φ.H_isLB 1) t.mod.F x.left
@@ -469,7 +469,7 @@ theorem crd_match [ArithBase o Ω] (hL : GlobalTheory.UT.LL) (hE : S.IsEE M U₀
   rw [← Category.assoc, hx, ptA_over] at h1
   have h2 := Q.crd _ (ptA c a) v (by rw [ptA_fst]; exact hv)
   obtain ⟨e, he⟩ := CrdCalc.crd_unique h2 h1
-  have h3 := crd_comb m ((toG_over t.u a).trans (spMap_comp _ _).symm) (t.link a v hv)
+  have h3 := crd_comb m ((toG_over t.u a).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm) (t.link a v hv)
   refine ⟨w, ?_, hw⟩
   have h4 := mul_eq_one_comm.1 (val_c_mul Q hE l (gPt p ≫ y) (gPt_mem c _)
     ((RatModel.gPt_specializes (y := y) rfl _).mem_open (Q.W l).isOpen hl))
@@ -482,7 +482,7 @@ theorem crd_match [ArithBase o Ω] (hL : GlobalTheory.UT.LL) (hE : S.IsEE M U₀
 theorem dense_toG : Dense (⋃ a : t.u.PtC, Set.range (t.u.toG a)) := by
   haveI := smooth t
   refine (dense_pts t.u.G.hom _ (denseRange_spMap (injective_j t.u))).mono (Set.iUnion_subset fun a => ?_)
-  obtain ⟨a', h⟩ := exists_ptC t.u a.1 (a.2.trans (spMap_comp _ _))
+  obtain ⟨a', h⟩ := exists_ptC t.u a.1 (a.2.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   exact h ▸ Set.subset_iUnion (fun a : t.u.PtC => Set.range (t.u.toG a)) a'
 
 end Main

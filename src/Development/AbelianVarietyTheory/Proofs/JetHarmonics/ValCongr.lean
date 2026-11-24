@@ -61,10 +61,6 @@ open ReciprocityTheory.ChartRestriction.G.TB (colM dAct)
 
 namespace GlobalTheory.GermBasic
 
-theorem spMap_comp_eq {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 section Point
 
 variable {V : Type} [CommRing V] [IsDomain V] {G : Over (Sp V)} [GrpObj G] [IsCommMonObj G]
@@ -108,9 +104,9 @@ theorem exists_jetPt {κ : Type} (z : JetPts G κ) (m : ℕ) :
   refine gf_exists _ _ ?_
   have w : (z m).left ≫ G.hom = spMap (algebraMap V (Jet V κ m)) ≫ 𝟙 _ := Over.w (z m)
   have e : jFK (R := V) F ≫ jK V = spMap (algebraMap V F) :=
-    (spMap_comp_eq (algebraMap V (FractionRing V)) (algebraMap (FractionRing V) F)).trans
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (algebraMap V (FractionRing V)) (algebraMap (FractionRing V) F)).symm.trans
       (congrArg spMap (IsScalarTower.algebraMap_eq V (FractionRing V) F).symm)
-  rw [Category.assoc, w, e, Category.comp_id, spMap_comp_eq, spMap_comp_eq, JetTr.jetCoef_alg]
+  rw [Category.assoc, w, e, Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, JetTr.jetCoef_alg]
 
 end Point
 
@@ -177,7 +173,7 @@ theorem main : AGermSt := by
       let ρ := spMap ((jetTrunc : Jet F κ (m + 1) →ₐ[F] Jet F κ m) : Jet F κ (m + 1) →+* Jet F κ m)
       let ρV := spMap ((jetTrunc : Jet V κ (m + 1) →ₐ[V] Jet V κ m) : Jet V κ (m + 1) →+* Jet V κ m)
       have hρ : ρ ≫ spMap (jetCoef (algebraMap V F) κ (m + 1)) = spMap (jetCoef (algebraMap V F) κ m) ≫ ρV := by
-        rw [spMap_comp_eq, spMap_comp_eq, JetTr.jetCoef_trunc]
+        rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, JetTr.jetCoef_trunc]
       have hzt : ρV ≫ (z (m + 1)).left = (z m).left := congrArg (fun q => q.left) (hz.1 m)
       have ha : ρ ≫ a (m + 1) = a m := gf_ext
         (by rw [Category.assoc, a₁, a₁]; exact spMap_comp_alg _)

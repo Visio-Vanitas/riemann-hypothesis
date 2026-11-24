@@ -55,7 +55,7 @@ open GlobalTheory.ShFam (EigFrame FlagCpt stalkPt genericPt constF)
 open GlobalTheory.VarFlag
 open ReciprocityTheory.ChartRestriction.G.PullbackSections (tv TanM)
 
-alias sp_comp_sp := _root_.Formalism.L2.Pj.spMap_comp_ring
+alias sp_comp_sp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem eq_spMap_of_comp {R R' S : Type} [CommRing R] [CommRing R'] [CommRing S] {ι : R →+* R'}
     (hι : Function.Injective ι) {h : Sp R ⟶ Sp S} {φ : S →+* R} (e : spMap ι ≫ h = spMap (ι.comp φ)) :

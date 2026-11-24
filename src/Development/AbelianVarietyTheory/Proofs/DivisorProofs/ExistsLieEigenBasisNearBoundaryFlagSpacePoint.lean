@@ -105,7 +105,7 @@ theorem exists_eigBasis_at (TF : TorFlag Xo c) (p : TF.Y.X) :
   let φ₁ := cst TF.Y.s U₁
   have hφ₁ : spMap φ₁ = hU₁.fromSpec ≫ TF.Y.s := spMap_cst _ hU₁
   have hρφ : ρ₁.comp φ₁ = φ₀ := spMap_inj (by
-    rw [ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp, hφ₁, ← Category.assoc, hK, hφ₀])
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ₁, ← Category.assoc, hK, hφ₀])
   have vec_bc_of_chart {S : Type} [CommRing S] {x : Sp S ⟶ TF.Y.X} {n : ℕ}
       {xc : ∀ m : ℕ, ReciprocityTheory.ChartRestriction.G.Chart.sp (R₀ := S) (ReciprocityTheory.ChartRestriction.G.Chart.JetR S (Fin n) m) ⟶ (Over.pullback x).obj TF.Y.t.G}
       (C : ReciprocityTheory.ChartRestriction.G.Chart.Chart ((Over.pullback x).obj TF.Y.t.G))
@@ -226,7 +226,7 @@ theorem exists_eigBasis_at (TF : TorFlag Xo c) (p : TF.Y.X) :
   obtain ⟨xcU, hxU, hcU⟩ := vec_bc_of_chart C hx ψ (x' := LogKS.chart ⟨_, hU'⟩)
     (by rw [hx₁, Category.comp_id]; exact hmap.symm)
   have hψφ : ψ.comp φ₁ = cst TF.Y.s (TF.Y.X.basicOpen g) := spMap_inj (by
-    rw [ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp, hφ₁, ← Category.assoc, hmap, spMap_cst _ hU])
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ₁, ← Category.assoc, hmap, spMap_cst _ hU])
   let u := hs0.unit
   let cU : Fin n → Fin n → Γ(TF.Y.X, TF.Y.X.basicOpen g) := fun j => (↑u⁻¹ : Γ(TF.Y.X, TF.Y.X.basicOpen g)) • (ψ ∘ B₀ j)
   have hdetU : IsUnit (Matrix.of fun i j => cU j i).det := by

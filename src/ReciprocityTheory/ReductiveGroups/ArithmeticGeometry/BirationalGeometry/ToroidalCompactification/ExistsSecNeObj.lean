@@ -123,7 +123,7 @@ theorem loc_ker {V : X.Opens} (hV : IsAffineOpen V) (y : Γ(X, V)) (h : ∀ z, �
   let C := Localization (Sg.map alg)
   let g : T →+* C := IsLocalization.map C alg Sg.le_comap_map
   have sq : (spMap (algebraMap Γ(X, V) C) ≫ hV.fromSpec) ≫ p = spMap g ≫ spMap (algebraMap S T) := by
-    rw [Category.assoc, s₀, ← spMap_comp, ← spMap_comp, IsLocalization.map_comp]
+    rw [Category.assoc, s₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, IsLocalization.map_comp]
   have r₂ : H.lift _ _ sq ≫ φ = spMap (algebraMap Γ(X, V) C) ≫ hV.fromSpec := H.lift_fst _ _ _
   have z₀ : algebraMap Γ(X, V) C y = 0 := cst_ext fun z => by
     have hm : φ (H.lift _ _ sq z) ∈ V := (congrArg (fun q => q z ∈ V) r₂).mpr
@@ -336,7 +336,7 @@ theorem gen_ne_zero (hS : SecBaseChangeAnySt) (o : Obj D l b s) {S K : Type} [Co
   let R := Localization.AtPrime (RingHom.ker ψ)
   have hu : ∀ y : (RingHom.ker ψ).primeCompl, IsUnit (ψ y) := fun y => (Ne.isUnit y.2)
   let g : R →+* K := IsLocalization.lift hu
-  have hg : spMap ψ = spMap g ≫ spMap (algebraMap S R) := by rw [← spMap_comp, IsLocalization.lift_comp]
+  have hg : spMap ψ = spMap g ≫ spMap (algebraMap S R) := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, IsLocalization.lift_comp]
   obtain ⟨PP', cub, sym, adj, prim, m₁, -⟩ := sabPull proved_CubePullSt (spMap (algebraMap S R)) t
   obtain ⟨n, -⟩ := sabComp pullCubComp E H _ _ _ _ _ _ _ _ m₀ m₁
   have H₂ : IsPullback (m₁.cart.1.lift m.φ (t'.G.hom ≫ spMap g) (by rw [m.cart.1.w, hg, Category.assoc])) t'.G.hom _

@@ -1265,7 +1265,7 @@ theorem main : ∀ (n : ℕ), 3 ≤ n → Odd n → ∀ (h : ℕ) (F : SFam h n 
       u_sep := hur
       u_base := by
         show _ = spMap (ρ.comp (GlobalTheory.LowChart.base F w))
-        rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.LowChart.spMap_base, Category.assoc]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.LowChart.spMap_base, Category.assoc]
       dim := rfl
       β := β
       β₂ := β₂
@@ -1279,11 +1279,11 @@ theorem main : ∀ (n : ℕ), 3 ≤ n → Odd n → ∀ (h : ℕ) (F : SFam h n 
   obtain ⟨V', _, _, _, f, κ, hV', hdvr', hfi, hff, hfl, hκl, hκρ⟩ :=
     GlobalTheory.T.exists_completeDVR_of_finite_etale_baseChange (GlobalTheory.LowChart.W F w) R' V₁ ρ ψ hloc hfin het hV0 hdvr hψl
   have hspec : spMap κ ≫ (spMap ρ ≫ GlobalTheory.LowChart.toPow F w) = spMap f ≫ v := by
-    rw [← Category.assoc, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hκρ, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hψ]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hκρ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hψ]
   have hb : κ.comp T.b = f.comp b₁ := by
     have e : spMap (κ.comp T.b) = spMap (f.comp b₁) := by
       show spMap (κ.comp (ρ.comp (GlobalTheory.LowChart.base F w))) = _
-      rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.LowChart.spMap_base, ← hs]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.LowChart.spMap_base, ← hs]
       simpa only [Category.assoc] using congrArg (· ≫ GlobalTheory.LowChart.toO F r) hspec
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective e)
 

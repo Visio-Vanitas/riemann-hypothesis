@@ -101,7 +101,7 @@ theorem Fib.comp {A : PolAV (Sp K)} {A' : PolAV (Sp K')} {A'' : PolAV (Sp K'')} 
     {a : A'.A.left ⟶ A.A.left} {b : A''.A.left ⟶ A'.A.left} (hb : Fib A'' A' g b) (ha : Fib A' A f a)
     {h : K →+* K''} (e : g.comp f = h) : Fib A'' A h (b ≫ a) := by
   subst e
-  exact ⟨(hb.1.comp ha.1).congr (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g).symm rfl,
+  exact ⟨(hb.1.comp ha.1).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g).symm rfl,
     LBIso.trans A''.isLB (pull_isLB A'.isLB _) (pull_isLB A.isLB _) hb.2 (GlobalTheory.ArcDataDescent.lbIso_pull ha.2 b rfl)⟩
 
 theorem Fib.cancel {A : PolAV (Sp K)} {A' : PolAV (Sp K')} {A'' : PolAV (Sp K'')} {f : K →+* K'} (g : K' →+* K'')
@@ -109,9 +109,9 @@ theorem Fib.cancel {A : PolAV (Sp K)} {A' : PolAV (Sp K')} {A'' : PolAV (Sp K'')
     (e : g.comp f = h) : ∃ b, b ≫ a = c ∧ Fib A'' A' g b := by
   subst e
   have w : c ≫ A.A.hom = (A''.A.hom ≫ spMap g) ≫ spMap f := by
-    rw [hc.1.1.w, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+    rw [hc.1.1.w, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have e₁ := ha.1.1.lift_fst _ _ w
-  refine ⟨ha.1.1.lift _ _ w, e₁, IsGrpPullback.cancel ha.1 (hc.1.congr (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g) e₁.symm) (ha.1.1.lift_snd _ _ w), ?_⟩
+  refine ⟨ha.1.1.lift _ _ w, e₁, IsGrpPullback.cancel ha.1 (hc.1.congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f g) e₁.symm) (ha.1.1.lift_snd _ _ w), ?_⟩
   exact LBIso.trans A''.isLB (pull_isLB A.isLB _) (pull_isLB A'.isLB _) hc.2
     (GlobalTheory.ArcDataDescent.lbIso_pull ha.2 _ e₁.symm).symm
 
@@ -239,7 +239,7 @@ theorem exists_unif_fib {R R' : Type} [CommRing R] [IsDomain R] [CommRing R'] [I
       (_ : Unif I' D' A' ((Over.pullback (specOf g)).obj G)) (a : A'.A.left ⟶ A.A.left), Fib A' A ga a := by
   obtain ⟨hL, -, -, h4, h5⟩ := GlobalTheory.firstFiveLaws
   have sq : spMap ga ≫ jK R = jK R' ≫ spMap g :=
-    (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap hga).trans (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap hga).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   obtain ⟨A', gA, pA, dA, mA, tA⟩ := hL.polBaseChange _ _ (spMap ga) A
   have gpA : IsGrpPullback A'.A A.A (spMap ga) gA := ⟨pA, fun T x y x₀ y₀ hx hy => by
     have e₁ : x₀ = Out.toBase pA.w x := Over.OverMorphism.ext hx

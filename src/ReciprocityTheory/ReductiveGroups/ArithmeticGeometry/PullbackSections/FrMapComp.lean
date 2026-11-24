@@ -52,10 +52,6 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.S
 
 attribute [local instance] Over.cartesianMonoidalCategory
 
-theorem spMap_comp {S T U : Type} [CommRing S] [CommRing T] [CommRing U] (φ : S →+* T) (ψ : T →+* U) :
-    spMap (ψ.comp φ) = spMap ψ ≫ spMap φ := by
-  simp only [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
 theorem dualMap_comp {S T U : Type} [CommRing S] [CommRing T] [CommRing U] (φ : S →+* T) (ψ : T →+* U) :
     dualMap (ψ.comp φ) = (dualMap ψ).comp (dualMap φ) := RingHom.ext fun x => by ext <;> simp [dualMap]
 
@@ -86,11 +82,11 @@ theorem frMap_trans {S T U : Type} [CommRing S] [Algebra c.F S] [CommRing T] [Al
   obtain ⟨hx1, hu1, pm1, hs1, hf1, ha1⟩ := h₁
   obtain ⟨hx2, hu2, pm2, hs2, hf2, ha2⟩ := h₂
   refine ⟨?_, ?_, pm2 ≫ pm1, ?_, ?_, ?_⟩
-  · rw [hx2, hx1, hc, spMap_comp, Category.assoc]
+  · rw [hx2, hx1, hc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · intro τ i
-    rw [hu2, hu1, hc, dualMap_comp, spMap_comp, Category.assoc]
+    rw [hu2, hu1, hc, dualMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · rw [Category.assoc, hs1, hs2]
-  · rw [Category.assoc, hf1, ← Category.assoc, hf2, Category.assoc, ← spMap_comp, hc]
+  · rw [Category.assoc, hf1, ← Category.assoc, hf2, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc]
   · intro i h
     have hb1 : ∀ p, (snd (Over.mk y.x) Xo.univ.t.G).left.base (pm1.base p) =
         (snd (Over.mk z.x) Xo.univ.t.G).left.base p := fun p => by

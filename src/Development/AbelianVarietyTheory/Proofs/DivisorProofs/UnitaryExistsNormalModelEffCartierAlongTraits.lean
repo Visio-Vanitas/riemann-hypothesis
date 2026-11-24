@@ -207,9 +207,9 @@ theorem exists_utrait_of_stalk (X₁ : USetup C) (Y : RatModel X₁.o₁ X₁.Ω
   · have e : (algebraMap T.V (FractionRing T.V)).comp (f.comp θ) = (fK.comp γ₀).comp (Y.stalkHom x) := by
       ext a
       simp only [RingHom.comp_apply, hγ₀, hc]
-    rw [← GlobalTheory.Poinc.GenTrait.spMap_stalkHom_fromSpecStalk Y x, ← Category.assoc, Formalism.L2.Pj.spMap_comp', e,
-      ← Formalism.L2.Pj.spMap_comp', Category.assoc]
-  · rw [hy, ← Category.assoc, Formalism.L2.Pj.spMap_comp']
+    rw [← GlobalTheory.Poinc.GenTrait.spMap_stalkHom_fromSpecStalk Y x, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e,
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+  · rw [hy, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 end GlobalTheory.UPoinc.UGlue
 
@@ -1437,9 +1437,9 @@ theorem exists_uTrait_centre {o' Ω : Type} [CommRing o'] [Field Ω] [Algebra o'
   · have e : (algebraMap T.V (FractionRing T.V)).comp (f.comp θ) = (fK.comp γ₀).comp (M.stalkHom x) := by
       ext a
       simp only [RingHom.comp_apply, hγ₀, hc]
-    rw [← GlobalTheory.Poinc.GenTrait.spMap_stalkHom_fromSpecStalk M x, ← Category.assoc, Formalism.L2.Pj.spMap_comp', e,
-      ← Formalism.L2.Pj.spMap_comp', Category.assoc]
-  · rw [hy, ← Category.assoc, Formalism.L2.Pj.spMap_comp']
+    rw [← GlobalTheory.Poinc.GenTrait.spMap_stalkHom_fromSpecStalk M x, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e,
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+  · rw [hy, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 end GlobalTheory.UPoinc.SuppTrait
 
@@ -1482,7 +1482,7 @@ theorem lift_i_of_closedPoint (C : UCompact Xo c) (V : Type) [CommRing V] [IsLoc
     (fun a => hunit a (nonZeroDivisors.ne_zero a.2))
   have hψ : ψ.comp C.b = φ := RingHom.ext fun a => IsLocalization.lift_eq (M := nonZeroDivisors C.o) (S := c.F) _ a
   have hsq : g ≫ C.z = spMap ψ ≫ spMap C.b := by
-    rw [← hφ, ← hψ]; exact _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
+    rw [← hφ, ← hψ]; exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   let g₁ : Sp V ⟶ pullback C.z (spMap C.b) := pullback.lift g (spMap ψ) hsq
   have e1 : g₁ ≫ pullback.fst C.z (spMap C.b) = g := pullback.lift_fst _ _ _
   have hx₁ : g₁ (closedPoint V) = C.iF x := hinj ((Scheme.Hom.comp_apply g₁ (pullback.fst C.z (spMap C.b)) _).symm.trans

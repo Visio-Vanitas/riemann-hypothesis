@@ -63,7 +63,7 @@ def scK (a : R) (p : epsR R ⟶ G') : epsR R ⟶ G' :=
   Over.homMk (spMap (epsScaleR a) ≫ p.left) (by
     rw [Category.assoc, Over.w p]
     show spMap (epsScaleR a) ≫ spMap (algebraMap R (DualNumber R)) = spMap (algebraMap R (DualNumber R))
-    rw [spMap_comp_spMap, epsScaleR_comp_alg])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, epsScaleR_comp_alg])
 
 variable {x0}
 
@@ -86,7 +86,7 @@ theorem scK_zero_iff (p : epsR R ⟶ G') : IsTangent p ↔ scK 0 p = 1 := by
   have e1 : ((1 : epsR R ⟶ G').left) = spMap (algebraMap R (DualNumber R)) ≫ η[G'].left := by
     rw [Hom.one_def]; rfl
   have e2 : spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ spMap (algebraMap R (DualNumber R)) = 𝟙 _ := by
-    rw [spMap_comp_spMap]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom R R R).toRingHom.comp (algebraMap R (DualNumber R)) = RingHom.id R := by
       ext r; simp
     rw [this]
@@ -95,14 +95,14 @@ theorem scK_zero_iff (p : epsR R ⟶ G') : IsTangent p ↔ scK 0 p = 1 := by
   · intro hp
     apply Over.OverMorphism.ext
     show spMap (epsScaleR 0) ≫ p.left = _
-    rw [e1, e0, ← spMap_comp_spMap, Category.assoc, hp]
+    rw [e1, e0, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hp]
   · intro hp
     have := congrArg (fun V => spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ V.left) hp
     rw [e1, ← Category.assoc, e2, Category.id_comp] at this
     show spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ p.left = η[G'].left
     rw [← this]
     show _ = spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ (spMap (epsScaleR 0) ≫ p.left)
-    rw [e0, ← spMap_comp_spMap]
+    rw [e0, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     simp only [← Category.assoc, e2, Category.id_comp]
 
 theorem isTangent_iff (p : epsR R ⟶ G') : IsTangent p ↔ smT x0 0 (pushHom h (epsR R) p) = 1 := by

@@ -55,12 +55,6 @@ namespace GlobalTheory.RawChartBC
 
 open ReciprocityTheory.ChartRestriction.G.PullbackSections
 
-theorem spMap_spMap {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R' →+* R'')
-    (g : R →+* R') : spMap f ≫ spMap g = spMap (f.comp g) := by
-  unfold spMap
-  rw [← Spec.map_comp]
-  rfl
-
 theorem dualMap_alg {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* T) :
     (dualMap ψ).comp (algebraMap S (DualNumber S)) = (algebraMap T (DualNumber T)).comp ψ := by
   ext s <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
@@ -121,20 +115,20 @@ variable {S S' : Type} [CommRing S] [CommRing S'] (ψ : S →+* S') (x0 : Sp S �
 def baseMap : overAt (spMap ψ ≫ x0) S' ⟶ overAt x0 S :=
   Over.homMk (spMap ψ) (by
     show spMap ψ ≫ spMap (algebraMap S S) ≫ x0 = spMap (algebraMap S' S') ≫ spMap ψ ≫ x0
-    rw [← Category.assoc, ← Category.assoc, spMap_spMap, spMap_spMap])
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
 
 def dualPtMap : overAt (spMap ψ ≫ x0) (DualNumber S') ⟶ overAt x0 (DualNumber S) :=
   Over.homMk (spMap (dualMap ψ)) (by
     show spMap (dualMap ψ) ≫ spMap (algebraMap S (DualNumber S)) ≫ x0 =
       spMap (algebraMap S' (DualNumber S')) ≫ spMap ψ ≫ x0
-    rw [← Category.assoc, ← Category.assoc, spMap_spMap, spMap_spMap, dualMap_alg])
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_alg])
 
 theorem sq_aug (d m : ℕ) :
     homAt (spMap ψ ≫ x0) (jetAug : Jet S' (Fin 1 × Fin d) m →ₐ[S'] S') ≫ rjBC ψ x0 d m 1 =
       baseMap ψ x0 ≫ homAt x0 (jetAug : Jet S (Fin 1 × Fin d) m →ₐ[S] S) := by
   apply Over.OverMorphism.ext
   show spMap _ ≫ spMap (jetBC ψ _ m) = spMap ψ ≫ spMap _
-  rw [spMap_spMap, spMap_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg spMap (jetAug_comp_jetBC ψ _ m)
 
 theorem sq_trunc (d m : ℕ) :
@@ -143,7 +137,7 @@ theorem sq_trunc (d m : ℕ) :
       rjBC ψ x0 d m 1 ≫ homAt x0 (jetTrunc : Jet S (Fin 1 × Fin d) (m + 1) →ₐ[S] Jet S (Fin 1 × Fin d) m) := by
   apply Over.OverMorphism.ext
   show spMap _ ≫ spMap (jetBC ψ _ (m + 1)) = spMap (jetBC ψ _ m) ≫ spMap _
-  rw [spMap_spMap, spMap_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg spMap (jetTrunc_comp_jetBC ψ _ m)
 
 theorem sq_subst {n n' d : ℕ} (m : ℕ) (φ : Fin n × Fin d → MvPolynomial (Fin n' × Fin d) S) :
@@ -152,7 +146,7 @@ theorem sq_subst {n n' d : ℕ} (m : ℕ) (φ : Fin n × Fin d → MvPolynomial 
       rjBC ψ x0 d m n' ≫ homAt x0 (jetSubstP m φ : Jet S (Fin n × Fin d) m →ₐ[S] Jet S (Fin n' × Fin d) m) := by
   apply Over.OverMorphism.ext
   show spMap _ ≫ spMap (jetBC ψ _ m) = spMap (jetBC ψ _ m) ≫ spMap _
-  rw [spMap_spMap, spMap_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg spMap (jetSubstP_comp_jetBC ψ m φ)
 
 theorem sq_tan (d : ℕ) (ℓ : Fin 1 × Fin d) :
@@ -160,7 +154,7 @@ theorem sq_tan (d : ℕ) (ℓ : Fin 1 × Fin d) :
       dualPtMap ψ x0 ≫ homAt x0 (jetTan ℓ : Jet S (Fin 1 × Fin d) (0 + 1) →ₐ[S] DualNumber S) := by
   apply Over.OverMorphism.ext
   show spMap _ ≫ spMap (jetBC ψ _ (0 + 1)) = spMap (dualMap ψ) ≫ spMap _
-  rw [spMap_spMap, spMap_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have evalTan (T : Type) [CommRing T] (P : MvPolynomial (Fin 1 × Fin d) T) :
       (jetTan ℓ : Jet T (Fin 1 × Fin d) (0 + 1) →ₐ[T] DualNumber T)
           (Ideal.Quotient.mk (orig T (Fin 1 × Fin d) ^ (0 + 1 + 1)) P) =
@@ -189,7 +183,7 @@ theorem sq_copy (d m n : ℕ) (i : Fin n) :
       rjBC ψ x0 d m n ≫ homAt x0 (jetCopy d m i : Jet S (Fin 1 × Fin d) m →ₐ[S] Jet S (Fin n × Fin d) m) := by
   apply Over.OverMorphism.ext
   show spMap _ ≫ spMap (jetBC ψ _ m) = spMap (jetBC ψ _ m) ≫ spMap _
-  rw [spMap_spMap, spMap_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have e := jetMap_comp_jetBC ψ m
     (fun p : Fin 1 × Fin d => (MvPolynomial.X (i, p.2) : MvPolynomial (Fin n × Fin d) S))
     (fun _ => X_mem_orig _) (fun p => by rw [MvPolynomial.map_X]; exact X_mem_orig _)
@@ -210,7 +204,7 @@ theorem isCombAt_map {k : ℕ} {v : Fin k → (Sp (DualNumber S) ⟶ Xo.univ.t.G
   obtain ⟨u, hu, hp⟩ := h
   refine ⟨fun i => dualPtMap ψ x0 ≫ u i, fun i => ?_, ?_⟩
   · show spMap (dualMap ψ) ≫ (u i).left = _
-    rw [hu i, ← Category.assoc, spMap_spMap, dualMap_epsMul, ← spMap_spMap, Category.assoc]
+    rw [hu i, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_epsMul, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · have e : List.ofFn (fun i => dualPtMap ψ x0 ≫ u i) = (List.ofFn u).map (dualPtMap ψ x0 ≫ ·) := by
       rw [List.map_ofFn]
       rfl

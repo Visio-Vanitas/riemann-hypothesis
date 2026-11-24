@@ -54,10 +54,6 @@ open ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestrictio
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
   {Xo : Moduli Dw l} {c : Coeff l}
 
-theorem spMap_comp_spMap {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R' →+* R'')
-    (g : R →+* R') : spMap f ≫ spMap g = spMap (f.comp g) := by
-  simp only [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
 def bcPm {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* T) (x : Sp S ⟶ Xo.X) :
     Gx (spMap ψ ≫ x) ⟶ Gx x :=
   ((Over.homMk (spMap ψ) rfl : Over.mk (spMap ψ ≫ x) ⟶ Over.mk x) ▷ Xo.univ.t.G).left
@@ -112,20 +108,20 @@ theorem tan_bc {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* T) {x : Sp S
     IsTanAt (spMap ψ ≫ x) (spMap (dualMap ψ) ≫ v) := by
   refine ⟨?_, ?_⟩
   · simp only [Category.assoc, hv.1]
-    simp only [← Category.assoc, spMap_comp_spMap, dualMap_comp_alg]
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg]
   · have h1 : (Over.homMk (spMap ψ) rfl : Over.mk (spMap ψ ≫ x) ⟶ Over.mk x) ≫
         (1 : Over.mk x ⟶ Xo.univ.t.G) = 1 := by simp
     rw [← h1, Over.comp_left]
     show _ = spMap ψ ≫ (1 : Over.mk x ⟶ Xo.univ.t.G).left
     rw [← hv.2]
-    simp only [← Category.assoc, spMap_comp_spMap, fst_comp_dualMap]
+    simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_dualMap]
 
 theorem eig_bc {S T : Type} [CommRing S] [Algebra c.F S] [CommRing T] [Algebra c.F T] (ψ : S →ₐ[c.F] T)
     (τ : E →+* ℂ) {v : Sp (DualNumber S) ⟶ Xo.univ.t.G.left} (hv : IsEigAt c τ v) :
     IsEigAt c τ (spMap (dualMap ψ.toRingHom) ≫ v) := by
   intro a
   rw [Category.assoc, hv a]
-  simp only [← Category.assoc, spMap_comp_spMap, dualMap_comp_epsMul, AlgHom.toRingHom_eq_coe,
+  simp only [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul, AlgHom.toRingHom_eq_coe,
     RingHom.coe_coe, AlgHom.commutes]
 
 
@@ -154,7 +150,7 @@ def bcPtR (hG : BcGenRSt Xo c) (hL : BcLieRSt Xo c) (p : TRing c.F) {T : Type} [
   x_over := by
     rw [Category.assoc, y.x_over]
     unfold sOf
-    rw [spMap_comp_spMap, ← RingHom.comp_assoc]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc]
     congr 2
     ext r
     simp

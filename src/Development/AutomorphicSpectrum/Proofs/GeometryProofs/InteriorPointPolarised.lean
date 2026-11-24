@@ -77,7 +77,7 @@ theorem exists_spMap_of_ringOfIntegers {F : Type} [Field F] [NumberField F] {X :
     (u : Sp ℂ ⟶ X) : ∃ g' : F →+* ℂ, u ≫ s = spMap g' ≫ spMap (algebraMap (𝓞 F) F) := by
   obtain ⟨g', hg'⟩ := exists_comp_eq_of_ringOfIntegers (Spec.preimage (u ≫ s)).hom
   refine ⟨g', ?_⟩
-  rw [← spMap_comp, hg']
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hg']
   exact (Spec.map_preimage (u ≫ s)).symm
 
 theorem polarisedAt_of_interior : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (D : Datum H)

@@ -371,7 +371,7 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
 
 theorem emb_comp {L L' : Type} [Field L] [NumberField L] [Field L'] [NumberField L'] [Algebra L L'] (σ' : L' →+* ℂ) :
     emb (σ'.comp (algebraMap L L')) = emb σ' ≫ spMap (algebraMap (𝓞 L) (𝓞 L')) := by
-  rw [emb, emb, ← spMap_comp]
+  rw [emb, emb, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
 
 theorem exists_section : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (L : Type) [Field L] [NumberField L] (D : PPData H L) (L' : Type) [Field L'] [NumberField L'] [Algebra L L'] (D' : PPData H L') (_ : D.Ext D') (n : ℕ) (s : Out.H0 D.t.PP.L n), ∃ s' : Out.H0 D'.t.PP.L n, (∀ M : (L →+* ℂ) → ℝ, D.SupLe s M → D'.SupLe s' fun σ' => M (σ'.comp (algebraMap L L'))) ∧ ∀ (σ' : L' →+* ℂ) (a' : D'.Frame σ'), ∃ a : ArchFrame D.t.PP (emb (σ'.comp (algebraMap L L'))) D'.g, a.u.Λ = a'.u.Λ ∧ a.Hm = a'.Hm ∧ ∀ θ, a.IsFn s θ ↔ a'.IsFn s' θ := by

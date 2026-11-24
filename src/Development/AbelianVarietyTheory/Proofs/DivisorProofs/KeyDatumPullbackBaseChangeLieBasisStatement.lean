@@ -113,14 +113,14 @@ theorem keyOn_pullback : ∀ (A B K : Type) [CommRing A] [CommRing B] [CommRing 
   obtain ⟨φ, he, ψ, F, hφ, hψ, hrig, hsec, hF1, hF2, hFv⟩ := hK
   have hP := isGrpPullback_pullback G (spMap f)
   have sqφ : φ ≫ G.hom = (x.P.A.hom ≫ spMap h) ≫ spMap f := by
-    rw [Category.assoc, ← spMap_comp]
+    rw [Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact hφ.1.w
   obtain ⟨φ', hφ', hfst, hsnd⟩ : ∃ φ' : x.P.A.left ⟶ ((Over.pullback (spMap f)).obj G).left,
       IsGrpPullback x.P.A ((Over.pullback (spMap f)).obj G) (spMap h) φ' ∧ φ' ≫ pullback.fst G.hom (spMap f) = φ ∧
         φ' ≫ ((Over.pullback (spMap f)).obj G).hom = x.P.A.hom ≫ spMap h := by
     refine ⟨pullback.lift φ (x.P.A.hom ≫ spMap h) sqφ, ?_, pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
     refine IsGrpPullback.cancel hP ?_ (pullback.lift_snd _ _ _)
-    rw [pullback.lift_fst, ← spMap_comp]
+    rw [pullback.lift_fst, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact hφ
   subst hfst
   have hL := L.isLB
@@ -141,7 +141,7 @@ theorem keyOn_pullback : ∀ (A B K : Type) [CommRing A] [CommRing B] [CommRing 
     (maps_iff _ _ _ _ L'.rig L.rig (spMap f) L'.rig (rigPull_le (G' := ((Over.pullback (spMap f)).obj G)) (pullback.fst G.hom (spMap f)) (spMap f) heF L.L) (fun _ => rfl)).1 (idIso_maps L')
   have H'' : PMaps ψ (K := PUnit) (fun _ => eSec x.P.A) (fun _ => eSec G) (fun _ => 1) x.rig L.rig
       (spMap h ≫ spMap f) := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact (maps_iff ψ _ _ _ x.rig L.rig (spMap (h.comp f)) _ (rigPull_le (G' := x.P.A) (φ' ≫ pullback.fst G.hom (spMap f)) (spMap (h.comp f)) he L.L)
       (fun _ => rfl)).1 hrig
   have H' := T.pmaps_cancel hL (fun _ => he') H H''
@@ -223,7 +223,7 @@ theorem keyOn_pullback : ∀ (A B K : Type) [CommRing A] [CommRing B] [CommRing 
       ext <;> simp [Chart.dualMapR]
   have hv' : ∀ i, (x.v i).left ≫ φ' = spMap (Chart.dualMapR h) ≫ (y' i).left := fun i => by
     refine hP.1.hom_ext ?_ ?_
-    · rw [Category.assoc, hFv i, Category.assoc, hy', ← Category.assoc, hF', spMap_comp]
+    · rw [Category.assoc, hFv i, Category.assoc, hy', ← Category.assoc, hF', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · rw [Category.assoc, hsnd, ← Category.assoc, Over.w (x.v i), Category.assoc, Over.w (y' i)]
       show Spec.map _ ≫ Spec.map _ = Spec.map _ ≫ Spec.map _
       rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]

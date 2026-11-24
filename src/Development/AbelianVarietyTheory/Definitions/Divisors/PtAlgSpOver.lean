@@ -133,7 +133,7 @@ def ptVia (w : q ≫ X.hom = X'.hom ≫ spMap σ) {E : Type} [CommRing E] [Algeb
   Over.homMk (y.left ≫ q) (by
     have h : y.left ≫ X'.hom = spMap (algebraMap R' E) := Over.w y
     change (y.left ≫ q) ≫ X.hom = spMap ((algebraMap R' E).comp σ)
-    rw [Category.assoc, w, ← Category.assoc, h, Cris.spMap_comp])
+    rw [Category.assoc, w, ← Category.assoc, h, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
 
 def bcPull (w : q ≫ X.hom = X'.hom ≫ spMap σ) (u : Fn1 X) : Fn1 X' := fun E _ _ E' _ _ ψ y ↦
   @u E _ (algVia σ E) E' _ (algVia σ E') (homVia σ ψ) (ptVia w y)

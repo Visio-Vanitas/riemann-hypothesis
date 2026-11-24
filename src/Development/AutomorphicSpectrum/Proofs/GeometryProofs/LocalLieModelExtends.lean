@@ -65,13 +65,6 @@ open GlobalTheory.CompanionTheory.Ar.LieTangent GlobalTheory.CompanionTheory.Ar.
 
 variable {X : Scheme.{0}} {G : Over X} [GrpObj G]
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (c : A →+* B) (d : B →+* C) :
-    spMap (d.comp c) = spMap d ≫ spMap c := by
-  simp only [spMap, ← Spec.map_comp]
-  rfl
-
-
-omit [GrpObj G] in
 theorem ringHom_ext_of_mono {R A : Type} [CommRing R] [CommRing A] (x : Sp R ⟶ X) [Mono x] {a b : R →+* A}
     (h : spMap a ≫ x = spMap b ≫ x) : a = b :=
   congrArg (fun g => g.hom) (Spec.map_injective ((cancel_mono x).1 h))
@@ -88,7 +81,7 @@ theorem extends_of_tr {Ω : Type} [Field Ω] {ξ : Sp Ω ⟶ X} {E : Type} [AddC
     have h : Spec.map (CommRingCat.ofHom (TrivSqZeroExt.fstHom (X.presheaf.stalk q.1) (X.presheaf.stalk q.1) (X.presheaf.stalk q.1)).toRingHom) ≫
         spMap (GlobalTheory.CompanionTheory.Ar.dualMap ψ) =
         spMap ψ ≫ Spec.map (CommRingCat.ofHom (TrivSqZeroExt.fstHom R R R).toRingHom) := by
-      rw [← spMap_comp', ← spMap_comp']
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       apply RingHom.ext
       intro a
@@ -182,7 +175,7 @@ theorem lieLat_germs_eq_sections : ∀ (X : Scheme.{0}) (G : Over X) [GrpObj G] 
     rw [← hU.fromSpecStalk_eq_fromSpecStalk hpU]
     rfl
   have hg : (genMap ξ p).comp ψ₀ = φ₀ := LieSections.ringHom_ext_of_mono x₀ (by
-    rw [LieSections.spMap_comp', Category.assoc, hψ₀, hφ₀]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hψ₀, hφ₀]
     exact LieTangent.spec_genMap ξ p)
   obtain ⟨j₀, hj₀⟩ := LieVB.exists_tr x₀ ξ φ₀ hφ₀ M₀ M
   choose s hs using fun i => LieSections.exists_germs M₀ b₀ M φ₀ j₀ hj₀ p ψ₀ hψ₀ hg (hc i)
@@ -215,10 +208,10 @@ theorem lieLat_germs_eq_sections : ∀ (X : Scheme.{0}) (G : Over X) [GrpObj G] 
     exact (hDg.le.trans inf_le_right).trans hgN
   let φ : R →+* Ω := (genMap ξ q).comp ψ
   have hφ : spMap φ ≫ x = ξ := by
-    rw [LieSections.spMap_comp', Category.assoc, hψ]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hψ]
     exact LieTangent.spec_genMap ξ q
   have hφρ : φ.comp ρ = φ₀ := LieSections.ringHom_ext_of_mono x₀ (by
-    rw [LieSections.spMap_comp', Category.assoc, hρ, hφ, hφ₀])
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hρ, hφ, hφ₀])
   obtain ⟨j, hj⟩ := LieVB.exists_tr x ξ φ hφ MF M
   have hjβ : ∀ u, j (β u) = j₀ u := fun u => LieVB.pt_left_inj M (by
     rw [hj, hβ, ← Category.assoc, LieVB.spMap_dual_comp, hφρ, hj₀])

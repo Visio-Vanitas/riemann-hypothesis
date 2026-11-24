@@ -602,8 +602,8 @@ variable {R R' : Type} [CommRing R] [IsDomain R] [CommRing R'] [IsDomain R'] {D 
   {f : R →+* R'} {C : Type} [Field C] [Algebra (FractionRing R) C] [Algebra (FractionRing R') C]
 
 theorem tf_comp (hf : Along f C) : (TF (R := R') C).hom ≫ spMap f = (TF (R := R) C).hom :=
-  (congrArg (· ≫ spMap f) (Geo.Tor.spMap_comp _ _).symm).trans ((Geo.Tor.spMap_comp _ _).symm.trans
-    ((congrArg spMap (RingHom.ext fun x => hf x)).trans (Geo.Tor.spMap_comp _ _)))
+  (congrArg (· ≫ spMap f) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans
+    ((congrArg spMap (RingHom.ext fun x => hf x)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)))
 
 theorem c_of_field (hf : Along f C) {ψ : D'.P.A.left ⟶ D.P.A.left} (gp : IsGrpPullback D'.P.A D.P.A (spMap f) ψ)
     (x : D'.X) (y : D.X) (h : (DegPre.cF D' C x).left ≫ ψ = (DegPre.cF D C y).left) :
@@ -611,7 +611,7 @@ theorem c_of_field (hf : Along f C) {ψ : D'.P.A.left ⟶ D.P.A.left} (gp : IsGr
   have := D.P.isAb.proper
   let g : R' →+* C := (algebraMap (FractionRing R') C).comp (algebraMap R' _)
   have hg : Function.Injective g := (algebraMap (FractionRing R') C).injective.comp (IsFractionRing.injective _ _)
-  have e : spMap g = (TF (R := R') C).hom := Geo.Tor.spMap_comp _ _
+  have e : spMap g = (TF (R := R') C).hom := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   refine ext_of_injective hg (X := Sp R') (π := spMap g) (p := 𝟙 _) (p' := 𝟙 _) (IsPullback.of_vert_isIso ⟨by simp⟩)
     D.P.A.hom ?_ ?_
   · rw [Category.assoc, gp.1.w, ← Category.assoc, Over.w, Category.assoc]
@@ -680,7 +680,7 @@ theorem match_of_fit : GlobalTheory.UT.LL → AllS fun {_} _ _ _ {H} {_} {_} {_}
         jFK (R := O') L = spMap (algebraMap (FractionRing M.W) L) ≫ genMap inj := fun L _ _ _ h =>
       (congrArg spMap (IsLocalization.ringHom_ext (nonZeroDivisors O') (RingHom.ext fun x =>
         (h x).symm.trans (congrArg (algebraMap (FractionRing M.W) L) (fracMap_algebraMap inj x).symm)))).trans
-        (Geo.Tor.spMap_comp _ _)
+        (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
     have t := fun (L : Type) [Field L] [Algebra (FractionRing M.W) L] [Algebra (FractionRing O') L] (h : Along f L) =>
       genRel_ext_iff M.P.D.toPre.P.isLB a.D₀.P.isLB w (M.P.D.toPre.psi_gen (ν'.eX (J.e χ))) (a.D₀.psi_gen (A.ν.eX χ))
         (algebraMap (FractionRing M.W) L) (𝟙 _) (genMap inj) (s := jFK (R := M.W) L) (Category.comp_id _).symm (lift L h)
@@ -1441,7 +1441,7 @@ theorem eq_of_generic {O : Type} [CommRing O] {β : O →+* c.F} (Y : Model Xo c
     ⟨(PrimeSpectrum.denseRange_comap_iff_ker_le_nilRadical _).2 (((RingHom.injective_iff_ker_eq_bot ((algebraMap (FractionRing R) C).comp (algebraMap R _))).1
       ((algebraMap (FractionRing R) C).injective.comp (IsFractionRing.injective R (FractionRing R)))).trans_le bot_le)⟩
   refine ext_of_isDominant (spMap ((algebraMap (FractionRing R) C).comp (algebraMap R _))) ?_
-  rw [spMap_comp, Category.assoc, Category.assoc]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
   exact h
 
 theorem hasArcData_at_trait : HV → Laws6 → GlobalTheory.LN.UDvrSt → GlobalTheory.LN.HomExtSt → ThetaPtDeterminesSt → EndDeterminedOnTorsionSt → ThetaUnifAV → AllA fun {E} _ _ _ {H} {D} {l} {Xo} {c} {W₀} Y {O'} _ _ {b} a => ∀ (R₁ : Type) [CommRing R₁] [IsDomain R₁] (g : PowerSeries O' →+* R₁) (y₁ : Sp (FractionRing R₁) ⟶ Xo.XF c), Function.Injective g → g.Finite → IsIntegrallyClosed R₁ → RealAt Y a g y₁ → y₁ ≫ Y.j ≫ Y.s = jK R₁ ≫ spMap g ≫ spMap (PowerSeries.C (R := O')) ≫ spMap b → ∀ (W : Type) [CommRing W] [IsDomain W] [IsLocalRing W], GlobalTheory.LN.CDvr W → ∀ (φ : R₁ →+* W) (gam : FractionRing R₁ →+* FractionRing W), (∀ r, gam (algebraMap R₁ _ r) = algebraMap W _ (φ r)) → ∀ χ : Sp W ⟶ Y.X, spMap gam ≫ y₁ ≫ Y.j = jK W ≫ χ → ¬ IsUnit (φ (g PowerSeries.X)) → ∃ (W' : Type) (_ : CommRing W') (_ : IsDomain W') (_ : IsLocalRing W') (io : W →+* W'), GlobalTheory.LN.CDvr W' ∧ Function.Injective io ∧ io.Finite ∧ Y.HasArcData a (IsLocalRing.maximalIdeal W') (io.comp (φ.comp (g.comp (PowerSeries.C (R := O'))))) (io (φ (g PowerSeries.X))) (spMap io ≫ χ) := by
@@ -1466,13 +1466,13 @@ theorem hasArcData_at_trait : HV → Laws6 → GlobalTheory.LN.UDvrSt → Global
   obtain ⟨A, r, o, hI, -, hF, hRe⟩ := hR.2 C ((algebraMap (FractionRing W) C).comp gam) (Units.mk0 _ hu0)
     (fun x => (al₀ x).symm.trans (congrArg _ (hgam _).symm)) (fun x => by
       rw [RingHom.comp_apply, hgam]; exact hext.1 _) (congrArg _ (hgam _).symm) hu1
-  rw [spMap_comp, Category.assoc] at hF
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc] at hF
   have sq : spMap gam ≫ jK R₁ = jK W ≫ spMap φ :=
-    (spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (spMap_comp φ _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ _))
   obtain ⟨M, f₁, χ₁, m₁, fin₁, al₁, hχ₁, -⟩ := _root_.GlobalTheory.Ex.UnifModel.exists_mdl hV h6 hU hH hT hE hTU E H D l Xo c W₀ Y C W hW hext
     (FractionRing W) (algebraMap _ C) (fun _ => rfl) (spMap gam ≫ y₁) (f₀.comp b) (by
       have e : spMap (algebraMap (FractionRing W) (FractionRing W)) = 𝟙 _ := Spec.map_id _
-      rw [e, Category.id_comp, Category.assoc, hs, reassoc_of% sq, hf₀, spMap_comp, spMap_comp, spMap_comp]
+      rw [e, Category.id_comp, Category.assoc, hs, reassoc_of% sq, hf₀, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       simp only [Category.assoc]) o hF
   have inj₁ : Function.Injective f₁ := fun x y h => injW ((al₁ x).symm.trans (h ▸ al₁ y))
   obtain ⟨W₂, _, _, _, _, io, hW₂, inj₂, fin₂, loc₂, al₂, ext₂, t₁, t₂⟩ := GlobalTheory.T.exists_completeDVR_extension_torsion_rational hL M.W M.cdv C M.ext 3 (by decide)
@@ -1488,13 +1488,13 @@ theorem hasArcData_at_trait : HV → Laws6 → GlobalTheory.LN.UDvrSt → Global
   let δ : FractionRing W →+* FractionRing W₂ := IsFractionRing.lift inj
   have hδ : ∀ x, δ (algebraMap W _ x) = algebraMap W₂ _ (io (f₁ x)) := IsFractionRing.lift_algebraMap inj
   have sq₂ : spMap δ ≫ jK W = jK W₂ ≫ spMap (io.comp f₁) :=
-    (spMap_comp _ δ).symm.trans ((congrArg spMap (RingHom.ext hδ)).trans (spMap_comp _ _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ δ).symm.trans ((congrArg spMap (RingHom.ext hδ)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   have jδ : jFK (R := W₂) C ≫ spMap δ = spMap (algebraMap (FractionRing W) C) :=
-    (spMap_comp δ _).symm.trans (congrArg spMap (IsLocalization.ringHom_ext (nonZeroDivisors W) (RingHom.ext fun x =>
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp δ _).symm.trans (congrArg spMap (IsLocalization.ringHom_ext (nonZeroDivisors W) (RingHom.ext fun x =>
       (congrArg (algebraMap (FractionRing W₂) C) (hδ x)).trans (al x))))
   have jio : jFK (R := W₂) C ≫ jK W₂ ≫ spMap io = jFK (R := M.W) C ≫ jK M.W :=
-    ((congrArg (_ ≫ ·) (spMap_comp _ _).symm).trans (spMap_comp _ _).symm).trans
-      ((congrArg spMap (RingHom.ext fun x => al₂ x)).trans (spMap_comp _ _))
+    ((congrArg (_ ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans
+      ((congrArg spMap (RingHom.ext fun x => al₂ x)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   have hy : (spMap δ ≫ spMap gam ≫ y₁) ≫ Y.j = jK W₂ ≫ spMap (io.comp f₁) ≫ χ := by
     rw [Category.assoc, Category.assoc, hχ, reassoc_of% sq₂]
   have eχ : spMap io ≫ χ₁ = spMap (io.comp f₁) ≫ χ := by
@@ -1511,7 +1511,7 @@ theorem hasArcData_at_trait : HV → Laws6 → GlobalTheory.LN.UDvrSt → Global
   rw [← eχ]
   exact hasArcData_of_model hV h6 hU hH hT hE hTU Y a hB A M₂ ((io.comp f₁).comp f₀) _ hI hRe hu1 (al _).symm
     (fun x => (al _).trans (al₀ x)) m hy e₂ hA hM (t₁ _ ψ (gψ.congr (Category.comp_id _).symm rfl))
-    fun B ψ' h => t₂ B ψ' (h.congr (spMap_comp (f₁.comp f₀) io) rfl)
+    fun B ψ' h => t₂ B ψ' (h.congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (f₁.comp f₀) io) rfl)
 
 end GlobalTheory.Ex.Trait
 end
@@ -1674,7 +1674,7 @@ open GlobalTheory GlobalTheory.Ex
 noncomputable section
 namespace GlobalTheory.Ex.Mono
 
-alias sp_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias sp_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem exists_pull {X Y Y' : Scheme.{0}} {L : LB X} {K : Type} [Fintype K] {φ : K → (Y ⟶ X)} {φ' : K → (Y' ⟶ X)}
     {ε : K → ℤ} (s : LB.Sec (LB.LinComb L φ ε)) (h : Y' ⟶ Y) (e : ∀ k, h ≫ φ k = φ' k) :

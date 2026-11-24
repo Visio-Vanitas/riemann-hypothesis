@@ -554,9 +554,9 @@ theorem exists_transport {E : Type} [Field E] [NumberField E] [IsCMField E] {H :
   haveI : CharZero K := charZero_of_injective_ringHom g.injective
   haveI : CharZero L := charZero_of_injective_ringHom h.injective
   let uK : Over.mk (spMap (i.comp g)) ⟶ Over.mk (spMap g) :=
-    Over.homMk (spMap i) (spMap_comp g i).symm
+    Over.homMk (spMap i) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g i).symm
   let uL : Over.mk (spMap (i.comp g)) ⟶ Over.mk (spMap h) :=
-    Over.homMk (spMap j) (by rw [hij, spMap_comp]; rfl)
+    Over.homMk (spMap j) (by rw [hij, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl)
   obtain ⟨I', -, hI'⟩ := GlobalTheory.FullPoint.exists_tateIso_up (D := D)
     GlobalTheory.abelianSchemeLaws_all.1 (SabModel.pol t ht) t.act.act j uL rfl I
   obtain ⟨J, hJ⟩ := PositivityTheory.Xgn.tate_isomorphism_descends E H D (Sp F) (SabModel.pol t ht)
@@ -590,7 +590,7 @@ theorem PositivityTheory.Xgn.model_object_sections : ∀ (E : Type) [Field E] [N
   obtain ⟨g, rfl⟩ : ∃ g : F →+* k, x = spMap g :=
     ⟨(Spec.preimage x).hom, by simp [spMap, Spec.map_preimage]⟩
   have hβ : β = g.comp (IntermediateField.inclusion hK).toRingHom :=
-    GlobalTheory.FullPoint.spMap_inj (by rw [spMap_comp]; exact hx.symm)
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [spMap_comp]; exact hx.symm)
   subst hβ
   obtain ⟨J, hJ⟩ := PositivityTheory.Xgn.ModelSectionsTransport.exists_transport D t ht g (algebraMap F ℂ) I
   refine ⟨fun τ => hLie k g τ, J, ?_, fun a => ?_, fun a ha => ?_⟩
@@ -821,7 +821,7 @@ theorem exists_obj_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] 
       kTriv_pull m.cart t.PP.isLB t₂.PP.isLB ((isGen_iff w).1 gw) ht.2.2⟩
   let x₂ : Sp ℂ ⟶ Sp ↥(F₀ ⊔ F₁) := spMap (algebraMap ↥(F₀ ⊔ F₁) ℂ)
   have hx : x₂ ≫ spMap e = spMap σ := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext he)
   obtain ⟨Φ, hΦ, hW⟩ : ∃ Φ : (Over.mk x₂ ⟶ t₂.G) ≃* (Over.mk (spMap σ) ⟶ t.G),
       (∀ x, (Φ x).left = x.left ≫ m.φ) ∧ ∀ (k : ℕ) x y c, Out.WeilIs t.G t.PP.L k (Φ x) (Φ y) c →
@@ -846,7 +846,7 @@ theorem exists_obj_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] 
       rw [Category.assoc]
       refine (congrArg (spMap i₁ ≫ ·) hy₁).trans ?_
       rw [Category.id_comp]
-      exact (spMap_comp _ _).symm
+      exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
     refine ⟨Over.homMk (m.cart.1.lift _ _ hw₁) (m.cart.1.lift_snd _ _ _), ?_⟩
     apply Φ.injective
     show Φ _ = Φ (Φ.symm _)
@@ -857,7 +857,7 @@ theorem exists_obj_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] 
     rw [Category.assoc]
     refine (congrArg (x₂ ≫ ·) (m.cart.1.lift_fst _ _ hw₁)).trans ?_
     rw [← hy₂, ← Category.assoc]
-    exact congrArg (· ≫ y₁) (spMap_comp _ _).symm
+    exact congrArg (· ≫ y₁) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have hK₂ : KA l ≤ F₀ ⊔ F₁ := hK.trans le_sup_left
   have hρ : IntermediateField.inclusion hK₂ (baseKA l).ρ = e ρ := Subtype.ext (by
     refine Eq.trans ?_ (he ρ).symm
@@ -866,7 +866,7 @@ theorem exists_obj_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] 
   obtain ⟨o, ho⟩ := _root_.GlobalTheory.CompanionTheory.Ar.SabModel.obj_of_sections E H D l (F₀ ⊔ F₁) hK₂ t₂ ht₂ hA (fun k _ _ g τ => by
     have hp : ∀ n, LieMult t₂.act (spMap g) τ n ↔ LieMult t.act (spMap (g.comp e)) τ n := fun n =>
       (GlobalTheory.LiePull.lieMult_pull (𝓞 E) _ _ _ _ _ _ t.act t₂.act m.cart m.act k (spMap g) τ n).trans
-        (iff_of_eq (congrArg (fun x => LieMult t.act x τ n) (spMap_comp _ _).symm))
+        (iff_of_eq (congrArg (fun x => LieMult t.act x τ n) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm))
     have h := hs k (g.comp e) τ
     rw [hρ, hp, hp]
     exact h) I₂ hsec
@@ -925,7 +925,7 @@ theorem exists_sab_model : N1ab → PartI → ∀ (E : Type) [Field E] [NumberFi
     obtain ⟨f, ⟨hf, ⟨mf⟩⟩, -⟩ := (Xo l).rep (Sp F) _ inferInstance o
     let bF : c.F →+* F := (IntermediateField.inclusion hF).toRingHom
     let y : Sp F ⟶ (Xo l).XF c := pullback.lift f (spMap bF) (by
-      rw [hf, ← spMap_comp]
+      rw [hf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (RingHom.ext fun x => Subtype.ext rfl))
     have hy1 : y ≫ pullback.fst _ _ = f := pullback.lift_fst _ _ _
     have hy2 : y ≫ pullback.snd _ _ = spMap bF := pullback.lift_snd _ _ _

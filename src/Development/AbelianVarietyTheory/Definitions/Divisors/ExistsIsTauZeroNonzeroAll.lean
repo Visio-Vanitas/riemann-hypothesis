@@ -406,7 +406,7 @@ theorem exists_isLevWith_cover {k : ℕ} (hk : k ∣ l.M) {S : Type} [CommRing S
   let ρ : ∀ {T : Type} [CommRing T] (χ : B →+* T), ptO Xo (spMap (χ.comp φ) ≫ x0) ⟶ ptO Xo (spMap φ ≫ x0) :=
     fun χ => Over.homMk (spMap χ) (by
       show spMap χ ≫ spMap φ ≫ x0 = spMap (χ.comp φ) ≫ x0
-      rw [spMap_comp, Category.assoc])
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
   have hρ : ∀ {T : Type} [CommRing T] (χ : B →+* T) (a b : ptO Xo (spMap φ ≫ x0) ⟶ Xo.univ.t.G),
       spMap χ ≫ a.left = spMap χ ≫ b.left ↔ ρ χ ≫ a = ρ χ ≫ b := fun χ a b =>
     ⟨fun h => Over.OverMorphism.ext h, fun h => congrArg CommaMorphism.left h⟩
@@ -456,7 +456,7 @@ theorem exists_isLevWith_cover {k : ℕ} (hk : k ∣ l.M) {S : Type} [CommRing S
     exact (hρ lo _ _).1 (h1 (Sum.inl (Sum.inr (⟨o, ho⟩, a))))
   · by_contra hn
     refine (he K (χ.comp lo) (hlo.map χ)).2 inferInstance ⟨(a, b), hn⟩ ?_
-    rw [spMap_comp, Category.assoc, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
     exact hab
   · exact ((hρ lo _ _).1 (h1 (Sum.inr ⟨_, a, ha, rfl⟩))).trans
       ((comp_halfPt Xo k _ _).trans (halfPt_congr Xo hk _ (hra a)))

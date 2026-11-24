@@ -568,7 +568,7 @@ theorem exists_ratio (hB : Out.SecBaseChangeSt) (h₀ : RigIso Y.m0.toSABMap w�
   have hm' : FrMap ψ' y' y₁ := FramedBaseChange.cancel π ψ' hy' (e' ▸ hm)
   have c₁ := Cut.pull ψ'.toRingHom (a := q) (b := 1) ((_root_.mul_one q).symm ▸ hq) (secBC_of_frMap hm')
   have ez : spMap ψ'.toRingHom ≫ spMap π.toRingHom ≫ j = spMap ψ.toRingHom ≫ j := by
-    rw [← Category.assoc, ← FramedBaseChange.spec_comp, ← e']; rfl
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← e']; rfl
   rw [ez] at c₁
   have c₂ := hb.chg hc.1 hc.2.2
   have hx₁ : (spMap ψ.toRingHom ≫ j) ≫ pullback.fst _ _ = y₁.x := by rw [Category.assoc, hj, hm.1]
@@ -625,8 +625,8 @@ theorem hasSum_generator_ratio : Out.Laws → Out.Laws2 → ∀ (E : Type) [Fiel
     · rw [← cancel_mono (spMap β), Category.assoc, Category.assoc, Category.assoc, reassoc_of% hj.2.2]
       have e₁ : Y.j ≫ Y.s = pullback.snd _ _ ≫ spMap β := by
         rw [Model.j, Category.assoc, pullback.condition, reassoc_of% Y.jQ_over]
-      rw [← e₁, reassoc_of% zj, hχ, ← FramedBaseChange.spec_comp, ← FramedBaseChange.spec_comp,
-        ← FramedBaseChange.spec_comp, ← FramedBaseChange.spec_comp]
+      rw [← e₁, reassoc_of% zj, hχ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+        ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       exact RingHom.ext fun x => (hal (β x)).symm.trans (φ.commutes (β x)).symm
   subst hz
@@ -650,7 +650,7 @@ theorem hasSum_generator_ratio : Out.Laws → Out.Laws2 → ∀ (E : Type) [Fiel
   obtain ⟨a', ha', -⟩ := exists_cut_gen h₀ h₁ hgen.1 hxw hVw yw.gen
   obtain ⟨fr, hfr, hs⟩ := hgenw
   have hsn : (spMap ψ.toRingHom ≫ j) ≫ pullback.snd _ _ = spMap (algebraMap c.F (CAt σ)) := by
-    rw [Category.assoc, hj.2.2, ← FramedBaseChange.spec_comp]
+    rw [Category.assoc, hj.2.2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun x => ψ.commutes x
   have ea : toC a' = ρ := by

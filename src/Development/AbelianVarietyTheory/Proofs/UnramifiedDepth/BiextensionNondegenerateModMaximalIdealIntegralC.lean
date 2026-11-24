@@ -999,27 +999,23 @@ theorem Compat.right {B A A' : Type} [CommRing B] [Algebra V B] [CommRing A] [Al
     {ψ : B →+* A} (h : Compat β ψ) (g : A →ₐ[Ω] A') : Compat β ((g : A →+* A').comp ψ) := fun v => by
   rw [RingHom.comp_apply, h v, RingHom.coe_coe, g.commutes]
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 def rho {B A : Type} [CommRing B] [Algebra V B] [CommRing A] [Algebra Ω A] (ψ : B →+* A) (h : Compat β ψ) :
     overAt (spMap β) A ⟶ overAt (𝟙 (Sp V)) B :=
   Over.homMk (spMap ψ) (by
     change spMap ψ ≫ spMap (algebraMap V B) ≫ 𝟙 _ = spMap (algebraMap Ω A) ≫ spMap β
-    rw [Category.comp_id, sp_comp, sp_comp]
+    rw [Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext h)
 
 theorem rho_homAt {B B' A : Type} [CommRing B] [Algebra V B] [CommRing B'] [Algebra V B'] [CommRing A] [Algebra Ω A]
     {ψ : B →+* A} (h : Compat β ψ) (f : B' →ₐ[V] B) :
     rho ψ h ≫ homAt (𝟙 (Sp V)) f = rho (ψ.comp (f : B' →+* B)) (h.left f) :=
-  Over.OverMorphism.ext (sp_comp _ _)
+  Over.OverMorphism.ext (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
 
 theorem homAt_rho {B A A' : Type} [CommRing B] [Algebra V B] [CommRing A] [Algebra Ω A] [CommRing A'] [Algebra Ω A']
     {ψ : B →+* A} (h : Compat β ψ) (g : A →ₐ[Ω] A') :
     homAt (spMap β) g ≫ rho ψ h = rho ((g : A →+* A').comp ψ) (h.right g) :=
-  Over.OverMorphism.ext (sp_comp _ _)
+  Over.OverMorphism.ext (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
 
 def co {d m : ℕ} {A : Type} [CommRing A] (ψ : Jet V (Fin 1 × Fin d) m →+* A) : Fin d → A :=
   fun j => ψ (Ideal.Quotient.mk _ (MvPolynomial.X ((0 : Fin 1), j)))

@@ -65,7 +65,7 @@ theorem torsRat_of_isGrpPullback {R O : Type} [CommRing R] [IsDomain R] [CommRin
   let i : FractionRing R →+* FractionRing O := IsFractionRing.lift hj
   have hsq : spMap i ≫ jK R = jK O ≫ spMap ρ := by
     show spMap i ≫ spMap (algebraMap R (FractionRing R)) = spMap (algebraMap O (FractionRing O)) ≫ spMap ρ
-    rw [← spMap_comp, ← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have hi : ∀ r, i (algebraMap R (FractionRing R) r) = algebraMap O (FractionRing O) (ρ r) := fun r =>
       IsFractionRing.lift_algebraMap (K := FractionRing R) hj r
     exact congrArg spMap (RingHom.ext hi)
@@ -73,13 +73,13 @@ theorem torsRat_of_isGrpPullback {R O : Type} [CommRing R] [IsDomain R] [CommRin
   have hx0 : x0 ^ n = 1 := by simp only [x0, ← map_pow, hx, map_one]
   have hT : spMap (κ.comp i) ≫ jK R = (Over.mk (spMap κ ≫ jK O)).hom ≫ spMap ρ := by
     show _ = (spMap κ ≫ jK O) ≫ spMap ρ
-    rw [spMap_comp, Category.assoc, hsq, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hsq, Category.assoc]
   let e : Over.mk (spMap (κ.comp i) ≫ jK R) ⟶ Over.mk ((Over.mk (spMap κ ≫ jK O)).hom ≫ spMap ρ) :=
     Over.homMk (𝟙 _) ((Category.id_comp _).trans hT.symm)
   obtain ⟨y, hy⟩ := h K (κ.comp i) (e ≫ x0) (by rw [← MonObj.comp_pow, hx0, MonObj.comp_one])
   have hy' : x.left ≫ π = spMap κ ≫ spMap i ≫ y.left := by
     have e₁ : x.left ≫ π = (e ≫ x0).left := (Category.id_comp _).symm
-    exact e₁.trans (hy.trans ((congrArg (· ≫ y.left) (spMap_comp i κ)).trans (Category.assoc _ _ _)))
+    exact e₁.trans (hy.trans ((congrArg (· ≫ y.left) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i κ)).trans (Category.assoc _ _ _)))
   have hz : (spMap i ≫ y.left) ≫ G.hom = jK O ≫ spMap ρ := by
     rw [Category.assoc, Over.w y]
     exact hsq
@@ -160,13 +160,13 @@ theorem exists_level : ∀ {g n : ℕ} {φ : InvFun ℤ}, 3 ≤ n → Odd n → 
   have pb₀ : SiegPB c₀ F.univ x₀ := GlobalTheory.LowChart.siegPB_siegPull _ _ _ _
   have hs₀ : SameFib c₀.A c₀.P (𝟙 _) A (P.pull π₂) (spMap κ) := by
     dsimp only [c₀, GlobalTheory.LowChart.siegPull]
-    exact sameFib_factor F.univ.isLB hPG (Category.id_comp x₀) (spMap_comp _ _).symm
+    exact sameFib_factor F.univ.isLB hPG (Category.id_comp x₀) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
       (Pdiv.PullbackComparison.isGrpPullback x₀ F.univ.A) (Pdiv.PullbackComparison.isSquare x₀ F.univ.A) hπ sπ hsf
   obtain ⟨c, hc, hcc, a, a₂, ha, sa, ea⟩ := GlobalTheory.LevSpread.level_spreads n hn hodd O b A (P.pull π₂) hA hP hTA g K κ c₀
     (GlobalTheory.LowChart.principal_siegPull _ _ _ _ F.princ) hs₀
   refine ⟨c, hc, ⟨a ≫ π₀, a₂ ≫ π₂, (ha.comp hπ).congr (Category.id_comp _) rfl, AbPol.isSquare_comp sa sπ,
     lbIso_comp hPG (pull_isLB hPG _) c.isLB (GlobalTheory.lbIso_refl (pull_isLB hPG _)) ea⟩, fun yU hy hys => ?_⟩
   refine F.inj K _ _ _ c₀ ?_ (siegPB_trans hcc hy) pb₀
-  rw [Category.assoc, hys, hx₀, ← spMap_comp, RingHom.comp_assoc]
+  rw [Category.assoc, hys, hx₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingHom.comp_assoc]
 
 end GlobalTheory.TChart.AbLevel

@@ -1653,7 +1653,7 @@ theorem UpperTheory.Gal.Ord.ordGen :
     ext a
     rfl
   have hcomp : spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ spMap (algebraMap k (DualNumber k)) = 𝟙 _ := by
-    rw [← GlobalTheory.Cris.spMap_comp, hfst]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hfst]
     show Spec.map (CommRingCat.ofHom (RingHom.id k)) = _
     rw [CommRingCat.ofHom_id, Spec.map_id]
   obtain ⟨v, ⟨hv1, ⟨av⟩⟩, -⟩ := M.rep (Sp (DualNumber k)) _ o'
@@ -1677,7 +1677,7 @@ theorem UpperTheory.Gal.Ord.ordGen :
     have hr' : r ∈ RingHom.ker β := hkerβ ▸ hr
     exact RingHom.mem_ker.mp hr')
   obtain ⟨τ, hτ⟩ := gen R M.X M.s z hz hmin (DualNumber k) v ((algebraMap k (DualNumber k)).comp β) hvz
-    (hv1.trans (GlobalTheory.Cris.spMap_comp β _).symm) (fun r hr => by
+    (hv1.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β _).symm) (fun r hr => by
       have hr' : r ∈ RingHom.ker β := hkerβ ▸ hr
       rw [RingHom.comp_apply, RingHom.mem_ker.mp hr', map_zero])
   obtain ⟨oκ, ⟨aκ⟩⟩ := _root_.GlobalTheory.HTPullEvery.exists_objMap p D R b N M.X _ M.s (M.X.fromSpecResidueField z ≫ M.s)

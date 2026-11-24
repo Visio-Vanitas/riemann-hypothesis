@@ -231,10 +231,6 @@ def ptBC (t : Sp B ⟶ X) (ht : t ≫ p = spMap (algebraMap k B)) (R : Type) [Co
     (spMap (Algebra.TensorProduct.includeLeft : R →ₐ[k] R ⊗[k] B).toRingHom)
     (by rw [Category.assoc, ht, spMap_algHom_comp, spMap_algHom_comp])
 
-theorem spMap_comp {R₁ R₂ R₃ : Type} [CommRing R₁] [CommRing R₂] [CommRing R₃] (f : R₁ →+* R₂) (g : R₂ →+* R₃) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 theorem spMap_ptBC_eq {t : Sp B ⟶ X} (ht : t ≫ p = spMap (algebraMap k B)) {C : Type} [CommRing C]
     (m : R ⊗[k] B →+* C) (x : Sp C ⟶ pullback p (spMap (algebraMap k R)))
     (h₁ : x ≫ pullback.fst _ _ =
@@ -243,8 +239,8 @@ theorem spMap_ptBC_eq {t : Sp B ⟶ X} (ht : t ≫ p = spMap (algebraMap k B)) {
       spMap (m.comp (Algebra.TensorProduct.includeLeft : R →ₐ[k] R ⊗[k] B).toRingHom)) :
     spMap m ≫ ptBC p t ht R = x := by
   apply pullback.hom_ext
-  · rw [h₁, ptBC, Category.assoc, pullback.lift_fst, ← Category.assoc, spMap_comp]
-  · rw [h₂, ptBC, Category.assoc, pullback.lift_snd, spMap_comp]
+  · rw [h₁, ptBC, Category.assoc, pullback.lift_fst, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  · rw [h₂, ptBC, Category.assoc, pullback.lift_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 theorem spMap_map_ptBC {t : Sp B ⟶ X} (ht : t ≫ p = spMap (algebraMap k B)) (ρ : R →ₐ[k] S) :
     spMap (Algebra.TensorProduct.map ρ (AlgHom.id k B)).toRingHom ≫ ptBC p t ht R =
@@ -253,7 +249,7 @@ theorem spMap_map_ptBC {t : Sp B ⟶ X} (ht : t ≫ p = spMap (algebraMap k B)) 
   · rw [Category.assoc, bcMap_fst, ptBC, pullback.lift_fst]
     congr 2
     ext b; simp
-  · rw [Category.assoc, bcMap_snd, ptBC, pullback.lift_snd_assoc, spMap_comp]
+  · rw [Category.assoc, bcMap_snd, ptBC, pullback.lift_snd_assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
 
 theorem surjective_spMap_map_fst {C : Type} [CommRing C] [Algebra k C] :
@@ -287,7 +283,7 @@ theorem tangent_over (v : epsR C ⟶ (Over.pullback (spMap (algebraMap k C))).ob
   have h : v.left ≫ pullback.snd _ _ = spMap (algebraMap C (DualNumber C)) := Over.w v
   rw [Category.assoc, pullback.condition, ← Category.assoc]
   erw [h]
-  rw [spMap_comp, ← IsScalarTower.algebraMap_eq]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← IsScalarTower.algebraMap_eq]
 
 theorem tangent_factor (v : epsR C ⟶ (Over.pullback (spMap (algebraMap k C))).obj A) :
     ∃ m : Sp (DualNumber C) ⟶ Sp (C ⊗[k] DualNumber C), m ≫ ptBC A.hom _ (tangent_over v) C = v.left := by
@@ -332,7 +328,7 @@ theorem tangent_range {R : Type} [CommRing R] [Algebra k R]
           spMap (algebraMap k C) ≫ eSec A := by
         rw [← Category.assoc]
         exact (congrArg (· ≫ _) hv).trans (z A C)
-      rw [e, ← spMap_comp, Category.assoc, Category.assoc]
+      rw [e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
       erw [hv', z A R]
       rw [← Category.assoc, ← Category.assoc, spMap_algHom_comp, spMap_algHom_comp]
     · have h : eSec ((Over.pullback (spMap (algebraMap k R))).obj A) ≫ pullback.snd _ _ = 𝟙 _ :=

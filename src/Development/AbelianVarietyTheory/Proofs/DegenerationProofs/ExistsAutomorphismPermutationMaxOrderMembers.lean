@@ -503,7 +503,7 @@ theorem exists_det_ne_zero {F S : Type} [Field F] {n : ℕ} (D : Fin n → S →
 
 open CategoryTheory Limits AlgebraicGeometry MonoidalCategory CartesianMonoidalCategory
 open scoped CategoryTheory.MonObj CategoryTheory.Obj
-open ReciprocityTheory.ChartRestriction.G.Chart (sp spMap spMap_left spMap_comp spMap_id comp_one' IsTan fstD isTan_iff)
+open ReciprocityTheory.ChartRestriction.G.Chart (sp spMap spMap_left ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp spMap_id comp_one' IsTan fstD isTan_iff)
 open ReciprocityTheory.ChartRestriction.G.Geo.Tor (Sp epsR IsTangent IsLieComb IsLieBasis constFn)
 open TrivSqZeroExt (inl inr)
 open GlobalTheory.SqZero GlobalTheory.KS GlobalTheory.KS.InvField
@@ -544,13 +544,13 @@ theorem exists_independent [Smooth G.hom] {n : ℕ} {v : Fin n → (epsR K ⟶ G
     (lieExp v (fun i => inr (Pi.single i 1)) (fun _ => TrivSqZeroExt.inr_mul_inr _ _ _) *
       (spMap ((TrivSqZeroExt.inlAlgHom K F (Fin n → F)).comp u) ≫ j)) u (by
       rw [MonObj.comp_mul, comp_lieExp, lieExp_eq_one hv.1 _ (fun i => by rfl), one_mul, ← Category.assoc,
-        spMap_comp]
+        ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl)
   have hfst : ∀ a, (χ a).fst = u a := AlgHom.congr_fun hfst
   let φ : (Fin n → F) → (S →ₐ[K] DualNumber F) := fun c => (vecTo (inlS K F) (fun i => inr (c i))
       (fun _ _ => TrivSqZeroExt.inr_mul_inr _ _ _)).comp χ
   have hφ : ∀ c, spMap (φ c) ≫ j = tanExp v c * (spMap ((inlS K F).comp u) ≫ j) := fun c => by
-    rw [← spMap_comp, Category.assoc, ← hχ, MonObj.comp_mul, comp_lieExp, ← Category.assoc, spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← hχ, MonObj.comp_mul, comp_lieExp, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     · exact lieExp_congr _ (fun i => vecTo_single _ _ _ i) _ _
     · congr 2

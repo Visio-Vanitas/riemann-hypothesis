@@ -1577,7 +1577,7 @@ theorem periodOf : PeriodOf := by
     intro x hx
     rw [Category.assoc, pullback.condition, ← Category.assoc]
     erw [hx]
-    exact GagaRat.spMap_comp _ _
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have hexF : ∀ x : Sp ℂ ⟶ Xo.XF c, ∃ r : ℂ, (x ≫ s ≠ spMap (algebraMap c.F ℂ) → r = 0) ∧
       (x ≫ s = spMap (algebraMap c.F ℂ) → ∀ k P, IsPeriod (FU.Di k) ty P → FU.u k P = under x → r = ((k : ℕ) : ℂ)) := by
     intro x

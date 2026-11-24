@@ -92,7 +92,7 @@ theorem locφ₀_π (x : T.B) :
   ker _ := Ideal.Quotient.eq_zero_iff_mem
   x := spMap (locφ₀ T b) ≫ T.x
   w := by
-    rw [Category.assoc, T.w, ← Cris.spMap_comp]
+    rw [Category.assoc, T.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r
     simp only [RingHom.comp_apply, locφ₀_π]
@@ -142,7 +142,7 @@ def lift : loc T b ⟶ S where
       rw [RingHom.comp_apply, locφ₀_π, u.comm, ← liftφ_algebraMap u hu]
       rfl
     change spMap (liftφ₀ u hu) ≫ spMap (locφ₀ T b) ≫ T.x = S.x
-    rw [← Category.assoc, ← Cris.spMap_comp, this, u.pt]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, this, u.pt]
 
 theorem exists_localization : ∀ (R : Type) [CommRing R] (I : Ideal R) (κ : DividedPowers I) (X : Scheme.{0}) (s : X ⟶ Sp R) (T : Thick κ s) (b : T.B), ∃ (T' : Thick κ s) (l : T ⟶ T'), IsUnit (l.φ b) ∧ (∀ y : T'.B, ∃ (n : ℕ) (x : T.B), y * l.φ b ^ n = l.φ x) ∧ (∀ x : T.B, l.φ x = 0 → ∃ n : ℕ, b ^ n * x = 0) ∧ ∀ (S : Thick κ s) (u : T ⟶ S), IsUnit (u.φ b) → ∃! v : T' ⟶ S, l ≫ v = u := by
   intro R _ I κ X s T b

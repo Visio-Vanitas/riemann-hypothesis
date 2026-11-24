@@ -483,7 +483,7 @@ open GlobalTheory GlobalTheory.Ex GlobalTheory.ThetaPtMove GlobalTheory.ConstFam
 noncomputable section
 namespace GlobalTheory.Ex.OneGen
 
-alias sp_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias sp_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 section Mod
 variable {S : Scheme.{0}} {G : Over S} [GrpObj G] {L : LB G.left}

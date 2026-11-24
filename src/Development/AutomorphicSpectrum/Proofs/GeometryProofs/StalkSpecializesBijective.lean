@@ -460,10 +460,6 @@ theorem genMap_bijective {ξ : Spec (CommRingCat.of Ω₁) ⟶ X} (hg : IsCptGen
   have h := hg.bij.comp (stalkSpecializes_bijective e p.2)
   exact h
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := by
-  simp [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
 theorem mono_spec_comp {R : CommRingCat.{0}} (g : R →+* Ω₁) (hb : Function.Bijective g) (F : Spec R ⟶ X) [Mono F]
     {ξ : Spec (CommRingCat.of Ω₁) ⟶ X} (hξ : Spec.map (CommRingCat.ofHom g : R ⟶ CommRingCat.of Ω₁) ≫ F = ξ) :
     Mono ξ := by
@@ -492,7 +488,7 @@ theorem exists_field_iso_same_spec {R : CommRingCat.{0}} (g₁ : R →+* Ω₁) 
   rw [← Category.assoc]
   congr 1
   rw [← hc]
-  exact (spMap_comp (A := R) g₁ _).symm
+  exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (A := R) g₁ _).symm
 
 theorem exists_iso {ξ₁ : Spec (CommRingCat.of Ω₁) ⟶ X} {ξ₂ : Spec (CommRingCat.of Ω₂) ⟶ X} (h₁ : IsCptGen ξ₁)
     (h₂ : IsCptGen ξ₂) (e : genPt ξ₁ = genPt ξ₂) : ∃ ψ : Ω₁ ≃+* Ω₂, spMap ψ.toRingHom ≫ ξ₁ = ξ₂ := by
@@ -532,7 +528,7 @@ def epsMap (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : Spec (Com
     subst hx
     show spMap (dualMap ψ.toRingHom) ≫ spMap (algebraMap R (DualNumber R)) ≫ x =
       spMap (algebraMap R' (DualNumber R')) ≫ spMap ψ.toRingHom ≫ x
-    rw [← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp, dualMap_algebraMap])
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_algebraMap])
 
 theorem epsMap_left (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : Spec (CommRingCat.of R') ⟶ S}
     (hx : spMap ψ.toRingHom ≫ x = x') : (epsMap ψ hx).left = spMap (dualMap ψ.toRingHom) := rfl
@@ -541,7 +537,7 @@ theorem symm_eq (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : Spec
     (hx : spMap ψ.toRingHom ≫ x = x') : spMap ψ.symm.toRingHom ≫ x' = x := by
   subst hx
   have : ψ.symm.toRingHom.comp ψ.toRingHom = RingHom.id R := by ext; simp
-  rw [← Category.assoc, ← spMap_comp, this]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, this]
   simp [spMap]
 
 theorem epsMap_inv (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : Spec (CommRingCat.of R') ⟶ S}
@@ -551,7 +547,7 @@ theorem epsMap_inv (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : S
   have h2 : dualMap (RingHom.id R) = RingHom.id _ := by ext a <;> simp [dualMap]
   apply Over.OverMorphism.ext
   show spMap (dualMap ψ.symm.toRingHom) ≫ spMap (dualMap ψ.toRingHom) = 𝟙 _
-  rw [← spMap_comp, ← dualMap_comp, h, h2]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp, h, h2]
   simp [spMap]
 
 theorem epsMap_inv' (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : Spec (CommRingCat.of R') ⟶ S}
@@ -561,7 +557,7 @@ theorem epsMap_inv' (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : 
   have h2 : dualMap (RingHom.id R') = RingHom.id _ := by ext a <;> simp [dualMap]
   apply Over.OverMorphism.ext
   show spMap (dualMap ψ.toRingHom) ≫ spMap (dualMap ψ.symm.toRingHom) = 𝟙 _
-  rw [← spMap_comp, ← dualMap_comp, h, h2]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp, h, h2]
   simp [spMap]
 
 variable {G : Over S} [GrpObj G]
@@ -577,7 +573,7 @@ theorem tan_comp (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : Spe
   rw [h2, ← hv]
   show spMap (TrivSqZeroExt.fstHom R' R' R').toRingHom ≫ spMap (dualMap ψ.toRingHom) ≫ v.left =
     spMap ψ.toRingHom ≫ spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ v.left
-  rw [← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp, dualMap_fst]
+  rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_fst]
 
 def transport (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : Spec (CommRingCat.of R') ⟶ S}
     (hx : spMap ψ.toRingHom ≫ x = x') {E : Type} [AddCommGroup E] [Module R E] [Module R' E]
@@ -596,7 +592,7 @@ def transport (ψ : R ≃+* R') {x : Spec (CommRingCat.of R) ⟶ S} {x' : Spec (
     rw [h1, Over.comp_left, Over.comp_left, M.smul, epsMap_left, ← Category.assoc, ← Category.assoc]
     congr 1
     show spMap (dualMap ψ.toRingHom) ≫ spMap (epsMul (ψ.symm c)) = spMap (epsMul c) ≫ spMap (dualMap ψ.toRingHom)
-    rw [← spMap_comp, ← spMap_comp, dualMap_epsMul]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_epsMul]
 
 end Transport
 
@@ -646,7 +642,7 @@ theorem flag_pull : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : 
     have e3 : A'.ξ ≫ h = spMap i ≫ A.ξ := hd
     have e4 : spMap (A'.fn.comp ψ.toRingHom) = spMap (i.comp A.fn) := by
       refine (cancel_mono A.ξ₀).1 ?_
-      rw [spMap_comp, spMap_comp, Category.assoc, Category.assoc, hψ, e1, e2, hf, ← Category.assoc, e3,
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, hψ, e1, e2, hf, ← Category.assoc, e3,
         Category.assoc]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective e4)
   letI mod' : Module A'.Ω₀ Fl.Li₀ := Module.compHom _ ψ.symm.toRingHom
@@ -683,7 +679,7 @@ theorem flag_pull : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : 
       zero_mem' := (Fl.V₀ s).zero_mem
       smul_mem' := fun c x hx => (Fl.V₀ s).smul_mem (ψ.symm c) hx }
   have hsq : spMap (dualMap i) ≫ spMap (dualMap A.fn) = spMap (dualMap A'.fn) ≫ spMap (dualMap ψ.toRingHom) := by
-    rw [← spMap_comp, ← spMap_comp, ← dualMap_comp, ← dualMap_comp, hfn]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp, ← dualMap_comp, hfn]
   let Fl' : A'.Flag :=
     { b := fun s k => j (Fl.b s k)
       sub := fun s => by

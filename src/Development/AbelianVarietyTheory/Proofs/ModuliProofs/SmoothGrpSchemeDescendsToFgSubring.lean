@@ -345,7 +345,7 @@ theorem exists_fg_descent {k V : Type} [CommRing k] [CommRing V] [Algebra k V] {
       apply pullback.hom_ext
       · simp only [Category.assoc, pullback.lift_fst, GlobalTheory.Spread.bcMap_fst, hb.isoPullback_hom_fst, h2]
       · simp only [Category.assoc, pullback.lift_snd, GlobalTheory.Spread.bcMap_snd, hb.isoPullback_hom_snd_assoc]
-        rw [← Category.assoc, h3, Category.assoc, ← spMap_comp, e]
+        rw [← Category.assoc, h3, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
     rw [← Category.assoc, key, Category.assoc, hψ, Iso.hom_inv_id_assoc]
   · rw [Category.assoc, hψp, pullback.lift_fst_assoc, h1]
 

@@ -851,7 +851,7 @@ theorem objMap_of_filLift : ∀ (p : ℕ) [Fact p.Prime] (D : GlobalTheory.UPel.
       rw [← Category.assoc, ← m₁.eta a, Category.assoc, em, m₂.eta a]
     have r' : spMap (IsLocalRing.residue (DualNumber k)) ≫ y₁.left =
         spMap (IsLocalRing.residue (DualNumber k)) ≫ y₂.left := by
-      rw [← hρ, Cris.spMap_comp, Category.assoc, r, ← Category.assoc]
+      rw [← hρ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, r, ← Category.assoc]
     let x₀ : Over.mk (spMap (IsLocalRing.residue (DualNumber k)) ≫ 𝟙 (Sp (DualNumber k))) ⟶ o₂.A :=
       toUnit _ ≫ y₂
     have hx₀ : x₀ ^ N = 1 := by
@@ -966,7 +966,7 @@ theorem main : ∀ (p : ℕ) [Fact p.Prime] (D : GlobalTheory.UPel.HT.Datum p) (
   let σ : TrivSqZeroExt k (Fin d → k) →+* DualNumber k := (TrivSqZeroExt.map c).toRingHom
   have hz : spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ spMap σ =
       spMap (TrivSqZeroExt.fstHom k k (Fin d → k)).toRingHom := by
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a <;> simp [σ]
 
@@ -1062,7 +1062,7 @@ theorem GlobalTheory.HTUniv.main : ∀ (p : ℕ) [Fact p.Prime] (D : GlobalTheor
   obtain ⟨oc, ⟨nc⟩⟩ := _root_.GlobalTheory.T.exists_harrisTaylorObject_pullback p D R b N _ _ _ (spMap (TrivSqZeroExt.map c).toRingHom) o
   have hcomp : spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ spMap (TrivSqZeroExt.map c).toRingHom =
       spMap (TrivSqZeroExt.fstHom k k (Fin (D.a * (D.n - 1)) → k)).toRingHom := by
-    rw [← GlobalTheory.Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext x
     simp
@@ -1124,7 +1124,7 @@ theorem exists_univ_tangent : ∀ (p : ℕ) [Fact p.Prime] (D : GlobalTheory.UPe
   obtain ⟨u, ⟨hu1, ⟨mu⟩⟩, -⟩ := F.rep _ _ o
   have hfst : spMap (TrivSqZeroExt.fstHom k k (Fin (D.a * (D.n - 1)) → k)).toRingHom ≫
       spMap (algebraMap k (TrivSqZeroExt k (Fin (D.a * (D.n - 1)) → k))) = 𝟙 _ := by
-    rw [_root_.GlobalTheory.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     convert spMap_id' k
     ext a; simp
   refine ⟨u, ?_, hu1, ?_⟩
@@ -1147,7 +1147,7 @@ theorem exists_univ_tangent : ∀ (p : ℕ) [Fact p.Prime] (D : GlobalTheory.UPe
       have hbase : ∀ c : (Fin (D.a * (D.n - 1)) → k) →ₗ[k] k,
           (spMap (TrivSqZeroExt.map c).toRingHom ≫ u) ≫ F.s = spMap (algebraMap k (DualNumber k)) ≫ x ≫ F.s := by
         intro c
-        rw [Category.assoc, hu1, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+        rw [Category.assoc, hu1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         congr 2
         exact (TrivSqZeroExt.map c).comp_algebraMap
       refine ⟨c, ?_, ?_⟩

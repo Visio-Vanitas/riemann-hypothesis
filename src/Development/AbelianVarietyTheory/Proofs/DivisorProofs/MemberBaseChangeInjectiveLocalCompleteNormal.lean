@@ -321,7 +321,7 @@ theorem pt_comp {g n : ℕ} {F : SFam g n (zetaAway n)} {W : Matrix (Fin 8) (Fin
       spMap (fracMap hj) ≫ (jK V ≫ spMap ev ≫ X₁.M.Z.fromSpecStalk z₁) := by
   have sq := fracMap_sq hj
   rw [Category.id_comp] at sq
-  rw [spMap_comp, Category.assoc, ← Category.assoc (jK V'), sq]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← Category.assoc (jK V'), sq]
   simp only [genMap, Category.assoc]
 
 theorem regAt_comp {g n : ℕ} {F : SFam g n (zetaAway n)} {W : Matrix (Fin 8) (Fin 8) ℤ} {Z : Scheme.{0}} {i : F.X ⟶ Z}
@@ -389,7 +389,7 @@ theorem qk_field {V : Type} [CommRing V] [IsDomain V] [IsLocalRing V] (hV : IsCN
     rw [Category.assoc, Over.w x]
     show spMap σ.toRingHom ≫ spMap (algebraMap (FractionRing V) (AlgebraicClosure (FractionRing V))) =
       spMap (algebraMap (FractionRing V) F')
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact σ.comp_algebraMap
   let x₁ : TFK (R := V) F' ⟶ A.A := Over.homMk (spMap σ.toRingHom ≫ x.left) hw
@@ -456,7 +456,7 @@ theorem uMem_baseChange : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (W : Matri
     A := A'
     U := U'
     φ := gA ≫ 𝔪.φ
-    cart := (hgA.comp 𝔪.cart).congr (by rw [spMap_comp]) rfl
+    cart := (hgA.comp 𝔪.cart).congr (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) rfl
     wl := wl
     wl_gen := hwl
     equiv := fun a a' ha => ?_
@@ -487,7 +487,7 @@ theorem uMem_baseChange : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (W : Matri
       rw [AddEquiv.trans_apply, hp'y, hpy]
     · show x'.left ≫ gA ≫ 𝔪.φ = spMap ((algebraMap (FractionRing V') (AlgebraicClosure (FractionRing V'))).comp
           ((fracMap hj).comp 𝔪.yK)) ≫ (X₁.ρ.pt a).left
-      rw [← Category.assoc, hx', Category.assoc, hxφ, ← Category.assoc, ← spMap_comp]
+      rw [← Category.assoc, hx', Category.assoc, hxφ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 2
       rw [← RingHom.comp_assoc, hσ, RingHom.comp_assoc]
 

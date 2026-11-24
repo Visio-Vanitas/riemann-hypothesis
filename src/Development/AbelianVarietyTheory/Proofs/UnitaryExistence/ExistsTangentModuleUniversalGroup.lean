@@ -207,11 +207,6 @@ theorem smT_add (v : overAt x0 (DualNumber S) ⟶ G) (h0 : smT x0 0 v = 1) (a b 
 theorem smT_post (a : S) (v : overAt x0 (DualNumber S) ⟶ G) (φ : G ⟶ G) :
     smT x0 a (v ≫ φ) = smT x0 a v ≫ φ := (Category.assoc _ _ _).symm
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp]
-  rfl
-
 theorem smT_zero_of (W : overAt x0 (DualNumber S) ⟶ G)
     (hv : spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ W.left = (1 : Over.mk x0 ⟶ G).left) :
     smT x0 0 W = 1 := by
@@ -224,7 +219,7 @@ theorem smT_zero_of (W : overAt x0 (DualNumber S) ⟶ G)
   apply Over.OverMorphism.ext
   rw [← h1, smT_left]
   simp only [Over.homMk_left, Over.comp_left, φ]
-  rw [he, ← spMap_comp', Category.assoc, hv]
+  rw [he, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hv]
 
 theorem unit_of_smT_zero (W : overAt x0 (DualNumber S) ⟶ G) (h : smT x0 0 W = 1) :
     spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ W.left = (1 : Over.mk x0 ⟶ G).left := by
@@ -234,12 +229,12 @@ theorem unit_of_smT_zero (W : overAt x0 (DualNumber S) ⟶ G) (h : smT x0 0 W = 
     simp
   let ψ : Over.mk x0 ⟶ overAt x0 (DualNumber S) := Over.homMk (spMap (TrivSqZeroExt.fstHom S S S).toRingHom) (by
     show spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (algebraMap S (DualNumber S)) ≫ x0 = x0
-    rw [← Category.assoc, spMap_comp', hid]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hid]
     simp [spMap])
   have hψ : ψ ≫ homAt x0 (tm ((0 : S) • (LinearMap.id : S →ₗ[S] S))) = ψ := by
     apply Over.OverMorphism.ext
     simp only [Over.comp_left, ψ, Over.homMk_left, homAt]
-    rw [spMap_comp']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     apply RingHom.ext
     intro r

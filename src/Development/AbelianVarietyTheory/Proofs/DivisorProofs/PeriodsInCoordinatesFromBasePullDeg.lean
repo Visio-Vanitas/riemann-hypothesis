@@ -217,9 +217,9 @@ theorem fromBase_moved (p : IsPullDeg ρ Q D) (τ₀ : GlobalTheory.UChart.Gens 
   refine ⟨B₀, iG, M₀, fun a => c₀ (p.xe a), fun a b => trGen (hφ a b) (σ (p.xe a) (p.xe b)),
     (p.e.hom.left ≫ pullback.fst Q.P.A.hom (specOf ρ)) ≫ β, w₂, hB₀, hM₀, ?_, hw₂, ?_,
     fun a b => trGen_isGen _ (hσ _ _), ?_⟩
-  · rw [spMap_comp]; exact (pull_grp p).comp hgp
+  · rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact (pull_grp p).comp hgp
   · intro a
-    rw [spMap_comp, ← Category.assoc, ec, Category.assoc, hc, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, ec, Category.assoc, hc, Category.assoc]
   · intro a b zz J J₀ hJ hJ₀
     choose JQ hJQ using fun χ : Sp V₁ ⟶ Q.P.A.left => exists_chart Q.P.isLB (χ zz)
     have hJQ : Good Q.P.L zz JQ := hJQ
@@ -242,7 +242,7 @@ theorem fromBase_moved (p : IsPullDeg ρ Q D) (τ₀ : GlobalTheory.UChart.Gens 
     have k := key (p.xe a) (p.xe b) _ (spMap ρ) zz JQ J₀ hJQ hJ₀
     simp only [Category.id_comp] at m
     rw [tri (a + b) (p.xe a + p.xe b) (by rw [← map_add (f := _)]; exact ec _), tri a _ (ec a), tri b _ (ec b),
-      tri 0 0 (by rw [ec, map_zero]), val_trGen, spMap_comp, k, m]
+      tri 0 0 (by rw [ec, map_zero]), val_trGen, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, k, m]
     apply Additive.ofMul.injective
     simp only [ofMul_mul, ofMul_inv]
     abel

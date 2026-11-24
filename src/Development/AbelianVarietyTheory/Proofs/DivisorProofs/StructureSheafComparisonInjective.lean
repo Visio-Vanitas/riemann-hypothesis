@@ -109,7 +109,7 @@ theorem pt_comp {T T' : TT s} (φ : T ⟶ T') :
     change (πe T').symm (φ.hom.φ₀ (T.obj.π b)) = φ.hom.φ ((πe T).symm (πe T b))
     rw [φ.hom.comm, RingEquiv.symm_apply_apply]
     exact (πe T').symm_apply_apply (φ.hom.φ b)
-  rw [pt, pt, ← φ.hom.pt, ← Category.assoc, ← spMap_comp, e, spMap_comp, Category.assoc]
+  rw [pt, pt, ← φ.hom.pt, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 theorem fv_of_comp (f : Z1 ((IsTriv s).ι ⋙ O (dp0 R) s)) {T₁ T₂ T₃ : TT s} (a : T₁ ⟶ T₂)
     (c : T₂ ⟶ T₃) (d : T₁ ⟶ T₃) (h : ∀ x, c.hom.φ (a.hom.φ x) = d.hom.φ x) :
@@ -117,10 +117,6 @@ theorem fv_of_comp (f : Z1 ((IsTriv s).ι ⋙ O (dp0 R) s)) {T₁ T₂ T₃ : TT
   have e : a ≫ c = d := ObjectProperty.hom_ext _ (Thick.hom_ext h)
   rw [← e]
   exact f.2 a c
-
-theorem ringHom_eq_of_spMap_eq {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B}
-    (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
 
 instance mono_affPt (s : X ⟶ Sp R) (U : X.affineOpens) : Mono (affPt s U) := by
   change Mono U.2.fromSpec
@@ -151,7 +147,7 @@ theorem fv_eq_sub_of_glued : ∀ {R : Type} [CommRing R] {X : Scheme.{0}} {s : X
   let χ := secPull (algStr R T.obj.B) (algStr R T'.obj.B) q
   have hw : spMap (φ.hom.φ : T.obj.B →+* T'.obj.B) ≫ algStr R T.obj.B =
       algStr R T'.obj.B ≫ spMap (RingHom.id R) := by
-    rw [spMap_id, Category.comp_id, ← spMap_comp]
+    rw [spMap_id, Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (φ.hom.φ.comp_algebraMap)
   let χA : Sec (algStr R T.obj.B) p.1.1.1 →ₐ[R] Sec (algStr R T'.obj.B) V'.1 :=
     { χ with commutes' := (semiHom_secPull (σ := RingHom.id R) hw q).map_algebraMap }
@@ -161,8 +157,8 @@ theorem fv_eq_sub_of_glued : ∀ {R : Type} [CommRing R] {X : Scheme.{0}} {s : X
     rw [← Category.assoc, secPull_affPt, Category.assoc, ← pt_comp φ])⟩
   have h1 : ∀ u, χ (secPullA T p u) = secPullA T' p' u := by
     have e : χ.comp (secPull s (algStr R T.obj.B) p) = secPull s (algStr R T'.obj.B) p' := by
-      refine ringHom_eq_of_spMap_eq ?_
-      rw [← cancel_mono (affPt s p.1.2), spMap_comp, Category.assoc, secPull_affPt,
+      refine ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_
+      rw [← cancel_mono (affPt s p.1.2), ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, secPull_affPt,
         ← Category.assoc, secPull_affPt, Category.assoc, ← pt_comp φ]
       exact (secPull_affPt s (algStr R T'.obj.B) p').symm
     exact fun u ↦ RingHom.congr_fun e u
@@ -170,8 +166,8 @@ theorem fv_eq_sub_of_glued : ∀ {R : Type} [CommRing R] {X : Scheme.{0}} {s : X
     have e : χ.comp (toSec R T.obj.B p.1.1 : T.obj.B →+* Sec (algStr R T.obj.B) p.1.1.1) =
         (toSec R T'.obj.B V' : T'.obj.B →+* Sec (algStr R T'.obj.B) V'.1).comp
           (φ.hom.φ : T.obj.B →+* T'.obj.B) := by
-      refine ringHom_eq_of_spMap_eq ?_
-      rw [spMap_comp, spMap_comp, spMap_toSec, spMap_toSec]
+      refine ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, spMap_toSec, spMap_toSec]
       exact secPull_affPt (algStr R T.obj.B) (algStr R T'.obj.B) q
     exact fun b ↦ RingHom.congr_fun e b
   have e1 : fv f (aM T' p') = χ (fv f (aM T p)) + fv f c := fv_of_comp f (aM T p) c (aM T' p') h1

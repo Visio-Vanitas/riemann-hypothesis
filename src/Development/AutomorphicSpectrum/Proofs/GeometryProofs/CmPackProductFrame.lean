@@ -975,10 +975,6 @@ open scoped ComplexOrder
 
 namespace GlobalTheory.CompanionTheory.Ggeo.IntBasis
 
-theorem spectrumMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (a : A →+* B) (b : B →+* C) :
-    spMap b ≫ spMap a = spMap (b.comp a) := by
-  simp [spMap, ← Spec.map_comp]
-
 theorem dualMap_comp_alt {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (a : A →+* B) (b : B →+* C) :
     (dualMap b).comp (dualMap a) = dualMap (b.comp a) := by
   apply RingHom.ext
@@ -1001,7 +997,7 @@ theorem _root_.GlobalTheory.CompanionTheory.Relay.cm_pack_product_frame : ∀ (E
     (fun k => X.ψ (b k) (a k)) hψ hN hon hker
   obtain ⟨uV, huV, htan, hbasis⟩ := GlobalTheory.CompanionTheory.Relay.isogeny_decomposition_product (𝓞 X.K) V f g N (fun k => (X.C (b k)).P) (fun k => (X.C (b k)).v)
     X.B.pol (fun k => X.ψ (b k) (a k)) χ T'.t.G m0.φ X.dim (fun k => (X.C (b k)).basis) hψ hχ hψχ hoff hNu m0.cart
-  have hy : spMap (algebraMap V X.K) ≫ spMap f = spMap (algebraMap (𝓞 X.K) X.K) := by rw [spectrumMap_comp, hf]
+  have hy : spMap (algebraMap V X.K) ≫ spMap f = spMap (algebraMap (𝓞 X.K) X.K) := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hf]
   obtain ⟨m'', hm''⟩ := (GlobalTheory.CM.Factor.ellMap_cancel_and_sabMap_cancel E H (𝓞 X.K) V X.K f (algebraMap V X.K)).2
     (Sp (𝓞 X.K)) (spMap f) (spMap (algebraMap (𝓞 X.K) X.K)) X.B.t T'.t X.t m0 X.m' hy
   refine ⟨T'.t, m'', uV, htan, hbasis, fun k u hu => ?_⟩
@@ -1011,7 +1007,7 @@ theorem _root_.GlobalTheory.CompanionTheory.Relay.cm_pack_product_frame : ∀ (E
   · rw [Category.assoc, hm'', hr2, Category.assoc, huV k]
     simp only [← Category.assoc]
     congr 2
-    rw [spectrumMap_comp, dualMap_comp_alt, hf]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alt, hf]
   · have w1 := m''.cart.1.w
     have w2 := X.m'.cart.1.w
     have hmono : Mono (spMap (algebraMap (𝓞 X.K) X.K)) := by
@@ -1022,13 +1018,13 @@ theorem _root_.GlobalTheory.CompanionTheory.Relay.cm_pack_product_frame : ∀ (E
       rw [Category.assoc, ← w2, ← Category.assoc, hr2]
       simp only [Category.assoc]
       rw [Over.w (X.ψ (b k) (a k)), Over.w ((X.C (b k)).v)]
-      simp only [Over.mk_hom, spectrumMap_comp]
+      simp only [Over.mk_hom, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       ext x <;> simp only [RingHom.comp_apply, dualMap, RingHom.coe_mk, MonoidHom.coe_mk, OneHom.coe_mk, TrivSqZeroExt.algebraMap_eq_inl, TrivSqZeroExt.fst_add, TrivSqZeroExt.snd_add, TrivSqZeroExt.fst_inl, TrivSqZeroExt.snd_inl, TrivSqZeroExt.fst_inr, TrivSqZeroExt.snd_inr, map_zero, add_zero]
     rw [Category.assoc, w1, ← Category.assoc, hbase, Category.assoc, Over.w (uV k)]
     simp only [Over.mk_hom, Category.comp_id]
     show spMap _ ≫ spMap _ = spMap _ ≫ spMap _
-    rw [spectrumMap_comp, spectrumMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext x <;> simp only [RingHom.comp_apply, dualMap, RingHom.coe_mk, MonoidHom.coe_mk, OneHom.coe_mk, TrivSqZeroExt.algebraMap_eq_inl, TrivSqZeroExt.fst_add, TrivSqZeroExt.snd_add, TrivSqZeroExt.fst_inl, TrivSqZeroExt.snd_inl, TrivSqZeroExt.fst_inr, TrivSqZeroExt.snd_inr, map_zero, add_zero]
 end -- clump:auto

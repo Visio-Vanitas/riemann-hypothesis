@@ -245,9 +245,6 @@ theorem exists_obj (laws : Laws) (l : Geo.Tor.Level H) {K : Type} [Field K] [IsA
     rw [← eta_smul ob' (e := e) (by rw [← hfe, add_sub_cancel_right]; exact hf) v]
     exact h₅ _ (Submodule.smul_mem_smul he trivial)
 
-theorem spMap_inj {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
-
 theorem exists_isFibre {l : Geo.Tor.Level H} {B : Type} [CommRing B] {b : Base l B} {S : Scheme.{0}} {s : S ⟶ Sp B}
     (ob : Obj D l b s) {K : Type} [Field K] [IsAlgClosed K] (y : Sp K ⟶ S) :
     ∃ o : Full D K, IsFibre ob y o ∧
@@ -270,7 +267,7 @@ theorem exists_isFibre {l : Geo.Tor.Level H} {B : Type} [CommRing B] {b : Base l
   · refine Eq.trans (congrArg (fun q => q.left ≫ m.cm.F) (hM v hv)).symm ?_
     rw [Over.comp_left, u]
     exact (congrArg (· ≫ m.cm.F) (Category.id_comp _)).trans (m.eta v)
-  · obtain rfl : β = f := spMap_inj ((Spec.map_preimage (y ≫ s)).trans hf)
+  · obtain rfl : β = f := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ((Spec.map_preimage (y ≫ s)).trans hf)
     exact ⟨rfl, hI⟩
 
 theorem IsFibre.ext {l : Geo.Tor.Level H} {B : Type} [CommRing B] {b : Base l B} {S : Scheme.{0}} {s : S ⟶ Sp B}
@@ -305,7 +302,7 @@ theorem existsUnique_point (laws : Laws) {l : Geo.Tor.Level H} {Xo : Moduli D l}
   let i : KA l →+* c.F := (IntermediateField.inclusion c.le).toRingHom
   obtain ⟨f, ⟨hf, ⟨m⟩⟩, hu⟩ := moduli_rep_of_base ObjMaps.id_comp_cancel E H D l Xo K b (bF.comp i) (Sp K) (𝟙 _) ob
     inferInstance (hρ _ rfl).symm (hζ _ rfl).symm
-  rw [Category.id_comp, spMap_comp] at hf
+  rw [Category.id_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hf
   let y : Sp K ⟶ Xo.XF c := pullback.lift f (spMap bF) hf
   have hy : y ≫ pullback.fst _ _ = f := pullback.lift_fst _ _ _
   refine ⟨y, ⟨pullback.lift_snd _ _ _, (hob _ _).1 ?_⟩, fun y' ⟨h₁, h₂⟩ => ?_⟩
@@ -315,7 +312,7 @@ theorem existsUnique_point (laws : Laws) {l : Geo.Tor.Level H} {Xo : Moduli D l}
   · obtain ⟨m'⟩ := (hob _ _).2 h₂
     obtain ⟨m'', -⟩ := ObjComp.objMap_comp Y.m0 m'
     refine pullback.hom_ext ((hu _ ⟨?_, ⟨m''⟩⟩).trans hy.symm) (h₁.trans (pullback.lift_snd _ _ _).symm)
-    rw [Category.id_comp, spMap_comp, Category.assoc, pullback.condition, ← Category.assoc, h₁]
+    rw [Category.id_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, pullback.condition, ← Category.assoc, h₁]
 
 end GlobalTheory.FullPoint
 end

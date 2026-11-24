@@ -103,11 +103,6 @@ theorem exists_ext_containing (T : CDVR) (hT : T.FinRes) {C : Type} [Field C] [C
   · exact congrArg Subtype.val (q.apply_symm_apply ⟨f x, hmem x⟩)
   · exact congrArg Subtype.val (q.commutes _)
 
-theorem spMap_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  show Spec.map _ ≫ Spec.map _ = Spec.map _
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem eq_of_field_ext {K C O : Type} [Field K] [Field C] [CommRing O] (e : K →+* C) (u v : Sp K ⟶ Sp O)
     (h : spMap e ≫ u = spMap e ≫ v) : u = v := by
   obtain ⟨u, rfl⟩ := Spec.map_surjective u
@@ -128,12 +123,12 @@ theorem exists_lift_to_open (Y : Model Xo c β) {K C : Type} [Field K] [Field C]
   have hc : x ≫ Y.s = spMap f ≫ spMap β := by
     refine eq_of_field_ext e _ _ ?_
     rw [← Category.assoc, h, hj, Category.assoc, Category.assoc, pullback.condition, ← Category.assoc Y.jQ, Y.jQ_over,
-      ← Category.assoc, hy, ← Category.assoc, spMap_spMap f]
+      ← Category.assoc, hy, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f]
   let w : Sp K ⟶ pullback Y.s (spMap β) := pullback.lift x (spMap f) hc
   have hw : spMap e ≫ w = y ≫ Y.jQ := by
     apply pullback.hom_ext
     · rw [Category.assoc, pullback.lift_fst, h, hj, Category.assoc]
-    · rw [Category.assoc, pullback.lift_snd, Category.assoc, Y.jQ_over, hy, spMap_spMap]
+    · rw [Category.assoc, pullback.lift_snd, Category.assoc, Y.jQ_over, hy, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have := Y.jQ_open
   have hr : Set.range w ⊆ Set.range Y.jQ := by
     rintro _ ⟨q, rfl⟩
@@ -157,8 +152,8 @@ theorem exists_datAt : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H
     RingHom.ext fun a => (he₁ a).trans (heF a)
   obtain ⟨z, hz⟩ := exists_lift_to_open Y e₁ f₁ (spMap (algebraMap T₁.V T₁.Fr) ≫ spMap φ₁ ≫ ιT) P.y
     (by rw [hef, P.y_over]) (by
-      rw [← P.ext, ← hfac, ← Category.assoc, spMap_spMap, ← Category.assoc, spMap_spMap, hring, ← Category.assoc,
-        spMap_spMap])
+      rw [← P.ext, ← hfac, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring, ← Category.assoc,
+        ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   obtain ⟨t, m⟩ : ∃ t : SAB H (Sp T₁.V), Nonempty (SABMap t Y.t (spMap φ₁ ≫ ιT)) := by
     obtain ⟨PP', cub, sym, adj, prim, m, -⟩ := sabPull ReciprocityTheory.ChartRestriction.G.Out.CubePf.cubePull (spMap φ₁ ≫ ιT) Y.t
     exact ⟨_, ⟨m⟩⟩
@@ -182,7 +177,7 @@ theorem exists_datAt : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H
   obtain ⟨f, hfi, hfg, hfl⟩ := hext p C eF (fun a => by rw [heF]; exact (g a).2) (fun a ha => by rw [heF]; exact hloc a ha)
   have hcomp : f.comp (φ'.comp φ₁) = g := RingHom.ext fun a => Subtype.ext ((hfg a).trans (heF a))
   obtain ⟨n₂, -⟩ := sabComp pullCubComp E H _ _ _ Y.t t t' _ _ m m₂
-  have hι : spMap φ' ≫ spMap φ₁ ≫ ιT = spMap (φ'.comp φ₁) ≫ ιT := by rw [← Category.assoc, spMap_spMap]
+  have hι : spMap φ' ≫ spMap φ₁ ≫ ιT = spMap (φ'.comp φ₁) ≫ ιT := by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hab : (spMap φ' ≫ spMap φ₁ ≫ ιT) ⁻¹' abLocus Y.t.G = abLocus t'.G :=
     Set.ext fun q => abLocus_pullback abLocusOne Y.t.semi n₂.cart.1 q
   refine ⟨
@@ -193,7 +188,7 @@ theorem exists_datAt : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H
       «ι» := spMap φ' ≫ spMap φ₁ ≫ ιT
       f := f
       f_loc := hfl
-      fac := by rw [hι, ← Category.assoc, spMap_spMap, hcomp, hfac]
+      fac := by rw [hι, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomp, hfac]
       t := t'
       m := n₂
       U := U

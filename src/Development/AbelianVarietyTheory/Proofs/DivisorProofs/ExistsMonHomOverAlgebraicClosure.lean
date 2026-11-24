@@ -126,9 +126,9 @@ theorem compare (K Ω : Type) [Field K] [CharZero K] [Field Ω] [IsAlgClosed Ω]
     have hys : y.left ≫ pullback.snd _ _ = 𝟙 _ := Over.w y
     have hxw : x.left ≫ A.hom = spMap (algebraMap K (algebraicClosure K Ω)) := Over.w x
     have eji : spMap j.toRingHom ≫ spMap i.toRingHom = spMap (algebraicClosure K Ω).val.toRingHom := by
-      rw [GlobalTheory.HomDescent.spMap_comp]; congr 1; exact RingHom.ext hji
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; congr 1; exact RingHom.ext hji
     have eρi : spMap ρ.toRingHom ≫ spMap i.toRingHom = 𝟙 _ := by
-      rw [GlobalTheory.HomDescent.spMap_comp, show ρ.toRingHom.comp i.toRingHom = RingHom.id _ from RingHom.ext hρi]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, show ρ.toRingHom.comp i.toRingHom = RingHom.id _ from RingHom.ext hρi]
       exact Spec.map_id _
     let xS : Sp S ⟶ pullback A.hom (spMap (algebraMap K S)) :=
       pullback.lift (spMap i.toRingHom ≫ x.left) (𝟙 _) (by

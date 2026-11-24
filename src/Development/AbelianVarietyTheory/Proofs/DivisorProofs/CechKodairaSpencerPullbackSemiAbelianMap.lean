@@ -911,7 +911,7 @@ theorem isTranslate_baseChange : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
   intro E _ _ _ H X t R S S' _ _ _ φ ψ g₀ v w ⟨g', v', h₁, h₂, h₃⟩
   have e1 : spMap (dualMap ψ) ≫ spMap (algebraMap S (DualNumber S)) =
       spMap (algebraMap S' (DualNumber S')) ≫ spMap ψ := by
-    rw [GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.spMap_comp']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     refine RingHom.ext fun a => ?_
     ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
@@ -925,7 +925,7 @@ theorem isTranslate_baseChange : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
     rw [← Category.assoc, e1, Category.assoc]
   · rw [Over.comp_left, h₂]
     show spMap (dualMap ψ) ≫ spMap (dualMap φ) ≫ v = _
-    rw [← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp', GlobalTheory.LogKSLoc.dualMap_comp']
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.LogKSLoc.dualMap_comp']
   · rw [← MonObj.comp_mul, Over.comp_left, h₃]
     rfl
 
@@ -942,7 +942,7 @@ theorem isTranslate_push {X X' : Scheme.{0}} {t : SAB H X} {t' : SAB H X'} {g : 
     (IsAffineOpen.SpecMap_appLE_fromSpec g U.2 U'.2 hU).symm
   have hg : (g₀ ≫ mu.φ) ≫ t.G.hom = spMap (φS.comp (g.appLE U.1 U'.1 hU).hom) ≫ chart U := by
     rw [Category.assoc, mu.cart.1.w, ← Category.assoc, hg₀, Category.assoc, hx, ← Category.assoc,
-      GlobalTheory.LogKSLoc.spMap_comp']
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨w, hw, -⟩ := existsUnique_isTranslate t (φS.comp (g.appLE U.1 U'.1 hU).hom) hg hvb
   obtain ⟨w'', h1, h2⟩ := GlobalTheory.T.tangentTranslate_lifts_semiAbelianTripleMap E H X X' t t' g mu _ _ (g.appLE U.1 U'.1 hU).hom (chart U) (chart U') hx vb vb'
     hvb hvb' hvv S φS g₀ hg₀ w hw
@@ -1025,7 +1025,7 @@ theorem rel_pair {X X' : Scheme.{0}} {t : SAB H X} {t' : SAB H X'} {g : X' ⟶ X
     simp only [Algebra.linearMap_apply]
     set σ := algebraMap S (Localization.AtPrime P) with hσ
     have k := key (Localization.AtPrime P) (σ.comp φS) (spMap σ ≫ g₀) (fun b => spMap (dualMap σ) ≫ w b)
-      (by rw [Category.assoc, hg₀, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp'])
+      (by rw [Category.assoc, hg₀, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
       (fun p _ => hO₀ (Set.mem_univ ((spMap σ).base p)))
       (fun b => isTranslate_baseChange E H X' t' _ _ _ φS σ g₀ (v' b) (w b) (hw b))
 
@@ -1054,7 +1054,7 @@ theorem rel_pair {X X' : Scheme.{0}} {t : SAB H X} {t' : SAB H X'} {g : X' ⟶ X
   have hsq : (g₀ ≫ mu.φ) ≫ t.G.hom = spMap (φS.comp ψ) ≫ chart U := by
     have hx : chart U' ≫ g = spMap ψ ≫ chart U := (IsAffineOpen.SpecMap_appLE_fromSpec g U.2 U'.2 hU).symm
     rw [Category.assoc, hpb.w, ← Category.assoc, hg₀, Category.assoc, hx, ← Category.assoc,
-      GlobalTheory.LogKSLoc.spMap_comp']
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have key := GlobalTheory.T.pointDerivations_eq_zero_killing_both_factors _ _ _ _ t.G.hom t'.G.hom mu.φ g hpb U U' hU (W₁ ⊓ W₂) (inf_le_left.trans hW₁) O hO S g₀ hO₀ Δ
     ?add ?mul ?res ?gen₁ ?gen₂ f
   · exact sub_eq_zero.1 key
@@ -1116,7 +1116,7 @@ theorem rel_pair {X X' : Scheme.{0}} {t : SAB H X} {t' : SAB H X'} {g : X' ⟶ X
       obtain ⟨g', v'', -, -, h3⟩ := hw b
       rw [← h3, Over.w]
       show spMap (algebraMap S (DualNumber S)) ≫ g₀ ≫ t'.G.hom = _
-      rw [hg₀, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp']
+      rw [hg₀, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have hz : ∀ b, (valR (w b) O' ((t'.G.hom.appLE U'.1 O' h).hom r)).snd = 0 := fun b => by
       rw [GlobalTheory.KSRechart.valR_appLE t'.G.hom U' _ (w b) (hW b) h (hwO b hO'₀) r]
       simp [TrivSqZeroExt.algebraMap_eq_inl]

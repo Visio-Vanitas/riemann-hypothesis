@@ -171,7 +171,7 @@ theorem map_mem_graphIdeal {P W : Scheme.{0}} {p : P ⟶ Z₁.left} {q : P ⟶ Z
   intro T _ β y a b hy ha hb
   rw [MvPolynomial.eval₂_map]
   refine hF T _ (y ≫ sq.lift a₁ a₂ (e₁.trans e₂.symm)) a b ?_ ?_ ?_
-  · rw [Category.assoc, sq.lift_fst_assoc, e₁, ← Category.assoc, hy, spc]
+  · rw [Category.assoc, sq.lift_fst_assoc, e₁, ← Category.assoc, hy, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   · rwa [Category.assoc, sq.lift_fst]
   · rwa [Category.assoc, sq.lift_snd]
 
@@ -211,10 +211,10 @@ theorem fibre_graph (h₁ : ProjRep I₁ Z₁.hom M₁ th₁) (h₂ : ProjRep I�
       have := (hW.2.1 T β y _ hβ c).2 _ (map_mem_graphIdeal sq x s a₁ a₂ pb.w e₂ hF)
       rwa [MvPolynomial.eval₂_map] at this
     · rw [Category.assoc, Category.assoc, hg, ← Category.assoc _ sY, h1.w, Category.assoc, ← Category.assoc y, hβ,
-        spc, spc, hx]
+        ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hx]
     · have := hc T _ _ ((hc₁ T _ _).1 ((hce T y _).1 c))
       simpa only [Category.assoc] using this
-    · rw [Category.assoc, sq.lift_fst_assoc, pb.w, ← Category.assoc, hβ, spc]
+    · rw [Category.assoc, sq.lift_fst_assoc, pb.w, ← Category.assoc, hβ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · exact secCoord_box p q th₁ th₂ _ u v (by rwa [Category.assoc, sq.lift_fst]) (by rwa [Category.assoc, sq.lift_snd])
   refine ⟨_, h1, ?_, ?_⟩
   · rw [← Category.assoc, key, sq.lift_fst]
@@ -288,7 +288,7 @@ theorem exists_hom_near_of_graphs : ∀ (R σ₁ σ₂ Hh : Type) [CommRing R] [
   obtain ⟨g, hg, -, hc, -⟩ := _root_.GlobalTheory.ZM.RepMap.exists_map_of_coord R _ _ _ Y _ (sY ≫ spMap a) _ N _ ty hP hY.1 fun T _ β y v hy hv => by
     obtain ⟨β', hβ'⟩ : ∃ β' : S →+* T, y ≫ sY = spMap β' := ⟨(Spec.preimage (y ≫ sY)).hom, (Spec.map_preimage _).symm⟩
     have hβ : β'.comp a = β := by
-      rw [← Category.assoc, hβ', spc] at hy
+      rw [← Category.assoc, hβ', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hy
       exact congrArg CommRingCat.Hom.hom (Spec.map_injective hy)
     obtain ⟨u, hu⟩ := hY.2.1 T β' y v hβ' hv
     refine ⟨u, eval₂_eq_zero_of_forms_le
@@ -319,7 +319,7 @@ theorem exists_hom_near_of_graphs : ∀ (R σ₁ σ₂ Hh : Type) [CommRing R] [
     (hψ₂ ▸ hflat) (by
       refine isIso_snd_of_fibre ψ _ _ e₀ (pullback.snd _ _) (hψ₂ ▸ pb₀) ?_
       refine IsPullback.of_right ?_ (by rw [Category.assoc, hψ₂, pb₀.w]) (IsPullback.of_hasPullback Z₁.hom (spMap a))
-      rw [Category.assoc, hψ₁, he₀, spc, hx₀']
+      rw [Category.assoc, hψ₁, he₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hx₀']
       exact IsPullback.of_hasPullback _ _)
   obtain ⟨n, r, hr⟩ := IsLocalization.Away.surj f₁ f₂
   set S' := Localization.Away (f₁ * r)
@@ -336,11 +336,11 @@ theorem exists_hom_near_of_graphs : ∀ (R σ₁ σ₂ Hh : Type) [CommRing R] [
   obtain ⟨j, hj₁, hj₂⟩ : ∃ j : pullback Z₁.hom (spMap (algebraMap R S')) ⟶ pullback Z₁.hom (spMap a),
       j ≫ pullback.fst _ _ = pullback.fst _ _ ∧ j ≫ pullback.snd _ _ = pullback.snd _ _ ≫ spMap c₁ :=
     ⟨pullback.lift (pullback.fst _ _) (pullback.snd _ _ ≫ spMap c₁)
-      (by rw [Category.assoc, spc, hc₁, pullback.condition]), pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
+      (by rw [Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc₁, pullback.condition]), pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
   obtain ⟨u, hu₁⟩ : ∃ u : pullback Z₁.hom (spMap (algebraMap R S')) ⟶
       pullback (pullback.snd Z₁.hom (spMap a)) (spMap (algebraMap S (Localization.Away f₂))),
       u ≫ pullback.fst _ _ = j :=
-    ⟨pullback.lift j (pullback.snd _ _ ≫ spMap c₂) (by rw [Category.assoc, spc, hc₂, hj₂]), pullback.lift_fst _ _ _⟩
+    ⟨pullback.lift j (pullback.snd _ _ ≫ spMap c₂) (by rw [Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc₂, hj₂]), pullback.lift_fst _ _ _⟩
   obtain ⟨t, ht₁, ht₂⟩ : ∃ t : pullback (pullback.snd Z₁.hom (spMap a)) (spMap (algebraMap S (Localization.Away f₂))) ⟶ Y,
       t ≫ ψ = pullback.fst _ _ ∧ ∀ (V : Scheme.{0}) (e : V ⟶ Y) (k : V ⟶ _), e ≫ ψ = k ≫ pullback.fst _ _ → e = k ≫ t := by
     refine ⟨inv (pullback.snd ψ (pullback.fst _ _)) ≫ pullback.fst _ _, ?_, fun V e k h => ?_⟩

@@ -168,7 +168,7 @@ theorem snd_val_affine_eq (U : X.affineOpens) [Algebra (Sec s U.1) R'] [IsScalar
     rw [fst_nbdMap, fst_nbdMap, fst_derSec]
   have e₀ : spMap (α₀ : Sec s U.1 →+* R') ≫ affPt s U =
       spMap ((SqExt.ofModule R R' R').π : TrivSqZeroExt R' R' →+* R') ≫ y := by
-    rw [← e, ← Category.assoc, ← Cris.spMap_comp]; rfl
+    rw [← e, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   let Ψ := (diagExt R (Sec s U.1)).thickHom (SqExt.ofModule R R' R') Φ α₀ hπ hx
     ((SqExt.ofModule R R' R').red_w hy) e₀
   let a1 : Thick.triv (Sec s U.1) (affPt s U) hx ⟶
@@ -261,14 +261,14 @@ theorem connForm_eq_zero {K : Type} [Field K] {X : Over (Sp K)} (hX : Smooth X.h
     affPt (X.hom ≫ 𝟙 (Sp K)) U
   have hy : y ≫ X.hom ≫ 𝟙 (Sp K) =
       spMap (algebraMap K (TrivSqZeroExt p.ResidueField p.ResidueField)) := by
-    simp only [y, Category.assoc, affPt_w, ← Cris.spMap_comp, α.comp_algebraMap]
+    simp only [y, Category.assoc, affPt_w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, α.comp_algebraMap]
   have hcomp : (algebraMap p.ResidueField (DualNumber p.ResidueField)).comp
       (algebraMap K p.ResidueField) =
       algebraMap K (TrivSqZeroExt p.ResidueField p.ResidueField) :=
     RingHom.ext fun r ↦ by ext <;> simp [TrivSqZeroExt.algebraMap_eq_inl']
   have w : y ≫ X.hom = spMap (algebraMap p.ResidueField (DualNumber p.ResidueField)) ≫
       spMap (algebraMap K p.ResidueField) := by
-    rw [← Cris.spMap_comp, hcomp, ← hy, Category.comp_id]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomp, ← hy, Category.comp_id]
   let u : epsR p.ResidueField ⟶ X' :=
     Over.homMk (hpb.lift y (spMap (algebraMap p.ResidueField (DualNumber p.ResidueField))) w)
       (hpb.lift_snd _ _ _)
@@ -684,7 +684,7 @@ theorem exists_lieBasis_lift {K : Type} [Field K] (σ : R →+* K) (A : Over (Sp
   have h₂ := isGrpPullback_pullback (Chart.Gs A r) (spMap τ)
   obtain ⟨y, hy, hyv⟩ := GlobalTheory.exists_isLieBasis_baseChange _ K τ (Chart.Gs A r) _ _ h₂ inferInstance g v hv
   refine ⟨_, inferInstance, inferInstance, _, (h₂.comp h₁).congr ?_ rfl, y, hy, fun i ↦ ?_⟩
-  · exact (Cris.spMap_comp _ _).symm.trans (congrArg spMap hτ)
+  · exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap hτ)
   · obtain ⟨N, w, hw, he⟩ := LieAway.tan_away_lift r hCh
       ((LieAway.isTangent_iff_tanS r (v i)).1 (hv.1 i))
     refine ⟨σ r ^ N, w, pow_ne_zero _ hr', LieAway.isTangent_of_tanS hw, ?_⟩
@@ -701,8 +701,8 @@ theorem exists_lieBasis_lift {K : Type} [Field K] (σ : R →+* K) (A : Over (Sp
     have e2 : (epsScaleR (σ r ^ N)).comp (Chart.dualMapR τ) =
         (Chart.dualMapR τ).comp (epsScaleR (algebraMap R (Localization.Away r) r ^ N)) := by
       rw [← _root_.GlobalTheory.HomDerivDescent.epsScaleR_comp_dualMapR, map_pow, hτ']
-    rw [e1, Cris.spMap_comp, Category.assoc, Category.assoc, he', ← Category.assoc (y i).left, hyv,
-      ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, e2, Cris.spMap_comp]
+    rw [e1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, he', ← Category.assoc (y i).left, hyv,
+      ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e2, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     simp only [Category.assoc]
 
 theorem exists_lift_of_basis {K : Type} [Field K] [Algebra R K]

@@ -840,7 +840,7 @@ theorem exists_ext (Z : Model Xo c β) (U : Set (Xo.XF c)) (j : c.F →+* R) (x 
       Set.range χ ⊆ compactOf Z U := by
   haveI := isProper_genStr Z
   obtain ⟨χ, h2, h3⟩ := GlobalTheory.exists_valuativeExtension (genStr Z) (spMap j) (x ≫ Z.jQ) (by
-    rw [Category.assoc, Z.jQ_over, ← Geo.Tor.spMap_comp]
+    rw [Category.assoc, Z.jQ_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact h1)
   refine ⟨χ, h3, h2.symm, ?_⟩
   rintro _ ⟨p, rfl⟩

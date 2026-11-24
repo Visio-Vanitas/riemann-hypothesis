@@ -700,7 +700,7 @@ theorem secPull_affPt (s : X ⟶ Sp R) (s' : X' ⟶ Sp R') (p : Pair φ) :
 
 theorem semiHom_secPull (h : φ ≫ s = s' ≫ spMap σ) (p : Pair φ) : SemiHom σ (secPull s s' p) := by
   have e : spMap ((secPull s s' p).comp (algebraMap R _)) = spMap ((algebraMap R' _).comp σ) := by
-    rw [spMap_comp, spMap_comp, ← affPt_w, ← affPt_w, ← Category.assoc, secPull_affPt,
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← affPt_w, ← affPt_w, ← Category.assoc, secPull_affPt,
       Category.assoc, h, Category.assoc]
   intro r b
   rw [Algebra.smul_def, Algebra.smul_def, map_mul]

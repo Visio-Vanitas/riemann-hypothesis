@@ -282,7 +282,7 @@ theorem exists_extension : Laws → Laws2 → ∀ (E : Type) [Field E] [NumberFi
   obtain ⟨R₂, _, _, _, _, _, hch, g₂, f, hf, hint⟩ :=
     exists_normalisation (PowerSeries O') ReciprocityTheory.P1.isAdicComplete_ps hgam hg hσ
   have hx : (spMap f ≫ z) ≫ π = spMap (f.comp σ) ≫ y₁ ≫ Y.j := by
-    rw [Category.assoc, hz, spMap_comp, Category.assoc]
+    rw [Category.assoc, hz, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have hP := polAt_moduli Y y₁
   obtain ⟨θ, hθ, bθ⟩ := GlobalTheory.T.sectionFrames_move_to_cover_and_ringExtension hL hL₂ E H _ Z Y.t t π mt R₁ R₂ g₂ _ hf _ _ hx hP 1 1 _ hθ₁
   obtain ⟨ff, hff, bff⟩ := GlobalTheory.T.sectionFrames_move_to_cover_and_ringExtension hL hL₂ E H _ Z Y.t t π mt R₁ R₂ g₂ _ hf _ _ hx hP (m ^ 2) n _ hf₁
@@ -298,7 +298,7 @@ theorem exists_extension : Laws → Laws2 → ∀ (E : Type) [Field E] [NumberFi
   have hG : ∀ r, ((f.comp σ).comp gam) (algebraMap (PowerSeries O') _ r) = algebraMap R₂ _ ((g₂.comp g) r) := fun r =>
     (congrArg (f.comp σ) (hgam r)).trans (hf _)
   have hx' : (spMap f ≫ z) ≫ π = spMap ((f.comp σ).comp gam) ≫ y ≫ Y.j := by
-    rw [hx, ← hy, spMap_comp gam]
+    rw [hx, ← hy, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp gam]
     simp only [Category.assoc]
   obtain ⟨χ₂, hχ₂⟩ := GlobalTheory.ExtLB.exists_extension Z Am.A Am.isLB Am.ample R₂ _ e he fun V _ _ _ hV φ gV hgV => by
     have := hV.1

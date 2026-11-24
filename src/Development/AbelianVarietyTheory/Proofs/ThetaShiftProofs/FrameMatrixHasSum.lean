@@ -242,7 +242,7 @@ theorem cv_chart {Ω : Type} {p : Ω → ℂ} {R : Type} [CommRing R] (W : Sp (D
     (h : ⊤ ≤ (spMap (Formalism.L2.Pj.dualMap φ) ≫ W) ⁻¹ᵁ V) :
     (∀ᶠ ω in high p, ⊤ ≤ (spMap (Formalism.L2.Pj.dualMap (ψ ω)) ≫ W) ⁻¹ᵁ V) ∧
       Cv p (valR (spMap (Formalism.L2.Pj.dualMap φ) ≫ W) V f).snd (fun ω => (valR (spMap (Formalism.L2.Pj.dualMap (ψ ω)) ≫ W) V f).snd) := by
-  rw [le_iff_fst, ← Category.assoc, TanMod.spMap_comp'] at h
+  rw [le_iff_fst, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at h
   obtain ⟨H, r, h0, hr⟩ := exists_frac W V f _ h
   have h0' : φ H.fst ≠ 0 := by simpa [Formalism.L2.Pj.dualMap] using h0
   have key : ∀ (L : Type) [Field L] (χ : R →+* L), χ H.fst ≠ 0 → ⊤ ≤ (spMap (Formalism.L2.Pj.dualMap χ) ≫ W) ⁻¹ᵁ V ∧
@@ -305,7 +305,7 @@ theorem fst_lift (v : Sp (DualNumber S) ⟶ G'.left) (hv : v ≫ G'.hom = spMap 
     exact (congrArg (fun z => z.left) (map_one (push h (Over.mk x') x hx))).symm
   · have hid : (TrivSqZeroExt.fstHom S S S).toRingHom.comp (algebraMap S (DualNumber S)) = RingHom.id S :=
       RingHom.ext fun r => by simp
-    rw [Category.assoc, hv, ← Category.assoc, spMap_comp', hid]
+    rw [Category.assoc, hv, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hid]
     refine Eq.trans ?_ (Over.w (1 : Over.mk x' ⟶ G')).symm
     simp [spMap]
 
@@ -349,7 +349,7 @@ variable {Xo : Moduli Dw l} {c : Coeff l} {O : Type} [CommRing O] {β : O →+* 
 variable {S : Type} [CommRing S] [Algebra c.F S]
 
 def ptF (y : FrPt Xo c S) : Sp S ⟶ Xo.XF c :=
-  pullback.lift y.x (spMap (algebraMap c.F S)) (by rw [y.x_over, spMap_comp']; rfl)
+  pullback.lift y.x (spMap (algebraMap c.F S)) (by rw [y.x_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl)
 
 theorem ptF_fst (y : FrPt Xo c S) : ptF y ≫ pullback.fst _ _ = y.x := pullback.lift_fst _ _ _
 
@@ -413,7 +413,7 @@ theorem lf_map {T : Type} [CommRing T] [Algebra c.F T] {φ : S →ₐ[c.F] T} {y
     lf Y y' _ (y'.tan τ k) = spMap (Formalism.L2.Pj.dualMap φ.toRingHom) ≫ lf Y y _ (y.tan τ k) := by
   refine (eq_lf Y y' _ _ _ (by rw [Category.assoc, lf_fst, h.2.1]) ?_).symm
   rw [Category.assoc, ← Category.assoc (lf _ _ _ _), lf_snd, Category.assoc, ptF_snd]
-  simp only [spMap_comp']
+  simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rw [← RingHom.comp_assoc, dualMap_comp_algebraMap, RingHom.comp_assoc]
   exact congrArg (fun f : c.F →+* T => spMap ((algebraMap T (DualNumber T)).comp f)) φ.comp_algebraMap
 
@@ -433,7 +433,7 @@ theorem sep (y : FrPt Xo c S) (τ : E →+* ℂ) {V : Y.t.G.left.Opens} (hA : Is
       have h2 := (snd_lf_comb Y y τ a _ (ht _) (hcomb a) V hV f).trans (ha f)
       refine (valR_spMap _ _ _ hle f).trans ?_
       refine TrivSqZeroExt.ext ?_ (Eq.trans ?_ h2.symm) <;> simp [epsMul]
-    · rw [Category.assoc, lf_snd, ← Category.assoc, spMap_comp']
+    · rw [Category.assoc, lf_snd, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 2
       refine RingHom.ext fun r => ?_
       ext <;> simp [epsMul, TrivSqZeroExt.algebraMap_eq_inl]
@@ -466,8 +466,8 @@ theorem thick_base {R : Type} [CommRing R] (I : Ideal R) (n : ℕ) {G : Over (Sp
   rw [← cancel_mono (Out.thick R I n)]
   have h1 : (Out.thickObj R I n G).hom ≫ Out.thick R I n = (Out.fstG I n G).left ≫ G.hom := pullback.condition.symm
   have h2 : v.left ≫ G.hom = spMap (algebraMap R (DualNumber R)) := Over.w v
-  rw [Category.assoc, h1, ← Category.assoc, h, Category.assoc, h2, spMap_comp']
-  refine Eq.trans ?_ (spMap_comp' _ _).symm
+  rw [Category.assoc, h1, ← Category.assoc, h, Category.assoc, h2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  refine Eq.trans ?_ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   congr 1
   exact RingHom.ext hρ
 
@@ -497,7 +497,7 @@ theorem arc_lf {A : Type} [CommRing A] [IsDomain A] (s : c.F →+* A) {a : ArcIn
   rw [Category.assoc, Category.assoc Y.oF.t.G.hom, ← e2, ← Category.assoc, e1]
   simp only [Category.assoc]
   rw [← Category.assoc W.m.φ, e3, Category.assoc, hχ, ← Category.assoc (show Sp _ ⟶ _ from v.left), e4]
-  simp only [spMap_comp']
+  simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   refine RingHom.ext fun x => ?_
   ext <;> simp [Formalism.L2.Pj.dualMap, hι, TrivSqZeroExt.algebraMap_eq_inl]

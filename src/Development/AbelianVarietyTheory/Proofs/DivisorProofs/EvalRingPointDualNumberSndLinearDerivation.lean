@@ -50,10 +50,6 @@ noncomputable section
 
 namespace GlobalTheory.DualEval
 
-theorem spMap_comp_ring {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B)
-    (g : B →+* C) : spMap (g.comp f) = spMap g ≫ spMap f := by
-  simp only [spMap, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem evalPt_of_eq {R R' : Type} [CommRing R] [CommRing R'] {X : Scheme.{0}} (φ : R →+* R')
     (G' : Sp R ⟶ X) (x : Sp R' ⟶ X) (O : X.Opens) (h0 : ⊤ ≤ G' ⁻¹ᵁ O) (hx : ⊤ ≤ x ⁻¹ᵁ O)
     (e : x = spMap φ ≫ G') (f : Γ(X, O)) : evalPt x O hx f = φ (evalPt G' O h0 f) := by
@@ -146,7 +142,7 @@ theorem evalPt_snd_sum {X : Scheme.{0}} {S K : Type} [CommRing S] [Field K] (G :
   have hm : IsLocalRing.closedPoint L ∈ G' ⁻¹ᵁ O := by
     rw [← IsLocalRing.comap_closedPoint (fstR.comp (liftAt ψ θ h2))]
     have hmor : spMap (fstR.comp (liftAt ψ θ h2)) ≫ G' = spMap fstR ≫ spMap θ ≫ G := by
-      rw [← Category.assoc, ← Category.assoc, ← spMap_comp_ring, ← spMap_comp_ring,
+      rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
         RingHom.comp_assoc, liftAt_comp]
     let pt : Sp K := IsLocalRing.closedPoint K
     have key : (spMap (fstR.comp (liftAt ψ θ h2)) ≫ G') pt ∈ O := by
@@ -159,7 +155,7 @@ theorem evalPt_snd_sum {X : Scheme.{0}} {S K : Type} [CommRing S] [Field K] (G :
       evalPt (spMap φ ≫ G) O hx f = liftAt ψ φ hφ (evalPt G' O h0 f) := by
     intro φ hφ hx
     refine evalPt_of_eq _ G' _ O h0 hx ?_ f
-    rw [← Category.assoc, ← spMap_comp_ring, liftAt_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, liftAt_comp]
   obtain ⟨⟨s, t⟩, hst⟩ := IsLocalization.mk'_surjective (RingHom.ker ψ).primeCompl (evalPt G' O h0 f)
   have hA : ∀ a, (evalPt (spMap (θc a) ≫ G) O (h' a) f).snd =
       (((θc a) s).snd - ψ s / ψ t * ((θc a) t).snd) / ψ t := fun a => by

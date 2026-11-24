@@ -274,9 +274,6 @@ abbrev Count : Prop := ∀ (k : Type) [Field k] [IsAlgClosed k] (B : Over (Sp k)
   IsAbelianScheme B → SmoothOfRelativeDimension g B.hom → (N : k) ≠ 0 →
     Nat.card {x : 𝟙_ (Over (Sp k)) ⟶ B // x ^ N = 1} = N ^ (2 * g)
 
-theorem spMap_comp {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R') (g : R' →+* R'') :
-    spMap g ≫ spMap f = spMap (g.comp f) := (Spec.map_comp _ _).symm
-
 theorem exists_spMap {R R' : Type} [CommRing R] [CommRing R'] (x : Sp R' ⟶ Sp R) : ∃ β : R →+* R', x = spMap β := by
   obtain ⟨φ, rfl⟩ := Spec.map_surjective x
   exact ⟨φ.hom, rfl⟩
@@ -290,7 +287,7 @@ theorem eq_constPt_of {R k : Type} [CommRing R] [Field k] (x : Sp (DualNumber k)
     (h : ∀ β : R →+* DualNumber k,
       β = ((algebraMap k (DualNumber k)).comp (TrivSqZeroExt.fstHom k k k).toRingHom).comp β) : x = constPt x := by
   obtain ⟨β, rfl⟩ := exists_spMap x
-  rw [constPt, spMap_comp, spMap_comp]
+  rw [constPt, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg spMap (h β)
 
 theorem eq_constPt_field {F k : Type} [Field F] [CharZero F] [Algebra.IsAlgebraic ℚ F] [Field k]
@@ -553,7 +550,7 @@ theorem restr_comp {l : Level H} (h : l.A = N) (σ τ : KA l →+* KA l) (hσ : 
     spMap (restr (n := n) h σ hσ) ≫ spMap (restr h τ hτ) = 𝟙 _ := by
   have : (restr (n := n) h σ hσ).comp (restr h τ hτ) = RingHom.id _ :=
     RingHom.ext fun x => Subtype.ext (congrArg (fun y : KA l => (y : ℂ)) (e (inc n l h x)))
-  rw [spMap_comp, this]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, this]
   exact Spec.map_id _
 
 theorem isIso_top (X : Scheme.{0}) : IsIso (⊤ : X.Opens).ι := inferInstanceAs (IsIso X.topIso.hom)
@@ -609,13 +606,13 @@ theorem nonempty_top (hc : Count) (hD : D.p + D.q = 0) (Xo : ∀ l : Level H, Mo
     rw [e]
     simp
   · have e : r ≫ (Xo l).s ≫ spMap (inc n l h) = (Xo l').s ≫ spMap (inc n l' h') := by
-      rw [← Category.assoc, hr, Category.assoc, spMap_comp, eq_inc h' (β := k.comp (inc n l h)) fun x => hk _]
+      rw [← Category.assoc, hr, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, eq_inc h' (β := k.comp (inc n l h)) fun x => hk _]
     refine ⟨e, left_unique hz ?_⟩
     rw [Category.assoc, (m l h).cart.1.w, (m l' h').cart.1.w, ← Category.assoc, ν.cart.1.w, Category.assoc, e]
   · have hσ' : σ.symm (baseKA l).ρ = (baseKA l).ρ := σ.symm_apply_eq.2 hσ.symm
     refine ⟨⟨spMap (restr h σ.toRingHom hσ), spMap (restr h σ.symm.toRingHom hσ'),
       restr_comp h _ _ _ _ σ.apply_symm_apply, restr_comp h _ _ _ _ σ.symm_apply_apply⟩, ?_⟩
-    rw [← Category.assoc, hr, Category.assoc, Category.assoc, spMap_comp, spMap_comp]
+    rw [← Category.assoc, hr, Category.assoc, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · rw [← Category.assoc, ha]
     exact hy.trans (sec_comm hz (m l h).cart.1.w _ _)

@@ -1053,7 +1053,7 @@ theorem over_comp_lat : ∀ (D : D7) (j : ℕ) (H : ReciprocityTheory.ChartRestr
   letI : Field (CAt σ) := inferInstanceAs (Field ℂ)
   have hy : (F₂.u (ik₂ k₂) P₀ ≫ d.r) ≫ Xo.s = spMap (σ.comp (IntermediateField.inclusion c.le).toRingHom) := by
     rw [CategoryTheory.Category.assoc, GlobalTheory.ClsVal.Cmp.point_over_of_ne hpq hA d hle,
-      ← CategoryTheory.Category.assoc, F₂.over_σ _ P₀ hp₀, GlobalTheory.ClsVal.Cmp.spMap_comp', hinc]
+      ← CategoryTheory.Category.assoc, F₂.over_σ _ P₀ hp₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hinc]
   obtain ⟨y, hyx⟩ := GlobalTheory.NonIntegralFrameExample.exists_framed (c := c) (S := CAt σ) (F₂.u (ik₂ k₂) P₀ ≫ d.r) hy
   obtain ⟨k, x₁, t₁, hb⟩ := hU.2.2.1 y
   obtain ⟨P₁, hP₁, hp₁, hu₁, -⟩ := hper k x₁

@@ -134,7 +134,7 @@ theorem exists_genPt (Z : Model Xo c β) (φ : c.F →+* V) (hφ : (algebraMap V
     (y : FrPt Xo c K) : ∃ χ : Sp V ⟶ gen Z, χ ≫ genStr Z = spMap φ ∧ GlobalTheory.AllWt.ptF y ≫ Z.jQ = spMap (algebraMap V K) ≫ χ := by
   haveI := isProper_genStr Z
   obtain ⟨χ, h1, h2⟩ := GlobalTheory.exists_valuativeExtension (genStr Z) (spMap φ) (GlobalTheory.AllWt.ptF y ≫ Z.jQ) (by
-    rw [Category.assoc, Z.jQ_over, ← Geo.Tor.spMap_comp, hφ]
+    rw [Category.assoc, Z.jQ_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ]
     exact pullback.lift_snd _ _ _)
   exact ⟨χ, h2, h1.symm⟩
 

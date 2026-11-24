@@ -849,10 +849,6 @@ namespace GlobalTheory.PolBundleLoc
 
 open GlobalTheory.PolRoot
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp [spMap, ← Spec.map_comp]
-
 theorem root_congr {S T : Scheme.{0}} {A : Over S} [GrpObj A] {P : LB (G2 A).left} {t t' : T ⟶ S} (e : t = t')
     (h : Root A P t) : Root A P t' := e ▸ h
 
@@ -925,7 +921,7 @@ theorem exists_fg_lbIso_of_isPullback {k : Type} [Field k] {C : Type} [CommRing 
       (LBIso.trans (pull_isLB (pull_isLB hM _) _) (pull_isLB (pull_isLB hN _) _) (pull_isLB hN _) H₁
         (Spread.lbIso_pull_pull hN _ rfl).symm)
   have hs : spMap (Subalgebra.inclusion hR).toRingHom ≫ spMap (algebraMap k R₀) = spMap (algebraMap k R) := by
-    rw [spMap_comp_ring]; rfl
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   let m : Y₁ ⟶ pullback pB (spMap (algebraMap k R)) :=
     pullback.lift (y₁ ≫ a₀) q₁ (by rw [Category.assoc, hY₀.w, ← Category.assoc, w, Category.assoc, hs])
   refine lbIso_of_factor _ m y₁ ?_ H₂
@@ -964,7 +960,7 @@ theorem GlobalTheory.RootFG.root_fg : ∀ (S : Scheme.{0}) (A : Over S) [GrpObj 
   have hL₁ : L₁.IsLB := pull_isLB hM _
   let σ : Sp C ⟶ Sp R₁ := spMap R₁.val.toRingHom
   have hσ : σ ≫ spMap (algebraMap k R₁) = spMap (algebraMap k C) := by
-    rw [spMap_comp_ring]; rfl
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   let ψ : B'.left ⟶ B₁.left := h₁.1.lift φ' (B'.hom ≫ σ) (by rw [hφ'₂, Category.assoc, hσ])
   have hψ₁ : ψ ≫ β₁ = φ' := h₁.1.lift_fst _ _ _
   have hψ₂ : ψ ≫ B₁.hom = B'.hom ≫ σ := h₁.1.lift_snd _ _ _
@@ -1001,7 +997,7 @@ theorem GlobalTheory.RootFG.root_fg : ∀ (S : Scheme.{0}) (A : Over S) [GrpObj 
     (abelian₂ B₁ L₁) (P.pull β₂₁) hΛ₁ (pull_isLB hP _) HV
   let τ : Sp R₂ ⟶ Sp R₁ := spMap (Subalgebra.inclusion h₁₂).toRingHom
   have hτ : τ ≫ spMap (algebraMap k R₁) = spMap (algebraMap k R₂) := by
-    rw [spMap_comp_ring]; rfl
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   obtain ⟨B₂, _, κ, hκ⟩ := GlobalTheory.FlagTan.exists_isGrpPullback B₁ τ
   have hB₂ : IsAbelianScheme B₂ := GlobalTheory.PolPull.isAbelianScheme_of_isGrpPullback hB₁ hκ
   haveI : IsCommMonObj B₂ := hB₂.comm
@@ -1531,7 +1527,7 @@ theorem exists_rigLB_sFam_etale :
   let tC : Sp C ⟶ F.X := spMap (algebraMap k C) ≫ t₀
   have h₃ : Root F.univ.A F.univ.P (spMap (residue C) ≫ tC) := by
     refine root_congr ?_ (h₂.comp hAb (spMap ιC.toRingHom))
-    simp only [tC, ← Category.assoc, spMap_comp']
+    simp only [tC, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact ιC.comp_algebraMap.trans (IsScalarTower.algebraMap_eq k C (ResidueField C))
   have h₄ : Root F.univ.A F.univ.P tC :=
@@ -1551,7 +1547,7 @@ theorem exists_rigLB_sFam_etale :
   obtain ⟨k'', _, _, hfin, hsep, ⟨ψ⟩⟩ := _root_.GlobalTheory.SepPoint.exists_sepPoint k B' ((Subalgebra.fg_iff_finiteType B').1 hB') hdom'
   have h₆ : Root F.univ.A F.univ.P (spMap (algebraMap k k'') ≫ t₀) := by
     refine root_congr ?_ (h₅.comp hAb (spMap ψ.toRingHom))
-    rw [← Category.assoc, spMap_comp']
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact ψ.comp_algebraMap
 
@@ -1571,7 +1567,7 @@ theorem exists_rigLB_sFam_etale :
   let T : Sp R' ⟶ F.X := spMap ρ ≫ y
   have h₇ : Root F.univ.A F.univ.P (spMap (residue R') ≫ T) := by
     refine root_congr ?_ (h₆.comp hAb (spMap φ))
-    simp only [T, t₀, ← Category.assoc, spMap_comp']
+    simp only [T, t₀, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     rw [← RingHom.comp_assoc, hφ]
     exact (ResidueField.map_comp_residue ρ).symm

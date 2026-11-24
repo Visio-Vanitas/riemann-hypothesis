@@ -459,7 +459,7 @@ theorem exists_countable_model (k : Type) [Field k] [CharZero k] [IsAlgClosed k]
     ((Algebra.IsAlgebraic.cardinalMk_le_max F K).trans (max_le hF le_rfl))
   let j : S →+* K := S.subtype.codRestrict K fun x => K.algebraMap_mem (⟨x, Subfield.subset_closure x.2⟩ : F)
   have e : spMap (algebraMap K k) ≫ spMap j = spMap S.subtype := by
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   let B₀ : AbVar K :=
     { X := (Over.pullback (spMap j)).obj A

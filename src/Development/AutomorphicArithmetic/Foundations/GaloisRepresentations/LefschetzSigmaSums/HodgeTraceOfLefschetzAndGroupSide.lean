@@ -1251,7 +1251,7 @@ set_option autoImplicit false
 
 open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField
 open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.UPel.HT GlobalTheory.UPel.HT.Gen GlobalTheory.LKTrip GlobalTheory.LKGeo
-open GlobalTheory.UPel.HT.Gen.BaseChange (down exists_gObjMap_pull spMap_comp')
+open GlobalTheory.UPel.HT.Gen.BaseChange (down exists_gObjMap_pull ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp)
 open UpperTheory.Gal.Int.Geo (IsTrans)
 open UpperTheory.Gal.LocalSmoothExtension
 
@@ -1283,7 +1283,7 @@ theorem UpperTheory.Gal.LocalSmoothExtension.legBc_of :
     (down hρ ht rfl P'.univ) d₁ m' m'' h ψ hψ
   obtain ⟨t₁, t₂, t₃, t₄, t₅⟩ := hT
   refine ⟨π₁, o₁, ψ₁, φ₁, hπs, ⟨t₁, t₂, t₃, t₄, fun k _ _ t β hβ => ?_⟩, hπf, ?_⟩
-  · exact t₅ k t (β.comp τ) (by rw [spMap_comp', ← Category.assoc, hβ])
+  · exact t₅ k t (β.comp τ) (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, hβ])
   · have e : φ₁.φ ≫ m.φ = m''.φ ≫ φ.φ := by
       rw [hm'', hn', hn]
       rfl

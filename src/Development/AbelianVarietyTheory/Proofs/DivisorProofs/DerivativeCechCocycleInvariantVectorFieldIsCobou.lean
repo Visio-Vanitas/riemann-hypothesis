@@ -100,14 +100,14 @@ def transFst (P : GPt A) : transSrc P ⟶ A :=
     have hx : P.x ≫ A.hom = spMap (algebraMap K P.B) :=
       (congrArg (P.x ≫ ·) (Category.comp_id _)).symm.trans P.w
     change (spMap _ ≫ P.x) ≫ A.hom = spMap _
-    rw [Category.assoc, hx, ← Cris.spMap_comp])
+    rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
 
 def transSnd (P : GPt A) (v : epsR K ⟶ A) : transSrc P ⟶ A :=
   Over.homMk (spMap (dualMap (algebraMap K P.B)) ≫ v.left) (by
     change (spMap _ ≫ v.left) ≫ A.hom = spMap _
     rw [Category.assoc, Over.w v]
     change spMap _ ≫ spMap _ = spMap _
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (dualMap_comp_algebraMap (algebraMap K P.B)))
 
 def transPair (P : GPt A) (v : epsR K ⟶ A) : Sp (DualNumber P.B) ⟶ (A ⊗ A).left :=
@@ -132,19 +132,19 @@ theorem transPair_map {P Q : GPt A} (φ : P.Hom Q) (v : epsR K ⟶ A) :
     spMap (dualMap (φ.ρ : P.B →+* Q.B)) ≫ transPair P v = transPair Q v := by
   let j : transSrc Q ⟶ transSrc P := Over.homMk (spMap (dualMap (φ.ρ : P.B →+* Q.B))) (by
     change spMap _ ≫ spMap _ = spMap _
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     apply congrArg spMap
     rw [← RingHom.comp_assoc, dualMap_comp_algebraMap, RingHom.comp_assoc,
       φ.ρ.comp_algebraMap])
   have h1 : j ≫ transFst P = transFst Q := by
     apply Over.OverMorphism.ext
     change spMap _ ≫ spMap _ ≫ P.x = spMap _ ≫ Q.x
-    rw [← φ.pt, ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp,
+    rw [← φ.pt, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       dualMap_comp_algebraMap]
   have h2 : j ≫ transSnd P v = transSnd Q v := by
     apply Over.OverMorphism.ext
     change spMap _ ≫ spMap _ ≫ v.left = spMap _ ≫ v.left
-    rw [← Category.assoc, ← Cris.spMap_comp, dualMap_comp_dualMap, φ.ρ.comp_algebraMap]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_dualMap, φ.ρ.comp_algebraMap]
   have h3 : j ≫ lift (transFst P) (transSnd P v) = lift (transFst Q) (transSnd Q v) := by
     rw [comp_lift, h1, h2]
   exact congrArg Over.Hom.left h3

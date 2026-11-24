@@ -325,7 +325,7 @@ end Algebra
 
 section Lie
 
-open ReciprocityTheory.ChartRestriction.G.Chart hiding spMap spMap_comp
+open ReciprocityTheory.ChartRestriction.G.Chart hiding spMap ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 open Matrix
 
 variable {R : Type} [CommRing R] {G : Over (Sp R)} [GrpObj G]

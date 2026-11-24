@@ -657,7 +657,7 @@ theorem conj_point_eq (F : FamilyUnif Xo σ ty) (hD : 1 ≤ D.p + D.q) (hσ : σ
   have hM : 0 < l.M := lt_of_lt_of_le (by norm_num) l.three_le
   have hM' : l.M' ≠ 0 := Nat.lcm_ne_zero hM.ne' l.A_pos.ne'
   obtain ⟨i', P', hP', hu⟩ := F.onto (spMap (τ : ℂ →+* ℂ) ≫ F.u i P)
-    (by rw [Category.assoc, F.over_σ i P hP, GlobalTheory.ConjPermutes.spMap_comp, hτσ])
+    (by rw [Category.assoc, F.over_σ i P hP, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hτσ])
   obtain ⟨Φ, hE, hp, hm, hact⟩ := exists_isometry_of_conj_split E H D l Xo σ g ty F hD hσ hty τ hτ C io hC.1 i P hP
     i' P' hP' hs hu.symm
   obtain ⟨L, hL⟩ := GlobalTheory.CompRat.exists_complex_linear_of_pure_types E H _ _ g ty P P' hP hP' Φ hs

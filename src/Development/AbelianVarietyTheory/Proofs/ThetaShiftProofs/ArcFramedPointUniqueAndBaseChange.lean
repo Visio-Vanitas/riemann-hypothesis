@@ -194,13 +194,13 @@ end Comparison₂
 
 theorem dual_alg {S T : Type} [CommRing S] [CommRing T] (φ : S →+* T) :
     spMap (dualMap φ) ≫ spMap (algebraMap S (DualNumber S)) = spMap (algebraMap T (DualNumber T)) ≫ spMap φ := by
-  rw [← FramedBaseChange.spec_comp, ← FramedBaseChange.spec_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   exact RingHom.ext fun a => by ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
 
 theorem dual_comp {R S T : Type} [CommRing R] [CommRing S] [CommRing T] (io : R →+* S) (φ : S →+* T) :
     spMap (dualMap (φ.comp io)) = spMap (dualMap φ) ≫ spMap (dualMap io) := by
-  rw [← FramedBaseChange.spec_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   exact RingHom.ext fun a => by ext <;> simp [dualMap]
 
@@ -261,7 +261,7 @@ theorem baseChange (W : Wit Y a χ) (e : ∀ τ : E →+* ℂ, Fin (Dw.mult τ) 
   obtain ⟨G', ⟨n⟩⟩ : ∃ G' : SAB H (Sp T), Nonempty (SABMap G' G (spMap ψ.toRingHom)) := by
     obtain ⟨_, _, _, _, _, m, -⟩ := sabPull Out.CubePf.cubePull (spMap ψ.toRingHom) G
     exact ⟨_, ⟨m⟩⟩
-  have hio : spMap (ψ.toRingHom.comp io) = spMap ψ.toRingHom ≫ spMap io := FramedBaseChange.spec_comp _ _
+  have hio : spMap (ψ.toRingHom.comp io) = spMap ψ.toRingHom ≫ spMap io := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   obtain ⟨w0, r0⟩ := exists_rigIso n
   obtain ⟨m1', e₁, -⟩ := exists_comp_rig m1 n y₁.x hx hT.1 r0
   obtain ⟨m2', e₂, -⟩ := exists_comp_rig m2 n _ hio hT.2.1 r0

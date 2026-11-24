@@ -161,7 +161,7 @@ theorem halfCurve_inclusion {T T' : ℝ} (h : T ≤ T') (yT : Sp (halfRing T) �
     (hw : T' < w.im) :
     halfCurve (spMap (Subalgebra.inclusion (halfRing_mono h) : halfRing T →+* halfRing T') ≫ yT) w =
       halfCurve yT w := by
-  rw [halfCurve_eq _ hw, halfCurve_eq _ (h.trans_lt hw), ← Category.assoc, ← spMap_comp]
+  rw [halfCurve_eq _ hw, halfCurve_eq _ (h.trans_lt hw), ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem valAt'_halfCurve {T : ℝ} (yT : Sp (halfRing T) ⟶ Z) {U : Z.Opens} (hU : ⊤ ≤ yT ⁻¹ᵁ U)
@@ -194,7 +194,7 @@ theorem exists_valAt'_halfCurve {T : ℝ} {yT : Sp (halfRing T) ⟶ Z} {y : Sp c
   · rw [← halfCurve_inclusion h yT hw]
     exact (valAt'_halfCurve _ hU' hw).1
   · have e := valR_spMap (halfIncl T' : halfRing T' →+* convLaurent) _ U hU' f
-    rw [← Category.assoc, ← spMap_comp] at e
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at e
     have e' : ((valR (spMap (halfIncl T : halfRing T →+* convLaurent) ≫ yT) U f : convLaurent) :
         ℂ⸨X⸩) = (valR (spMap (Subalgebra.inclusion (halfRing_mono h) :
           halfRing T →+* halfRing T') ≫ yT) U f : halfRing T') :=

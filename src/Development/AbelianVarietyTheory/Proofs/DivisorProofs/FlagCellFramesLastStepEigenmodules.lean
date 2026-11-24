@@ -77,7 +77,7 @@ theorem cellFrames_topEigen : ∀ (E : Type) [Field E] [NumberField E] [IsCMFiel
   obtain ⟨φ, hφ⟩ : ∃ φ, φ = (ev z _ hz).comp (cellθ κ k).toRingHom := ⟨_, rfl⟩
   have hzφ : spMap φ ≫ κ k.1 k.2 = z := hφ ▸ eq_spMap_ev k z hz
   have hxφ : y ≫ Y.j = spMap (φ.comp (cC A k.1)) ≫ tau (A.V k.1).2 := by
-    rw [← hx, ← hzφ, Category.assoc, hZ.plk.base, cbase, ← Category.assoc, spMap_comp']
+    rw [← hx, ← hzφ, Category.assoc, hZ.plk.base, cbase, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have hV : ⊤ ≤ (y ≫ Y.j) ⁻¹ᵁ (A.k k.1).V := hxφ ▸ le_preimage_comp _ (tau_le (A.V k.1).2 le_rfl)
   have hev : ev (y ≫ Y.j) (A.k k.1).V hV = φ.comp (cC A k.1) := by

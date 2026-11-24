@@ -101,10 +101,6 @@ theorem algebraMap_comp_intIncl {K K' : IntermediateField ℚ_[p] (PadicAlgCl p)
       (algebraMap (integralClosure ℤ_[p] K') K').comp (intIncl h) :=
   RingHom.ext fun _ => rfl
 
-theorem spMap_comp {R R₁ R₂ : Type} [CommRing R] [CommRing R₁] [CommRing R₂] (a : R →+* R₁) (b : R₁ →+* R₂) :
-    spMap b ≫ spMap a = spMap (b.comp a) := by
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem exists_iso_of_square {R R₁ R₂ T : Type} [CommRing R] [CommRing R₁] [CommRing R₂] [CommRing T]
     {a : R →+* R₁} {b : R₁ →+* T} {c : R →+* R₂} {d : R₂ →+* T} (e : b.comp a = d.comp c)
     (G : Over (Sp R)) [GrpObj G] :
@@ -112,7 +108,7 @@ theorem exists_iso_of_square {R R₁ R₂ T : Type} [CommRing R] [CommRing R₁]
       (Over.pullback (spMap d)).obj ((Over.pullback (spMap c)).obj G), IsMonHom i.hom := by
   obtain ⟨i, hi, -⟩ := grpPullback_iso
     (((isGrpPullback_pullback ((Over.pullback (spMap a)).obj G) (spMap b)).comp
-      (isGrpPullback_pullback G _)).congr (by rw [spMap_comp, e, ← spMap_comp]) rfl)
+      (isGrpPullback_pullback G _)).congr (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) rfl)
     ((isGrpPullback_pullback ((Over.pullback (spMap c)).obj G) (spMap d)).comp (isGrpPullback_pullback G _))
   exact ⟨i, hi⟩
 
@@ -142,7 +138,7 @@ theorem exists_isGrpPullback_of_square {R R₁ R₂ T K : Type} [CommRing R] [Co
       IsGrpPullback ((Over.pullback (spMap d)).obj ((Over.pullback (spMap c)).obj G)) A (spMap v) ψ := by
   obtain ⟨i, hi⟩ := exists_iso_of_square e.symm G
   exact ⟨_, ((isGrpPullback_of_iso i).comp ((isGrpPullback_pullback _ (spMap b)).comp hφ)).congr
-    (by rw [Category.id_comp, spMap_comp, e']) rfl⟩
+    (by rw [Category.id_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e']) rfl⟩
 
 end GlobalTheory.SplitReduction
 

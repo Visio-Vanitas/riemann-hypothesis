@@ -122,8 +122,8 @@ theorem genRel_rescale {R R' : Type} [CommRing R] [IsDomain R] [CommRing R'] [Is
     GenRel hD.w (LB.pullGen _ _ _ ((TauTwist.rescale D' q).psi x) (jFK (R := R') F))
       (LB.pullGen _ _ _ (D.psi (hD.xe x)) (jFK (R := R) F)) (algebraMap (FractionRing R') F (q x)) := by
   have hj : jFK (R := R') F ≫ jK R' ≫ spMap f = jFK (R := R) F ≫ jK R :=
-    (congrArg (_ ≫ ·) (Geo.Tor.spMap_comp f _).symm).trans ((Geo.Tor.spMap_comp _ _).symm.trans
-      ((congrArg spMap (RingHom.ext fun x => (hF x).symm)).trans (Geo.Tor.spMap_comp _ _)))
+    (congrArg (_ ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f _).symm).trans ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans
+      ((congrArg spMap (RingHom.ext fun x => (hF x).symm)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)))
   have hx : D'.xK x ≫ PsiEvenPull.proj hD = jK R' ≫ specOf f ≫ (D.c (hD.xe x)).left := by
     rw [← hD.c_pr x, ← Category.assoc]; rfl
   have hpt : (jFK (R := R') F ≫ D'.xK x) ≫ PsiEvenPull.proj hD = jFK (R := R) F ≫ D.xK (hD.xe x) := by

@@ -181,7 +181,7 @@ theorem GlobalTheory.LieBase.cInfAt_gramOf : ∀ (E : Type) [Field E] [NumberFie
     filter_upwards [hS, hVn, hall] with z hzS hzV hzall
     obtain ⟨-, hex, hco⟩ := hM z hzS hzV
     have hov : σ = (evHom hzV).comp φ := GlobalTheory.ShFam.EigLoc.spMap_inj ((cxOf e σ hj z).2.symm.trans (by
-      rw [← ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap, ← hφ', ← Category.assoc, GlobalTheory.LieMet.spMap_evHom hzV]))
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hφ', ← Category.assoc, GlobalTheory.LieMet.spMap_evHom hzV]))
     have hx : (cxOf e σ hj z).1 ≫ genι Z = spMap (evHom hzV) ≫ LogKS.chart V ≫ genι Z := by
       rw [← Category.assoc, GlobalTheory.LieMet.spMap_evHom hzV]
     obtain ⟨f, hf⟩ := Φ.exists_isMap (evHom hzV) hov hx

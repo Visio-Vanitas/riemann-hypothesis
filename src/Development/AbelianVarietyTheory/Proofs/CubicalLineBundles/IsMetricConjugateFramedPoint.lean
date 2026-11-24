@@ -89,14 +89,14 @@ theorem isLieComb_of_two_pullbacks {R S : Type} [CommRing R] [CommRing S] (f : R
     · rw [Category.assoc, hψ2, ← Category.assoc, Over.w (v' i), Category.assoc, Over.w (v i)]
       first
       | (show spMap _ ≫ spMap f = spMap _ ≫ spMap _
-         rw [← spMap_comp, ← spMap_comp, he])
+         rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he])
   · apply h.1.hom_ext
     · rw [Category.assoc, hψ1, hw, Category.assoc]
       rfl
     · rw [Category.assoc, hψ2, ← Category.assoc, Over.w w', Category.assoc, Over.w w]
       first
       | (show spMap _ ≫ spMap f = spMap _ ≫ spMap _
-         rw [← spMap_comp, ← spMap_comp, he])
+         rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he])
 
 theorem hermForm_map_conj {g : ℕ} (Hm : Matrix (Fin g) (Fin g) ℂ) (z w : Fin g → ℂ) :
     hermForm (Hm.map (starRingEnd ℂ)) (fun i => starRingEnd ℂ (z i)) (fun i => starRingEnd ℂ (w i)) =

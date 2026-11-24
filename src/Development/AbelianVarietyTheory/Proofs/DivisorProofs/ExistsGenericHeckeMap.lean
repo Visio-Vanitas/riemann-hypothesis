@@ -299,10 +299,6 @@ variable {p : ℕ} [Fact p.Prime] {D : Datum p} {R R' : Type} [CommRing R] [Comm
 
 alias toUnit_left := _root_.GlobalTheory.ObjPull.toUnit_left'
 
-theorem spMap_comp_ring {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 def toGObj {b : Base D R} (φ : R →+* R') (gb : GBase D.toG R') (hρ : gb.ρ = φ b.ρ)
     (ht : ∀ i, gb.t i = φ.comp (b.t i)) {N : ℕ} {S : Scheme.{0}} {s : S ⟶ Sp R} (s' : S ⟶ Sp R')
     (hs : s' ≫ spMap φ = s) (o : Obj b N s)
@@ -319,12 +315,12 @@ def toGObj {b : Base D R} (φ : R →+* R') (gb : GBase D.toG R') (hρ : gb.ρ =
   ample := o.ample
   rosati := o.rosati
   lie R'' _ β x hx v hv := by
-    have hx' : x ≫ s = spMap (β.comp φ) := by rw [← hs, ← Category.assoc, hx, spMap_comp_ring]
+    have hx' : x ≫ s = spMap (β.comp φ) := by rw [← hs, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rw [hρ] at hv
     obtain ⟨w, hw, e⟩ := o.lie R'' (β.comp φ) x hx' v hv
     exact ⟨w, fun i c => by rw [ht]; exact hw i c, e⟩
   lieRank k _ _ x β hx i := by
-    have hx' : x ≫ s = spMap (β.comp φ) := by rw [← hs, ← Category.assoc, hx, spMap_comp_ring]
+    have hx' : x ≫ s = spMap (β.comp φ) := by rw [← hs, ← Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rw [ht]
     exact o.lieRank k x (β.comp φ) hx' i
   eta := o.eta

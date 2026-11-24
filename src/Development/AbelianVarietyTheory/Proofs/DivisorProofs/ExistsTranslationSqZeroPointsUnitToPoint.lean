@@ -72,19 +72,19 @@ theorem inl_w (A : Over (Sp R)) {B M : Type} [CommRing B] [Algebra R B] [AddComm
     [Module Bᵐᵒᵖ M] [IsCentralScalar B M] (P : Sp B ⟶ A.left) (hP : P ≫ A.hom = spMap (algebraMap R B)) :
     (spMap (TrivSqZeroExt.inlHom B M) ≫ P) ≫ A.hom = (ovT R B M).hom := by
   rw [Category.assoc, hP]
-  exact (GlobalTheory.Cris.spMap_comp _ _).symm
+  exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
 
 theorem fst_w (B M : Type) [CommRing B] [Algebra R B] [AddCommGroup M] [Module B M]
     [Module Bᵐᵒᵖ M] [IsCentralScalar B M] :
     spMap (TrivSqZeroExt.fstHom B B M).toRingHom ≫ (ovT R B M).hom = (ovB R B).hom := by
   show _ ≫ spMap _ = spMap _
-  rw [← GlobalTheory.Cris.spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
 
 theorem fst_inl (B M : Type) [CommRing B] [AddCommGroup M] [Module B M]
     [Module Bᵐᵒᵖ M] [IsCentralScalar B M] :
     spMap (TrivSqZeroExt.fstHom B B M).toRingHom ≫ spMap (TrivSqZeroExt.inlHom B M) = 𝟙 (Sp B) := by
-  rw [← GlobalTheory.Cris.spMap_comp, ← GlobalTheory.Cris.spMap_id]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← GlobalTheory.Cris.spMap_id]
   congr 1
 
 def eFst (B M : Type) [CommRing B] [Algebra R B] [AddCommGroup M] [Module B M]
@@ -191,21 +191,21 @@ theorem tau_natural (A : Over (Sp R)) [GrpObj A] {B M : Type} [CommRing B] [Alge
     simp [map_add (f := _), hβ.1, hβ.2]
   let b : ovT R B' M' ⟶ ovT R B M := Over.homMk (spMap β) (by
     show spMap β ≫ spMap _ = spMap _
-    rw [← GlobalTheory.Cris.spMap_comp, hβT])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβT])
   set Z : ovT R B M ⟶ A := Over.homMk z hz1 with hZ
   have hz' : (spMap β ≫ z) ≫ A.hom = (ovT R B' M').hom := Over.w (b ≫ Z)
   have hP' : (spMap (α : B →+* B') ≫ P) ≫ A.hom = spMap (algebraMap R B') := by
-    rw [Category.assoc, hP, ← GlobalTheory.Cris.spMap_comp, AlgHom.comp_algebraMap]
+    rw [Category.assoc, hP, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, AlgHom.comp_algebraMap]
   refine ⟨⟨hz', ?_⟩, ?_⟩
-  · rw [← Category.assoc, ← GlobalTheory.Cris.spMap_comp, hβfst, GlobalTheory.Cris.spMap_comp, Category.assoc, hz2, unitPt,
-      unitPt, ← Category.assoc, ← GlobalTheory.Cris.spMap_comp, AlgHom.comp_algebraMap]
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβfst, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hz2, unitPt,
+      unitPt, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, AlgHom.comp_algebraMap]
   · rw [tau_eq A _ hP' _ hz', tau_eq A P hP z hz1]
     have e1 : b ≫ (Over.homMk (U := ovT R B M) (V := A) (spMap (TrivSqZeroExt.inlHom B M) ≫ P) (inl_w A P hP)) =
         Over.homMk (U := ovT R B' M') (V := A) (spMap (TrivSqZeroExt.inlHom B' M') ≫ spMap (α : B →+* B') ≫ P)
           (inl_w A _ hP') := by
       ext
       simp only [b, Over.comp_left, Over.homMk_left]
-      rw [← Category.assoc, ← Category.assoc, ← GlobalTheory.Cris.spMap_comp, ← GlobalTheory.Cris.spMap_comp, hβinl]
+      rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβinl]
     have e2 : b ≫ Z = Over.homMk (U := ovT R B' M') (V := A) (spMap β ≫ z) hz' := by ext; rfl
     show _ = (b ≫ (_ * Z)).left
     rw [MonObj.comp_mul, e1, e2]

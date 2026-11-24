@@ -101,7 +101,7 @@ theorem generic_read : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H
     have e3 : B.ξ ≫ h = spMap i ≫ A.ξ := hd
     have e4 : spMap (B.fn.comp ψ.toRingHom) = spMap (i.comp A.fn) := by
       refine (cancel_mono A.ξ₀).1 ?_
-      rw [FlagPull.spMap_comp, FlagPull.spMap_comp, Category.assoc, Category.assoc, hψ, e1, e2, hf, ← Category.assoc, e3,
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, hψ, e1, e2, hf, ← Category.assoc, e3,
         Category.assoc]
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective e4)
   letI mod' : Module B.Ω₀ Fl.Li₀ := Module.compHom _ ψ.symm.toRingHom
@@ -122,7 +122,7 @@ theorem generic_read : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H
       zero_mem' := (Fl.V₀ s).zero_mem
       smul_mem' := fun c x hx => (Fl.V₀ s).smul_mem (ψ.symm c) hx }
   have hsq : spMap (dualMap i) ≫ spMap (dualMap A.fn) = spMap (dualMap B.fn) ≫ spMap (dualMap ψ.toRingHom) := by
-    rw [← FlagPull.spMap_comp, ← FlagPull.spMap_comp, ← dualMap_comp, ← dualMap_comp, hfn]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp, ← dualMap_comp, hfn]
   have hspan : ∀ s, Submodule.span Ω (Set.range fun a => jA (Fl.b s a)) = B.Vgen s := by
     intro s
     letI := A.fn.toAlgebra

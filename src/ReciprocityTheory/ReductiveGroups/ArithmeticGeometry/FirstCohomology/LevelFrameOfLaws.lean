@@ -225,8 +225,8 @@ theorem dvd_of_comb {ϖ : V} (hϖ : Irreducible ϖ) (D : DegPre V) (F : Type) [F
   let iL : Γ(D.P.A.left, U) →+* Γ(D.P.A.left, U) ⊗[V] F := Algebra.TensorProduct.includeLeftRingHom
   let iR : F →+* Γ(D.P.A.left, U) ⊗[V] F := (Algebra.TensorProduct.includeRight (R := V)).toRingHom
   have sq : spMap iR ≫ (TF (R := V) F).hom = (spMap iL ≫ hU.fromSpec) ≫ D.P.A.hom := by
-    rw [Category.assoc, s₀, ← spMap_comp]
-    refine ((congrArg (spMap iR ≫ ·) (spMap_comp _ _).symm).trans (spMap_comp _ _).symm).trans (congrArg spMap ?_)
+    rw [Category.assoc, s₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    refine ((congrArg (spMap iR ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans (congrArg spMap ?_)
     exact (Algebra.TensorProduct.includeLeftRingHom_comp_algebraMap (R := V) (A := Γ(D.P.A.left, U)) (B := F)).symm
   let r : Sp (Γ(D.P.A.left, U) ⊗[V] F) ⟶ (DegPre.BF D F).left := pullback.lift _ _ sq
   have r₁ : r ≫ (fst (TF (R := V) F) D.P.A).left = spMap iR := pullback.lift_fst _ _ _

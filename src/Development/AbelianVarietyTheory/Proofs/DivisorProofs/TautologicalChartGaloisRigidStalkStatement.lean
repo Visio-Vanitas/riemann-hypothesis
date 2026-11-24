@@ -1108,11 +1108,11 @@ theorem tautChart_eq_of_genPt : ∀ {g n : ℕ} {φ : InvFun ℤ}, 3 ≤ n → �
   obtain ⟨κf₂, hκf₂⟩ := exists_genericMap hf₂
   obtain ⟨κη, hκη⟩ := exists_genericMap hη'
   have e₁ : κf₁ ≫ κρ = κη ≫ κ₁ := _root_.GlobalTheory.TInj.genPt_map_unique (f₁.comp ρ) _ _
-    (by rw [Category.assoc, hκρ, ← Category.assoc, hκf₁, Category.assoc, ← spMap_comp])
-    (by rw [Category.assoc, hκ₁, ← Category.assoc, hκη, Category.assoc, ← spMap_comp, hc₁])
+    (by rw [Category.assoc, hκρ, ← Category.assoc, hκf₁, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
+    (by rw [Category.assoc, hκ₁, ← Category.assoc, hκη, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc₁])
   have e₂ : κf₂ ≫ κρ = κη ≫ κ₂ := _root_.GlobalTheory.TInj.genPt_map_unique (f₂.comp ρ) _ _
-    (by rw [Category.assoc, hκρ, ← Category.assoc, hκf₂, Category.assoc, ← spMap_comp])
-    (by rw [Category.assoc, hκ₂, ← Category.assoc, hκη, Category.assoc, ← spMap_comp, hc₂])
+    (by rw [Category.assoc, hκρ, ← Category.assoc, hκf₂, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
+    (by rw [Category.assoc, hκ₂, ← Category.assoc, hκη, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc₂])
   have hy₀ : κf₁ ≫ (κρ ≫ y) = κf₂ ≫ (κρ ≫ y) := by
     rw [← Category.assoc, e₁, Category.assoc, hy, ← Category.assoc, ← e₂, Category.assoc]
   have hmap : ∀ f : R₁ →+* V, IsLocalHom f → (maximalIdeal R₁).map f ≤ maximalIdeal V := fun f hf =>

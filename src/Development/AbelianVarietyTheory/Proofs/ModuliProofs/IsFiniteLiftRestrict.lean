@@ -209,7 +209,7 @@ theorem exists_map_top (L₁ : Out.Laws) (L₂ : Out.Laws2) (L₃ : Out.Laws3) {
     rw [← hjC, ← Category.assoc, ← a.j_comm, Category.assoc, a.π_over, ← Category.assoc (ofModel Y).j, hjY,
       Category.assoc]
   have e3 : spMap β ≫ spMap (b'.comp B.b) = spMap k ≫ spMap B.β₁ ≫ spMap B.b := by
-    rw [spMap_comp B.b b', ← Category.assoc (spMap β), ← spMap_comp, hk', spMap_comp, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp B.b b', ← Category.assoc (spMap β), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hk', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have hs : (r' ≫ B.r) ≫ (Xo l₀).s = r ≫ (Xo l₀).s := by
     apply eq_of_RZ B.A_one B.β_inc
     simp only [Category.assoc]
@@ -263,7 +263,7 @@ theorem exists_map_top (L₁ : Out.Laws) (L₂ : Out.Laws2) (L₃ : Out.Laws3) {
     show _ = (c.F.val.toRingHom.comp β) (b' (B.b' x))
     rw [hb x, hb' (B.b' x)]
     exact (B.b'_inc x).symm
-  have hz : spMap b' ≫ spMap B.b' = spMap b := by rw [hbb, spMap_comp]
+  have hz : spMap b' ≫ spMap B.b' = spMap b := by rw [hbb, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hg : (h ≫ B.q) ≫ T.s = Y.s ≫ spMap b := by
     show (h ≫ B.q) ≫ T.s = (ofModel Y).s ≫ spMap b
     rw [Category.assoc, B.q_over, ← Category.assoc, hh, Category.assoc, hz]

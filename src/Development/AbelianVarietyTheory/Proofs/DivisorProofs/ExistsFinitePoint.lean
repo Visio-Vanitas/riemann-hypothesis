@@ -110,7 +110,7 @@ theorem exists_finite_point (n : ℕ) {X : Scheme.{0}} (s : X ⟶ Sp (cycAway n)
     | mul a b _ _ ha hb => rw [map_mul]; exact K.mul_mem ha hb
   let φK : Γ(X, U) →+* K := φ.hom.codRestrict K hmem
   refine ⟨K, hK, spMap φK ≫ hU.fromSpec, ?_⟩
-  rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, ← IsOpenImmersion.lift_fac hU.fromSpec y hr, ← hφ]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← IsOpenImmersion.lift_fac hU.fromSpec y hr, ← hφ]
   rfl
 
 theorem exists_ext_emb (p : ℕ) [Fact p.Prime] (V W : Type) [CommRing V] [IsDomain V] [IsDiscreteValuationRing V]
@@ -174,7 +174,7 @@ theorem exists_cTrait : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (W : Matrix 
     show algebraMap K (PadicAlgCl p) (e (e.symm k)) = _
     rw [AlgEquiv.apply_symm_apply]
   have key : spMap ι ≫ spMap fK ≫ spMap es = spMap (algebraMap K (PadicAlgCl p)) := by
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, ← RingHom.comp_assoc, hι, hκ]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, hι, hκ]
   refine ⟨⟨y, rfl, T, ι, hint, ?_⟩, rfl⟩
   calc gPt p ≫ y ≫ X₁.π = y₁ ≫ i := hy₁.symm
     _ = (spMap (algebraMap K (PadicAlgCl p)) ≫ x) ≫ i := by rw [hx]

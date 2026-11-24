@@ -128,7 +128,7 @@ open GlobalTheory.SS
 
 namespace GlobalTheory.SymSemistable
 
-alias spMap_spMap := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_spMap := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem exists_odd_prime_isUnit (V : Type) [CommRing V] [IsLocalRing V] :
     ∃ n : ℕ, n.Prime ∧ Odd n ∧ IsUnit (n : V) := by
@@ -383,7 +383,7 @@ namespace GlobalTheory.SS.Isog
 
 open IsLocalRing
 
-alias spMap_comp := _root_.GlobalTheory.SS.WeakNeronEx.sp_comp
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem isModel_pullback {K W L W' L' : Type} [Field K] [CommRing W] [Field L] [CommRing W'] [Field L']
     [Algebra K L] [Algebra W L] [Algebra K L'] [Algebra W' L'] (c : W →+* W') (b : L →+* L')
@@ -392,9 +392,9 @@ theorem isModel_pullback {K W L W' L' : Type} [Field K] [CommRing W] [Field L] [
     IsModel (L := L') A ((Over.pullback (spMap c)).obj G) := by
   obtain ⟨e₀, he₀⟩ := h
   have hW : spMap (algebraMap W' L') ≫ spMap c = spMap b ≫ spMap (algebraMap W L) := by
-    rw [spMap_comp, spMap_comp, e]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
   have hK : spMap (algebraMap K L') = spMap b ≫ spMap (algebraMap K L) := by
-    rw [spMap_comp, e']
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e']
   have key : ∀ (φ : Sp L' ⟶ Sp W) (ψ : Sp L' ⟶ Sp K), φ = spMap b ≫ spMap (algebraMap W L) →
       ψ = spMap b ≫ spMap (algebraMap K L) →
       ∃ f : (Over.pullback φ).obj G ≅ (Over.pullback ψ).obj A, IsMonHom f.hom := by

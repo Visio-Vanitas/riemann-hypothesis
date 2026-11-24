@@ -103,7 +103,7 @@ theorem toric_torsion_section_overLocal : ∀ (E : Type) [Field E] [NumberField 
       (s U (u.comp ψ) τ h).left = (z ≫ j).left ≫ mV.φ := by
   intro E _ _ _ H R _ _ _ t P k s hs1 hs2 hs3 X' _ ρ V _ _ ψ tV mV j _ t₀ m₀ h₀ m₀' hφ hpull
     U _ _ u hu hk τU τ h hτU hττ z hz
-  have hg : spMap (u.comp ψ) = (Over.mk (spMap u)).hom ≫ spMap ψ := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ψ u
+  have hg : spMap (u.comp ψ) = (Over.mk (spMap u)).hom ≫ spMap ψ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ψ u
   obtain ⟨e, he⟩ := GlobalTheory.LiePull.exists_pushEquiv mV.cart (Over.mk (spMap u)) (spMap (u.comp ψ)) hg
 
   have hzk : z ^ k = 1 := by
@@ -155,7 +155,7 @@ theorem toric_torsion_section_overLocal : ∀ (E : Type) [Field E] [NumberField 
         · rw [Category.assoc, GlobalTheory.SplitTorus.bcMap_hom, ← Category.assoc, Over.w z₁, Category.assoc,
             Over.w z]
           show spMap (ResidueField.map u) ≫ spMap (residue V) = spMap cU ≫ spMap u
-          rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hres]
+          rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hres]
         · rw [Scheme.Hom.comp_appTop, CommRingCat.hom_comp, RingHom.comp_apply, GlobalTheory.UU.bcMap_charUnit,
             Scheme.Hom.comp_appTop, CommRingCat.hom_comp, RingHom.comp_apply, ← GlobalTheory.UU.chV_val,
             ← GlobalTheory.UU.chV_val, hz₁, hz]
@@ -327,7 +327,7 @@ theorem toric_torsion_eq_restrict : ∀ (E : Type) [Field E] [NumberField E] [Is
   let τOR := τO.comp ρm
   have hτOR : τOR ^ k = 1 := by
     exact powc τO hτOk
-  obtain ⟨e, he'⟩ := GlobalTheory.LiePull.exists_pushEquiv m.cart (Over.mk (spMap φ)) (spMap (φ.comp g)) (spMap_comp g φ)
+  obtain ⟨e, he'⟩ := GlobalTheory.LiePull.exists_pushEquiv m.cart (Over.mk (spMap φ)) (spMap (φ.comp g)) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g φ)
   have hkO : IsUnit (k : O) := by simpa using hk.map (φ.comp g)
   have hxy : s O (φ.comp g) τOR hτOR = e (s' O φ τO hτOk) := by
     refine _root_.GlobalTheory.LocalRigid.eq_of_pow_eq_of_closedPoint (Sp R) t.G t.semi.smooth O (spMap (φ.comp g)) k hkO _ _ ?_ Ω' κ hκloc ?_

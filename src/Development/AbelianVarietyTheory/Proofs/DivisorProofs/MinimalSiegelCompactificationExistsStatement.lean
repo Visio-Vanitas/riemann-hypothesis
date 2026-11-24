@@ -486,7 +486,7 @@ theorem thetaInt : ∀ (g n : ℕ), 1 ≤ g → 3 ≤ n → Odd n → ∀ (F : S
     ((S.r * S.N) ^ (4 * (8 * g))) K (spMap iK ≫ 𝟙 (Sp S.R)) θK hrNodd hrNK rfl hPFK
   have hgen := _root_.GlobalTheory.UMin.isGenSec_real_pull o Ω S ρ K iK
   have hxy : spMap io ≫ y = spMap iK ≫ 𝟙 (Sp S.R) := by
-    rw [Category.comp_id]; exact _root_.GlobalTheory.spMap_comp_ring i₀ io
+    rw [Category.comp_id]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i₀ io).symm
   have h2 : HasTh₂ ρ.P.A ρ.P.L ρ.rig m (S.r * S.N) (spMap io ≫ y) c c' := by
     rw [hxy]; exact ⟨θK, pt, pt', hgen, hc, hc'⟩
   obtain ⟨a, ha, hp1, hp2⟩ := _root_.GlobalTheory.SiegCmp.theta_two_levels_prim (Sp S.R) ρ.P.A ρ.P.L ρ.rig ρ.P.isLB ρ.rig_gen V hV y P' φ gp hL' hS' K io
@@ -498,8 +498,8 @@ theorem thetaInt : ∀ (g n : ℕ), 1 ≤ g → 3 ≤ n → Odd n → ∀ (F : S
     simp only [SecAt.pull]
     rw [_root_.GlobalTheory.UMin.SymRat.pullS_comp ρ.P.A ρ.P.isLB]
     refine _root_.GlobalTheory.UMin.SymRat.thList_congr ρ.th₁ ?_ (Over.homMk (spMap iK) rfl) _ ?_ hc
-    · rw [Category.comp_id, Category.comp_id]; exact (_root_.GlobalTheory.spMap_comp_ring val i').symm
-    · simp only [Over.comp_left, Over.homMk_left]; exact (_root_.GlobalTheory.spMap_comp_ring val i').symm
+    · rw [Category.comp_id, Category.comp_id]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp val i')
+    · simp only [Over.comp_left, Over.homMk_left]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp val i')
   obtain ⟨pt'', hpt''⟩ := hlist
   have hsym : ∀ j, io (emb (e j)) = symTup c j := fun j => by unfold SymE SymAt at hSym; exact hSym.2.2 K i' pt'' c hpt'' j
   have hj₀' : emb (e j₀) ≠ 0 := (map_ne_zero emb).2 hj₀
@@ -1430,7 +1430,7 @@ theorem thetaInt_all : ∀ (g n : ℕ), 1 ≤ g → 3 ≤ n → Odd n → ∀ (F
     ((S.r * S.N) ^ (4 * (8 * g))) K (spMap iK ≫ 𝟙 (Sp S.R)) θK hrNodd hrNK rfl hPFK
   have hgen := _root_.GlobalTheory.UMin.isGenSec_real_pull o Ω S ρ K iK
   have hxy : spMap io ≫ y = spMap iK ≫ 𝟙 (Sp S.R) := by
-    rw [Category.comp_id]; exact _root_.GlobalTheory.spMap_comp_ring i₀ io
+    rw [Category.comp_id]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i₀ io).symm
   have h2 : HasTh₂ ρ.P.A ρ.P.L ρ.rig m (S.r * S.N) (spMap io ≫ y) c c' := by
     rw [hxy]; exact ⟨θK, pt, pt', hgen, hc, hc'⟩
   obtain ⟨a, ha, hp1, hp2⟩ := _root_.GlobalTheory.SiegCmp.theta_two_levels_prim (Sp S.R) ρ.P.A ρ.P.L ρ.rig ρ.P.isLB ρ.rig_gen V hV y P' φ gp hL' hS' K io
@@ -1442,8 +1442,8 @@ theorem thetaInt_all : ∀ (g n : ℕ), 1 ≤ g → 3 ≤ n → Odd n → ∀ (F
     simp only [SecAt.pull]
     rw [_root_.GlobalTheory.UMin.SymRat.pullS_comp ρ.P.A ρ.P.isLB]
     refine _root_.GlobalTheory.UMin.SymRat.thList_congr ρ.th₁ ?_ (Over.homMk (spMap iK) rfl) _ ?_ hc
-    · rw [Category.comp_id, Category.comp_id]; exact (_root_.GlobalTheory.spMap_comp_ring val i').symm
-    · simp only [Over.comp_left, Over.homMk_left]; exact (_root_.GlobalTheory.spMap_comp_ring val i').symm
+    · rw [Category.comp_id, Category.comp_id]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp val i')
+    · simp only [Over.comp_left, Over.homMk_left]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp val i')
   obtain ⟨pt'', hpt''⟩ := hlist
   have hsym : ∀ j, io (emb (e j)) = symTup c j := fun j => by unfold SymE SymAt at hSym; exact hSym.2.2 K i' pt'' c hpt'' j
   have hj₀' : emb (e j₀) ≠ 0 := (map_ne_zero emb).2 hj₀

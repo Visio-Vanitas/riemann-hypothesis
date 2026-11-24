@@ -81,10 +81,6 @@ namespace GlobalTheory.BaseTransition
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E}
 
-theorem spMap_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 theorem isProper_of_proj {R : Type} [CommRing R] {X : Scheme.{0}} {f : X ⟶ Sp R} (h : IsProjOver f) :
     IsProper f := by
   obtain ⟨N, i, hi, rfl⟩ := h
@@ -240,13 +236,13 @@ theorem baseModel_above : (∀ (T K : Type) [CommRing T] [IsDomain T] [IsDiscret
     have := hlev₁.2 x
     rwa [B.A_eq, B'.A_eq, Nat.div_self hN0, pow_one] at this
   have w : B'.q ≫ T.s = (B'.C₁.s ≫ spMap b₁) ≫ spMap B.b' := by
-    rw [B'.q_over, Category.assoc, spMap_spMap, q₂]
+    rw [B'.q_over, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, q₂]
   have hrs₁ : r₁ ≫ B.C₁.j ≫ B.C₁.s = B'.C₁.j ≫ B'.C₁.s ≫ spMap b₁ := by
-    rw [j_s, ← Category.assoc, hr₁, ← Category.assoc B'.C₁.j, j_s, Category.assoc, Category.assoc, spMap_spMap,
-      spMap_spMap, q₁]
+    rw [j_s, ← Category.assoc, hr₁, ← Category.assoc B'.C₁.j, j_s, Category.assoc, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, q₁]
   have hrs : r ≫ B.C.j ≫ B.C.s = B'.C.j ≫ B'.C.s ≫ spMap b := by
-    rw [j_s, ← Category.assoc, hr, ← Category.assoc B'.C.j, j_s, Category.assoc, Category.assoc, spMap_spMap,
-      spMap_spMap, q₄]
+    rw [j_s, ← Category.assoc, hr, ← Category.assoc B'.C.j, j_s, Category.assoc, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, q₄]
   have qf := B.q_fin
   obtain ⟨h, ⟨h₁, h₂⟩, -⟩ := GlobalTheory.existsUnique_lift_of_densePart B'.C₁.X _ _ B.C₁.X B'.C₁.j B'.C₁.normal pre₁' fl₁'
     dom₁' qc₁' (pullback.lift B.q B.C₁.s B.q_over) (pullback.lift B'.q _ w) (r₁ ≫ B.C₁.j) inferInstance (by
@@ -261,7 +257,7 @@ theorem baseModel_above : (∀ (T K : Type) [CommRing T] [IsDomain T] [IsDiscret
     simpa only [Category.assoc, pullback.lift_snd] using this
   have hf : (h ≫ B.above.π) ≫ B.C.s = B'.above.π ≫ B'.C.s ≫ spMap b := by
     rw [Category.assoc, B.above.π_over, ← Category.assoc, hs, ← Category.assoc, B'.above.π_over, Category.assoc,
-      Category.assoc, spMap_spMap, spMap_spMap, q₃]
+      Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, q₃]
 
   have sq : r₁ ≫ B.r = B'.r ≫ r := by
     obtain ⟨m₁, hm₁⟩ := levComp_comp hdB hd₁ B.lev hlev₁
@@ -368,7 +364,7 @@ theorem exists_isTransition : (∀ (T K : Type) [CommRing T] [IsDomain T] [IsDis
   obtain ⟨r', hr₁, hr₂⟩ : ∃ r' : (Xo l₂).XF c₂ ⟶ (Xo l).XF c, r' ≫ pullback.fst _ _ = r ∧
       r' ≫ pullback.snd _ _ = pullback.snd _ _ ≫ spMap (IntermediateField.inclusion hc).toRingHom :=
     ⟨pullback.lift r (pullback.snd _ _ ≫ spMap (IntermediateField.inclusion hc).toRingHom)
-      (by rw [hr, hkk, spMap_comp, Category.assoc]), pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
+      (by rw [hr, hkk, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]), pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
   obtain ⟨ν', hν'⟩ := LevelCover.sab_cancel Y.m0.toSABMap ν r' hr₁
   have hl' : LevComp Y₂.oF Y.oF r' ν' :=
     ⟨fun x => LevelCover.sec_cancel ν' Y.m0.toSABMap _ _ (by
@@ -405,7 +401,7 @@ theorem exists_isTransition : (∀ (T K : Type) [CommRing T] [IsDomain T] [IsDis
     have q₂ : r₁ ≫ B.C.j ≫ B.C.s = pullback.snd _ _ ≫ spMap β ≫ spMap b₁ := by
       rw [← Category.assoc, ← a₁.j_comm, Category.assoc, a₁.π_over, ← Category.assoc, j_over, Category.assoc]
     rw [← cancel_mono (spMap B.β), Category.assoc, ← j_over B.C, q₁, Category.assoc, ← j_over B.C, Category.assoc, q₂,
-      reassoc_of% hr₂, spMap_comp, ← Category.assoc (spMap β₂), ← spMap_comp, hbβ, spMap_comp, Category.assoc]
+      reassoc_of% hr₂, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc (spMap β₂), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hbβ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   obtain ⟨e₁, e₂⟩ := GlobalTheory.LevUniq.map_to_univ_unique L₁ L₂ L₃ E H D l₀ l₂ (Xo l₀) _ _ _ _ Y₂.oF _ _ ν₃ ν₄ hred hover
     (levComp_trans d₀ d₂ hl₂ hl₀ ν₃ hν₃) (levComp_trans d₁ d hl' hl₁ ν₄ hν₄)
   obtain ⟨h, mu, hh, -, -, hj, hφ, hf⟩ := GlobalTheory.Models.Cpt.Above.exists_lift E H _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _

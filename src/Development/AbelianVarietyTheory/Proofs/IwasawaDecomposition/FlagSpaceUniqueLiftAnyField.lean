@@ -272,7 +272,7 @@ theorem lifts_closed (hj : j ≫ genStr Z ≫ spMap e.toRingHom = B.str) (hπ : 
     spMap_stalkClosedPointTo x
   obtain ⟨χ, hχ⟩ : ∃ χ : c.F →+* K, x ≫ j ≫ genStr Z = spMap χ := ⟨_, (Spec.map_preimage _).symm⟩
   have hχ' : χ = (Scheme.stalkClosedPointTo (R := .of K) x).hom.comp φA := by
-    apply _root_.GlobalTheory.ZM.DenseFib.spMap_inj
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
     rw [← hχ]
     conv_lhs => rw [← hx'']
     simp only [Category.assoc]
@@ -324,7 +324,7 @@ theorem lifts_of_closed : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E]
     have hσι : (σ : AlgebraicClosure K →+* AlgebraicClosure K).comp (algebraMap K (AlgebraicClosure K)) =
         algebraMap K (AlgebraicClosure K) := RingHom.ext fun a => σ.commutes a
     refine hqu _ ⟨?_, ?_⟩
-    · rw [Category.assoc, hq1, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, hσι]
+    · rw [Category.assoc, hq1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσι]
     · have e1 : (h.map (algebraMap K (AlgebraicClosure K))).map (σ : AlgebraicClosure K →+* AlgebraicClosure K) =
           h.map (algebraMap K (AlgebraicClosure K)) := by
         funext τ

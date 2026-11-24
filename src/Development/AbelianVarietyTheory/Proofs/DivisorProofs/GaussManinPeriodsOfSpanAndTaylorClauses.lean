@@ -132,13 +132,13 @@ theorem alg_of_ev (u : Unif F s σ) (W : Opens (Tot I g)) (x : Sp (Hol W) ⟶ X)
   refine point_hol_ext _ W (Sp B) (⊤_ Scheme.{0}) (terminal.from _) _ _ (terminal.hom_ext _ _) fun p hp ↦ ?_
   have e := hx p hp
   change spMap (Hol.ev p hp).toRingHom ≫ _ = spMap (Hol.ev p hp).toRingHom ≫ _
-  rw [← Category.assoc, e, u.w p (h p hp), ← Cris.spMap_comp]
+  rw [← Category.assoc, e, u.w p (h p hp), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem alg_mono (u : Unif F s σ) {W W' : Opens (Tot I g)} (h : W' ≤ W) (a : Alg u W) : Alg u W' := by
   obtain ⟨x, -, hx⟩ := a
   refine alg_of_ev u W' (spMap (Hol.comap id analyticOnNhd_id (fun p hp ↦ h hp)).toRingHom ≫ x) fun p hp ↦ ?_
-  rw [← Category.assoc, ← Cris.spMap_comp, ← hx p (h hp)]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hx p (h hp)]
   rfl
 
 @[reducible] def charts (u : Unif F s σ) : Charts F := Charts.std F (Alg u)
@@ -148,10 +148,10 @@ def real [IsSeparated s] (u : Unif F s σ) : Real (charts u) s σ where
   w k := k.2.2.choose_spec.1 k.2.1
   compat {l k k'} h := by
     refine point_hol_ext _ k'.1 X _ s _ _ ?_ fun p hp ↦ ?_
-    · rw [Category.assoc, k.2.2.choose_spec.1 k.2.1, k'.2.2.choose_spec.1 k'.2.1, ← Cris.spMap_comp]
+    · rw [Category.assoc, k.2.2.choose_spec.1 k.2.1, k'.2.2.choose_spec.1 k'.2.1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (RingHom.ext fun b ↦ Charts.sh_cst (K := charts u) h (σ b))
     · change spMap (Hol.ev p hp).toRingHom ≫ _ = spMap (Hol.ev p hp).toRingHom ≫ _
-      rw [k'.2.2.choose_spec.2 p hp, ← Category.assoc, ← Cris.spMap_comp, ← u.per l p (k'.2.1 p hp),
+      rw [k'.2.2.choose_spec.2 p hp, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← u.per l p (k'.2.1 p hp),
         ← k.2.2.choose_spec.2 _ (h p hp)]
       rfl
 
@@ -1074,13 +1074,13 @@ namespace GlobalTheory.AnPer
 theorem exists_tangent_of_jet : ∀ {A : Over (Sp ℂ)} [GrpObj A] {L : LB A.left} {g : ℕ} (u : HolUnif A L g), A.left.IsSeparated → ∀ (W : Opens (Tot Empty g)) (x : Sp (Hol W) ⟶ A.left), (∀ (p : Tot Empty g) (hp : p ∈ W), spMap (Hol.ev p hp).toRingHom ≫ x = (u.ex p.2).left) → x ≫ A.hom = spMap (algebraMap ℂ (Hol W)) → (0 : Tot Empty g) ∈ W → ∀ (w : Fin g → ℂ) (ρ : Hol W →ₐ[ℂ] DualNumber ℂ), (∀ h, (ρ h).fst = h.fn 0 ∧ (ρ h).snd = fderiv ℂ h.fn 0 (0, w)) → ∃ v : epsR ℂ ⟶ A, v.left = spMap ρ.toRingHom ≫ x ∧ IsTangent v ∧ u.IsDiff w v := by
   intro A _ L g u hsep W x hx hxA h0 w ρ hρ
   have hw : (spMap ρ.toRingHom ≫ x) ≫ A.hom = spMap (algebraMap ℂ (DualNumber ℂ)) := by
-    rw [Category.assoc, hxA, ← Cris.spMap_comp]
+    rw [Category.assoc, hxA, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun c ↦ ρ.commutes c
   have hfst : spMap (TrivSqZeroExt.fstHom ℂ ℂ ℂ).toRingHom ≫ spMap ρ.toRingHom ≫ x = (u.ex 0).left := by
     have e : (TrivSqZeroExt.fstHom ℂ ℂ ℂ).toRingHom.comp ρ.toRingHom = (Hol.ev 0 h0).toRingHom :=
       RingHom.ext fun f ↦ (hρ f).1.trans (Hol.ev_apply 0 h0 f).symm
-    rw [← Category.assoc, ← Cris.spMap_comp, e]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
     exact hx 0 h0
   refine ⟨Over.homMk (spMap ρ.toRingHom ≫ x) hw, rfl, ?_, ?_⟩
   · change spMap (TrivSqZeroExt.fstHom ℂ ℂ ℂ).toRingHom ≫ spMap ρ.toRingHom ≫ x = _
@@ -1108,7 +1108,7 @@ theorem exists_tangent_of_jet : ∀ {A : Over (Sp ℂ)} [GrpObj A] {L : LB A.lef
       refine point_hol_ext_of_isSeparated W' hsep _ _ fun p hp ↦ ?_
       have e : (Hol.ev p hp).toRingHom.comp res.toRingHom = (Hol.ev p hp.1).toRingHom :=
         RingHom.ext fun _ ↦ rfl
-      rw [hx' p hp, ← Category.assoc, ← Cris.spMap_comp, e]
+      rw [hx' p hp, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e]
       exact hx p hp.1
     obtain ⟨ρ', hρ'⟩ := Hol.exists_jet_algHom W' 0 h0' ((0, w) : Tot Empty g)
     have hρρ : ρ'.toRingHom.comp res.toRingHom = ρ.toRingHom := RingHom.ext fun k ↦ by
@@ -1117,7 +1117,7 @@ theorem exists_tangent_of_jet : ∀ {A : Over (Sp ℂ)} [GrpObj A] {L : LB A.lef
       · rw [(hρ' _).1, (hρ _).1, hres k 0 h0']
       · rw [(hρ' _).2, (hρ _).2, Hol.fderiv_fn_congr _ (hres k) h0']
     have hv : spMap ρ.toRingHom ≫ x = spMap ρ'.toRingHom ≫ x' := by
-      rw [← hρρ, Cris.spMap_comp, Category.assoc, hxx]
+      rw [← hρρ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hxx]
     have hx'U' : ⊤ ≤ x' ⁻¹ᵁ U := fun q hq ↦ hle (hx'U hq)
     obtain ⟨h', hev, -⟩ := GlobalTheory.EvalNat.evalAt_natural ρ'.toRingHom x' U hx'U'
     have e1 : evalAt (spMap ρ.toRingHom ≫ x) U h f = ρ' (evalAt x' U hx'U' f) := by
@@ -1299,8 +1299,8 @@ theorem main : ∀ {A : Over (Sp ℂ)} {I : Type} [Fintype I] {g : ℕ} {Λ : Ty
       pt := by
         have h0 : spMap ((Ideal.Quotient.mk T.J).comp (TrivSqZeroExt.inlHom ℂ ℂ)) ≫
             spMap (E.π : E.C →+* E.B) ≫ v.left = spMap ((Ideal.Quotient.mk T.J).comp e) ≫ r.x k := by
-          rw [hv, ← Category.assoc (spMap (E.π : E.C →+* E.B)), ← Cris.spMap_comp, hfst, ← Category.assoc,
-            ← Cris.spMap_comp]
+          rw [hv, ← Category.assoc (spMap (E.π : E.C →+* E.B)), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hfst, ← Category.assoc,
+            ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         exact h0 }
   have mkHom : ∀ (C : Type) [CommRing C] [Algebra ℂ C] (ψ : Hol (K.W k) →ₐ[ℂ] C) (y : Sp C ⟶ A.left)
       (hy : y ≫ A.hom ≫ 𝟙 _ = spMap (algebraMap ℂ C)), y = spMap ψ.toRingHom ≫ r.x k →
@@ -1312,9 +1312,9 @@ theorem main : ∀ {A : Over (Sp ℂ)} {I : Type} [Fintype I] {g : ℕ} {Λ : Ty
        pt := by
         refine Eq.trans ?_ e'.symm
         refine (Category.assoc _ _ _).symm.trans (congrArg (· ≫ r.x k) ?_)
-        exact (Cris.spMap_comp _ _).symm }, fun _ ↦ rfl⟩
+        exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm }, fun _ ↦ rfl⟩
   obtain ⟨a', ha'⟩ := mkHom ℂ (Hol.ev p hp) _ (E.red_w (pt_w v)) (by
-    rw [hv, ← Category.assoc, ← Cris.spMap_comp, hfst])
+    rw [hv, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hfst])
   obtain ⟨b', hb'⟩ := mkHom (DualNumber ℂ) ρ v.left (pt_w v) hv
   have e1 : r.functor.map a = a' ≫ E.secHom (E.red_w (pt_w v)) E.i E.π_i ≫ Φ := thickHomExt fun c ↦ by
     change e (Charts.sh (K.le_refl k) c) = TrivSqZeroExt.inl (a'.φ c)

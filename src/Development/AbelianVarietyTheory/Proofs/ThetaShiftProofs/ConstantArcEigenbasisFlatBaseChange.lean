@@ -155,8 +155,8 @@ theorem exists_lift {R : Type} [CommRing R] {G₀ : Over (Spec (CommRingCat.of R
     ∃ w' : epsR S ⟶ G, w'.left ≫ φ = Geo.Tor.spMap (dualMapR f) ≫ w.left := by
   have c : (Geo.Tor.spMap (dualMapR f) ≫ w.left) ≫ G₀.hom = (epsR S).hom ≫ Geo.Tor.spMap f := by
     rw [Category.assoc, Over.w w]
-    exact (Geo.Tor.spMap_comp _ _).symm.trans ((congrArg Geo.Tor.spMap (RingHom.ext fun r => by
-      ext <;> simp [dualMapR, TrivSqZeroExt.algebraMap_eq_inl])).trans (Geo.Tor.spMap_comp _ _))
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg Geo.Tor.spMap (RingHom.ext fun r => by
+      ext <;> simp [dualMapR, TrivSqZeroExt.algebraMap_eq_inl])).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   exact ⟨Over.homMk (h.1.lift _ _ c) (h.1.lift_snd _ _ c), h.1.lift_fst _ _ c⟩
 
 end Coord

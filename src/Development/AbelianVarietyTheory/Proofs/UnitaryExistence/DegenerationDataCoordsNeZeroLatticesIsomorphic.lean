@@ -320,7 +320,7 @@ theorem ker_mem (A : DatAt Y P) (q : PrimeSpectrum A.R)
     (hq : q.asIdeal = RingHom.ker ((intO ↥C.S).subtype.comp A.f)) : q ∈ A.ι ⁻¹' abLocus Y.t.G := by
   have z : Sp ↥C.S := (default : PrimeSpectrum ↥C.S)
   have e : spMap ((intO ↥C.S).subtype.comp A.f) ≫ A.ι = P.y ≫ Y.j := by
-    rw [spMap_comp, Category.assoc, A.fac, P.ext]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, A.fac, P.ext]
   have hz : spMap ((intO ↥C.S).subtype.comp A.f) z = q := by
     refine PrimeSpectrum.ext ?_
     have := PrimeSpectrum.isPrime z
@@ -377,7 +377,7 @@ theorem exists_equiv (hp : p.Prime) (A A₀ : DatAt Y P) [IsDiscreteValuationRin
   have hsep : Y.X.IsSeparated := ⟨by rw [← terminal.comp_from Y.s]; infer_instance⟩
   have hξ : spMap φ ≫ A.ι = spMap φ₀ ≫ A₀.ι := by
     refine ext_of_isDominant (spMap i) ?_
-    rw [← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp]
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact A.fac.trans A₀.fac.symm
   obtain ⟨t, ⟨m⟩⟩ : ∃ t : SAB H (Sp S), Nonempty (SABMap t Y.t (spMap φ ≫ A.ι)) := by
     obtain ⟨_, _, _, _, _, m, -⟩ := sabPull Out.CubePf.cubePull (spMap φ ≫ A.ι) Y.t

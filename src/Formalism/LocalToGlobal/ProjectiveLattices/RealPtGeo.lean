@@ -64,7 +64,7 @@ theorem intFr_of_model (hIF : IntFramesSt Xo c) (T : CDVR) (io : c.F →+* T.Fr)
   letI := io.toAlgebra
   have e1 : y₀.x ≫ Xo.s = spMap io ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
     rw [y₀.x_over]
-    exact spMap_comp _ _
+    exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   obtain ⟨z, hz1, hz2⟩ : ∃ z : Sp T.Fr ⟶ pullback Xo.s (spMap (IntermediateField.inclusion c.le).toRingHom),
       z ≫ pullback.fst _ _ = y₀.x ∧ z ≫ pullback.snd _ _ = spMap io :=
     ⟨pullback.lift y₀.x (spMap io) e1, pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
@@ -72,7 +72,7 @@ theorem intFr_of_model (hIF : IntFramesSt Xo c) (T : CDVR) (io : c.F →+* T.Fr)
   have e4 : Y.j = Y.jQ ≫ pullback.fst _ _ := rfl
   have hx : z ≫ Y.j ≫ Y.s = Out.jK T.V ≫ spMap b := by
     rw [e4, e3, Category.assoc, pullback.condition, ← Category.assoc Y.jQ, Y.jQ_over, ← Category.assoc, hz2,
-      ← spMap_comp, ← spMap_comp, hb]
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hb]
   obtain ⟨yt, hyt1, -⟩ := extPt Y T b z hx
   exact hIF T io O β Y hPI yt z (by rw [← hyt1, e3]) hz2 y₀ hz1.symm
 

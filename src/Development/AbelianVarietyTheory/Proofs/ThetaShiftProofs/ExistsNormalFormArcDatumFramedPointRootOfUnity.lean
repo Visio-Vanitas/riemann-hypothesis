@@ -98,7 +98,7 @@ theorem tan_iff (w : epsR S ⟶ t'.G) : IsTanAt x (w.left ≫ m.φ) ↔ IsTangen
 
 theorem scale_over (s : S) : spMap (epsScaleR s) ≫ spMap (algebraMap S (DualNumber S)) =
     spMap (algebraMap S (DualNumber S)) := by
-  rw [← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r <;> simp [epsScaleR, TrivSqZeroExt.algebraMap_eq_inl]
 
@@ -187,7 +187,7 @@ def sc (s : S) : epsR S ⟶ epsR S := Over.homMk (spMap (epsScaleR s)) (ExFr.sca
 theorem sc_mul (s t : S) : sc s ≫ sc t = sc (s * t) := by
   apply Over.OverMorphism.ext
   show spMap (epsScaleR s) ≫ spMap (epsScaleR t) = spMap (epsScaleR (s * t))
-  rw [← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r <;> simp [epsScaleR]
 
@@ -202,7 +202,7 @@ theorem isLieComb_iff {n : ℕ} (cf : Fin n → S) (v : Fin n → (epsR S ⟶ G)
 theorem isTangent_iff (w : epsR S ⟶ G) : IsTangent w ↔ sc 0 ≫ w = 1 := by
   have h0 : spMap (epsScaleR (0 : S)) = spMap (algebraMap S (DualNumber S)) ≫
       spMap (TrivSqZeroExt.fstHom S S S).toRingHom := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r <;> simp [epsScaleR, TrivSqZeroExt.algebraMap_eq_inl]
   have h1 : spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (algebraMap S (DualNumber S)) = 𝟙 _ :=
@@ -244,13 +244,13 @@ variable {A : Type} [CommRing A] {G₀ : Over (Sp A)} [GrpObj G₀] {f : A →+*
 
 theorem dual_over (f : A →+* S) : spMap (dualMap f) ≫ spMap (algebraMap A (DualNumber A)) =
     spMap (algebraMap S (DualNumber S)) ≫ spMap f := by
-  rw [← spMap_comp, ← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
 
 theorem dual_scale (f : A →+* S) (a : A) : spMap (dualMap f) ≫ spMap (epsScaleR a) =
     spMap (epsScaleR (f a)) ≫ spMap (dualMap f) := by
-  rw [← spMap_comp, ← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r <;> simp [dualMap, epsScaleR, TrivSqZeroExt.algebraMap_eq_inl]
 

@@ -346,10 +346,6 @@ theorem trdeg_adjoin_range_le {k K B : Type} [Field k] [Field K] [Algebra k K] [
   obtain ⟨b, hb⟩ := hle hy
   exact ⟨b, Subtype.ext hb⟩
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem exists_field_of_definition {k K : Type} [Field k] [Field K] [Algebra k K] {X : Scheme.{0}} [IsIntegral X]
     (f : X ⟶ Sp k) (g : ℕ) (hf : SmoothOfRelativeDimension g f) (p : Sp K ⟶ X)
     (hp : p ≫ f = spMap (algebraMap k K)) :
@@ -377,9 +373,9 @@ theorem exists_field_of_definition {k K : Type} [Field k] [Field K] [Algebra k K
   let ψ' : R →+* F := ψ₀.hom.codRestrict F fun b => IntermediateField.subset_adjoin _ _ ⟨b, rfl⟩
   refine ⟨F, htr ▸ trdeg_adjoin_range_le ψ, spMap ψ' ≫ j, ?_, ?_⟩
   · have e : ψ'.comp a.hom = algebraMap k F := RingHom.ext fun r => Subtype.ext (ψ.commutes r)
-    rw [Category.assoc, ← e, ← spMap_comp]
+    rw [Category.assoc, ← e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg (spMap ψ' ≫ ·) ha
-  · rw [← Category.assoc, spMap_comp]
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact h₀
 
 theorem valT_cst {R T : Type} [CommRing R] [CommRing T] {X : Scheme.{0}} (f : X ⟶ Sp R) (p : Sp T ⟶ X) (a : R →+* T)
@@ -413,9 +409,9 @@ theorem exists_translate {k F K : Type} [CommRing k] [CommRing F] [CommRing K] (
   have c₂ : (Chart.dualMapR a).comp (algebraMap k (DualNumber k)) = (algebraMap F (DualNumber F)).comp a := by
     ext r <;> simp [Chart.dualMapR, TrivSqZeroExt.algebraMap_eq_inl]
   have s₁ : spMap (Chart.dualMapR e) ≫ spMap (algebraMap F (DualNumber F)) =
-      spMap (algebraMap K (DualNumber K)) ≫ spMap e := by rw [spMap_comp, spMap_comp, c₁]
+      spMap (algebraMap K (DualNumber K)) ≫ spMap e := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, c₁]
   have s₂ : spMap (Chart.dualMapR a) ≫ spMap (algebraMap k (DualNumber k)) =
-      spMap (algebraMap F (DualNumber F)) ≫ spMap a := by rw [spMap_comp, spMap_comp, c₂]
+      spMap (algebraMap F (DualNumber F)) ≫ spMap a := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, c₂]
   let T : Over (Sp k) := Over.mk (spMap (algebraMap F (DualNumber F)) ≫ spMap a)
   let qT : T ⟶ G := Over.homMk (spMap (algebraMap F (DualNumber F)) ≫ q)
     ((Category.assoc _ _ _).trans (congrArg (spMap (algebraMap F (DualNumber F)) ≫ ·) hq))
@@ -424,7 +420,7 @@ theorem exists_translate {k F K : Type} [CommRing k] [CommRing F] [CommRing K] (
     ((Category.assoc _ _ _).trans ((congrArg (spMap (Chart.dualMapR a) ≫ ·) hvw).trans s₂))
   have hD : spMap (Chart.dualMapR e) ≫ spMap (algebraMap F (DualNumber F)) ≫ spMap a =
       spMap (algebraMap K (DualNumber K)) ≫ spMap (e.comp a) := by
-    rw [← Category.assoc, s₁, Category.assoc, spMap_comp a e]
+    rw [← Category.assoc, s₁, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp a e]
   let D : Over.mk ((epsR K).hom ≫ spMap (e.comp a)) ⟶ T := Over.homMk (spMap (Chart.dualMapR e)) hD
   have e₁ : (D ≫ qT).left = (toUnit (epsR K) ≫ z').left ≫ φ := by
     show spMap (Chart.dualMapR e) ≫ spMap (algebraMap F (DualNumber F)) ≫ q =
@@ -434,7 +430,7 @@ theorem exists_translate {k F K : Type} [CommRing k] [CommRing F] [CommRing K] (
   have e₂ : (D ≫ vT).left = v'.left ≫ φ := by
     refine Eq.trans ?_ hv.symm
     show spMap (Chart.dualMapR e) ≫ spMap (Chart.dualMapR a) ≫ v.left = _
-    rw [← Category.assoc, spMap_comp, hE]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hE]
   refine ⟨(qT * vT).left, ?_⟩
   rw [← h.2 (epsR K) _ _ (D ≫ qT) (D ≫ vT) e₁ e₂, ← MonObj.comp_mul]
   rfl

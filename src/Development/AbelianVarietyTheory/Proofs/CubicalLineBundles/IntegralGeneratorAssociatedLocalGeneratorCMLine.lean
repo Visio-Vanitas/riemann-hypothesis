@@ -171,7 +171,7 @@ theorem integral_generator_unit : ∀ (E : Type) [Field E] [NumberField E] [IsCM
       simp only [RingHom.comp_apply] at h₁ h₂ h₃ ⊢
       rw [h₁, h₂, h₃]
     have hp : IsGrpPullback xR.P.A z.B.t.G (spMap ρ) φR := hfib
-    have e : spMap M.ρ = spMap ψ ≫ spMap ρ := by rw [hρψ]; exact spMap_comp ρ ψ
+    have e : spMap M.ρ = spMap ψ ≫ spMap ρ := by rw [hρψ]; exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ ψ
     have hn : IsGrpPullback M.G.t.G z.B.t.G (spMap M.ρ) M.n.φ := M.n.cart
     have w : M.n.φ ≫ z.B.t.G.hom = (M.G.t.G.hom ≫ spMap ψ) ≫ spMap ρ := by rw [hn.1.w, e, Category.assoc]
     have hq : IsGrpPullback M.G.t.G xR.P.A (spMap ψ) (hp.1.lift _ _ w) :=
@@ -197,7 +197,7 @@ theorem integral_generator_unit : ∀ (E : Type) [Field E] [NumberField E] [IsCM
         exact h₂
     have es : spMap (Chart.dualMapR (algebraMap T.V T.Fr)) ≫ spMap (Chart.dualMapR ψ) =
         spMap (Chart.dualMapR iK) ≫ spMap (Chart.dualMapR (algebraMap R z.K)) := by
-      rw [← spMap_comp, ← spMap_comp, ed]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ed]
     have e₁ : (v' (k.cast hg.symm)).left ≫ M.n.φ =
         spMap (Chart.dualMapR ψ) ≫ (xR.v (k.cast hg.symm)).left ≫ φR := by
       rw [← Category.assoc, ← hv', Category.assoc, hp.1.lift_fst]

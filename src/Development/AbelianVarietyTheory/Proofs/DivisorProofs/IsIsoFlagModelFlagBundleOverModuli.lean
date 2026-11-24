@@ -67,7 +67,7 @@ open Formalism.BasicNotions Formalism.L2.Pj GlobalTheory GlobalTheory.ProjVar Gl
 
 namespace GlobalTheory.Mean4O.CompModel
 
-alias sp_comp := _root_.GlobalTheory.spMap_comp_ring
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 section Free
 

@@ -102,7 +102,7 @@ theorem exists_tangent (T : TanRep A W) (U : A.left.affineOpens) {D : Type} [Com
   obtain ⟨hl, hnat⟩ := tau_natural A α (dVal φ) β hβ (affPt A.hom U) (affPt_w A.hom U) _ hz0
   have hpt : spMap β ≫ pt A U (KaehlerDifferential.D R (Sec A.hom U.1)) =
       spMap (φ : Sec A.hom U.1 →+* DualNumber D) ≫ affPt A.hom U := by
-    rw [pt, ← Category.assoc, sp_comp]
+    rw [pt, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     refine RingHom.ext fun b ↦ ?_
     rw [RingHom.comp_apply, show TanForms.derHom (KaehlerDifferential.D R (Sec A.hom U.1)) b =
@@ -122,7 +122,7 @@ def form (T : TanRep A W) (w : W) : GlobForm A.hom :=
 theorem red_w (U : A.left.affineOpens) {D : Type} [CommRing D] [Algebra R D]
     (φ : Sec A.hom U.1 →ₐ[R] DualNumber D) :
     (spMap (redHom φ) ≫ affPt A.hom U) ≫ A.hom = spMap (algebraMap R D) := by
-  rw [Category.assoc, affPt_w, sp_comp]
+  rw [Category.assoc, affPt_w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg spMap (RingHom.ext (redHom_algebraMap φ))
 
 theorem isInv_form [IsCommMonObj A] (T : TanRep A W) (w : W) : IsInv A (form T w) := by
@@ -137,7 +137,7 @@ theorem isInv_form [IsCommMonObj A] (T : TanRep A W) (w : W) : IsInv A (form T w
   let c : ovT R D D ⟶ ovT R D D :=
     Over.homMk (spMap (TrivSqZeroExt.inlHom D D) ≫ spMap (TrivSqZeroExt.fstHom D D D).toRingHom) (by
       rw [Category.assoc, fst_w]
-      exact sp_comp _ _)
+      exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm)
   let p' : ovT R D D ⟶ A := p
   let q' : ovT R D D ⟶ A := q
   have e1 : Over.homMk (U := ovT R D D) (V := A)
@@ -145,14 +145,14 @@ theorem isInv_form [IsCommMonObj A] (T : TanRep A W) (w : W) : IsInv A (form T w
       c ≫ p' := by
     ext
     change spMap _ ≫ spMap (redHom φ) ≫ affPt A.hom U = (spMap _ ≫ spMap _) ≫ p.left
-    rw [hp, Category.assoc, ← Category.assoc (spMap _) (spMap (φ : Sec A.hom U.1 →+* DualNumber D)), sp_comp]
+    rw [hp, Category.assoc, ← Category.assoc (spMap _) (spMap (φ : Sec A.hom U.1 →+* DualNumber D)), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have e2 : Over.homMk (U := ovT R D D) (V := A)
       (spMap (TrivSqZeroExt.inlHom D D) ≫ spMap (redHom ψ) ≫ affPt A.hom V) (inl_w A _ (red_w V ψ)) =
       c ≫ (p' * q') := by
     ext
     change spMap _ ≫ spMap (redHom ψ) ≫ affPt A.hom V = (spMap _ ≫ spMap _) ≫ (p * q).left
-    rw [hpq, Category.assoc, ← Category.assoc (spMap _) (spMap (ψ : Sec A.hom V.1 →+* DualNumber D)), sp_comp]
+    rw [hpq, Category.assoc, ← Category.assoc (spMap _) (spMap (ψ : Sec A.hom V.1 →+* DualNumber D)), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have e3 : c ≫ q' = q' := by
     ext

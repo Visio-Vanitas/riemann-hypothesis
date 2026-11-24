@@ -227,7 +227,7 @@ theorem cm_image_unique_lattice : ∀ (E : Type) [Field E] [NumberField E] [IsCM
   have hψ : (X.ψ b a).left ≫ X.B.t.G.hom = (X.C b).P.A.hom := Over.w (X.ψ b a)
   set F : Sp (DualNumber X.K) ⟶ X.B.t.G.left := spMap (dualMap φ) ≫ (X.C b).v.left ≫ (X.ψ b a).left with hFdef
   have hF : F ≫ X.B.t.G.hom = spMap (algebraMap X.K (DualNumber X.K)) ≫ spMap φ := by
-    rw [hFdef, Category.assoc, Category.assoc, hψ, hA, _root_.GlobalTheory.HomDescent.spMap_comp, _root_.GlobalTheory.HomDescent.spMap_comp, dualMap_comp_algebraMap_sesquilinear_fractions]
+    rw [hFdef, Category.assoc, Category.assoc, hψ, hA, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_algebraMap_sesquilinear_fractions]
   have m'c := X.m'.cart.1
   have mc := X.m.cart.1
 
@@ -261,11 +261,11 @@ theorem cm_image_unique_lattice : ∀ (E : Type) [Field E] [NumberField E] [IsCM
           have hmon : η[(X.C b).P.A].left ≫ (X.ψ b a).left = η[X.B.t.G].left := by
             have := ((X.fam b).1 a).isMonHom
             exact congrArg CommaMorphism.left (IsMonHom.one_hom (f := X.ψ b a))
-          rw [← Category.assoc, _root_.GlobalTheory.HomDescent.spMap_comp, fstHom_comp_dualMap', ← _root_.GlobalTheory.HomDescent.spMap_comp, Category.assoc,
+          rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fstHom_comp_dualMap', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc,
             reassoc_of% ht, hmon]
         · rw [Category.assoc, hrb]
           show spMap (TrivSqZeroExt.fstHom X.K X.K X.K).toRingHom ≫ spMap (algebraMap X.K (DualNumber X.K)) = _
-          rw [_root_.GlobalTheory.HomDescent.spMap_comp, fst_comp_algebraMap_dual, Over.w η[X.t.G]]
+          rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_algebraMap_dual, Over.w η[X.t.G]]
           exact Spec.map_id _
       show Spec.map (CommRingCat.ofHom (TrivSqZeroExt.fstHom X.K X.K X.K).toRingHom) ≫ u.left = _
       rw [← hr1, ← Category.assoc, hs, GlobalTheory.UU.eSec_comp_of_isGrpPullback X.m.cart, Hom.one_def]
@@ -277,7 +277,7 @@ theorem cm_image_unique_lattice : ∀ (E : Type) [Field E] [NumberField E] [IsCM
           spMap (ReciprocityTheory.ChartRestriction.G.Chart.dualMapR ((algebraMap X.K ℂ).comp φ)) ≫ (X.C b).v.left := (X.map' b).2.2.1
       have hw0 : (X.π b ≫ (X.ψ b a).left) ≫ X.B.t.G.hom =
           ((Z b).C'.P.A.hom ≫ spMap (algebraMap X.K ℂ)) ≫ spMap φ := by
-        rw [Category.assoc, hψ, hπ, Category.assoc, _root_.GlobalTheory.HomDescent.spMap_comp]
+        rw [Category.assoc, hψ, hπ, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       let Φ₀ := m'c.lift (X.π b ≫ (X.ψ b a).left) ((Z b).C'.P.A.hom ≫ spMap (algebraMap X.K ℂ)) hw0
       have hΦ₁ : Φ₀ ≫ X.m'.φ = X.π b ≫ (X.ψ b a).left := m'c.lift_fst _ _ _
       have hΦ₂ : Φ₀ ≫ X.t.G.hom = (Z b).C'.P.A.hom ≫ spMap (algebraMap X.K ℂ) := m'c.lift_snd _ _ _
@@ -295,9 +295,9 @@ theorem cm_image_unique_lattice : ∀ (E : Type) [Field E] [NumberField E] [IsCM
         have key : spMap (dualMap (algebraMap X.K ℂ)) ≫ r = (Z b).C'.v.left ≫ Φ₀ := by
           refine m'c.hom_ext ?_ ?_
           · rw [Category.assoc, hr2, Category.assoc, hΦ₁, reassoc_of% hvo, ← dualMap_eq_dualMapR', ← Category.assoc,
-              _root_.GlobalTheory.HomDescent.spMap_comp, dualMap_comp_dualMap_ring]
-          · rw [Category.assoc, hrb, Category.assoc, hΦ₂, ← Category.assoc, Over.w (Z b).C'.v, _root_.GlobalTheory.HomDescent.spMap_comp,
-              dualMap_comp_algebraMap_sesquilinear_fractions, ← _root_.GlobalTheory.HomDescent.spMap_comp]
+              ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_dualMap_ring]
+          · rw [Category.assoc, hrb, Category.assoc, hΦ₂, ← Category.assoc, Over.w (Z b).C'.v, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+              dualMap_comp_algebraMap_sesquilinear_fractions, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
             rfl
         rw [← hr1, ← Category.assoc, key, Category.assoc]
       have hline := GlobalTheory.CMPeriodCompare.isDerivAt0_line (φ := 𝟙 (Z b).C'.P.A.left) (t := (Z b).C'.v) (Z b).u ((Z b).C'.basis.1 0) (Z b).diff

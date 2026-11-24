@@ -74,7 +74,7 @@ theorem nonempty_isPullDeg_comp {R R' R'' : Type} [CommRing R] [IsDomain R] [Com
     {D : DegPre R} {D' : DegPre R'} {D'' : DegPre R''} (p : IsPullDeg i D D') (q : IsPullDeg j D' D'') :
     Nonempty (IsPullDeg (j.comp i) D D'') := by
   have hji : Function.Injective (j.comp i) := hj.comp hi
-  have sc : spMap j ≫ spMap i = spMap (j.comp i) := (spMap_comp i j).symm
+  have sc : spMap j ≫ spMap i = spMap (j.comp i) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i j).symm
   have gp : IsGrpPullback D''.P.A D.P.A (spMap (j.comp i)) (proj q ≫ proj p) :=
     ((pull_grp q).comp (pull_grp p)).congr sc rfl
   have g₁ := (isGen_iff _).1 p.w_gen

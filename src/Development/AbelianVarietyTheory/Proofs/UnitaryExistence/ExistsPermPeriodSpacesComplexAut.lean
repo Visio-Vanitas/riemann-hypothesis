@@ -61,11 +61,6 @@ namespace GlobalTheory.ConjPermutes
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E}
 
-theorem spMap_comp {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R') (g : R' →+* R'') :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  unfold spMap
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem ringHom_ext {l : Level H} (hA : l.A = 1) {f f' : KA l →+* ℂ} (h : f (baseKA l).ρ = f' (baseKA l).ρ) :
     f = f' := by
   have hz : zeta l.A = 1 := by
@@ -152,13 +147,13 @@ private theorem key_lemma' (F : FamilyUnif Xo σ ty) (hD : 1 ≤ D.p + D.q) (hσ
     ringHom_ext hA (hσ.trans hs.symm)
   have hw : F.u i P ≫ Xo.s = spMap ((τ.symm : ℂ →+* ℂ).comp c.F.val.toRingHom) ≫
       spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [F.10 i P hP, spMap_comp, ← hjc]
+    rw [F.10 i P hP, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hjc]
   have hw' : F.u i P' ≫ Xo.s = spMap ((τ.symm : ℂ →+* ℂ).comp c.F.val.toRingHom) ≫
       spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [F.10 i P' hP', spMap_comp, ← hjc]
+    rw [F.10 i P' hP', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hjc]
   have hsnd : spMap (τ : ℂ →+* ℂ) ≫ spMap ((τ.symm : ℂ →+* ℂ).comp c.F.val.toRingHom) =
       spMap c.F.val.toRingHom := by
-    rw [spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext z
     simp
@@ -182,7 +177,7 @@ private theorem key_lemma' (F : FamilyUnif Xo σ ty) (hD : 1 ≤ D.p + D.q) (hσ
 private theorem spMap_comp_u_comp_s_eq_of_fixes_rt0 (F : FamilyUnif Xo σ ty) (hσ : σ (baseKA l).ρ = H.rt0) (hA : l.A = 1)
     (τ : ℂ ≃+* ℂ) (hτ : τ H.rt0 = H.rt0) (i : Fin F.n) (P : (F.Di i).La →+ (Fin g → ℂ))
     (hP : IsPeriod (F.Di i) ty P) : (spMap (τ : ℂ →+* ℂ) ≫ F.u i P) ≫ Xo.s = spMap σ := by
-  rw [Category.assoc, F.10 i P hP, spMap_comp]
+  rw [Category.assoc, F.10 i P hP, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   exact ringHom_ext hA (by rw [RingHom.comp_apply, hσ]; exact hτ)
 
@@ -212,7 +207,7 @@ theorem exists_perm : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H 
     obtain ⟨Q, hQ, h1⟩ := hπ i P hP
     obtain ⟨R, hR, h2⟩ := hπ' (π i) Q hQ
     have h3 : spMap (τ.symm : ℂ →+* ℂ) ≫ spMap (τ : ℂ →+* ℂ) ≫ F.u i P = F.u i P := by
-      rw [← Category.assoc, spMap_comp]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have hid : (τ.symm : ℂ →+* ℂ).comp (τ : ℂ →+* ℂ) = RingHom.id ℂ := by
         ext z
         simp

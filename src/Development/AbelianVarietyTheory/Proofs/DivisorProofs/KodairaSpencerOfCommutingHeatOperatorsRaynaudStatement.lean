@@ -1211,14 +1211,14 @@ theorem isKS_top_of_basicOpen : ∀ (E : Type) [Field E] [NumberField E] [IsCMFi
       (isAffineOpen_top (Sp R)).map_fromSpec Wa.2 (homOfLE hle).op
     have := htest i i' O hO f S ψ g₀ w ?_ hO' ?_
     · exact this
-    · rw [hg₀, ← hres, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    · rw [hg₀, ← hres, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · intro a
       obtain ⟨g', v'', h₁, h₂, h₃⟩ := hw a
       refine ⟨g', v'', h₁, ?_, h₃⟩
       rw [h₂]
       dsimp only
-      rw [← Category.assoc, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
-      erw [_root_.GlobalTheory.spMap_comp_ring]
+      rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+      erw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       erw [_root_.GlobalTheory.Frames.Glue.dual_comp]
 
 end GlobalTheory.KSChartRes

@@ -66,7 +66,7 @@ theorem good_pt {F : Type} [Field F] {X : Scheme.{0}} {M : LB X} (hM : M.IsLB) (
 
 theorem qkExtExists_g : QkExtExistsSt := by
   intro R _ _ D F F' _ _ _ _ f hf k p
-  have hj : spMap f ≫ jFK (R := R) F = jFK (R := R) F' := (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext hf))
+  have hj : spMap f ≫ jFK (R := R) F = jFK (R := R) F' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext hf))
   let ρ : TF (R := R) F' ⟶ TF (R := R) F := Over.homMk (spMap f) ((Category.assoc _ _ _).symm.trans (congrArg (· ≫ _) hj))
   obtain ⟨J, hJ⟩ := good_pt D.P.isLB (default : PrimeSpectrum F')
   obtain ⟨q, hy, hb, hv⟩ := exists_qk (F := F') hJ (n := k) p.y (ρ ≫ p.g.b) _ (mult_gx ρ hJ p.g) fun χ =>

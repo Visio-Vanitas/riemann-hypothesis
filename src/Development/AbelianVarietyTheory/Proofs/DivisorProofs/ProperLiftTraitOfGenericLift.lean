@@ -53,8 +53,8 @@ theorem proper_lift_trait : ∀ {X Y : Scheme.{0}} (π : Y ⟶ X), IsProper π �
   have hsq : jK V' ≫ spMap f = spMap fK ≫ jK V := by
     have e : fK.comp (algebraMap V (FractionRing V)) = (algebraMap V' (FractionRing V')).comp f :=
       RingHom.ext hf
-    exact (spMap_comp f (algebraMap V' (FractionRing V'))).symm.trans
-      ((congrArg spMap e.symm).trans (spMap_comp (algebraMap V (FractionRing V)) fK))
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f (algebraMap V' (FractionRing V'))).symm.trans
+      ((congrArg spMap e.symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (algebraMap V (FractionRing V)) fK))
   have h : y ≫ π = jK V' ≫ (spMap f ≫ ξ) := by
     rw [hy, ← Category.assoc, ← hsq, Category.assoc]
   obtain ⟨x, hx1, hx2⟩ := val_exists (R := V') π y (spMap f ≫ ξ) h

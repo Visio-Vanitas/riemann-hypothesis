@@ -1045,7 +1045,7 @@ private theorem frobN_mor (p : ℕ) [Fact p.Prime] {k : Type} [Field k] (hk : (p
     have F := frobMor p k hk A (cast_left p k hk A)
     have K : GrpMor (dp0 k) (𝟙 _) A (dp0 k) (𝟙 _) A ((frobR p k hk).comp ρ) (spMap ((frobR p k hk).comp ρ))
         (frobN p A.left (cast_left p k hk A) (j + 1)) := by
-      rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact u.comp F
     refine ⟨_, K, fun c ↦ ?_⟩
     rw [Function.iterate_succ_apply', ← hu]
@@ -1098,8 +1098,8 @@ theorem UpperTheory.Gal.Ord.rel :
     have e5 : spMap σ ≫ spMap ρ = spMap τ := by
       have := congrArg (e.left ≫ ·) e3
       simpa only [← Category.assoc, e4, Category.id_comp] using this
-    apply GlobalTheory.SchRing.spMap_inj
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact e5
   rw [← hu]
   exact (congrArg m.pull (GrpMor.pull_pull gm u K1 (fun _ ↦ rfl) rfl y)).trans
@@ -1456,7 +1456,7 @@ private theorem frobN_sp (T : Type) [CommRing T] (hT : (p : T) = 0) (h : (p : Γ
     obtain ⟨φ, h1, h2⟩ := ih
     refine ⟨(frobR p T hT).comp φ, fun x => ?_, ?_⟩
     · rw [RingHom.comp_apply, frobR_apply, h1, pow_succ, pow_mul]
-    · rw [frobN, h2, frob_sp p T hT h, GlobalTheory.Cris.spMap_comp]
+    · rw [frobN, h2, frob_sp p T hT h, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 end UpperTheory.Gal.Ord.HasseL
 
@@ -1485,7 +1485,7 @@ private theorem const_of {k : Type} [Field k] (hk : (p : k) = 0) (A : Over (Sp k
 
   have hR : spMap j ≫ v.left ≫ ψ = spMap (algebraMap k T) ≫ η[A].left := by
     have e1 : spMap j ≫ v.left = u.left ≫ frobN p A.left hA f := by
-      rw [← hτ, ← Category.assoc, ← GlobalTheory.Cris.spMap_comp, ← hjτ, ← hφ2]
+      rw [← hτ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hjτ, ← hφ2]
       exact frobN_nat hA hXT u.left f
     rw [← Category.assoc, e1, Category.assoc, ha, ← Over.comp_left, hu, hone]
 
@@ -1501,12 +1501,12 @@ private theorem const_of {k : Type} [Field k] (hk : (p : k) = 0) (A : Over (Sp k
       rw [← Over.comp_left, IsMonHom.one_hom]
     have e3 : spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ v.left = η[A].left := hv
     have e4 : spMap j ≫ spMap (algebraMap k (DualNumber k)) = spMap (algebraMap k T) ≫ spMap φk := by
-      rw [← GlobalTheory.Cris.spMap_comp, c, GlobalTheory.Cris.spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, c, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have e5 : spMap φk ≫ η[A].left ≫ ψ = η[A].left := by
       rw [← hk2, ← Category.assoc, ← e0, Category.assoc, ha, e2]
     have e6 : spMap j ≫ spMap ((algebraMap k (DualNumber k)).comp (TrivSqZeroExt.fstHom k k k).toRingHom) ≫ v.left ≫ ψ =
         (spMap j ≫ spMap (algebraMap k (DualNumber k))) ≫ (spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ v.left) ≫ ψ := by
-      rw [GlobalTheory.Cris.spMap_comp]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       simp only [Category.assoc]
     rw [e6, e3, e4, Category.assoc, e5]
   exact cancel_sp j hj (by rw [hL, hR])
@@ -1570,7 +1570,7 @@ theorem UpperTheory.Gal.Ord.hasse :
 
   let τ' : epsR k ⟶ Over.mk (spMap (algebraMap k T)) := Over.homMk (spMap (τ : T →+* DualNumber k)) (by
     simp only [Over.mk_hom]
-    rw [← GlobalTheory.Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact τ.comp_algebraMap)
   have hvτ : v = τ' ≫ u := Over.OverMorphism.ext (by simpa [τ'] using hτ.symm)
@@ -1810,7 +1810,7 @@ theorem UpperTheory.Gal.Ord.rankV :
   obtain ⟨t₁, ht⟩ := exists_tower hk t hπ
   have mπ := grpMor_of_isGrpPullback hπ
   have hid : (frobR p k hk).comp σ = RingHom.id k := RingHom.ext fun x => (frobR_apply p k hk _).trans (hσ x)
-  have hb : spMap (frobR p k hk) ≫ spMap σ = 𝟙 _ := by rw [← GlobalTheory.Cris.spMap_comp, hid, GlobalTheory.Cris.spMap_id]
+  have hb : spMap (frobR p k hk) ≫ spMap σ = 𝟙 _ := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hid, GlobalTheory.Cris.spMap_id]
   have mc := m.comp mπ
   let V₁ : A₁ ⟶ A := Over.homMk (_ ≫ V) (mc.w.trans (by rw [hb, Category.comp_id]))
   have hm : IsMonHom V₁ := isMonHom_of_mul _ fun T x x' => by

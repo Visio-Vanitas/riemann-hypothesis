@@ -62,12 +62,12 @@ theorem existsUnique_pt_of_triv (T : Thick (dp0 R) (X.hom ≫ 𝟙 _)) (hT : T.J
   let ρ : T.B₀ →+* T.B := e.symm.toRingHom
   have h1 : ρ.comp T.π = RingHom.id _ := RingHom.ext e.symm_apply_apply
   have h2 : T.π.comp ρ = RingHom.id _ := RingHom.ext e.apply_symm_apply
-  have k1 : spMap ρ ≫ spMap T.π = 𝟙 _ := by rw [← Cris.spMap_comp, h1, Cris.spMap_id]
-  have k2 : spMap T.π ≫ spMap ρ = 𝟙 _ := by rw [← Cris.spMap_comp, h2, Cris.spMap_id]
+  have k1 : spMap ρ ≫ spMap T.π = 𝟙 _ := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h1, Cris.spMap_id]
+  have k2 : spMap T.π ≫ spMap ρ = 𝟙 _ := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h2, Cris.spMap_id]
   have hw : (spMap ρ ≫ T.x) ≫ X.hom = spMap (algebraMap R T.B) := by
     have : T.x ≫ X.hom = spMap (T.π.comp (algebraMap R T.B)) :=
       (congrArg (T.x ≫ ·) (Category.comp_id X.hom)).symm.trans T.w
-    rw [Category.assoc, this, Cris.spMap_comp, ← Category.assoc, k1, Category.id_comp]
+    rw [Category.assoc, this, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, k1, Category.id_comp]
   let point : Pt X T.B := Over.homMk (spMap ρ ≫ T.x) hw
   refine ⟨point, ?_, ?_⟩
   · change spMap T.π ≫ spMap ρ ≫ T.x = T.x
@@ -103,7 +103,7 @@ theorem mem_hodgeFiltration_iff_pointwiseCoboundary (R : Type) [CommRing R] (X :
       change spMap T'.π ≫ spMap (φ.φ : T.B →+* T'.B) ≫ (y T hT).left = T'.x
       have hπ : T'.π.comp (φ.φ : T.B →+* T'.B) = φ.φ₀.comp T.π :=
         RingHom.ext fun b ↦ (φ.comm b).symm
-      rw [← Category.assoc, ← Cris.spMap_comp, hπ, Cris.spMap_comp, Category.assoc, hy T hT, φ.pt]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hπ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hy T hT, φ.pt]
     have key : ∀ (z : Pt X T'.B) (hz : spMap T'.π ≫ z.left = T'.x), spOver φ.φ ≫ y T hT = z →
         k T'.B z + ev f (liftHom T' z hz) - φ.φ (k T.B (y T hT) + ev f (liftHom T _ (hy T hT))) = ev f φ := by
       rintro _ hz rfl

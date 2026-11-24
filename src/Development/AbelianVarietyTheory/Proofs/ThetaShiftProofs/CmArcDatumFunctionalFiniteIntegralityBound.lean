@@ -426,7 +426,7 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E}
 
 theorem dual_over {S T : Type} [CommRing S] [CommRing T] (φ : S →+* T) :
     spMap (dualMap φ) ≫ spMap (algebraMap S (DualNumber S)) = spMap (algebraMap T (DualNumber T)) ≫ spMap φ := by
-  rw [← spMap_comp, ← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   exact RingHom.ext fun a => by ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
 
@@ -450,7 +450,7 @@ theorem tangent_of_bc [IsDomain R] (hio : Function.Injective io) {v : epsR R ⟶
     rw [(RingHom.injective_iff_ker_eq_bot io).1 hio]; exact bot_le⟩
   refine ext_of_isDominant_of_isSeparated t.G.hom ?_ (spMap io) ?_
   · have a : η[t.G].left ≫ t.G.hom = 𝟙 _ := Over.w η[t.G]
-    rw [Category.assoc, hv, a, ← spMap_comp]
+    rw [Category.assoc, hv, a, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom R R R).toRingHom.comp (algebraMap R (DualNumber R)) = RingHom.id R := by
       ext r; simp
     rw [this]
@@ -459,7 +459,7 @@ theorem tangent_of_bc [IsDomain R] (hio : Function.Injective io) {v : epsR R ⟶
     rw [m.base] at e
     have sq : spMap io ≫ spMap (TrivSqZeroExt.fstHom R R R).toRingHom =
         spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (dualMap io) := by
-      rw [← spMap_comp, ← spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       exact RingHom.ext fun a => by simp [dualMap]
     rw [← Category.assoc, sq, Category.assoc, ← h, ← Category.assoc]
@@ -583,7 +583,7 @@ open scoped CategoryTheory.Obj
 
 def origin (R : Type) [CommRing R] : Over.mk (𝟙 (Sp R)) ⟶ epsR R :=
   Over.homMk (spMap (TrivSqZeroExt.fstHom R R R).toRingHom)
-    ((spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun _ => rfl)).trans (Spec.map_id (CommRingCat.of R))))
+    ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun _ => rfl)).trans (Spec.map_id (CommRingCat.of R))))
 
 section
 
@@ -611,7 +611,7 @@ theorem gtTanR_of_scale {a : R} {ν ν' : GtPt D (epsR R)} (h : GtPt.IsPull (spM
     (ht : GtTanR ν) : GtTanR ν' := by
   obtain ⟨h₁, h₂⟩ := (gtTanR_iff ν).1 ht
   have s : (origin R).left ≫ spMap (epsScaleR a) = (origin R).left :=
-    (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun x => by simp [epsScaleR]))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun x => by simp [epsScaleR]))
   refine (gtTanR_iff ν').2 ⟨Over.OverMorphism.ext ?_, fun χ y J hJ => ?_⟩
   · rw [← h₁, Over.comp_left, Over.comp_left, h.1, ← Category.assoc, s]
   · refine (val_corr hJ (h.2 χ) _).trans ((val_pull hJ _ _ _).trans ?_)

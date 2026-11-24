@@ -412,10 +412,6 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.S
 
 namespace GlobalTheory.Reg.CellChart
 
-theorem spMap_inj {A S : Type} [CommRing A] [CommRing S] {f g : A →+* S} (h : spMap f = spMap g) : f = g := by
-  have := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom this
-
 theorem exists_spMap {A S : Type} [CommRing A] [CommRing S] (m : Sp S ⟶ Sp A) : ∃ f : A →+* S, spMap f = m :=
   ⟨(Spec.preimage m).hom, Spec.map_preimage m⟩
 
@@ -426,8 +422,8 @@ theorem exists_algHom_fac {K A S : Type} [CommRing K] [CommRing A] [Algebra K A]
   obtain ⟨f, hf⟩ := exists_spMap (IsOpenImmersion.lift j W hr)
   have h1 : spMap f ≫ j = W := by rw [hf, IsOpenImmersion.lift_fac]
   have h2 : f.comp (algebraMap K A) = algebraMap K S := by
-    apply spMap_inj
-    rw [← spMap_comp_ring, ← hj, ← Category.assoc, h1, hW]
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hj, ← Category.assoc, h1, hW]
   exact ⟨{ f with commutes' := fun a => DFunLike.congr_fun h2 a }, h1⟩
 
 theorem exists_away_fac {K A S L : Type} [CommRing K] [CommRing A] [Algebra K A] [CommRing S] [Algebra K S] [Field L]
@@ -445,7 +441,7 @@ theorem exists_away_fac {K A S L : Type} [CommRing K] [CommRing A] [Algebra K A]
     hp (W ⁻¹ᵁ j.opensRange).isOpen
   refine ⟨g, fun h0 => hg (show χ g ∈ (⊥ : Ideal L) from h0), ?_⟩
   refine exists_algHom_fac s j hj _ ?_ ?_
-  · rw [Category.assoc, hW, spMap_comp_ring, ← IsScalarTower.algebraMap_eq]
+  · rw [Category.assoc, hW, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← IsScalarTower.algebraMap_eq]
   · rintro _ ⟨q, rfl⟩
     rw [Scheme.Hom.comp_apply]
     refine hle (a := PrimeSpectrum.comap (algebraMap S (Localization.Away g)) q) ?_
@@ -493,8 +489,8 @@ theorem exists_generic {K A κ : Type} [CommRing K] [CommRing A] [IsDomain A] [A
       ∀ y : κ, ∃ a b : A, b ≠ 0 ∧ y * f b = f a := by
   obtain ⟨f, hf⟩ := exists_algHom_fac s j hj m hs hr
   have h2 : β.comp f.toRingHom = algebraMap A (FractionRing A) := by
-    apply spMap_inj
-    rw [← cancel_mono j, ← spMap_comp_ring, Category.assoc, hf, hβ]
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [← cancel_mono j, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hf, hβ]
   have h3 : ∀ a, β (f a) = algebraMap A (FractionRing A) a := fun a => DFunLike.congr_fun h2 a
   refine ⟨f, hf, fun a b hab => IsFractionRing.injective A (FractionRing A) (by rw [← h3, ← h3, hab]), fun y => ?_⟩
   obtain ⟨a, b, hb, e⟩ := IsFractionRing.div_surjective (A := A) (β y)
@@ -627,12 +623,12 @@ theorem algHom_eq_of_point {A S : Type} [CommRing A] [Algebra c.F A] [CommRing S
     (f f' : A →ₐ[c.F] S)
     (h : spMap f.toRingHom ≫ j ≫ pullback.fst _ _ = spMap f'.toRingHom ≫ j ≫ pullback.fst _ _) : f = f' := by
   apply AlgHom.coe_ringHom_injective
-  apply spMap_inj
+  apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
   rw [← cancel_mono j]
   apply pullback.hom_ext
   · rw [Category.assoc, Category.assoc]
     exact h
-  · rw [Category.assoc, Category.assoc, hj, spMap_comp_ring, spMap_comp_ring, f.comp_algebraMap, f'.comp_algebraMap]
+  · rw [Category.assoc, Category.assoc, hj, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, f.comp_algebraMap, f'.comp_algebraMap]
 
 section Poly
 
@@ -705,7 +701,7 @@ theorem open_chart (h₀ : FrMap (cst q) yA y₀) (hy : Reframe (cellM σ fun v 
         ∃ (ψ : R →ₐ[c.F] S') (z : FrPt Xo c S') (t' : Ix Dw → S'ˣ), FrMap ψ y z ∧ FrBor t' z w' := by
   obtain ⟨ψ, z, t, hz, ht⟩ := hc
   let W : Sp S ⟶ Xo.XF c := pullback.lift w.x (spMap (algebraMap c.F S)) (by
-    rw [w.x_over, spMap_comp_ring]; rfl)
+    rw [w.x_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl)
   have hW1 : W ≫ pullback.fst _ _ = w.x := pullback.lift_fst _ _ _
   have hW2 : W ≫ pullback.snd _ _ = spMap (algebraMap c.F S) := pullback.lift_snd _ _ _
   have hL : wL.x = spMap (ψ.comp (cst q)).toRingHom ≫ j ≫ pullback.fst _ _ := by
@@ -713,7 +709,7 @@ theorem open_chart (h₀ : FrMap (cst q) yA y₀) (hy : Reframe (cellM σ fun v 
   obtain ⟨g₁, hg₁, f₁, hf₁⟩ := exists_away_fac (pullback.snd _ _) j hj W hW2 χ.toRingHom (ψ.comp (cst q)).toRingHom (by
     apply pullback.hom_ext
     · rw [Category.assoc, Category.assoc, hW1, ← hL, hw.1]
-    · rw [Category.assoc, Category.assoc, hW2, hj, spMap_comp_ring, spMap_comp_ring]
+    · rw [Category.assoc, Category.assoc, hW2, hj, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (χ.comp_algebraMap.trans (ψ.comp (cst q)).comp_algebraMap.symm))
   let S₁ := Localization.Away g₁
   let i₁ : S →ₐ[c.F] S₁ := IsScalarTower.toAlgHom c.F S S₁

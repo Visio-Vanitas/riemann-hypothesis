@@ -81,7 +81,7 @@ theorem link_of_normal : ∀ (o Ω : Type) [CommRing o] [Field Ω] [Algebra o Ω
   have hx₀ : x₀ ≫ U₀.ι = M.pt := IsOpenImmersion.lift_fac _ _ _
   have hxu : x₀ ≫ FinalForm.u₀ = spMap S.R.val.toRingHom := FinalForm.u₀_gen x₀ hx₀
   let j : Sp Ω ⟶ Sp O := spMap (algebraMap O Ω)
-  have hju : j ≫ spMap u = spMap S.R.val.toRingHom := (spMap_comp u (algebraMap O Ω)).symm.trans (congrArg spMap hu)
+  have hju : j ≫ spMap u = spMap S.R.val.toRingHom := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp u (algebraMap O Ω)).symm.trans (congrArg spMap hu)
 
   let Q := (Over.pullback FinalForm.u₀).obj ρ.P.A
   let A₀ := (Over.pullback M.pt).obj FinalForm.G

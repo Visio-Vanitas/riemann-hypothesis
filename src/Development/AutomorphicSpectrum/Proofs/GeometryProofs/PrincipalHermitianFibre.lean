@@ -174,7 +174,7 @@ theorem polarised_at {L : Type} [Field L] [NumberField L] (t : SAB H (Sp (𝓞 L
   obtain ⟨t', ⟨m₁⟩⟩ := exists_sab (spMap σ) tK
   obtain ⟨n, -⟩ := sabComp pullCubComp E H _ _ _ _ _ _ _ _ m m₁
   have e : spMap σ ≫ spMap (algebraMap (𝓞 L) L) = spMap (σ.comp (algebraMap (𝓞 L) L)) ≫ 𝟙 _ := by
-    rw [Category.comp_id, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [Category.comp_id, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   refine ⟨t', e ▸ n, ?_, ?_⟩
   · exact MorphismProperty.of_isPullback (P := @IsProper) m₁.cart.1 hP
   · obtain ⟨w, gw, -⟩ := m₁.lin
@@ -210,12 +210,12 @@ theorem exists_hermitianBundle : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
       spMap (dualMap (starRingEnd ℂ)) ≫ ((Mσ σ).pt (j σ x)).left := fun σ x => by
     have e₁ : spMap (dualMap ((conjugate σ).comp (algebraMap (𝓞 L) L))) =
         spMap (dualMap (starRingEnd ℂ)) ≫ spMap (dualMap (σ.comp (algebraMap (𝓞 L) L))) := by
-      rw [hcs, dualMap_comp_alt, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+      rw [hcs, dualMap_comp_alt, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact (lifts_left M (hj _ x)).trans ((congrArg (· ≫ (M.pt x).left) e₁).trans ((Category.assoc _ _ _).trans
       (congrArg (spMap (dualMap (starRingEnd ℂ)) ≫ ·) (lifts_left M (hj σ x)).symm)))
   have hz : ∀ σ : L →+* ℂ, spMap ((conjugate σ).comp (algebraMap (𝓞 L) L)) ≫ 𝟙 _ =
       spMap (starRingEnd ℂ) ≫ spMap (σ.comp (algebraMap (𝓞 L) L)) ≫ 𝟙 _ := fun σ => by
-    rw [Category.comp_id, Category.comp_id, hcs, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [Category.comp_id, Category.comp_id, hcs, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨mt, hmt⟩ := exists_metric W e h hh hp fun σ x y => by
     rw [he, he, he, he]
     exact ((hI _ _ _ _).1 (hodgeInnerProduct_conj_of_eq t (hz σ) (hl σ x) (hl σ y) ((hI σ _ _ _).2 rfl))).symm

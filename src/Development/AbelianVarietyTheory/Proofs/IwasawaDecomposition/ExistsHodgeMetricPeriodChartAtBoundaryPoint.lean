@@ -148,7 +148,7 @@ theorem exists_frameFam {E : Type} [Field E] [NumberField E] [IsCMField E] {H : 
   have hy₀V : y₀ ∈ ptsIn (genStr Z) σ V.1 := CxPts.mem_ptsIn.2 hzU
   have hov : ∀ (y : CxPts (genStr Z) σ) (hy : y ∈ ptsIn (genStr Z) σ V.1), σ = (evHom hy).comp φ := fun y hy =>
     EigLoc.spMap_inj (y.2.symm.trans (by
-      rw [← ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap, ← hφ', ← Category.assoc, spMap_evHom hy]))
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hφ', ← Category.assoc, spMap_evHom hy]))
   have hx : ∀ (y : CxPts (genStr Z) σ) (hy : y ∈ ptsIn (genStr Z) σ V.1),
       y.1 ≫ genι Z = spMap (evHom hy) ≫ LogKS.chart V ≫ genι Z := fun y hy => by
     rw [← Category.assoc, spMap_evHom hy]
@@ -290,7 +290,7 @@ theorem GlobalTheory.LieBase.exists_chart_dirs : ∀ (E : Type) [Field E] [Numbe
     obtain ⟨-, hex', hco⟩ := hM z hAz hzV
     refine ⟨hex', fun g' hg' => ?_⟩
     have hov : σ = (evHom hzV).comp φ := EigLoc.spMap_inj ((cxOf e σ hj z).2.symm.trans (by
-      rw [← ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap, ← hφ, ← Category.assoc, spMap_evHom hzV]))
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hφ, ← Category.assoc, spMap_evHom hzV]))
     have hx : (cxOf e σ hj z).1 ≫ genι T.Z = spMap (evHom hzV) ≫ LogKS.chart V ≫ genι T.Z := by
       rw [← Category.assoc, spMap_evHom hzV]
     obtain ⟨fr, hfr⟩ := Φ.exists_isMap (evHom hzV) hov hx

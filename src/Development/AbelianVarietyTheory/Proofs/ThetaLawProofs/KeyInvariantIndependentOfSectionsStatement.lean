@@ -485,10 +485,10 @@ theorem exists_points_extension {O F : Type} [CommRing O] [IsDomain O] [IsDiscre
   · rw [← RingHom.comp_assoc, h₅, ← h₂]
     rfl
   · obtain ⟨q₁, e₁, e₂⟩ := hS a L σ _ h₂ fun b hb => h₁ b (Finset.mem_biUnion.2 ⟨a, Finset.mem_univ _, hb⟩)
-    obtain ⟨q₂, e₃, e₄⟩ := exists_valuativeExtension (V := V) (K := L) π (spMap j₀) q₁ (e₂.trans (spMap_comp _ _))
+    obtain ⟨q₂, e₃, e₄⟩ := exists_valuativeExtension (V := V) (K := L) π (spMap j₀) q₁ (e₂.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
     have e₅ : spMap (algebraMap V L) ≫ q₂ = q₁ := e₃
-    refine ⟨spMap c ≫ q₂, by rw [Category.assoc, e₄, spMap_comp], ?_⟩
-    rw [← Category.assoc, ← spMap_comp, h₅, spMap_comp, spMap_comp, Category.assoc, Category.assoc, e₅, e₁]
+    refine ⟨spMap c ≫ q₂, by rw [Category.assoc, e₄, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp], ?_⟩
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h₅, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, e₅, e₁]
 
 theorem finite_preimage_fibre {X X' S S' : Scheme.{0}} {φ : X' ⟶ X} {π' : X' ⟶ S'} {π : X ⟶ S} {t : S' ⟶ S}
     [LocallyOfFiniteType π] [QuasiCompact π] (h : IsPullback φ π' π t) {Z : Set X} (hZ : IsClosed Z) (hfin : Z.Finite)

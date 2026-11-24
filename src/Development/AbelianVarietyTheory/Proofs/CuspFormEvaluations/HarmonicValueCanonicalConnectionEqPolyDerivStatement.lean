@@ -283,7 +283,7 @@ theorem deriv_one (h0 : e 0 = (1 : Over.mk y ⟶ G).left) : IsDerivAt0 e 0 (1 : 
     rw [h0, ← MonObj.comp_one φ]
     rfl
   have h2 : spMap GlobalTheory.TangentOrigin.fstC ≫ spMap (algebraMap ℂ (DualNumber ℂ)) ≫ e 0 = e 0 := by
-    rw [← Category.assoc, GlobalTheory.FrameTangent.spMap_comp']
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : GlobalTheory.TangentOrigin.fstC.comp (algebraMap ℂ (DualNumber ℂ)) = RingHom.id ℂ :=
       RingHom.ext fun r => by simp
     rw [this]
@@ -1099,7 +1099,7 @@ theorem jetMap_aug {n m : ℕ} {ψ : Sp (Jet ℂ (Fin n × Fin g) m) ⟶ A.left}
       (renN n g m : Jet ℂ (Fin 1 × Fin (n * g)) m →+* Jet ℂ (Fin n × Fin g) m) =
       ((jetAug : Jet ℂ (Fin 1 × Fin (n * g)) m →ₐ[ℂ] ℂ) : Jet ℂ (Fin 1 × Fin (n * g)) m →+* ℂ) :=
     RingHom.ext fun a => jetAug_jetMap _ (fun _ => X_mem_orig _) a
-  rw [← Category.assoc, ← anSpMap_comp, hr, jetPt_aug]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hr, jetPt_aug]
   exact congrArg (fun z => (Φ.e z).left) (map_zero Λ)
 
 theorem corr_rig {n m : ℕ} {K : Type} [Fintype K] (φ : K → (Sp (Jet ℂ (Fin n × Fin g) m) ⟶ A.left)) (ε : K → ℤ)

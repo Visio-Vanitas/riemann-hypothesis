@@ -495,13 +495,13 @@ theorem kodaira_spencer_direct_sum : _root_.GlobalTheory.CovTop.Hypotheses'' →
   have P := Pr.p5
   have e₀ : ∀ m : ι → K, DeRham.epsRed K ≫ spMap (dir c m).toRingHom =
       spMap (TrivSqZeroExt.fstHom K K (ι → K)).toRingHom := fun m => by
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun z => fst_dir (c := c) m z)
   have tan : IsTanX y (spMap (dir c M).toRingHom ≫ X) := by
     refine ⟨?_, ?_⟩
     · rw [Category.assoc, hXs]
       unfold sOf
-      rw [← Cris.spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (RingHom.ext fun r => (dir c M).commutes _)
     · rw [← Category.assoc, ← hXy]
       exact congrArg (· ≫ X) (e₀ M)
@@ -587,7 +587,7 @@ theorem kodaira_spencer_universal : _root_.GlobalTheory.CovTop.Hypotheses'' → 
   have hLa : ∀ M, L M = ∑ k, M k • N k := fun M => Fintype.linearCombination_apply _ _ _
   have h0 : spMap (dir c (0 : HIx Dw (psiSet H) → K)).toRingHom ≫ X₀ =
       spMap (algebraMap K (DualNumber K)) ≫ y.x := by
-    rw [← h2, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    rw [← h2, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     ext z <;> simp [TrivSqZeroExt.algebraMap_eq_inl]
   have Linj : Function.Injective L := (injective_iff_map_eq_zero L).2 fun M hM =>
@@ -597,16 +597,16 @@ theorem kodaira_spencer_universal : _root_.GlobalTheory.CovTop.Hypotheses'' → 
   let P := LinearMap.toMatrix' (e.symm : (HIx Dw (psiSet H) → K) →ₗ[K] (HIx Dw (psiSet H) → K))
   have hP' : ∀ M, P.mulVec M = e.symm M := fun M => LinearMap.toMatrix'_mulVec _ M
   refine ⟨spMap (reparam c.F P).toRingHom ≫ X₀, ?_, ?_, fun M => ?_⟩
-  · rw [Category.assoc, h1, sOf, _root_.GlobalTheory.spMap_comp_ring]
+  · rw [Category.assoc, h1, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     rw [← RingHom.comp_assoc]
     congr 1
     exact (reparam c.F P).comp_algebraMap
-  · rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, ← h2]
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← h2]
     congr 2
     ext z
     simp [reparam]
-  · rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, dir_comp_reparam, hP']
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dir_comp_reparam, hP']
     have := hL (e.symm M)
     rwa [← hLa, show L (e.symm M) = M from e.apply_symm_apply M] at this
 end GlobalTheory.FlagTan.KSUniv

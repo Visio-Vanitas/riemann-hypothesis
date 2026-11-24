@@ -91,7 +91,7 @@ variable {s : X ⟶ Sp R} {s' : X' ⟶ Sp R'} {s'' : X'' ⟶ Sp R''} {σ : R →
   B := P.B
   alg := ((algebraMap R' P.B).comp σ).toAlgebra
   x := P.x ≫ φ
-  w := by rw [Category.assoc, h, ← Category.assoc, P.w, ← GlobalTheory.Cris.spMap_comp]
+  w := by rw [Category.assoc, h, ← Category.assoc, P.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 def pushHom (h : φ ≫ s = s' ≫ spMap σ) {P Q : Pt s'} (f : P ⟶ Q) : pushPt h P ⟶ pushPt h Q where
   ρ := { (f.ρ : P.B →+* Q.B) with commutes' := fun r ↦ f.ρ.commutes (σ r) }

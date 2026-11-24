@@ -56,11 +56,11 @@ section Transfer
 variable {S S' : Scheme.{0}} {t' : SAB H S'} {t : SAB H S} {f : S' ⟶ S} (m : SABMap t' t f)
   {R : Type} [CommRing R] {x : Sp R ⟶ S'} {x' : Sp R ⟶ S}
 
-alias spMap_comp := _root_.Formalism.L2.Pj.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem epsMul_over (s : R) : spMap (epsMul s) ≫ spMap (algebraMap R (DualNumber R)) =
     spMap (algebraMap R (DualNumber R)) := by
-  rw [spMap_comp]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r <;> simp [epsMul, TrivSqZeroExt.algebraMap_eq_inl]
 
@@ -80,7 +80,7 @@ theorem tan_iff (hx : x ≫ f = x') {w : Sp (DualNumber R) ⟶ t'.G.left}
     · rw [Category.assoc]; exact h.2.trans e.symm
     · have hid : (TrivSqZeroExt.fstHom R R R).toRingHom.comp (algebraMap R (DualNumber R)) = RingHom.id R :=
         RingHom.ext fun r => by simp
-      rw [Category.assoc, hw, ← Category.assoc, spMap_comp, hid, Over.w]
+      rw [Category.assoc, hw, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hid, Over.w]
       exact (congrArg (· ≫ x) (Spec.map_id _)).trans (Category.id_comp _)
   · intro h
     refine ⟨by rw [Category.assoc, m.cart.1.w, ← Category.assoc, hw, Category.assoc], ?_⟩
@@ -148,7 +148,7 @@ theorem exists_frPt_of_eigFrame {R : Type} [CommRing R] [IsLocalRing R] [Algebra
       y.x = xF ≫ pullback.fst _ _ ∧ ∀ τ i, w τ i ≫ Z.oF.t.G.hom = spMap (algebraMap R (DualNumber R)) ≫ xF ∧
         w τ i ≫ Z.m0.toSABMap.φ = y.u τ i ∧ w τ i ≫ Z.m.φ = f.v τ i := by
   have hover : (xF ≫ pullback.fst _ _) ≫ Xo.s = sOf c R := by
-    rw [Category.assoc, pullback.condition, ← Category.assoc, hs, spMap_comp]; rfl
+    rw [Category.assoc, pullback.condition, ← Category.assoc, hs, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   obtain ⟨z, hz⟩ := GlobalTheory.FlagTan.exists_frPt (c := c) _ hover
   choose w hw1 hw2 using fun τ i => exists_lift Z.m (spMap (algebraMap R (DualNumber R)) ≫ xF) (f.v τ i)
     (by rw [(f.tan τ i).1, ← hx, Category.assoc])

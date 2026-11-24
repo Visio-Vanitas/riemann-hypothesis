@@ -94,7 +94,7 @@ theorem splitFibres_of_isGrpPullback : Out.GtBaseChangeSt → ∀ (X X' : Scheme
       (Spec.map (CommRingCat.ofHom (algebraMap (X'.residueField x') k')) ≫ X'.fromSpecResidueField x') ≫ f := by
     have a₁ : spMap g ≫ Spec.map (CommRingCat.ofHom (algebraMap (X.residueField (f x')) k)) =
         spMap (algebraMap (X'.residueField x') k') ≫ Spec.map (f.residueFieldMap x') :=
-      (spMap_comp _ _).symm.trans ((congrArg spMap hg).trans (spMap_comp _ _))
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap hg).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
     rw [← Category.assoc, a₁, Category.assoc, Scheme.Hom.SpecMap_residueFieldMap_fromSpecResidueField,
       Category.assoc]
   obtain ⟨S', -, -, -, -, hGt'⟩ := hB _ _ (spMap g) S _ hGt

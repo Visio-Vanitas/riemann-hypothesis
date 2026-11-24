@@ -990,7 +990,7 @@ theorem exists_vertLift (k : X.F.J) (W : M.X.Opens) (hW : IsAffineOpen W)
     have := congrArg (· ≫ pullback.snd X.π Y.j) e
     simpa only [w₀, w₁, Category.assoc, pullback.lift_snd] using this
   have hs : spMap (algebraMap c.F K) = spMap (ψ.comp (algebraMap c.F Γ(M.X, W))) := by
-    rw [← frX_snd Q, hx, Category.assoc, frX_snd Q₀, spMap_comp']
+    rw [← frX_snd Q, hx, Category.assoc, frX_snd Q₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hψ : ψ.comp (algebraMap c.F Γ(M.X, W)) = algebraMap c.F K :=
     (congrArg CommRingCat.Hom.hom (Spec.map_injective hs)).symm
   let φ : Γ(M.X, W) →ₐ[c.F] K := { ψ with commutes' := fun r => DFunLike.congr_fun hψ r }
@@ -1011,7 +1011,7 @@ theorem exists_vertLift (k : X.F.J) (W : M.X.Opens) (hW : IsAffineOpen W)
     · ext i j <;> simp [GlobalTheory.FlagTan.unip, vertMat, φε, dualMap, Matrix.one_apply, Pi.single_apply] <;> split_ifs <;> simp
     · ext <;> simp [GlobalTheory.FlagTan.unip₀, φε, dualMap, GlobalTheory.FlagTan.VIx.toF]
   · have h3 : spMap (GlobalTheory.FlagMod.ev (zv b) W (hzW b)) ≫ tau hW = zv b := GlobalTheory.FlagMod.spMap_ev (zv b) hW (hzW b)
-    rw [← spMap_comp', Category.assoc, ← Category.assoc (spMap _) (tau hW), h3, hzv b]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← Category.assoc (spMap _) (tau hW), h3, hzv b]
     have e4 : dualMap ψ = φε.toRingHom := RingHom.ext fun _ => rfl
     rw [e4]
     exact X.ptY_frMap hw
@@ -1124,7 +1124,7 @@ theorem exists_local (hP : GlobalTheory.Published.AbelianDeRham)
   have hred : ∀ {K : Type} [Field K] (ψ : Γ(M.X, W') →+* K) b,
       spMap (TrivSqZeroExt.fstHom K K K).toRingHom ≫ zv ψ b = spMap ψ ≫ tau hW' := fun {K} _ ψ b => by
     simp only [zv]
-    rw [← Category.assoc, ← spMap_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     ext s
     simp [dualMap, e1]

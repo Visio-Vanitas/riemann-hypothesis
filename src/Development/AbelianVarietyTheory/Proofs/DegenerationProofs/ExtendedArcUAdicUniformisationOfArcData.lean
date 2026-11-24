@@ -359,7 +359,7 @@ theorem hasArcData_descends : Laws → Laws2 → Laws3 → Laws4 → Laws5 → L
     have r₀ := (maps_iff w _ (fun _ => eSec a.D₀.P.A) _ P.D.toPre.rig a.D₀.rig (spMap f) _
       (rigPull_le φ (spMap f) he a.D₀.P.L) (fun _ => rfl)).1 rw'
     have r₂ := T.pmaps_comp P.D.toPre.P.isLB (fun _ => hD.he) r₀ (pmaps_rig' hD)
-    rw [← spMap_comp] at r₂
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r₂
     have g' := (isGen_iff w').2 (T.pgen_comp P.D.toPre.P.isLB pw pD)
     have key : ∀ (ψ : W.P.D.toPre.P.A.left ⟶ a.D₀.P.A.left) (v : LB.Iso W.P.D.toPre.P.L (a.D₀.P.L.pull ψ)), ψ = W.φ →
         v.IsGen → PMaps v (K := PUnit) (fun _ => eSec W.P.D.toPre.P.A) (fun _ => eSec a.D₀.P.A) (fun _ => 1)
@@ -388,7 +388,7 @@ theorem hasArcData_descends : Laws → Laws2 → Laws3 → Laws4 → Laws5 → L
       exact (Category.id_comp _).trans (Category.comp_id _).symm
     · have k := hD.c_pr (W.e z)
       refine ((Category.assoc _ _ _).symm.trans (congrArg (· ≫ φ) k.symm)).trans ?_
-      rw [Category.assoc, hφ, s5 z, spMap_comp, Category.assoc]
+      rw [Category.assoc, hφ, s5 z, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · obtain ⟨F', _, _, σ, ρ, hσρ⟩ := exists_common_field (algebraMap (FractionRing R) F) gam
     letI : Algebra (FractionRing R) F' := (σ.comp (algebraMap (FractionRing R) F)).toAlgebra
     letI : Algebra (FractionRing O') F' := (σ.comp (algebraMap (FractionRing O') F)).toAlgebra
@@ -400,8 +400,8 @@ theorem hasArcData_descends : Laws → Laws2 → Laws3 → Laws4 → Laws5 → L
         algebraMap (FractionRing R) F' (algebraMap R _ (f x)) := fun x => congrArg σ (ha x)
     have hu' : σ uF = algebraMap (FractionRing R) F' (algebraMap R _ u) := congrArg σ hu
     have hj := jFK_comm hF
-    have jR : jFK (R := R) F' = spMap σ ≫ jFK (R := R) F := spMap_comp _ _
-    have jO : jFK (R := O') F' = spMap σ ≫ jFK (R := O') F := spMap_comp _ _
+    have jR : jFK (R := R) F' = spMap σ ≫ jFK (R := R) F := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
+    have jO : jFK (R := O') F' = spMap σ ≫ jFK (R := O') F := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
     refine ⟨fun z => ?_, fun yF hyF k p₀ s hs q₀ q x e₁ e₂ e₃ e₄ => ?_⟩
     · have k := (s6 F' (σ uF) (fun x => (ha' x).trans (hF _)) (hu'.trans (hF _))).1 z
       obtain ⟨n₁, n₂⟩ := pmaps_psi' hD hj (χ' := W.e z) rfl
@@ -780,10 +780,10 @@ theorem splitOver_of_hasArcData : Laws → Laws2 → Laws3 → HomExtSt → ∀ 
   obtain ⟨F₁, hF₁⟩ := exists_iso_of_coord hG (P.U.gt 0) g'
   let ev : PowerSeries O' →+* O' := PowerSeries.constantCoeff
   let A := (Over.pullback (spMap ev)).obj t.G
-  have e₁ : thick (PowerSeries K') I 0 ≫ spMap f = spMap (algebraMap O' K) := (spMap_comp _ _).symm
+  have e₁ : thick (PowerSeries K') I 0 ≫ spMap f = spMap (algebraMap O' K) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have e₂ : thick (PowerSeries K') I 0 ≫ spMap (PowerSeries.map (algebraMap O' K')) =
       spMap (algebraMap O' K) ≫ spMap ev := by
-    refine (spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap (RingHom.ext fun s => ?_)) (spMap_comp _ _))
+    refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap (RingHom.ext fun s => ?_)) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
     refine (mk_C_constantCoeff hX _).symm.trans (congrArg (fun x => Ideal.Quotient.mk _ (PowerSeries.C x)) ?_)
     rfl
   obtain ⟨F₀, hF₀, -⟩ := grpPullback_iso
@@ -800,7 +800,7 @@ theorem splitOver_of_hasArcData : Laws → Laws2 → Laws3 → HomExtSt → ∀ 
   let J : Ideal (PowerSeries O') := Ideal.span {PowerSeries.X}
   let s : O' →+* PowerSeries O' ⧸ J := (Ideal.Quotient.mk J).comp PowerSeries.C
   have e₃ : spMap s ≫ spMap ev = spMap (Ideal.Quotient.mk J) :=
-    (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext (mk_C_constantCoeff (Ideal.subset_span rfl))))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext (mk_C_constantCoeff (Ideal.subset_span rfl))))
   obtain ⟨F₃, hF₃, -⟩ := grpPullback_iso
     (((isGrpPullback_pullback A (spMap s)).comp (isGrpPullback_pullback t.G (spMap ev))).congr e₃ rfl)
     (isGrpPullback_pullback t.G (spMap (Ideal.Quotient.mk J)))

@@ -95,15 +95,6 @@ theorem isOpenImmersion_of_mono_of_local {X Z : Scheme.{0}} (x : X ⟶ Z) [Mono 
   · have := isIso_restrict_lemma x (j p)
     infer_instance
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp, CommRingCat.ofHom_comp]
-
-theorem spMap_inj {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) :
-    f = g := by
-  have e := congrArg CommRingCat.Hom.hom (Spec.map_injective h)
-  simpa using e
-
 theorem exists_spMap {A B : Type} [CommRing A] [CommRing B] (y : Sp B ⟶ Sp A) :
     ∃ f : A →+* B, y = spMap f := by
   refine ⟨(Spec.preimage y).hom, ?_⟩
@@ -154,8 +145,8 @@ theorem exists_chart : ∀ (R σ : Type) [CommRing R] (I : Ideal (MvPolynomial �
     have hv : ∀ a, f (q (MvPolynomial.X a)) = g (q (MvPolynomial.X a)) := fun a => by
       rw [hu a, hu1, _root_.one_mul]
     have hb : f.comp (q.comp MvPolynomial.C) = g.comp (q.comp MvPolynomial.C) := by
-      apply spMap_inj
-      rw [← spMap_comp (q.comp MvPolynomial.C) f, ← spMap_comp (q.comp MvPolynomial.C) g, ← hxs,
+      apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (q.comp MvPolynomial.C) f, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (q.comp MvPolynomial.C) g, ← hxs,
         reassoc_of% hfg]
     have hc : f.comp q = g.comp q :=
       MvPolynomial.ringHom_ext (fun r => by simpa using RingHom.congr_fun hb r) (fun a => by simpa using hv a)
@@ -197,7 +188,7 @@ theorem exists_chart : ∀ (R σ : Type) [CommRing R] (I : Ideal (MvPolynomial �
     have e2 : spMap (algebraMap R' (Localization.Away (v' i))) ≫ x' = y := hyu _ ⟨hβ', hc1⟩
     have e1 : spMap ψ ≫ x = y := by
       refine hyu _ ⟨?_, ?_⟩
-      · rw [Category.assoc, hxs, spMap_comp]
+      · rw [Category.assoc, hxs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         congr 1
         exact RingHom.ext hψC
       · have e := GlobalTheory.ZM.Coord.baseChange hxc ψ

@@ -259,7 +259,7 @@ theorem exists_hasTh_away (hL : Out.Laws) (hL2 : Out.Laws2) {o : Type} [CommRing
   rw [← hy]
   exact _root_.GlobalTheory.hasTh_baseChange hL2 o g N' J b _ s t R₁ _ _ x w H
 
-alias spMap_comp := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem spread_hasTh (hL : Out.Laws) (hL2 : Out.Laws2) {o : Type} [CommRing o] {g N' : ℕ} {J : Type}
     {b : TBase o (N' ^ 2)} (R K : Type) [CommRing R] [IsDomain R] [Field K] [Algebra R K] [IsFractionRing R K]
@@ -271,7 +271,7 @@ theorem spread_hasTh (hL : Out.Laws) (hL2 : Out.Laws2) {o : Type} [CommRing o] {
   have pull : ∀ (R' : Type) [CommRing R'] (φ : R →+* R') (hu : IsUnit (φ f)),
       t.HasTh (spMap φ) (fun a => IsLocalization.Away.lift f hu (w a)) := fun R' _ φ hu => by
     have := _root_.GlobalTheory.hasTh_baseChange hL2 o g N' J b _ s t _ R' (IsLocalization.Away.lift f hu) _ w Hw
-    rwa [spMap_comp, IsLocalization.Away.lift_comp] at this
+    rwa [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, IsLocalization.Away.lift_comp] at this
   have inj := IsFractionRing.injective R K
   have hK : IsUnit (algebraMap R K f) := ((map_ne_zero_iff _ inj).2 hf).isUnit
   obtain ⟨c, hc, e⟩ := exists_eq_mul_of_field hL hL2 (pull K _ hK) H

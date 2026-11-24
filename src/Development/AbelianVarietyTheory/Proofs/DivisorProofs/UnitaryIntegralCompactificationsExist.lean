@@ -605,9 +605,9 @@ theorem cmp_trait : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : 
   have hmK : ∀ {k : ℕ}, IsUnit (k : V) → (k : K) ≠ 0 := fun h => by
     have := h.map (io.comp (algebraMap V (FractionRing V))); simpa using this.ne_zero
   set x₁ : Sp K ⟶ Sp T.V := spMap i ≫ 𝟙 (Sp T.V) with hx₁
-  have ex₁ : spMap io' ≫ jK T.V = x₁ := by rw [hx₁, Category.comp_id, hi, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  have ex₁ : spMap io' ≫ jK T.V = x₁ := by rw [hx₁, Category.comp_id, hi, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   set x : Sp K ⟶ Xo.X := spMap io ≫ y ≫ pullback.fst _ _ with hx
-  have ex : spMap io' ≫ T.y ≫ pullback.fst _ _ = x := by rw [hx, hTy, ← hio', _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; simp only [Category.assoc]
+  have ex : spMap io' ≫ T.y ≫ pullback.fst _ _ = x := by rw [hx, hTy, ← hio', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; simp only [Category.assoc]
   set g := Module.finrank ℚ E / 2 * (Dw.p + Dw.q) with hg
   have hPx : PolFib Xo.univ.t.G Xo.univ.t.PP.L g x := GlobalTheory.T.universalTriple_fibre_principallyPolarised_dimension E H Dw l Xo c K x
   obtain ⟨wK, hwK, -⟩ := mK.lin
@@ -697,7 +697,7 @@ noncomputable section
 
 namespace GlobalTheory.UMin.ThInt
 
-alias spMap_comp_ring' := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp_ring' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 alias grpPullback_self' := _root_.GlobalTheory.ObjComp.isGrpPullback_id
 
@@ -1352,9 +1352,9 @@ theorem pull_pull {R K K' : Type} [CommRing R] [CommRing K] [CommRing K'] {x : S
   unfold SecAt.pull
   rw [_root_.GlobalTheory.ThetaRuleCompare.pullS_comp]
   refine pullS_heq ?_ _ _ ?_ θ
-  · rw [spMap_comp, Category.assoc]
+  · rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · simp only [Over.comp_left, Over.homMk_left]
-    exact (spMap_comp i i').symm
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i i').symm
 
 theorem pull_heq_of_eq {R K : Type} [CommRing R] [CommRing K] {x : Sp R ⟶ S} (θ : SecAt G L x)
     {i₁ i₂ : R →+* K} (h : i₁ = i₂) : HEq (SecAt.pull G L θ i₁) (SecAt.pull G L θ i₂) := by
@@ -1410,7 +1410,7 @@ theorem at_cdvr (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) 
   have hsym := hS _ i' pt c hT
 
   have ex : spMap i' ≫ spMap (algebraMap R (FractionRing R)) ≫ χ = spMap i ≫ spMap φ ≫ χ := by
-    rw [← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp, hring]
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring]
   have hθ : HEq (SecAt.pull t.G t.PP.L (SecAt.pull t.G t.PP.L σ (algebraMap R (FractionRing R))) i')
       (SecAt.pull t.G t.PP.L (SecAt.pull t.G t.PP.L σ φ) i) :=
     ((pull_pull t.G t.PP.L σ _ i').trans (pull_heq_of_eq t.G t.PP.L σ hring)).trans
@@ -1418,7 +1418,7 @@ theorem at_cdvr (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) 
   obtain ⟨pt', hT'⟩ := thList_of_heq t.PP.rig m ex hθ hT
   have hPV : PolFib t.G t.PP.L g (jK V ≫ spMap φ ≫ χ) := by
     have e₁ : jK V ≫ spMap φ ≫ χ = spMap F ≫ spMap (algebraMap R (FractionRing R)) ≫ χ := by
-      rw [← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp, hring₀]
+      rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring₀]
     rw [e₁]; exact hmove _ _ _ F hP
   have hNZV := GlobalTheory.UMin.nz_pull S t.G t.PP.L t.PP.isLB t.semi R V χ σ φ hNZ
   have hmV : IsUnit ((m : ℕ) : V) := by simpa using hmu.map φ

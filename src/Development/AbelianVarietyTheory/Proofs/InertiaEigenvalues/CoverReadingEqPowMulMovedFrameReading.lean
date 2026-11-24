@@ -188,7 +188,7 @@ theorem point_over (d : DeltaDat Xo c n) (hd : d.IsLev) (hpq : Dw.p ≠ Dw.q) (h
   obtain rfl : g₂ = g := by simpa using Fintype.card_congr (e₂.trans e.symm)
   have hy : (F₂.u k₂ P₂ ≫ d.r) ≫ Xo.s = spMap σ := by
     rw [Category.assoc, GlobalTheory.ClsVal.Cmp.point_over_of_ne hpq hA d hle, ← Category.assoc, F₂.over_σ k₂ P₂ hP₂,
-      GlobalTheory.ClsVal.Cmp.spMap_comp', hσ]
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ]
   let h : (Fin g₂ → ℂ) ≃ₗ[ℂ] (Fin g₂ → ℂ) := LinearEquiv.funCongrLeft ℂ ℂ (e.trans e₂.symm)
   obtain ⟨h₁, h₂⟩ := GlobalTheory.CoverExp.ex_comp_eq d.m d.pd hA hd.2.1 hd.1.2.1 hd.2.2.2.2.2.1.1 F F₂ k k₂ hP hP₂ hy gam h
     hEF gM fun a => funext (hh a)

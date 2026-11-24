@@ -293,7 +293,7 @@ theorem const_matrix [CharZero R] (hL : L.IsLB) (hb : TraitBasis G L N U b) (hx 
   let W := PowerSeries K
   obtain ⟨M', P', H⟩ := trait_matrix hL hb hx hf hM (cDvr_powerSeries K) ((PowerSeries.C (R := K)).comp (algebraMap R K))
     ((algebraMap W (FractionRing W)).comp (PowerSeries.C (R := K))) (fun _ => rfl)
-    (χ := spMap (PowerSeries.C (R := K)) ≫ x) (by rw [spMap_comp, Category.assoc])
+    (χ := spMap (PowerSeries.C (R := K)) ≫ x) (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
     ((Over.homMk (spMap (PowerSeries.C (R := K))) rfl : Over.mk (spMap (PowerSeries.C (R := K)) ≫ x) ⟶ Over.mk x) ≫ xU)
   exact ⟨_, _, inferInstance, inferInstance, nontrivial_top W, nontrivial_top (FractionRing W), _, _, M', P', H⟩
 

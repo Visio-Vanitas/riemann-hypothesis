@@ -283,7 +283,7 @@ theorem exists_siegPre_of_fullObj : Out.Laws → Out.Laws2 → ∀ (E : Type) [F
   have pt : ∀ {k : Type} [Field k] (x : Sp k ⟶ T), ∃ w : O →+* k, x ≫ sT = spMap w := fun x =>
     ⟨(Spec.preimage (x ≫ sT)).hom, (Spec.map_preimage (x ≫ sT)).symm⟩
   have geo := fun (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (x : Sp k ⟶ T) (w : O →+* k)
-    (hw : x ≫ sT = spMap w) => F.geom k x (w.comp b) (by rw [spMap_comp, reassoc_of% hw])
+    (hw : x ≫ sT = spMap w) => F.geom k x (w.comp b) (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, reassoc_of% hw])
   have hd : SmoothOfRelativeDimension (Module.finrank ℚ E / 2 * (D.p + D.q)) t.G.hom := by
     have := hA.smooth
     have := hA.geomConnected
@@ -357,7 +357,7 @@ theorem exists_siegPre_of_fullObj : Out.Laws → Out.Laws2 → ∀ (E : Type) [F
   · intro k _ _ x β v hx hv
     obtain ⟨w, hw⟩ := pt x
     obtain rfl : β = w.comp z := by
-      rw [reassoc_of% hw, ← spMap_comp] at hx
+      rw [reassoc_of% hw, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hx
       exact congrArg CommRingCat.Hom.hom (Spec.map_injective hx.symm)
     obtain rfl : v = Units.map w.toMonoidHom u := Units.ext hv
     refine ⟨ker k x, ?_, fun a c => ?_⟩

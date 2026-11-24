@@ -69,7 +69,7 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : D
 
 def liftF {S : Type} [CommRing S] [Algebra c.F S] (y : FrPt Xo c S) : Sp S ⟶ Xo.XF c :=
   pullback.lift y.x (spMap (algebraMap c.F S)) (by
-    rw [y.x_over, spMap_comp_ring]; rfl)
+    rw [y.x_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl)
 
 theorem liftF_fst {S : Type} [CommRing S] [Algebra c.F S] (y : FrPt Xo c S) :
     liftF y ≫ pullback.fst Xo.s (spMap (IntermediateField.inclusion c.le).toRingHom) = y.x :=
@@ -84,7 +84,7 @@ theorem liftF_map {S T : Type} [CommRing S] [Algebra c.F S] [CommRing T] [Algebr
     liftF z = spMap φ.toRingHom ≫ liftF y := by
   apply pullback.hom_ext
   · rw [Category.assoc, liftF_fst, liftF_fst, h]
-  · rw [Category.assoc, liftF_snd, liftF_snd, spMap_comp_ring]
+  · rw [Category.assoc, liftF_snd, liftF_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun r => (φ.commutes r).symm
 
@@ -101,7 +101,7 @@ theorem liftF_gen (h : GenFrEx Xo c) (Z : Comp Xo c) :
   · rw [liftF_fst, (isGenFr_genFr h Z).1, Category.assoc]; rfl
   · rw [liftF_snd, Category.assoc]
     erw [← e]
-    rw [spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 theorem liftF_gen_apply (h : GenFrEx Xo c) (Z : Comp Xo c) (p : Sp (Om Z)) :
     liftF (genFr h Z) p = genPt Z := by

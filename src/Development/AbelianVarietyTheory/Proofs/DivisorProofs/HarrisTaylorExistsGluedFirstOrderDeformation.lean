@@ -158,7 +158,7 @@ theorem projMor (A₀ : Over (Sp k)) [GrpObj A₀] (j : Fin d) :
       change (proj j a).fst = 0
       rw [fst_proj]; exact ha)
     (by
-      rw [← GlobalTheory.Cris.spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       ext a <;> simp) (𝟙 A₀)
 
@@ -1252,10 +1252,10 @@ theorem GlobalTheory.HTGlue.exists_glue : ∀ (p : ℕ) [Fact p.Prime] (D : Glob
   choose o' m' hm' using hdef
   have hsε : spMap (algebraMap k (DualNumber k)) ≫ t =
       spMap ((algebraMap k (DualNumber k)).comp tk) := by
-    rw [ht, ← GlobalTheory.Cris.spMap_comp]
+    rw [ht, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hs₀ : t =
       spMap (TrivSqZeroExt.fstHom k k k).toRingHom ≫ spMap ((algebraMap k (TrivSqZeroExt k k)).comp tk) := by
-    rw [ht, ← GlobalTheory.Cris.spMap_comp]
+    rw [ht, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
   have hsurε : Function.Surjective (TrivSqZeroExt.fstHom k k k).toRingHom :=
     fun a => ⟨TrivSqZeroExt.inl a, rfl⟩
@@ -1294,10 +1294,10 @@ theorem GlobalTheory.HTGlue.exists_glue : ∀ (p : ℕ) [Fact p.Prime] (D : Glob
   have hsurC : Function.Surjective (TrivSqZeroExt.fstHom k k (Fin d → k)).toRingHom :=
     fun a => ⟨TrivSqZeroExt.inl a, rfl⟩
   have hst : spMap (algebraMap k (TrivSqZeroExt k (Fin d → k))) ≫ t = spMap tR := by
-    rw [ht, ← GlobalTheory.Cris.spMap_comp]
+    rw [ht, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hs₀C : t = spMap (TrivSqZeroExt.fstHom k k (Fin d → k)).toRingHom ≫
       (spMap (algebraMap k (TrivSqZeroExt k (Fin d → k))) ≫ t) := by
-    rw [hst, ht, ← GlobalTheory.Cris.spMap_comp]
+    rw [hst, ht, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
   have hObj := GlobalTheory.T.harrisTaylor_exists_squareZero_lift_of_filtration p D R b N hNp
     (TrivSqZeroExt k (Fin d → k)) k (TrivSqZeroExt.fstHom k k (Fin d → k)).toRingHom

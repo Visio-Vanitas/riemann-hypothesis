@@ -136,7 +136,7 @@ theorem diff_of {ν : Out.GtPt a.D₀ (epsR ℂ)} {z₀ : Fin g → ℂ} {v : ep
   have e₁ := Over.w (Out.fstG (Ideal.span {(PowerSeries.X : PowerSeries ℂ)}) n W.t.G)
   refine (Category.assoc _ _ _).trans ((congrArg (vn ≫ ·) e₁.symm).trans ((Category.assoc _ _ _).symm.trans ?_))
   rw [h₆, Category.assoc, Over.w v]
-  refine (spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (spMap_comp _ _))
+  refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   exact RingHom.ext fun r => h₁ r
 
 theorem exists_lift (w : ℂ) (hw : Ha.T < w.im) : ∃ xF : (Fin g → ℂ) → (Sp ℂ ⟶ Y.oF.t.G.left),
@@ -145,7 +145,7 @@ theorem exists_lift (w : ℂ) (hw : Ha.T < w.im) : ∃ xF : (Fin g → ℂ) → 
     ∀ (x : 𝓞 E) z, xF (fun k => ty k (x : E) * z k) ≫ Y.m.φ = (xF z ≫ Y.m.φ) ≫ (Y.t.act.act x).left := by
   have hP := Ha.period w hw
   let yF : Sp ℂ ⟶ Xo.XF c := pullback.lift (Fu.u Ha.i (Ha.Pw w)) (spMap σ)
-    ((Fu.over_σ _ _ hP).trans (spMap_comp _ _))
+    ((Fu.over_σ _ _ hP).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   have C := Y.m0.toSABMap.cart.1
   have hw' : ∀ z, (Fu.ex Ha.i (Ha.Pw w) z).left ≫ Xo.univ.t.G.hom = yF ≫ pullback.fst _ _ := fun z =>
     (Over.w _).trans (pullback.lift_fst _ _ _).symm
@@ -218,7 +218,7 @@ theorem coeff_eq {cf cf' : Fin (Dw.mult τ) → R} (h : IsLieComb cf v 1) (h' : 
     (isCombAt_one y m hφ τ h₁ h₂ h')) i
   · let r : Over.mk y.x ⟶ tEps y.x := Over.homMk (spMap (TrivSqZeroExt.fstHom S S S).toRingHom) (by
       refine (Category.assoc _ _ _).symm.trans (Eq.trans (congrArg (· ≫ y.x) ?_) (Category.id_comp _))
-      exact (spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap (RingHom.ext fun _ => rfl)) (Spec.map_id _)))
+      exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap (RingHom.ext fun _ => rfl)) (Spec.map_id _)))
     exact congrArg (fun q => q.left) (MonObj.comp_one (M := Xo.univ.t.G) r)
   · have := Xo.univ.t.act.hom x
     let r : tEps y.x ⟶ tEps y.x := Over.homMk (spMap (epsMul (algebraMap c.F S (embK c τ x)))) (by

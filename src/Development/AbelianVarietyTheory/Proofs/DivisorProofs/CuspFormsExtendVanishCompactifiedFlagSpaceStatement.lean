@@ -362,7 +362,7 @@ theorem arc_bridge : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] {H :
   obtain ⟨fr, hfr⟩ := _root_.GlobalTheory.CompHS.exists_eigFrame_vecAt₀ TF Z W hW φ hφ (i PUnit.unit) hz _ hx
   have hφu : ∀ u ∈ Metric.ball (0 : ℂ) r, (ψ u).comp φ = σ := fun u hu => by
     have h1 := hs u hu
-    rw [hφ, spMap_comp'] at h1
+    rw [hφ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at h1
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective h1)
   have key : ∀ (u : ℂ) (s : Sp ℂ), (spMap (ψ u) ≫ (show Sp Γ(Y₀ TF.X Z, W) ⟶ Y₀ TF.X Z from hW.fromSpec)) s ∈ U₀ TF.X Z ↔ (spMap (ψ u) ≫ x) s ∉ genBd TF.Y := by
     intro u s

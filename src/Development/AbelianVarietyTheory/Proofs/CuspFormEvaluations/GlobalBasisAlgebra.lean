@@ -212,10 +212,6 @@ theorem global_basis_algebra {E : Type} [Field E] [NumberField E] {K S M : Type}
 
 end Alg
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  exact (Spec.map_comp _ _).symm
-
 theorem spec_ext_two {R A : Type} [CommRing R] [CommRing A] (p1 p2 : R →+* A)
     (hs : Function.Surjective p1) (hn : ∀ x, p1 x = 0 → x * x = 0)
     (hk : ∀ x, p1 x = 0 → p2 x = 0 → x = 0) {X : Scheme.{0}} (f g : Sp R ⟶ X)
@@ -241,9 +237,9 @@ theorem spec_ext_two {R A : Type} [CommRing R] [CommRing A] (p1 p2 : R →+* A)
     exact zero_mem _
   have hπ : spMap (p1.prod p2) ≫ f = spMap (p1.prod p2) ≫ g := by
     have e1 : Spec.map (CommRingCat.ofHom (RingHom.fst A A)) ≫ spMap (p1.prod p2) = spMap p1 :=
-      (spMap_comp' (p1.prod p2) (RingHom.fst A A)).trans (congrArg spMap (RingHom.ext fun _ => rfl))
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (p1.prod p2) (RingHom.fst A A)).symm.trans (congrArg spMap (RingHom.ext fun _ => rfl))
     have e2 : Spec.map (CommRingCat.ofHom (RingHom.snd A A)) ≫ spMap (p1.prod p2) = spMap p2 :=
-      (spMap_comp' (p1.prod p2) (RingHom.snd A A)).trans (congrArg spMap (RingHom.ext fun _ => rfl))
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (p1.prod p2) (RingHom.snd A A)).symm.trans (congrArg spMap (RingHom.ext fun _ => rfl))
     rw [← cancel_epi (coprodSpec A A)]
     apply coprod.hom_ext
     · rw [coprodSpec_inl_assoc, coprodSpec_inl_assoc, reassoc_of% e1, reassoc_of% e1, h1]
@@ -278,7 +274,7 @@ theorem homAt_comp {A B C : Type} [CommRing A] [Algebra S A] [CommRing B] [Algeb
     (f : A →ₐ[S] B) (g : B →ₐ[S] C) : homAt x0 g ≫ homAt x0 f = homAt x0 (g.comp f) := by
   ext1
   simp only [Formalism.L2.Pj.homAt, Over.comp_left, Over.homMk_left]
-  rw [spMap_comp']
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem homAt_id {A : Type} [CommRing A] [Algebra S A] : homAt x0 (AlgHom.id S A) = 𝟙 _ := by
@@ -436,7 +432,7 @@ def ovT {v : Sp (DualNumber S) ⟶ t.G.left} (hv : IsTanAtG t x0 v) : tEpsG x0 �
 theorem smT_zero_ovT {v : Sp (DualNumber S) ⟶ t.G.left} (hv : IsTanAtG t x0 v) : smT x0 0 (ovT hv) = 1 := by
   ext1
   have e : spMap (epsMul (0 : S)) ≫ v = spMap (algebraMap S (DualNumber S)) ≫ (1 : Over.mk x0 ⟶ t.G).left := by
-    rw [eps_zero_lemma, ← spMap_comp', Category.assoc, hv.2]
+    rw [eps_zero_lemma, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hv.2]
   exact (smT_left x0 0 (ovT hv)).trans (e.trans (one_left_lemma_3 x0 (G := t.G)).symm)
 
 theorem isTanAtG_of (W : tEpsG x0 ⟶ t.G) (h : smT x0 0 W = 1) : IsTanAtG t x0 W.left := by
@@ -444,12 +440,12 @@ theorem isTanAtG_of (W : tEpsG x0 ⟶ t.G) (h : smT x0 0 W = 1) : IsTanAtG t x0 
   have h' := congrArg Over.Hom.left h
   rw [smT_left] at h'
   have hs : spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (algebraMap S (DualNumber S)) = 𝟙 _ := by
-    rw [spMap_comp', show (TrivSqZeroExt.fstHom S S S).toRingHom.comp (algebraMap S (DualNumber S)) = RingHom.id S from
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, show (TrivSqZeroExt.fstHom S S S).toRingHom.comp (algebraMap S (DualNumber S)) = RingHom.id S from
       RingHom.ext fun s => by simp]
     exact Spec.map_id _
   calc spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ W.left
         = spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (epsMul (0 : S)) ≫ W.left := by
-          rw [← Category.assoc, spMap_comp', fst_eps_lemma_2]
+          rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_eps_lemma_2]
     _ = spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ (1 : tEpsG x0 ⟶ t.G).left := congrArg _ h'
     _ = (1 : Over.mk x0 ⟶ t.G).left := by
           rw [one_left_lemma_3 x0, ← Category.assoc, hs, Category.id_comp]

@@ -365,10 +365,6 @@ namespace GlobalTheory.LieGalDesc
 section Help
 variable {S : Scheme.{0}} {R₁ : Type} [CommRing R₁]
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
 theorem spMap_id' (A : Type) [CommRing A] : spMap (RingHom.id A) = 𝟙 _ := by
   simp only [spMap, CommRingCat.ofHom_id, Spec.map_id]
 
@@ -394,7 +390,7 @@ theorem es_zero : epsScaleR (0 : R₁) = (algebraMap R₁ (DualNumber R₁)).com
 def zeroAt (y : Sp R₁ ⟶ S) : Over.mk y ⟶ epsPtR y :=
   Over.homMk (spMap (TrivSqZeroExt.fstHom R₁ R₁ R₁).toRingHom) (by
     show _ ≫ spMap _ ≫ y = y
-    rw [← Category.assoc, spMap_comp', fst_comp_alg, spMap_id', Category.id_comp])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_alg, spMap_id', Category.id_comp])
 
 def baseAt (y : Sp R₁ ⟶ S) : epsPtR y ⟶ Over.mk y :=
   Over.homMk (spMap (algebraMap R₁ (DualNumber R₁))) rfl
@@ -402,17 +398,17 @@ def baseAt (y : Sp R₁ ⟶ S) : epsPtR y ⟶ Over.mk y :=
 def scaleAt (y : Sp R₁ ⟶ S) (r : R₁) : epsPtR y ⟶ epsPtR y :=
   Over.homMk (spMap (epsScaleR r)) (by
     show _ ≫ spMap _ ≫ y = spMap _ ≫ y
-    rw [← Category.assoc, spMap_comp', es_comp_alg])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, es_comp_alg])
 
 theorem zeroAt_scaleAt (y : Sp R₁ ⟶ S) (r : R₁) : zeroAt y ≫ scaleAt y r = zeroAt y :=
   Over.OverMorphism.ext (by
     show spMap _ ≫ spMap _ = spMap _
-    rw [_root_.GlobalTheory.spMap_comp_ring, fst_comp_es])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_es])
 
 theorem scaleAt_mul (y : Sp R₁ ⟶ S) (r s : R₁) : scaleAt y r ≫ scaleAt y s = scaleAt y (r * s) :=
   Over.OverMorphism.ext (by
     show spMap _ ≫ spMap _ = spMap _
-    rw [_root_.GlobalTheory.spMap_comp_ring, es_comp_es])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, es_comp_es])
 
 theorem scaleAt_one (y : Sp R₁ ⟶ S) : scaleAt y 1 = 𝟙 _ :=
   Over.OverMorphism.ext (by
@@ -422,7 +418,7 @@ theorem scaleAt_one (y : Sp R₁ ⟶ S) : scaleAt y 1 = 𝟙 _ :=
 theorem scaleAt_zero (y : Sp R₁ ⟶ S) : scaleAt y 0 = baseAt y ≫ zeroAt y :=
   Over.OverMorphism.ext (by
     show spMap _ = spMap _ ≫ spMap _
-    rw [_root_.GlobalTheory.spMap_comp_ring, es_zero])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, es_zero])
 
 variable (G : Over S) [GrpObj G] [IsCommMonObj G]
 
@@ -549,14 +545,14 @@ theorem lie_descends : ∀ (p : ℕ) [Fact p.Prime] (D : GlobalTheory.UPel.HT.Da
 
   let j : epsPtR (x'' ≫ π) ⟶ epsPtR x := Over.homMk (spMap d₁) (by
     show spMap d₁ ≫ spMap _ ≫ x = spMap _ ≫ x'' ≫ π
-    rw [hsq, ← Category.assoc, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, hdalg])
+    rw [hsq, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hdalg])
   let g₀ : Over.mk (x'' ≫ π) ⟶ Over.mk x := Over.homMk (spMap g₁) hsq.symm
   have hj : zeroAt (x'' ≫ π) ≫ j = g₀ ≫ zeroAt x := Over.OverMorphism.ext (by
     show spMap _ ≫ spMap d₁ = spMap g₁ ≫ spMap _
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, hdfst])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hdfst])
   have hs : ∀ r, j ≫ scaleAt x r = scaleAt (x'' ≫ π) (g₁ r) ≫ j := fun r => Over.OverMorphism.ext (by
     show spMap d₁ ≫ spMap _ = spMap _ ≫ spMap d₁
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, hdes])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hdes])
   have jinj : ∀ u u' : epsPtR x ⟶ A₀, j ≫ u = j ≫ u' → u = u' := fun u u' h =>
     Over.OverMorphism.ext ((cancel_epi (spMap d₁)).1 (congrArg Over.Hom.left h))
   let pj : (epsPtR x ⟶ A₀) →* (epsPtR (x'' ≫ π) ⟶ A₀) :=
@@ -571,7 +567,7 @@ theorem lie_descends : ∀ (p : ℕ) [Fact p.Prime] (D : GlobalTheory.UPel.HT.Da
   let w : Fin D.a → (epsPtR x ⟶ A₀) := fun i => (Additive.toMul (Θ (e i) m)).1
 
   have hx'' : x'' ≫ (π ≫ sY) = spMap (g₁.comp β) := by
-    rw [← Category.assoc, hsq, Category.assoc, hx, _root_.GlobalTheory.spMap_comp_ring]
+    rw [← Category.assoc, hsq, Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨E, hE⟩ := GlobalTheory.LiePull.exists_pushEquiv hpb (epsPtR x'')
     (spMap (algebraMap R'' (DualNumber R'')) ≫ (x'' ≫ π)) (Category.assoc _ _ _).symm
   have key : ∀ (u : epsPtR x'' ⟶ A) (c : D.O) (r : R''), IsTanScal act x'' c r u ↔

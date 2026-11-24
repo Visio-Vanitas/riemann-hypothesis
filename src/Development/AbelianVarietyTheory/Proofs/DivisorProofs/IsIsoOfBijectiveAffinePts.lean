@@ -101,7 +101,7 @@ theorem exists_spOver {B D : Type} [CommRing B] [Algebra O B] [CommRing D] [Alge
   have e : CommRingCat.ofHom (ψ₀.comp (algebraMap O D)) = CommRingCat.ofHom (algebraMap O B) :=
     Spec.map_injective (by
       change spMap (ψ₀.comp (algebraMap O D)) = spMap (algebraMap O B)
-      rw [Cris.spMap_comp, h0]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h0]
       exact Over.w v)
   have h1 : ψ₀.comp (algebraMap O D) = algebraMap O B := congrArg CommRingCat.Hom.hom e
   exact ⟨{ ψ₀ with commutes' := RingHom.congr_fun h1 }, Over.OverMorphism.ext h0⟩

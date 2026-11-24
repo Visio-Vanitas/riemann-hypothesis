@@ -88,7 +88,7 @@ theorem glue_val {K S : Type} [CommRing K] [CommRing S] [Algebra K S] {Z : Schem
   have comp : ∀ {S' S'' : Type} [CommRing S'] [Algebra K S'] [CommRing S''] [Algebra K S''] (ψ : S →ₐ[K] S')
       (χ : S' →ₐ[K] S'') (k : J), ⊤ ≤ (spMap ψ.toRingHom ≫ z) ⁻¹ᵁ U k →
       ⊤ ≤ (spMap (χ.comp ψ).toRingHom ≫ z) ⁻¹ᵁ U k := fun ψ χ k h => by
-    rw [show spMap (χ.comp ψ).toRingHom = spMap χ.toRingHom ≫ spMap ψ.toRingHom from (spMap_comp' _ _).symm,
+    rw [show spMap (χ.comp ψ).toRingHom = spMap χ.toRingHom ≫ spMap ψ.toRingHom from (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _),
       Category.assoc]
     exact le_preimage_comp _ h
   have vcongr : ∀ {S' : Type} [CommRing S'] [Algebra K S'] (ψ ψ' : S →ₐ[K] S') (e : ψ = ψ') k k' h h',
@@ -149,7 +149,7 @@ theorem isTanAtG_liftTan (y : Sp S ⟶ Xo.XF c) {w : Sp (DualNumber S) ⟶ Xo.un
       exact grpPull_one Y.m0.cart (Over.mk y)
     · have hid : (TrivSqZeroExt.fstHom S S S).toRingHom.comp (algebraMap S (DualNumber S)) = RingHom.id S :=
         RingHom.ext fun r => by simp
-      rw [Category.assoc, liftTan_over, ← Category.assoc, spMap_comp', hid, Over.w]
+      rw [Category.assoc, liftTan_over, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hid, Over.w]
       exact (congrArg (· ≫ y) (Spec.map_id _)).trans (Category.id_comp _)
   refine ⟨?_, ?_⟩
   · rw [Category.assoc, Y.m.cart.1.w, ← Category.assoc, liftTan_over, Category.assoc]
@@ -195,7 +195,7 @@ theorem tanPull_toModel (φ : S →+* S') (y : Sp S ⟶ Xo.XF c) {x₀ : Sp S �
     (hw' : IsTanAt x₀' w') (ew : w' = spMap (dualMap φ) ≫ w) :
     tanPull φ e (toModel Y y h₀ hx hw) = toModel Y y' h₀' hx' hw' := by
   refine ((toModel_eq_iff y' h₀' hx' hw' _).2 ⟨spMap (dualMap φ) ≫ liftTan Y y (h₀ ▸ hw), ?_, ?_, ?_⟩).symm
-  · rw [Category.assoc, liftTan_over, ← ey, ← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp',
+  · rw [Category.assoc, liftTan_over, ← ey, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       dualMap_comp_alg]
   · rw [Category.assoc, liftTan_univ, ew]
   · rw [Category.assoc]; rfl
@@ -240,7 +240,7 @@ theorem vec_iff_toModel {M : MChart Y} {x : Sp S ⟶ Y.X} (h : ⊤ ≤ x ⁻¹�
   rwa [toModel_injective y h₀ hx hw (b2 _ _ hw') (e.trans (fwd w' _ hw').symm)]
 
 def frX (P : FrPt Xo c S) : Sp S ⟶ Xo.XF c :=
-  pullback.lift P.x (spMap (algebraMap c.F S)) (P.x_over.trans (spMap_comp' _ _).symm)
+  pullback.lift P.x (spMap (algebraMap c.F S)) (P.x_over.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
 
 theorem frX_fst (P : FrPt Xo c S) : frX P ≫ pullback.fst _ _ = P.x := pullback.lift_fst _ _ _
 
@@ -253,7 +253,7 @@ theorem eq_frX (P : FrPt Xo c S) {y : Sp S ⟶ Xo.XF c} (h₁ : y ≫ pullback.f
 theorem frX_frMap [Algebra c.F S'] {ψ : S →ₐ[c.F] S'} {P : FrPt Xo c S} {P' : FrPt Xo c S'} (h : FrMap ψ P P') :
     spMap ψ.toRingHom ≫ frX P = frX P' :=
   eq_frX P' (by rw [Category.assoc, frX_fst, h.1]) (by
-    rw [Category.assoc, frX_snd, spMap_comp']
+    rw [Category.assoc, frX_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap ψ.comp_algebraMap)
 
 
@@ -293,7 +293,7 @@ theorem ev_appTop {Z Z' : Scheme.{0}} (z : Sp S ⟶ Z') (π : Z' ⟶ Z) (a : Γ(
 theorem spMap_ev_top (ρ : Sp T ⟶ Sp S) : spMap ((ev ρ ⊤ le_top).comp (toΓ S)) = ρ := by
   have h := spMap_ev ρ (isAffineOpen_top (Sp S)) le_top
   rw [IsAffineOpen.fromSpec_top, Scheme.isoSpec_Spec_inv] at h
-  rw [← spMap_comp']
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact h
 
 def secMul {Z : Scheme.{0}} {L : LB Z} (g : Γ(Z, ⊤)) (s : L.Sec) : L.Sec where

@@ -460,12 +460,12 @@ theorem isTanAtG_map {X0 : Scheme.{0}} (t : SAB H X0) {S S' : Type} [CommRing S]
     {x : Sp S ⟶ X0} {v : Sp (DualNumber S) ⟶ t.G.left} (hv : IsTanAtG t x v) :
     IsTanAtG t (spMap φ ≫ x) (spMap (dualMap φ) ≫ v) := by
   refine ⟨?_, ?_⟩
-  · rw [Category.assoc, hv.1, ← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_alg]
+  · rw [Category.assoc, hv.1, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg]
   · have e : (TrivSqZeroExt.fstHom S' S' S').toRingHom.comp (dualMap φ) =
         φ.comp (TrivSqZeroExt.fstHom S S S).toRingHom := by
       refine RingHom.ext fun z => ?_
       simp [dualMap]
-    rw [← Category.assoc, spMap_comp', e, ← spMap_comp', Category.assoc, hv.2]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hv.2]
     let ψ : Over.mk (spMap φ ≫ x) ⟶ Over.mk x := Over.homMk (spMap φ) rfl
     exact congrArg (fun g => g.left) (MonObj.comp_one ψ : ψ ≫ (1 : Over.mk x ⟶ t.G) = 1)
 

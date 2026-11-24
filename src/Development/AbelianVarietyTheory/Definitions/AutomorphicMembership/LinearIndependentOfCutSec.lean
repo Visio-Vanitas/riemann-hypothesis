@@ -194,12 +194,12 @@ variable (E : Type) [Field E] [NumberField E] [Algebra F E] {n : ℕ} (w : Fin n
 
 instance galAction : MulAction (AlgebraicClosure E ≃ₐ[E] AlgebraicClosure E) (GeomPt Y E) where
   smul σ y := ⟨spMap (σ : AlgebraicClosure E →+* AlgebraicClosure E) ≫ y.1, by
-    rw [Category.assoc, y.2, ← spMap_comp]
+    rw [Category.assoc, y.2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun a => σ.commutes _)⟩
   one_smul y := Subtype.ext ((congrArg (· ≫ y.1) (Spec.map_id _)).trans (Category.id_comp _))
   mul_smul σ τ y := Subtype.ext (by
     change spMap _ ≫ y.1 = spMap _ ≫ spMap _ ≫ y.1
-    rw [← Category.assoc, ← spMap_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl)
 
 section Gal
@@ -296,7 +296,7 @@ variable {Y E}
 
 def cxPt {τ : E →+* ℂ} {τ' : AlgebraicClosure E →+* ℂ} (h : τ'.comp (algebraMap E _) = τ) (y : GeomPt Y E) :
     Pts Y (τ.comp (algebraMap F E)) :=
-  ⟨spMap τ' ≫ y.1, by rw [Category.assoc, y.2, ← spMap_comp, ← RingHom.comp_assoc, h]⟩
+  ⟨spMap τ' ≫ y.1, by rw [Category.assoc, y.2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, h]⟩
 
 variable {C : CxSt F} (A : Adl C Y)
 

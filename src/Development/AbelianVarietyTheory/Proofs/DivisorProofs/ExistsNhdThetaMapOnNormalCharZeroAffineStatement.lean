@@ -623,7 +623,7 @@ theorem thList_ext_perm : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMo
   simp only [SecAt.pull] at h₁
   rw [pullS_pullS G hL] at h₁
   have ey : spMap φ ≫ spMap i ≫ x = spMap (φ.comp i) ≫ x := by
-    rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have key : ∀ {y y' : Sp F ⟶ S} (e : y = y') (u : Over.mk y ⟶ Over.mk x) (u' : Over.mk y' ⟶ Over.mk x),
       u.left = u'.left → ∀ {p : Fin N → (Over.mk y ⟶ G)} {d : Fin N → F},
       ThList G L ρ m y (VVRank.pullS G _ u θ) p d →
@@ -633,7 +633,7 @@ theorem thList_ext_perm : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMo
     obtain rfl : u = u' := Over.OverMorphism.ext hu
     exact ⟨p, h⟩
   obtain ⟨q₁, H₁⟩ := key ey _ (Over.homMk (spMap (φ.comp i)) rfl : Over.mk (spMap (φ.comp i) ≫ x) ⟶ Over.mk x)
-    (by simp only [Over.comp_left, Over.homMk_left]; rw [_root_.GlobalTheory.spMap_comp_ring]) h₁
+    (by simp only [Over.comp_left, Over.homMk_left]; rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) h₁
   have hPy : PolFib G L g (spMap (φ.comp i) ≫ x) :=
     (GlobalTheory.T.principallyPolarisedFibre_iff_of_grpPullback S S G L G L (𝟙 S) (𝟙 G.left) hL hL (grpPullback_id G)
       (GlobalTheory.ThetaAffineGlue.lbIso_pull_id hL) g R x).2 F (φ.comp i) hP
@@ -687,7 +687,7 @@ theorem pow_exp (n k : ℕ) (c : Multiplicative (Fin k → ZMod n)) : c ^ n = 1 
 theorem spMap_comp_assoc {A B C D : Type} [CommRing A] [CommRing B] [CommRing C] [CommRing D] {X : Scheme.{0}}
     (f : A →+* B) (g : B →+* C) (h : C →+* D) (y : Sp A ⟶ X) :
     spMap (h.comp g) ≫ spMap f ≫ y = spMap h ≫ spMap (g.comp f) ≫ y := by
-  simp only [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+  simp only [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 abbrev lft {S X : Scheme.{0}} {G : Over S} {a : X ⟶ S} (p : Over.mk a ⟶ G) : X ⟶ G.left := p.left
 
@@ -763,7 +763,7 @@ theorem exists_cover_torsion_list : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G]
     simp only [hpt] at h'
     let k := AlgebraicClosure K
     have := key k (spMap ((algebraMap K k).comp i₁)) (e a) (e a') (by
-      rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]; exact congrArg (spMap (algebraMap K k) ≫ ·) h')
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]; exact congrArg (spMap (algebraMap K k) ≫ ·) h')
     exact e.injective this
   · intro K' _ _ i' p hp2
     have ht : spMap i' ≫ spMap (i₁.comp (algebraMap R R₁)) ≫ x = spMap (i'.comp i₁) ≫ b ≫ x :=
@@ -783,7 +783,7 @@ theorem exists_cover_torsion_list : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G]
     simp only [Equiv.apply_symm_apply]
     change lft p = _
     have h2 := congrArg lft hp₁
-    rw [← hp', ← h2, lft_pushHom, hQ, Over.comp_left, toUnit_mk_left, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [← hp', ← h2, lft_pushHom, hQ, Over.comp_left, toUnit_mk_left, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     simp only [Category.assoc]
 
 end GlobalTheory.UMin.TorsionList
@@ -859,7 +859,7 @@ theorem exists_local : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMonOb
   let Tf : Over (Sp R) := Over.mk (spMap i_f)
   let β : Tf ⟶ T := Over.homMk (spMap af) (by
     show spMap af ≫ spMap (algebraMap R R₁) = spMap (af.comp (algebraMap R R₁))
-    exact (spMap_comp _ _).symm)
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm)
   have hrange : ∀ a, Set.range (spMap af) ⊆ Set.range (V a).ι := by
     intro a
     rintro _ ⟨p', rfl⟩
@@ -912,7 +912,7 @@ theorem exists_local : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMonOb
   clear hUf hs₂ hwv hs₁ sym hU hV hfO hO cg neg hG hrange
   let ξ : T₀ ⟶ T₁ := Over.homMk (spMap af) (by
     show spMap af ≫ spMap (algebraMap R R₁) ≫ x = spMap (af.comp (algebraMap R R₁)) ≫ x
-    rw [← Category.assoc, ← spMap_comp])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   have hx₀ : 𝟙 Tf.left ≫ (ξ ≫ q a).left = (β ≫ y a).left ≫ α := by
     have h := hy a
     rw [Category.id_comp] at h
@@ -922,18 +922,18 @@ theorem exists_local : ∀ (S : Scheme.{0}) (G : Over S) [GrpObj G] [IsCommMonOb
   have up := ThG.up hpb (T := Tf) (T₀ := T₀) (𝟙 Tf.left) hτ hw hL hL₁ hr hx₀ hn₀ hth (he a)
   let δ : Over.mk (spMap ((j.comp af).comp (algebraMap R R₁)) ≫ x) ⟶ T₀ := Over.homMk (spMap j) (by
     show spMap j ≫ spMap (af.comp (algebraMap R R₁)) ≫ x = spMap ((j.comp af).comp (algebraMap R R₁)) ≫ x
-    rw [← Category.assoc, ← spMap_comp])
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   have down := ThPull.thG_pull hL hρ δ up
   have ept : pt = δ ≫ ξ ≫ q a := by
     refine Over.OverMorphism.ext ?_
     rw [hpt, Over.comp_left, Over.comp_left, ← Category.assoc]
-    exact congrArg (· ≫ (q a).left) (spMap_comp af j)
+    exact congrArg (· ≫ (q a).left) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp af j)
   have eθ : SecAt.pull G L θ ((j.comp af).comp (algebraMap R R₁)) = VVRank.pullS G _ δ (SecAt.pull G L θ i_f) := by
     unfold SecAt.pull
     rw [pullS_comp G hL]
     congr 1
     refine Over.OverMorphism.ext ?_
-    exact spMap_comp i_f j
+    exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i_f j
   have ec : δ.left.appTop.hom ((inv (𝟙 Tf.left)).appTop.hom ((e : Γ(Tf.left, ⊤)) * wv a)) =
       fn (j ((Scheme.ΓSpecIso (CommRingCat.of Lf)).hom.hom ((e : Γ(Tf.left, ⊤)) * wv a))) := by
     have h1 : (inv (𝟙 Tf.left)).appTop.hom ((e : Γ(Tf.left, ⊤)) * wv a) =

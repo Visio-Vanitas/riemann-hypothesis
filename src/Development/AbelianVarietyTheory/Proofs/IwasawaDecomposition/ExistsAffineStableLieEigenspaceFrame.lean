@@ -264,7 +264,7 @@ theorem GlobalTheory.ShFam.EigSpread.exists_stable_eigFrame : ∀ (E : Type) [Fi
   let φ₀ : c.F →+* Γ(gen Z, U₀) := (Spec.preimage (j ≫ genStr Z)).hom
   have hφ₀ : spMap φ₀ = j ≫ genStr Z := Spec.map_preimage _
   have hov : ∀ {S : Type} [CommRing S] (ψ : Γ(gen Z, U₀) →+* S), (spMap ψ ≫ j) ≫ genStr Z = spMap (ψ.comp φ₀) :=
-    fun ψ => by rw [Category.assoc, ← hφ₀, ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap]
+    fun ψ => by rw [Category.assoc, ← hφ₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨P, hP⟩ := exists_projectors c φ₀ hx
   let L : Type := (gen Z).presheaf.stalk z
   letI : Algebra Γ(gen Z, U₀) L := TopCat.Presheaf.algebra_section_stalk (gen Z).presheaf ⟨z, hz⟩
@@ -308,8 +308,8 @@ theorem GlobalTheory.ShFam.EigSpread.exists_stable_eigFrame : ∀ (E : Type) [Fi
     exact IsLocalization.map_units L
       (⟨g₀, Submonoid.prod_mem _ fun τ _ => hg τ⟩ : (hU₀.primeIdealOf ⟨z, hz⟩).asIdeal.primeCompl)
   · obtain ⟨f', hf'⟩ := frame R' (ψ.comp ρ) (spMap ψ ≫ hU.fromSpec ≫ genι Z) (ψ.comp (ρ.comp φ₀))
-      (by rw [hx₁, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap]) rfl (hu.map ψ)
+      (by rw [hx₁, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) rfl (hu.map ψ)
     refine ⟨f', fun τ i => ?_⟩
-    rw [hf', hf, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.PullbackSections.spMap_comp_spMap]
+    rw [hf', hf, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact RingHom.ext fun w => by ext <;> simp [_root_.Formalism.L2.Pj.dualMap]

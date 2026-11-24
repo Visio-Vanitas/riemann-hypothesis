@@ -94,7 +94,7 @@ theorem hasPer_good {g : ℕ} (κ : c.F →+* ℂ) (ty : Fin g → (E →+* ℂ)
   choose x hxs hxj using hx
   have hol := isHolTo_of_j Y κ hV hxs (GlobalTheory.HolPeriods.isHolTo_congr (PullbackSections.isHolTo_comp hz 𝔐.f) hxj)
   obtain ⟨V', i, P, hV', hm, hsub, hP, hu⟩ := FU.lift n V (fun a => x a ≫ pullback.fst _ _) hV
-    (fun a _ => by rw [Category.assoc, pullback.condition, ← Category.assoc, hxs, spMap_comp]) (PullbackSections.isHolTo_comp hol _) t₀ ht₀
+    (fun a _ => by rw [Category.assoc, pullback.condition, ← Category.assoc, hxs, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) (PullbackSections.isHolTo_comp hol _) t₀ ht₀
   have htyi : IsTypeFn H (FU.Di i).p (FU.Di i).q ty := by
     rw [(FU.sig i).1, (FU.sig i).2]
     exact hty

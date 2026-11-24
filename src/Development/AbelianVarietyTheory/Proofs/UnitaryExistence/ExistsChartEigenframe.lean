@@ -136,7 +136,7 @@ theorem exists_eigen_chart (c : Coeff l) {g : ℕ} {ty : Fin g → (E →+* ℂ)
   let f₁ : R →+* R₁ := algebraMap R R₁
   obtain ⟨o₁, ⟨m₁⟩⟩ := exists_pull
     (spMap (f₁.comp j) ≫ spMap (IntermediateField.inclusion c.le).toRingHom) (spMap f₁)
-    (by rw [spMap_comp j f₁, Category.assoc]) o
+    (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp j f₁, Category.assoc]) o
   obtain ⟨e, he, -⟩ := grpPullback_iso m₁.cart (isGrpPullback_pullback o.t.G (spMap f₁))
   have hv₁ : IsLieBasis (fun i => v₀ i ≫ e.inv) := Chart.isLieBasis_iso e (by
     simpa only [Category.assoc, e.inv_hom_id, Category.comp_id] using hv₀)
@@ -146,18 +146,18 @@ theorem exists_eigen_chart (c : Coeff l) {g : ℕ} {ty : Fin g → (E →+* ℂ)
   let f₂ : R₁ →+* R₂ := algebraMap R₁ R₂
   obtain ⟨o₂, ⟨m₂⟩⟩ := exists_pull
     (spMap ((f₂.comp f₁).comp j) ≫ spMap (IntermediateField.inclusion c.le).toRingHom) (spMap f₂)
-    (by rw [RingHom.comp_assoc, spMap_comp (f₁.comp j) f₂, Category.assoc]) o₁
+    (by rw [RingHom.comp_assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (f₁.comp j) f₂, Category.assoc]) o₁
   obtain ⟨v, hv, hev⟩ := Hv o₂.t ⟨m₂.toSABMap⟩
   have i₁ : IsOpenImmersion (spMap f₁) := inferInstanceAs (IsOpenImmersion
     (Spec.map (CommRingCat.ofHom (algebraMap R (Localization.Away r)))))
   have i₂ : IsOpenImmersion (spMap f₂) := inferInstanceAs (IsOpenImmersion
     (Spec.map (CommRingCat.ofHom (algebraMap R₁ (Localization.Away r')))))
   refine ⟨R₂, inferInstance, f₂.comp f₁, o₂, v, ?_, ?_, ?_, hv, hev⟩
-  · rw [spMap_comp f₁ f₂]; infer_instance
+  · rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f₁ f₂]; infer_instance
   · refine ⟨p₂, ?_⟩
-    rw [spMap_comp f₁ f₂]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f₁ f₂]
     exact (congrArg (spMap f₁) hp₂).trans hp₁
-  · rw [spMap_comp f₁ f₂]; exact objMap_comp m₂ m₁
+  · rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f₁ f₂]; exact objMap_comp m₂ m₁
 
 theorem exists_chart_eigenframe : Out.SecBaseChangeSt → ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (D : Datum H) (l : Level H) (Xo : Moduli D l) (c : Coeff l) (g : ℕ) (ty : Fin g → (E →+* ℂ)), IsTypeFn H D.p D.q ty → ∀ x : Xo.XF c, ∃ (R : Type) (_ : CommRing R) (_ : Algebra c.F R) (jR : Sp R ⟶ Xo.XF c) (o : Obj D l (baseKA l) (spMap (algebraMap c.F R) ≫ spMap (IntermediateField.inclusion c.le).toRingHom)) (v : Fin g → (epsR R ⟶ o.t.G)) (th : o.t.PP.L.Sec), Algebra.FiniteType c.F R ∧ IsReduced R ∧ IsOpenImmersion jR ∧ x ∈ Set.range jR ∧ jR ≫ pullback.snd _ _ = spMap (algebraMap c.F R) ∧ Nonempty (ObjMap o Xo.univ (jR ≫ pullback.fst _ _)) ∧ IsLieBasis v ∧ (∀ i a, (v i ≫ o.t.act.act a).left = spMap (epsScaleR (algebraMap c.F R ⟨ty i (a : E), c.conj (ty i) a⟩)) ≫ (v i).left) ∧ (∀ y : Sp R, ∃ x : o.t.G.left, o.t.G.hom x = y ∧ x ∈ Out.nonzeroLocus th) ∧ (∀ s : o.t.PP.L.Sec, ∃! a : R, ∀ i, s.f i = constFn o.t.G.hom _ a * th.f i) := by
   intro hS E _ _ _ H D l Xo c g ty hty x
@@ -181,7 +181,7 @@ theorem exists_chart_eigenframe : Out.SecBaseChangeSt → ∀ (E : Type) [Field 
   let jR : Sp R ⟶ Xo.XF c := spMap f ≫ j₀
   have hjR : IsOpenImmersion jR := IsOpenImmersion.comp (spMap f) j₀
   have hs : jR ≫ σ = spMap (f.comp j) := by
-    rw [spMap_comp j f, ← hj]; exact Category.assoc _ _ _
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp j f, ← hj]; exact Category.assoc _ _ _
   have hL : LBIso o.t.PP.L (Xo.univ.t.PP.L.pull m.cm.F) := by
     obtain ⟨w, hw, -⟩ := m.lin
     exact ⟨w, hw⟩

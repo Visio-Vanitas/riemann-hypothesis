@@ -240,7 +240,7 @@ theorem exists_sqrt : Out.Laws → ∀ (h k : ℕ) (o : Type) [CommRing o] (ζ :
   haveI : IsNoetherianRing R₁ := Algebra.FiniteType.isNoetherianRing R R₁
   letI : Algebra ℚ R₁ := ((algebraMap R R₁).comp (algebraMap ℚ R)).toAlgebra
   obtain ⟨c₂, hpb₂, hc₂⟩ := pull_sieg (spMap ((algebraMap R R₁).comp β)) (spMap (algebraMap R R₁))
-    (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β (algebraMap R R₁)).symm c₁ hc₁
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β (algebraMap R R₁)).symm c₁ hc₁
   obtain ⟨φ₂, φ₂₂, hg₂, hsq₂, hiso₂, hlev₂⟩ := hpb₂
   obtain ⟨i, hi⟩ := lab₁ c₂.A φ₂ hg₂
 
@@ -249,7 +249,7 @@ theorem exists_sqrt : Out.Laws → ∀ (h k : ℕ) (o : Type) [CommRing o] (ζ :
   letI : Algebra ℚ R₂ := ((algebraMap R₁ R₂).comp (algebraMap ℚ R₁)).toAlgebra
   obtain ⟨c₃, hpb₃, hc₃⟩ := pull_sieg (spMap ((algebraMap R₁ R₂).comp ((algebraMap R R₁).comp β)))
     (spMap (algebraMap R₁ R₂))
-    (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ((algebraMap R R₁).comp β) (algebraMap R₁ R₂)).symm c₂ hc₂
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ((algebraMap R R₁).comp β) (algebraMap R₁ R₂)).symm c₂ hc₂
   obtain ⟨φ₃, φ₃₂, hg₃, hsq₃, hiso₃, hlev₃⟩ := hpb₃
   obtain ⟨i₃, hi₃l, hi₃⟩ := exists_pull_labels hg₃ 2 i hi
   have hLlb : (lbPow (c₂.diag.pull φ₃) 2).IsLB := isLB_lbPow (pull_isLB (diag_isLB c₂) _) 2
@@ -276,7 +276,7 @@ theorem exists_sqrt : Out.Laws → ∀ (h k : ℕ) (o : Type) [CommRing o] (ζ :
   · first | exact Module.FaithfullyFlat.trans R R₁ R₂
   · have e : spMap (algebraMap R R₂) ≫ f =
         ((𝟙 _ ≫ spMap (algebraMap R₁ R₂)) ≫ spMap (algebraMap R R₁)) ≫ f := by
-      rw [Category.id_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+      rw [Category.id_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rw [e]
     exact hψ₀
   · intro K _ _ x y hy

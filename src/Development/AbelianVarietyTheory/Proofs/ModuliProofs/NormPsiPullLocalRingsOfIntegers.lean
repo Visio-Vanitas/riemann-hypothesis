@@ -85,8 +85,8 @@ theorem norm_psi_pull : ∀ (p : ℕ) [Fact p.Prime] (V V' : Type) [CommRing V] 
   let F := PadicAlgCl p
   let ψ' : V' →+* F := (algebraMap (FractionRing V') F).comp (algebraMap V' (FractionRing V'))
   have hsq : jFK (R := V') F ≫ jK V' ≫ spMap φ = jFK (R := V) F ≫ jK V := by
-    refine ((congrArg (jFK (R := V') F ≫ ·) (spMap_comp φ _).symm).trans (spMap_comp _ _).symm).trans
-      ((congrArg spMap ?_).trans (spMap_comp _ _))
+    refine ((congrArg (jFK (R := V') F ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ _).symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans
+      ((congrArg spMap ?_).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
     exact RingHom.ext fun v => (hφ v).symm
   have z : Sp F := (default : PrimeSpectrum F)
   let Φ := hD.e.hom.left ≫ pullback.fst D.P.A.hom (specOf φ)
@@ -116,7 +116,7 @@ theorem norm_psi_pull : ∀ (p : ℕ) [Fact p.Prime] (V V' : Type) [CommRing V] 
   rw [Category.comp_id, ← valF_eq_valR'] at a a'
   have b := toStk_map_valR ψ' (D'.c χ).left U hU z (hD.w.s (fun _ => j, j'))
   have hpt : spMap ψ' ≫ (D'.c χ).left = jFK (R := V') F ≫ D'.xK χ :=
-    (congrArg (· ≫ (D'.c χ).left) (spMap_comp _ _)).trans (Category.assoc _ _ _)
+    (congrArg (· ≫ (D'.c χ).left) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)).trans (Category.assoc _ _ _)
   have b' : toStk z (ψ' (valR (D'.c χ).left U (hD.w.s (fun _ => j, j')).val)) =
       (gw hD.w (jFK (R := V') F ≫ D'.xK χ) z j j').val := by
     rw [← hpt]; exact b

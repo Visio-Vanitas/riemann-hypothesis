@@ -879,10 +879,6 @@ noncomputable def preHom {X : Scheme.{0}} (G : Over X) [GrpObj G] {A B : Over X}
   map_one' := MonObj.comp_one u
   map_mul' g h := MonObj.comp_mul u g h
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 theorem sp_id {A : Type} [CommRing A] : spMap (RingHom.id A) = 𝟙 _ := by
   rw [← Spec.map_id]; rfl
 
@@ -913,11 +909,11 @@ theorem PositivityTheory.Xgn.full_torsion_packing : ∀ (X : Scheme.{0}) (G : Ov
   obtain ⟨e', he, he'⟩ := exists_inv R
   have hu : spMap e' ≫ ξ = (genPt R).hom ≫ x := by
     have h0 : spMap e' ≫ spMap (algebraMap R Ω) = spMap (algebraMap R (FractionRing R)) := by
-      rw [sp_comp, he']
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he']
     subst hx
     exact (Category.assoc _ _ _).symm.trans (congrArg (· ≫ x) h0)
   have hee : spMap (fracToField R) ≫ spMap e' = 𝟙 _ := by
-    rw [sp_comp, he, sp_id]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he, sp_id]
   let u : Over.mk ((genPt R).hom ≫ x) ⟶ Over.mk ξ := Over.homMk (spMap e') hu
   let τ : T →* (Over.mk ((genPt R).hom ≫ x) ⟶ G) := (preHom G u).comp pt
   have hτ : ∀ t, (τ t).left = spMap e' ≫ (pt t).left := fun t => rfl
@@ -935,7 +931,7 @@ theorem PositivityTheory.Xgn.full_torsion_packing : ∀ (X : Scheme.{0}) (G : Ov
     intro Ω' _ _ a g hg
     have hw : spMap (a.comp e') ≫ ξ = Spec.map (CommRingCat.ofHom a) ≫ (genPt R).hom ≫ x := by
       have h0 : spMap (a.comp e') ≫ ξ = spMap a ≫ spMap e' ≫ ξ := by
-        rw [← sp_comp, Category.assoc]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       exact h0.trans (congrArg (spMap a ≫ ·) hu)
     let w : Over.mk (spMap (a.comp e') ≫ ξ) ⟶
         Over.mk (Spec.map (CommRingCat.ofHom a) ≫ (genPt R).hom ≫ x) :=
@@ -963,7 +959,7 @@ theorem PositivityTheory.Xgn.full_torsion_packing : ∀ (X : Scheme.{0}) (G : Ov
     refine ⟨t, ?_⟩
     have h3 : (preHom G w g).left = g.left := Category.id_comp _
     have h4 : ∀ q : Spec (CommRingCat.of Ω) ⟶ G.left, spMap (a.comp e') ≫ q = spMap a ≫ spMap e' ≫ q := fun q => by
-      rw [← sp_comp, Category.assoc]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     exact h3.symm.trans (hx₀.trans (h4 _)))
   exact ⟨Γ, i, hΓ, fun t => (hpt t).trans (congrArg (spMap (fracToField R) ≫ ·) (hi t).symm)⟩
 end -- clump:auto

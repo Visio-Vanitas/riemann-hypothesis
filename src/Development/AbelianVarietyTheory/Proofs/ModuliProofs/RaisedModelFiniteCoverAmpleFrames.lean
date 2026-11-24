@@ -153,14 +153,14 @@ theorem exists_cover (L₁ : Out.Laws) (L₂ : Out.Laws2) (L₃ : Out.Laws3) {D 
   obtain ⟨r', hr₁, hr₂⟩ : ∃ r' : (Xo l').XF c' ⟶ (Xo l).XF c, r' ≫ pullback.fst _ _ = r ∧
       r' ≫ pullback.snd _ _ = pullback.snd _ _ ≫ spMap (IntermediateField.inclusion hc).toRingHom :=
     ⟨pullback.lift r (pullback.snd _ _ ≫ spMap (IntermediateField.inclusion hc).toRingHom)
-      (by rw [hr, hkk, spMap_comp, Category.assoc]), pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
+      (by rw [hr, hkk, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]), pullback.lift_fst _ _ _, pullback.lift_snd _ _ _⟩
   obtain ⟨ν', hν'⟩ := LevelCover.sab_cancel Y.m0.toSABMap ν r' hr₁
   have hl' : LevComp o Y.oF r' ν' :=
     ⟨fun x => LevelCover.sec_cancel ν' Y.m0.toSABMap _ _ (by
         rw [hν', hl.1, ← hr₁, Category.assoc]; exact congrArg _ (Y.m0.eta x).symm),
       fun x => LevelCover.sec_cancel ν' Y.m0.toSABMap _ _ (by
         rw [hν', hl.2, ← hr₁, Category.assoc]; exact congrArg _ (Y.m0.etaA x).symm)⟩
-  obtain ⟨e, he⟩ := lift_lift (Xo l).s _ _ (spMap k) (by rw [hkk, spMap_comp]) r _ hr r' hr₁ hr₂
+  obtain ⟨e, he⟩ := lift_lift (Xo l).s _ _ (spMap k) (by rw [hkk, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) r _ hr r' hr₁ hr₂
   have hf' : IsFinite (pullback.lift r' _ hr₂) := by rw [he]; infer_instance
   have hs' : Surjective (pullback.lift r' _ hr₂) := by rw [he]; infer_instance
   have hsm : Smooth (pullback.snd (Xo l').s (spMap (IntermediateField.inclusion c'.le).toRingHom)) := by

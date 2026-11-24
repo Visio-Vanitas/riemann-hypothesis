@@ -421,7 +421,7 @@ theorem descends_of_raises : Out.Laws → Out.Laws2 → Out.Laws3 → ∀ (E : T
   have hover : r ≫ (Xo l₀).s = (pullback.fst _ _ ≫ r₁) ≫ (Xo l₀).s := by
     have := mono_spMap_of_isDedFrac hD₀
     rw [← cancel_mono (spMap B.β), Category.assoc, ← _root_.GlobalTheory.Models.Cpt.openImmersion_comp_structure_eq_generic B.C, ← Category.assoc, ← a.j_comm, Category.assoc,
-      a.π_over, ← Category.assoc, _root_.GlobalTheory.Models.Cpt.openImmersion_comp_structure_eq_generic, Category.assoc, ← spMap_comp, hbβ, spMap_comp, spMap_comp,
+      a.π_over, ← Category.assoc, _root_.GlobalTheory.Models.Cpt.openImmersion_comp_structure_eq_generic, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hbβ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc, Category.assoc, reassoc_of% hr₁, pullback.condition_assoc]
   obtain ⟨e₁, e₂⟩ := GlobalTheory.LevUniq.map_to_univ_unique h1 h2 h3 E H D l₀ l (Xo l₀) _ _ _ _ Y.oF r _ ν ν₂ hred hover hlev
     (levComp_comp Y.m0 hlev₁ ν₂ hν₂)

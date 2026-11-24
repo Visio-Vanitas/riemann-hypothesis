@@ -114,7 +114,7 @@ theorem xL_zero (hz : ∀ m, Formalism.L2.Pj.homAt (𝟙 (Sp T.V)) (jetAug : Jet
     (m : ℕ) : spMap ((jetAug : Jet T.Fr (Fin 1 × Fin d) m →ₐ[T.Fr] T.Fr) : Jet T.Fr (Fin 1 × Fin d) m →+* T.Fr) ≫
       xL I xT m = η[I.t'.G].left := by
   apply ext2 I
-  · rw [Category.assoc, xL_fst, ← Category.assoc, spMap_comp', jetCoef_aug, ← spMap_comp', Category.assoc,
+  · rw [Category.assoc, xL_fst, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, jetCoef_aug, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc,
       unit_push I.m2.cart]
     have e := congrArg CommaMorphism.left (hz m)
     change spMap _ ≫ (xT m).left = (spMap (algebraMap T.V T.V) ≫ 𝟙 _) ≫ η[I.G.G].left at e
@@ -127,7 +127,7 @@ theorem xL_trunc (ht : ∀ m, Formalism.L2.Pj.homAt (𝟙 (Sp T.V))
     (m : ℕ) : spMap ((jetTrunc : Jet T.Fr (Fin 1 × Fin d) (m + 1) →ₐ[T.Fr] Jet T.Fr (Fin 1 × Fin d) m) :
       Jet T.Fr (Fin 1 × Fin d) (m + 1) →+* Jet T.Fr (Fin 1 × Fin d) m) ≫ xL I xT (m + 1) = xL I xT m := by
   apply ext2 I
-  · rw [Category.assoc, xL_fst, xL_fst, ← Category.assoc, spMap_comp', jetCoef_trunc, ← spMap_comp',
+  · rw [Category.assoc, xL_fst, xL_fst, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, jetCoef_trunc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc]
     exact congrArg (spMap (jc (d := d) 1 m) ≫ ·) (congrArg CommaMorphism.left (ht m))
   · rw [Category.assoc, xL_snd, xL_snd, spMap_algHom_alg]
@@ -140,7 +140,7 @@ theorem xL_act (actT : Fin d → MvPowerSeries (Fin 1 × Fin d) T.V) (a : 𝓞 E
           Jet T.Fr (Fin 1 × Fin d) m →+* Jet T.Fr (Fin 1 × Fin d) m) ≫ xL I xT m := by
   apply ext2 I
   · rw [Category.assoc, I.m2.act a, ← Category.assoc, xL_fst, Category.assoc, Category.assoc, xL_fst,
-      ← Category.assoc (spMap _) (spMap _), spMap_comp', ← jetCoef_substP, ← spMap_comp', Category.assoc]
+      ← Category.assoc (spMap _) (spMap _), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← jetCoef_substP, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     exact congrArg (spMap (jc (d := d) 1 m) ≫ ·) (congrArg CommaMorphism.left ha)
   · rw [Category.assoc, Over.w (I.t'.act.act a), Category.assoc, xL_snd, spMap_algHom_alg]
 

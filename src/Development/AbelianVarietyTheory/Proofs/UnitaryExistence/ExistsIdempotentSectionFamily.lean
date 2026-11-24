@@ -185,10 +185,6 @@ theorem const_on_component {k : Type} [Field k] (σ : k →+* ℂ) {Y : Scheme.{
     (fun m B y hB hy hh => ht m B _ hB (fun b hb => by rw [Category.assoc, hy b hb])
       (GlobalTheory.LocLift.isHolTo_comp_hom hh _)) p' q' (by simpa using hp) (by simpa using hq)
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 theorem exists_descent {K L : IntermediateField ℚ ℂ} (hKL : K ≤ L) {X : Scheme.{0}} (s : X ⟶ Sp K)
     [LocallyOfFiniteType s] (x : Sp L ⟶ X) (hx : x ≫ s = spMap (IntermediateField.inclusion hKL).toRingHom) :
     ∃ S : Finset ℂ, (∀ z ∈ S, z ∈ L) ∧ ∀ (F : IntermediateField ℚ ℂ) (hK : K ≤ F) (hL : F ≤ L), (∀ z ∈ S, z ∈ F) →
@@ -233,7 +229,7 @@ theorem exists_descent {K L : IntermediateField ℚ ℂ} (hKL : K ≤ L) {X : Sc
   refine ⟨spMap ψ ≫ i, (hcomp F ψ _).2 fun a => Subtype.ext ?_, ?_⟩
   · show (φ (algebraMap K R a) : ℂ) = a
     rw [hφ]; rfl
-  · rw [← Category.assoc, spMap_comp]
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
 
 theorem exists_rational_components {K : IntermediateField ℚ ℂ} (hKL : K ≤ algebraicClosure ℚ ℂ) {X : Scheme.{0}}
@@ -270,7 +266,7 @@ theorem exists_rational_components {K : IntermediateField ℚ ℂ} (hKL : K ≤ 
     exact hS C z h
   have hcomp : spMap (IntermediateField.inclusion hL).toRingHom ≫ spMap (IntermediateField.inclusion hK).toRingHom =
       spMap (IntermediateField.inclusion hKL).toRingHom := by
-    rw [spMap_comp]; rfl
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   let π : Z ⟶ pullback s (spMap (IntermediateField.inclusion hK).toRingHom) :=
     pullback.lift (pullback.fst _ _) (g ≫ spMap (IntermediateField.inclusion hL).toRingHom)
       (by rw [Category.assoc, hcomp, pullback.condition])
@@ -310,14 +306,14 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : ReciprocityTheo
   {l : Level H} {Xo : Moduli Dw l} {c : Coeff l}
 
 def basePt {S : Type} [CommRing S] [Algebra c.F S] (y : FrPt Xo c S) : Sp S ⟶ Xo.XF c :=
-  pullback.lift y.x (spMap (algebraMap c.F S)) (by rw [y.x_over, spMap_comp]; rfl)
+  pullback.lift y.x (spMap (algebraMap c.F S)) (by rw [y.x_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl)
 
 theorem basePt_map {S T : Type} [CommRing S] [Algebra c.F S] [CommRing T] [Algebra c.F T] (φ : S →ₐ[c.F] T)
     (y : FrPt Xo c S) (z : FrPt Xo c T) (h : z.x = spMap φ.toRingHom ≫ y.x) :
     basePt z = spMap φ.toRingHom ≫ basePt y := by
   apply pullback.hom_ext
   · simp only [basePt, Category.assoc, pullback.lift_fst, h]
-  · simp only [basePt, Category.assoc, pullback.lift_snd, spMap_comp]
+  · simp only [basePt, Category.assoc, pullback.lift_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact φ.comp_algebraMap.symm
 

@@ -62,8 +62,8 @@ private lemma exists_algHom {κ B C : Type} [Field κ] [CommRing B] [CommRing C]
     ∃ φ : B →ₐ[κ] C, spMap φ.toRingHom = f := by
   obtain ⟨φ, rfl⟩ : ∃ φ, f = Spec.map φ := ⟨Spec.preimage f, (Spec.map_preimage f).symm⟩
   have hφ : φ.hom.comp (algebraMap κ B) = algebraMap κ C := by
-    apply _root_.GlobalTheory.ZM.DenseFib.spMap_inj
-    rw [← _root_.GlobalTheory.spMap_comp_ring]
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact hf
   exact ⟨{ toRingHom := φ.hom, commutes' := fun r => RingHom.congr_fun hφ r }, rfl⟩
 
@@ -71,7 +71,7 @@ private noncomputable def ptOf {κ B : Type} [Field κ] [CommRing B] [Algebra κ
     𝟙_ (Over (Sp κ)) ⟶ algPt κ B :=
   Over.homMk (spMap ε.toRingHom) (by
     show spMap ε.toRingHom ≫ spMap (algebraMap κ B) = 𝟙 _
-    rw [_root_.GlobalTheory.spMap_comp_ring, ← _root_.GlobalTheory.LevelFibre.spMap_id']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.GlobalTheory.LevelFibre.spMap_id']
     congr 1
     ext r
     simp)
@@ -88,7 +88,7 @@ private lemma ptOf_surj {κ B : Type} [Field κ] [CommRing B] [Algebra κ B] (y 
 private lemma ptOf_inj {κ B : Type} [Field κ] [CommRing B] [Algebra κ B] {ε ε' : B →ₐ[κ] κ}
     (h : ptOf ε = ptOf ε') : ε = ε' := by
   have h1 : spMap ε.toRingHom = spMap ε'.toRingHom := congrArg CommaMorphism.left h
-  have h2 := _root_.GlobalTheory.ZM.DenseFib.spMap_inj h1
+  have h2 := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq h1
   ext x
   exact RingHom.congr_fun h2 x
 
@@ -147,16 +147,16 @@ theorem UpperTheory.Gal.crystallineComparison.Mod.repHomog_of :
         have h' : spMap (τ.comp τ').toRingHom = spMap (RingHom.id B) := by
           rw [_root_.GlobalTheory.LevelFibre.spMap_id']
           show spMap (τ.toRingHom.comp τ'.toRingHom) = _
-          rw [← _root_.GlobalTheory.spMap_comp_ring, hτ, hτ']
+          rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hτ, hτ']
           exact congrArg CommaMorphism.left h1
-        exact AlgHom.ext fun x => RingHom.congr_fun (_root_.GlobalTheory.ZM.DenseFib.spMap_inj h') x
+        exact AlgHom.ext fun x => RingHom.congr_fun (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq h') x
       have e2 : τ'.comp τ = AlgHom.id κ B := by
         have h' : spMap (τ'.comp τ).toRingHom = spMap (RingHom.id B) := by
           rw [_root_.GlobalTheory.LevelFibre.spMap_id']
           show spMap (τ'.toRingHom.comp τ.toRingHom) = _
-          rw [← _root_.GlobalTheory.spMap_comp_ring, hτ, hτ']
+          rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hτ, hτ']
           exact congrArg CommaMorphism.left h2
-        exact AlgHom.ext fun x => RingHom.congr_fun (_root_.GlobalTheory.ZM.DenseFib.spMap_inj h') x
+        exact AlgHom.ext fun x => RingHom.congr_fun (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq h') x
       refine ⟨AlgEquiv.ofAlgHom τ τ' e1 e2, ?_⟩
       rw [AlgEquiv.coe_algHom_ofAlgHom]
       apply ptOf_inj
@@ -164,4 +164,4 @@ theorem UpperTheory.Gal.crystallineComparison.Mod.repHomog_of :
       show spMap (ε₀.toRingHom.comp τ.toRingHom) = (ptOf ε).left
       rw [← hpt]
       show _ = spMap ε₀.toRingHom ≫ s.left
-      rw [← hτ, _root_.GlobalTheory.spMap_comp_ring]
+      rw [← hτ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]

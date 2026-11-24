@@ -272,14 +272,14 @@ theorem exists_levMove_of_frOver : Laws → ∀ (E : Type) [Field E] [NumberFiel
     intro z v hv
     obtain ⟨q, -⟩ := exists_objMap hv L₀
     refine (Xo.rep (Sp k) (y.x ≫ Xo.s) inferInstance o).unique ⟨?_, ⟨q⟩⟩ ⟨rfl, ⟨p⟩⟩
-    rw [Category.assoc, hs, ← Category.assoc, z.x_over, y.x_over, sOf, sOf, ← Geo.Tor.spMap_comp]
+    rw [Category.assoc, hs, ← Category.assoc, z.x_over, y.x_over, sOf, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a
     refine Eq.trans (congrArg (algebraMap d.c₂.F k) (Subtype.ext ?_)) (hk (IntermediateField.inclusion c.le a))
     exact hj a
   have lw : ∀ z : FrPt d.Xo₂ d.c₂ k, z.x ≫ d.Xo₂.s =
       spMap (algebraMap d.c₂.F k) ≫ spMap (IntermediateField.inclusion d.c₂.le).toRingHom := fun z =>
-    z.x_over.trans (Geo.Tor.spMap_comp _ _)
+    z.x_over.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   obtain ⟨⟨g, ρ, hg, hρ, -, hy⟩, -⟩ := hfib k (pullback.lift _ _ (lw y₂)) (pullback.lift _ _ (lw y₂')) (by
     apply pullback.hom_ext
     · rw [Category.assoc, Category.assoc, f₁, pullback.lift_fst_assoc, pullback.lift_fst_assoc, base y₂ u F₁,

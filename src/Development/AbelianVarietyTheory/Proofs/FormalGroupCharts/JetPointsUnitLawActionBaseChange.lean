@@ -55,12 +55,6 @@ noncomputable section
 
 namespace GlobalTheory.JetPointBC
 
-theorem spMap_spMap {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R' →+* R'')
-    (g : R →+* R') : spMap f ≫ spMap g = spMap (f.comp g) := by
-  unfold spMap
-  rw [← Spec.map_comp]
-  rfl
-
 section Maps
 
 variable {X0 : Scheme.{0}} {S S' : Type} [CommRing S] [CommRing S'] (ψ : S →+* S') (x0 : Sp S ⟶ X0)
@@ -68,21 +62,21 @@ variable {X0 : Scheme.{0}} {S S' : Type} [CommRing S] [CommRing S'] (ψ : S →+
 def baseMap : overAt (spMap ψ ≫ x0) S' ⟶ overAt x0 S :=
   Over.homMk (spMap ψ) (by
     show spMap ψ ≫ spMap (algebraMap S S) ≫ x0 = spMap (algebraMap S' S') ≫ spMap ψ ≫ x0
-    rw [← Category.assoc, ← Category.assoc, spMap_spMap, spMap_spMap]
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     first | done)
 
 def jetPtMap (d m n : ℕ) : jOG (spMap ψ ≫ x0) d m n ⟶ jOG x0 d m n :=
   Over.homMk (spMap (jetCoef ψ (Fin n × Fin d) m)) (by
     show spMap (jetCoef ψ (Fin n × Fin d) m) ≫ spMap (algebraMap S _) ≫ x0 =
       spMap (algebraMap S' _) ≫ spMap ψ ≫ x0
-    rw [← Category.assoc, ← Category.assoc, spMap_spMap, spMap_spMap, JetTr.jetCoef_alg])
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, JetTr.jetCoef_alg])
 
 theorem sq_aug (d m : ℕ) :
     homAt (spMap ψ ≫ x0) (jetAug : Jet S' (Fin 1 × Fin d) m →ₐ[S'] S') ≫ jetPtMap ψ x0 d m 1 =
       baseMap ψ x0 ≫ homAt x0 (jetAug : Jet S (Fin 1 × Fin d) m →ₐ[S] S) := by
   apply Over.OverMorphism.ext
   show spMap _ ≫ spMap (jetCoef ψ _ m) = spMap ψ ≫ spMap _
-  rw [spMap_spMap, spMap_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg spMap (JetTr.jetCoef_aug ψ _ m)
 
 theorem sq_subst {n n' d : ℕ} (m : ℕ) (φ : Fin n × Fin d → MvPolynomial (Fin n' × Fin d) S) :
@@ -92,7 +86,7 @@ theorem sq_subst {n n' d : ℕ} (m : ℕ) (φ : Fin n × Fin d → MvPolynomial 
         homAt x0 (jetSubstP m φ : Jet S (Fin n × Fin d) m →ₐ[S] Jet S (Fin n' × Fin d) m) := by
   apply Over.OverMorphism.ext
   show spMap _ ≫ spMap (jetCoef ψ _ m) = spMap (jetCoef ψ _ m) ≫ spMap _
-  rw [spMap_spMap, spMap_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg spMap (JetTr.jetCoef_substP ψ m φ).symm
 
 theorem sq_copy (d m n : ℕ) (i : Fin n) :
@@ -102,7 +96,7 @@ theorem sq_copy (d m n : ℕ) (i : Fin n) :
         homAt x0 (jetCopy d m i : Jet S (Fin 1 × Fin d) m →ₐ[S] Jet S (Fin n × Fin d) m) := by
   apply Over.OverMorphism.ext
   show spMap _ ≫ spMap (jetCoef ψ _ m) = spMap (jetCoef ψ _ m) ≫ spMap _
-  rw [spMap_spMap, spMap_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   exact congrArg spMap (JetTr.jetCoef_copy ψ d m n i).symm
 
 end Maps

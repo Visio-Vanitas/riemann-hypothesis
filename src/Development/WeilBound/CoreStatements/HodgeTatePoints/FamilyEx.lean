@@ -312,12 +312,12 @@ theorem family_ex_of' (hfib : ∀ (E : Type) [Field E] [NumberField E] [IsCMFiel
     · obtain ⟨b, hb⟩ := exists_factor (Y.x i) j hi
       obtain ⟨gi, hgi, hgit⟩ := bc b hb gA
       have e : spMap ((C.v i).valuationSubring.subtype.comp b) = spMap a := by
-        rw [← cancel_mono j, ← ha, ← spMap_comp', Category.assoc, ← hb]
+        rw [← cancel_mono j, ← ha, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← hb]
         exact Y.gen i
       obtain rfl : (C.v i).valuationSubring.subtype.comp b = a :=
         congrArg CommRingCat.Hom.hom (Spec.map_injective e)
       refine ⟨gi, g.B, φ₀, ψ₀, lam₀, isMapOf_cancel hgi hg, h₀, fun _ => ⟨rfl, rfl, rfl⟩, fun l => ?_⟩
-      rw [hgit, ← Category.assoc, spMap_comp', dualMap_comp', ← hgt]
+      rw [hgit, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp', ← hgt]
       exact h₀t l
     · obtain ⟨d', ⟨gi⟩⟩ := _root_.GlobalTheory.CompanionTheory.Ar.Conj.GermInh.germ_local E H hs X0 t hP _ (Y.x i)
       obtain ⟨g₂, hg₂, hg₂t⟩ := bc (C.v i).valuationSubring.subtype (Y.gen i).symm gi

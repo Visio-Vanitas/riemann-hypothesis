@@ -200,7 +200,7 @@ theorem exists_good_chart_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMFi
   refine ⟨C', hC', ?_⟩
   obtain ⟨φ, hφ, hloc⟩ := exists_local_restrict T T' iT e he hv
   have hsq : spMap iT ≫ spMap (algebraMap T.V T.Fr) = spMap (algebraMap T'.V T'.Fr) ≫ spMap φ := by
-    rw [← spMap_comp, ← spMap_comp, hφ]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hφ]
   have tr : ∀ {S S' : Scheme.{0}} {s : SAB H S} {s' : SAB H S'} {f g : S' ⟶ S}, f = g → SABMap s' s f →
       Nonempty (SABMap s' s g) := by
     intro S S' s s' f g h m

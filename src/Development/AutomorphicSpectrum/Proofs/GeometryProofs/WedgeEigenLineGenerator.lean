@@ -250,10 +250,6 @@ theorem val_det (h : genPt ξ ⤳ centre z) {n : ℕ} {P : Matrix (Fin n) (Fin n
 
 end Val
 
-theorem spMap_inj {R R' : Type} [CommRing R] [CommRing R'] {f g : R →+* R'} (h : spMap f = spMap g) : f = g := by
-  have := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom this
-
 section Gen
 variable {S : Scheme.{0}} {G : Over S} [GrpObj G] [IsCommMonObj G] {F : Type} [Field F] {x : Sp F ⟶ S}
 
@@ -455,7 +451,7 @@ theorem rat_cocycle {F : Type} [Field F] {y : Sp F ⟶ Xo.XF c} {v v' : Vecs y D
     r' * A.det = r * B.det := by
   obtain ⟨βF, b₁, b₂, α, κ, hfr, ea, eb, hv, hw, hr⟩ := h
   obtain ⟨βF', b₁', b₂', α', κ', hfr', ea', eb', hv', hw', hr'⟩ := h'
-  obtain rfl : βF = βF' := spMap_inj (hfr.1.symm.trans hfr'.1)
+  obtain rfl : βF = βF' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hfr.1.symm.trans hfr'.1)
   obtain ⟨h0, c₁, c₂, α₀, κ₀, v₀, w₀, r₀, f₁, f₂, ea₀, eb₀, hv₀, hw₀, hfr₀, hr₀, -⟩ :=
     exists_chart Z τ a b hβ hτ hg βF y hfr.1 hfr.2.1
   obtain ⟨A₁, B₁, a₁, b₁c, d₁, e₁, l₁⟩ := vs_chart hg.1 hg.2.1 f₁ f₂ ea₀ eb₀ hv₀ hw₀ hfr₀ hr₀ hfr ea eb hv hw
@@ -485,7 +481,7 @@ theorem isGen_unique {F : Type} [Field F] {y : Sp F ⟶ Xo.XF c} {v : Vecs y D.p
   have hR₁' := hR₁
   obtain ⟨βF, -, -, -, -, hfr, -⟩ := hR'
   obtain ⟨βF', -, -, -, -, hfr₁, -⟩ := hR₁'
-  obtain rfl : βF = βF' := spMap_inj (hfr.1.symm.trans hfr₁.1)
+  obtain rfl : βF = βF' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hfr.1.symm.trans hfr₁.1)
   have : ∀ i, ∃ cf, IsComb cf v₀ (v₁ i) := fun i => (hfr.2.2.1.2 _ (hfr₁.2.2.1.1 i)).exists
   choose C hC using this
   have : ∀ i, ∃ cf, IsComb cf w₀ (w₁ i) := fun i => (hfr.2.2.2.2 _ (hfr₁.2.2.2.1 i)).exists
@@ -580,7 +576,7 @@ theorem isLineFn_repFn : IsLineFn U τ (repFn Z τ a b) := by
     obtain ⟨v₀, w₀, r₀, A₀, B₀, hR, a₀, b₀, d₀, e₀⟩ := id h
     have hR' := hR
     obtain ⟨βF', -, -, -, -, hfr₀, -⟩ := hR'
-    obtain rfl : βF = βF' := spMap_inj (hfr.1.symm.trans hfr₀.1)
+    obtain rfl : βF = βF' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (hfr.1.symm.trans hfr₀.1)
     have dA : A.det ≠ 0 := frame_det hfr.2.2.1 hfr'.2.2.1 hA
     have h' : IsGen Z τ a b y v' w' (r₀ * (B * B₀).det / (A * A₀).det) :=
       ⟨v₀, w₀, r₀, A * A₀, B * B₀, hR, comb_mul (fun k => (hfr₀.2.2.1.1 k).1) a₀ hA,

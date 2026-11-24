@@ -74,17 +74,17 @@ theorem locMod_exists : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (
     obtain ⟨m1, h1⟩ := sab_comp_exists n' z.Φ.m _ rfl
     obtain ⟨k, hk⟩ := sab_comp_exists n' z.m' _ rfl
     obtain ⟨m2, h2⟩ := sab_cancel_exists n k (spMap (algebraMap T.V T.Fr))
-      (by rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ])
+      (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ])
     exact ⟨⟨ρ, hρ, G, t', n, n', m1, m2, h1, h2.trans hk⟩⟩
   · obtain ⟨G, n, -⟩ := (pat_pullback E H _ _ ψ M.G).1
     obtain ⟨t', n', -⟩ := (pat_pullback E H _ _ i M.t').1
-    obtain ⟨N, hN⟩ := sab_comp_exists n M.n _ (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp M.ρ ψ)
-    obtain ⟨N', hN'⟩ := sab_comp_exists n' M.n' _ (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp iK i)
+    obtain ⟨N, hN⟩ := sab_comp_exists n M.n _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp M.ρ ψ)
+    obtain ⟨N', hN'⟩ := sab_comp_exists n' M.n' _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp iK i)
     obtain ⟨m1, h1⟩ := sab_comp_exists n' M.m1 (spMap (i.comp iK) ≫ z.x)
-      (by rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
+      (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
     obtain ⟨k, hk⟩ := sab_comp_exists n' M.m2 _ rfl
     obtain ⟨m2, h2⟩ := sab_cancel_exists n k (spMap (algebraMap T'.V T'.Fr))
-      (by rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψ])
+      (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψ])
     refine ⟨⟨ψ.comp M.ρ, ?_, G, t', N, N', m1, m2, ?_, ?_⟩, n, n', h1, h2.trans hk⟩
     · rw [← RingHom.comp_assoc, hψ, RingHom.comp_assoc, M.hρ, RingHom.comp_assoc]
     · rw [h1, hN', M.h1, Category.assoc]

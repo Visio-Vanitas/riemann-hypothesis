@@ -133,7 +133,7 @@ theorem finrank_eigenSub {K : Type} [Field K] [NumberField K] {P : Out.PolAV (Sp
     haveI := F.P₀.smoothDim
     exact SmoothOfRelativeDimension.smooth F.P₀.g F.P₀.A.hom
   have hN1 : LieMult act (spMap j ≫ spMap (algebraMap (𝓞 K) K)) (j.comp χ) N := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact hN
   have hN2 := (GlobalTheory.LiePull.lieMult_pull O (Sp (𝓞 K)) (Sp K) P.A F.P₀.A (spMap (algebraMap (𝓞 K) K)) F.φ act act'
     F.fib.2.1 ha k (spMap j) (j.comp χ) N).mpr hN1

@@ -188,10 +188,6 @@ structure Thick (γ : DividedPowers I) (s : X ⟶ Sp R) : Type 1 where
 
 attribute [instance] Thick.ring Thick.alg Thick.ring₀
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := by
-  exact Spec.map_comp (CommRingCat.ofHom f) (CommRingCat.ofHom g)
-
 theorem spMap_id (A : Type) [CommRing A] : spMap (RingHom.id A) = 𝟙 _ := by
   exact Spec.map_id (CommRingCat.of A)
 
@@ -222,7 +218,7 @@ instance : Category (Thick γ s) where
   id T := ⟨AlgHom.id R _, RingHom.id _, fun _ ↦ rfl, (DPMorphism.id T.δ).isDPMorphism, by
     rw [spMap_id, Category.id_comp]⟩
   comp f g := ⟨g.φ.comp f.φ, g.φ₀.comp f.φ₀, fun b ↦ by simp [f.comm, g.comm],
-    IsDPMorphism.comp _ g.dp f.dp, by rw [spMap_comp, Category.assoc, f.pt, g.pt]⟩
+    IsDPMorphism.comp _ g.dp f.dp, by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, f.pt, g.pt]⟩
 
 @[ext] theorem hom_ext {T T' : Thick γ s} {f g : T ⟶ T'}
     (h : ∀ b, f.φ b = g.φ b) : f = g := Hom.ext' (AlgHom.ext h)
@@ -280,7 +276,7 @@ theorem IsMor.comp {σ : R →+* R'} {φ : X' ⟶ X} {τ : R' →+* R''} {ψ : X
     (h : IsMor γ s γ' s' σ φ) (h' : IsMor γ' s' γ'' s'' τ ψ) :
     IsMor γ s γ'' s'' (τ.comp σ) (ψ ≫ φ) :=
   ⟨IsDPMorphism.comp _ h'.dp h.dp, by
-    rw [Category.assoc, h.w, ← Category.assoc, h'.w, Category.assoc, spMap_comp]⟩
+    rw [Category.assoc, h.w, ← Category.assoc, h'.w, Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]⟩
 
 variable {σ : R →+* R'} {φ : X' ⟶ X}
 
@@ -297,7 +293,7 @@ def IsMor.obj (h : IsMor γ s γ' s' σ φ) (T : Thick γ' s') : Thick γ s wher
   ker := T.ker
   x := T.x ≫ φ
   w := by
-    rw [Category.assoc, h.w, ← Category.assoc, T.w, ← spMap_comp]
+    rw [Category.assoc, h.w, ← Category.assoc, T.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 def IsMor.functor (h : IsMor γ s γ' s' σ φ) : Thick γ' s' ⥤ Thick γ s where
   obj := h.obj
@@ -523,7 +519,7 @@ variable {s : X ⟶ Sp R} (E E' : SqExt R)
 
 theorem red_w {y : Sp E.C ⟶ X} (hy : y ≫ s = spMap (algebraMap R E.C)) :
     (spMap (E.π : E.C →+* E.B) ≫ y) ≫ s = spMap (algebraMap R E.B) := by
-  rw [Category.assoc, hy, ← spMap_comp, E.π.comp_algebraMap]
+  rw [Category.assoc, hy, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, E.π.comp_algebraMap]
 
 def secHom {x : Sp E.B ⟶ X} (hx : x ≫ s = spMap (algebraMap R E.B)) (j : E.B →ₐ[R] E.C)
     (hj : ∀ b, E.π (j b) = b) : Thick.triv E.B x hx ⟶ E.thick x hx :=
@@ -574,7 +570,7 @@ theorem val_map (φ : E.C →ₐ[R] E'.C) (φ₀ : E.B →ₐ[R] E'.B) (hπ : �
       (E'.π : E'.C →+* E'.B).comp (φ : E.C →+* E'.C) := RingHom.ext hπ
   have ex : spMap (φ₀ : E.B →+* E'.B) ≫ spMap (E.π : E.C →+* E.B) ≫ y =
       spMap (E'.π : E'.C →+* E'.B) ≫ y' := by
-    rw [← Category.assoc, ← spMap_comp, hc, spMap_comp, Category.assoc, e]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, e]
   have s1 := Form.ev_sq f
     (Thick.trivHom (x := spMap (E.π : E.C →+* E.B) ≫ y) (hx := E.red_w hy)
       (T := Thick.triv E'.B _ (E'.red_w hy')) φ₀ (by rw [RingHom.id_comp]; exact ex))
@@ -666,7 +662,7 @@ theorem val_const (x : Sp E.B ⟶ X) (hx : x ≫ s = spMap (algebraMap R E.B)) (
     Thick.trivHom E.i (by
       change spMap ((RingHom.id E.C).comp (E.i : E.B →+* E.C)) ≫ spMap (E.π : E.C →+* E.B) ≫
           spMap (E.i : E.B →+* E.C) ≫ x = spMap (E.i : E.B →+* E.C) ≫ x
-      rw [RingHom.id_comp, ← Category.assoc (spMap (E.π : E.C →+* E.B)), ← spMap_comp, hpi,
+      rw [RingHom.id_comp, ← Category.assoc (spMap (E.π : E.C →+* E.B)), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hpi,
         spMap_id, Category.id_comp])
   have k : E.secHom (E.red_w hy) E.i E.π_i = lam ≫ E.idHom hy :=
     Thick.Hom.ext' (AlgHom.ext fun _ ↦ rfl)

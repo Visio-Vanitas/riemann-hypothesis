@@ -148,7 +148,7 @@ theorem exists_qkExt_of_inverse {D : DegPre R} {F F' : Type} [Field F] [Field F'
       (TorusExt.gtExt_val σ hσ _ χ hJ).trans ((val_corr hJ (h₂.2 χ) _).trans ((val_pull hJ _ _ _).trans
         (congrArg (fun r => val (D.tau q.y χ) r y J) (TorusExt.extMap_jFK σ hσ))))⟩
   have hs : spMap f ≫ spMap σ = 𝟙 _ := by
-    rw [← spMap_comp, h]; exact Spec.map_id (CommRingCat.of F')
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h]; exact Spec.map_id (CommRingCat.of F')
   obtain ⟨b, v⟩ := (TorusExt.eq_gtExt_iff σ hσ q.g _).1 rfl
   refine ⟨⟨q.y, TorusExt.gtExt D σ hσ q.g, _, e₁, e₂⟩, rfl, ?_, fun χ => corr_of_val D.P.isLB fun y J hJ => ?_⟩
   · show q.g.b.left = spMap f ≫ (TorusExt.gtExt D σ hσ q.g).b.left
@@ -234,9 +234,9 @@ theorem exists_isPullDeg (hC : CubeSt) (P : PolAV (Sp V)) (D : DegPre K) (Φ : D
   obtain ⟨σ, h₁, h₂⟩ := exists_fracInv V K
   let s : (TK V).left ⟶ (TK K).left := spMap σ
   have s₁ : genMap hi ≫ s = 𝟙 _ :=
-    (spMap_comp _ _).symm.trans ((congrArg spMap h₁).trans (Spec.map_id (CommRingCat.of (FractionRing K))))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap h₁).trans (Spec.map_id (CommRingCat.of (FractionRing K))))
   have s₂ : s ≫ genMap hi = 𝟙 _ :=
-    (spMap_comp _ _).symm.trans ((congrArg spMap h₂).trans (Spec.map_id (CommRingCat.of (FractionRing V))))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap h₂).trans (Spec.map_id (CommRingCat.of (FractionRing V))))
   have hx : ∀ χ, D.xK χ ≫ Φ = genMap hi ≫ ptK (c₀ χ) := fun χ => by
     show (jK K ≫ (D.c χ).left) ≫ Φ = genMap hi ≫ jK V ≫ (c₀ χ).left
     rw [Category.assoc, hc, ← Category.assoc, ← Category.assoc]

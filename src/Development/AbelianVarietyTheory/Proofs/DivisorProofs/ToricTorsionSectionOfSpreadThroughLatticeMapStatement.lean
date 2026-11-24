@@ -313,7 +313,7 @@ noncomputable section
 
 namespace GlobalTheory.SpreadTorSection
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem range_sub {W κ : Type} [CommRing W] [IsLocalRing W] [Field κ] {B : Scheme.{0}} (ψ : Sp W ⟶ B)
     (Wo : B.Opens) (c : W →+* κ) [IsLocalHom c] (y : Sp κ ⟶ Wo.toScheme) (e : spMap c ≫ ψ = y ≫ Wo.ι) :
@@ -392,9 +392,9 @@ theorem trait_section : ∀ (B : Scheme.{0}) (H : Over B) [GrpObj H] [IsCommMonO
   have hoW : spMap oW = ψ ≫ s := by
     show Spec.map (CommRingCat.ofHom (Spec.preimage (ψ ≫ s)).hom) = _
     rw [CommRingCat.ofHom_hom, Spec.map_preimage]
-  have ho₁ : α.comp oW = b₁.comp o₁ := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by
+  have ho₁ : α.comp oW = b₁.comp o₁ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
     rw [spMap_comp', spMap_comp', hoW, ← Category.assoc, hαψ, Category.assoc, hs₁])
-  have ho₂ : c'.comp oW = b₂.comp o₂ := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by
+  have ho₂ : c'.comp oW = b₂.comp o₂ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
     rw [spMap_comp', spMap_comp', hoW, ← Category.assoc, hc'ψ, Category.assoc, hs₂])
 
   have hζu : IsUnit ζ := IsUnit.of_pow_eq_one hζ (by omega)

@@ -549,10 +549,10 @@ theorem GlobalTheory.GenCxPt.exists_frPt_ptF_eq_genPt : ∀ (E : Type) [Field E]
   haveI := c.fin
   obtain ⟨e⟩ := nonempty_algHom_complex c.F (kap Z) Dw.dim ((GlobalTheory.Reg.kap_fg_trdeg E H Dw l Xo c).2 Z)
   have hsnd : spMap (e : kap Z →+* ℂ) ≫ genSp Z ≫ strK = spMap (algebraMap c.F ℂ) := by
-    rw [genSp_strK, _root_.GlobalTheory.spMap_comp_ring, AlgHom.comp_algebraMap]
+    rw [genSp_strK, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, AlgHom.comp_algebraMap]
   have hx : (spMap (e : kap Z →+* ℂ) ≫ xGen Z) ≫ Xo.s = sOf c ℂ := by
     rw [xGen, Category.assoc, Category.assoc, pullback.condition, ← Category.assoc (genSp Z),
-      ← Category.assoc, hsnd, sOf, _root_.GlobalTheory.spMap_comp_ring]
+      ← Category.assoc, hsnd, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨y, hy⟩ := GlobalTheory.FlagTan.exists_frPt _ hx
   refine ⟨y, fun s => ?_⟩
   have hpt : ptF y = spMap (e : kap Z →+* ℂ) ≫ genSp Z := by

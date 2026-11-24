@@ -571,13 +571,6 @@ attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace GlobalTheory.Desc.CommonChart
 
-theorem spc {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
-theorem spinj {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
-
 theorem flat_generic {X Y : Scheme.{0}} [IsIntegral X] [IsIntegral Y] (φ : Y ⟶ X) [Flat φ] :
     φ (genericPoint Y) = genericPoint X := by
   have hg : GeneralizingMap φ := Flat.generalizingMap φ
@@ -604,8 +597,8 @@ theorem gp_factor {E : Type} [CommRing E] [IsDomain E] {Y : Scheme.{0}} [IsInteg
   obtain ⟨c, hc, this⟩ := gp_spec (CommRingCat.of E)
   have hi : Function.Injective (θ.comp c) := θ.injective.comp hc
   refine ⟨spMap (IsFractionRing.lift hi), ?_⟩
-  rw [h, spc]
-  rw [this, spc]
+  rw [h, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  rw [this, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext z
   simp
@@ -685,7 +678,7 @@ theorem gen_part {X S : Scheme.{0}} {j : X ⟶ S} {A : Over X} [GrpObj A] {x : S
     (IsFractionRing.injective E (FractionRing E)).comp hi
   let aK : FractionRing C.R →+* FractionRing E := IsFractionRing.lift hi'
   have e : jK E ≫ spMap a = spMap aK ≫ jK C.R := by
-    rw [spc, spc]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext z
     simp [aK]
@@ -720,8 +713,8 @@ theorem ring_setup (σ : Setup) (x x' : Sp σ.R) (Ω : Type) [Field Ω] (u : (σ
   letI : Algebra σ.R ((Sp σ.R).presheaf.stalk z) := (StructureSheaf.toStalk σ.R z).hom.toAlgebra
   haveI : IsLocalization.AtPrime ((Sp σ.R).presheaf.stalk z) z.asIdeal := StructureSheaf.IsLocalization.to_stalk σ.R z
   have e : (Scheme.stalkClosedPointTo (σ.C x').ξ).hom.comp (algebraMap σ.R ((Sp σ.R).presheaf.stalk z)) = σ.ρ x' := by
-    apply spinj
-    rw [← spc, ← σ.hρ x']
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← σ.hρ x']
     have h := Scheme.Spec_stalkClosedPointTo_fromSpecStalk (σ.C x').ξ
     rw [Spec.fromSpecStalk_eq'] at h
     exact h
@@ -733,7 +726,7 @@ theorem ff_eq (σ : Setup) (x : Sp σ.R) {K : Type} [Field K] (θ : (σ.C x).G.l
     (t : Sp K ⟶ pullback (σ.C x).G.hom (jK (σ.C x).R)) (ht : t ≫ pullback.fst _ _ = spMap θ ≫ gp (σ.C x).G.left) :
     t ≫ (σ.C x).α = spMap (θ.comp (σ.θ x)) ≫ gp σ.A.left := by
   obtain ⟨l, h₁, h₂⟩ := σ.hθ x
-  rw [σ.compat x _ t (spMap θ ≫ l) (by rw [ht, Category.assoc, h₁]), Category.assoc, h₂, ← Category.assoc, spc]
+  rw [σ.compat x _ t (spMap θ ≫ l) (by rw [ht, Category.assoc, h₁]), Category.assoc, h₂, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 end GlobalTheory.Desc.CommonChart
 
@@ -747,7 +740,7 @@ theorem setup_common : ∀ σ : Setup, σ.Common := by
   obtain ⟨ya, la, hya, hla, pa⟩ := gen_part (σ.C x) a fa
   obtain ⟨yb, lb, hyb, hlb, pb⟩ := gen_part (σ.C x') b fb
   have hy : yb = ya := by
-    rw [← cancel_mono (awayMap σ.f), hya, hyb, σ.hρ, σ.hρ, spc _ a, spc _ b, hab]
+    rw [← cancel_mono (awayMap σ.f), hya, hyb, σ.hρ, σ.hρ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ a, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ b, hab]
   subst hy
   obtain ⟨e, he, hee⟩ := grpPullback_iso pa pb
   have sa := IsSemiAbelian.pullback (spMap a) _ (σ.C x).semi
@@ -782,7 +775,7 @@ theorem setup_common : ∀ σ : Setup, σ.Common := by
   have e₂ := ff_eq σ x' θb (m ≫ e.hom.left ≫ lb) (by
     rw [Category.assoc, Category.assoc, hlb, reassoc_of% hE, ← Category.assoc, hm, hb])
   haveI : Mono (gp σ.A.left) := by unfold gp; infer_instance
-  apply spinj
+  apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
   rw [← cancel_mono (gp σ.A.left), ← e₁, ← e₂, Category.assoc, Category.assoc, Category.assoc, hee]
 
 end GlobalTheory.Desc

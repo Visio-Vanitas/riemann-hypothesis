@@ -85,10 +85,10 @@ theorem comb_map {S S' : Type} [CommRing S] [CommRing S'] (φ : S →+* S') {x :
   let δ : tEpsG (spMap φ ≫ x) ⟶ tEpsG x := Over.homMk (spMap (dualMap φ)) (by
     show spMap (dualMap φ) ≫ spMap (algebraMap S (DualNumber S)) ≫ x =
       spMap (algebraMap S' (DualNumber S')) ≫ spMap φ ≫ x
-    rw [← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_alg])
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg])
   refine ⟨fun i => δ ≫ u i, fun i => ?_, ?_⟩
   · simp only [Over.comp_left, δ, Over.homMk_left]
-    rw [hu i, ← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_epsMul]
+    rw [hu i, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul]
   · rw [List.prod_ofFn, List.prod_ofFn, ← comp_prodT]
     rfl
 

@@ -76,7 +76,7 @@ theorem exists_finite_factor {R : Type} [CommRing R] [Algebra.FiniteType ℤ R] 
   exact ⟨K, hK, y₀.codRestrict K hy, fun _ => rfl, fun x hx =>
     IntermediateField.subset_adjoin _ _ (Finset.mem_coe.2 (Finset.mem_union_right _ hx))⟩
 
-alias spMap_spMap := _root_.GlobalTheory.SplitReduction.spMap_comp
+alias spMap_spMap := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem exists_polBaseChange (hB : PolBaseChangeSt) {S S' : Scheme.{0}} (f : S' ⟶ S) (P : PolAV S) :
     ∃ (P' : PolAV S') (φ : P'.A.left ⟶ P.A.left), IsGrpPullback P'.A P.A f φ ∧ LBIso P'.L (P.L.pull φ) := by

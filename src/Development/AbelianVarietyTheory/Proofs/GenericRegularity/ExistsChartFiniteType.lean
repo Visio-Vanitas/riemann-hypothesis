@@ -105,7 +105,7 @@ theorem model_points_charts :
   refine ⟨?_, ?_, ?_⟩
   · intro W L _ _ _ _ _ _ oV fK y hc hy
     apply existsUnique_extension Y.s (y ≫ Y.j) (spMap oV)
-    rw [Category.assoc, Model.j_s, ← Category.assoc, hy, ← spMap_comp, ← spMap_comp, hc]
+    rw [Category.assoc, Model.j_s, ← Category.assoc, hy, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc]
   · intro S f
     have hp := sabPull ReciprocityTheory.ChartRestriction.G.Out.CubePf.cubePull f Y.t
     exact ⟨_, ⟨hp.choose_spec.choose_spec.choose_spec.choose_spec.choose_spec.choose⟩⟩

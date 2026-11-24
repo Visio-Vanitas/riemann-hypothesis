@@ -313,7 +313,7 @@ theorem exists_known_point : Out.Laws → ThetaUnifAV → ∀ (h k : ℕ) (K : T
   obtain ⟨ladd, ltors, lweil⟩ := hlev.level hk0
   obtain ⟨ρ, ρinj, hρ, ρw⟩ := exists_secHom_field hL pψ
   have es : spMap (algebraMap k₁ ℂ) ≫ spMap (IntermediateField.inclusion le₁).toRingHom = spMap (algebraMap k₀ ℂ) :=
-    (spMap_comp _ _).symm
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   obtain ⟨b, hb⟩ := UnifPoint.exists_pointEquiv ((pψ.1.comp p₁.1).congr es rfl)
   obtain ⟨b₁, hb₁⟩ := UnifPoint.exists_pointEquiv p₁.1
   have desc : ∀ a, ∃ t, ρ t = lev a := fun a => by
@@ -810,7 +810,7 @@ theorem exists_affine {K : Type} [CommRing K] {X : Scheme.{0}} (s : X ⟶ Sp K) 
   · exact (congrArg (· ≫ hV.fromSpec) (Spec.map_preimage _)).trans (IsOpenImmersion.lift_fac _ _ _)
   · exact (congrArg (· ≫ hV.fromSpec) (Spec.map_preimage _)).trans (IsOpenImmersion.lift_fac _ _ _)
 
-alias spMap_inj := _root_.GlobalTheory.ZM.DenseFib.spMap_inj
+alias spMap_inj := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
 
 end GlobalTheory.KeyFam.PolFamPf
 
@@ -823,14 +823,14 @@ theorem GlobalTheory.KeyFam.polFam : Out.Laws → Out.Laws2 → ThetaUnifAV → 
   obtain ⟨p, χ, hp, hP, hlev⟩ := exists_point_of_perLev hL P.g k K ζ σ F hg hk ho hζ P τ lev hper
   obtain ⟨K₁, _, _, j₁, σ₁, y, q, χy, τ', hσ, hq, hy, hyq, hpt⟩ :=
     GlobalTheory.T.exists_numberField_point_siegelFamily_knownValue hL hU P.g k K ζ σ F hg hk ho hζ inferInstance
-  have hq' : (spMap σ₁ ≫ q) ≫ F.s = spMap σ := by rw [Category.assoc, hq, ← spMap_comp, hσ]
+  have hq' : (spMap σ₁ ≫ q) ≫ F.s = spMap σ := by rw [Category.assoc, hq, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ]
   have hc := GlobalTheory.T.siegelFamily_standard_level_points_same_component hL hL2 hU hA P.g k K ζ σ F hg hk ho hζ τ τ' p _ hp hq' ⟨P, lev, χ, hper, hP, hlev⟩ hpt
   obtain ⟨R, _, i, a, p', q', hi, ha, rfl, rfl⟩ := exists_affine F.s F.qproj p q
   letI := σ.toAlgebra
   letI := j₁.toAlgebra
   letI := a.toAlgebra
-  have hp' : p'.comp a = σ := spMap_inj (by rw [spMap_comp, ← ha, ← hp, Category.assoc])
-  have hq'' : q'.comp a = j₁ := spMap_inj (by rw [spMap_comp, ← ha, ← hq, Category.assoc])
+  have hp' : p'.comp a = σ := spMap_inj (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ha, ← hp, Category.assoc])
+  have hq'' : q'.comp a = j₁ := spMap_inj (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ha, ← hq, Category.assoc])
   let pA : R →ₐ[K] ℂ := { p' with commutes' := fun r => DFunLike.congr_fun hp' r }
   let qA : R →ₐ[K] K₁ := { q' with commutes' := fun r => DFunLike.congr_fun hq'' r }
   let σA : K₁ →ₐ[K] ℂ := { σ₁ with commutes' := fun r => DFunLike.congr_fun hσ r }
@@ -839,7 +839,7 @@ theorem GlobalTheory.KeyFam.polFam : Out.Laws → Out.Laws2 → ThetaUnifAV → 
     exact SmoothOfRelativeDimension.smooth (P.g * (P.g + 1) / 2) F.s
   have hid := GlobalTheory.T.lift_idempotent_eq_of_sameComplexComponent K F.X F.s R i pA (σA.comp qA) hsm hi ha (by
     have e : spMap (σA.comp qA).toRingHom ≫ i = spMap σ₁ ≫ spMap q' ≫ i := by
-      rw [← Category.assoc, ← spMap_comp]; rfl
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
     rw [e]; exact hc)
   haveI : Algebra.Smooth K R := by
     have : Smooth (spMap a) := ha ▸ inferInstance
@@ -853,7 +853,7 @@ theorem GlobalTheory.KeyFam.polFam : Out.Laws → Out.Laws2 → ThetaUnifAV → 
   obtain ⟨R₁, _, _, Q, φ, ⟨c₁, c₂, c₃⟩, hQ, hT⟩ := GlobalTheory.T.exists_symmetric_sqrt_principal_siegel_finite_etale hL P.g k K ζ R F.X F.s F.univ i (by omega) hu F.princ
   obtain ⟨p₁, hp₁⟩ := exists_lift_point (R₁ := R₁) p'
   obtain ⟨Q', φ', ψ, hQ', hψ⟩ := exists_translate hL F.univ _ Q φ hQ hT (spMap p₁) P χ (by
-    rw [← Category.assoc, ← spMap_comp, hp₁]; exact hP)
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hp₁]; exact hP)
   letI : Algebra K R₁ := ((algebraMap R R₁).comp a).toAlgebra
   haveI : IsScalarTower K R R₁ := IsScalarTower.of_algebraMap_eq' rfl
   let p₁A : R₁ →ₐ[K] ℂ :=
@@ -863,7 +863,7 @@ theorem GlobalTheory.KeyFam.polFam : Out.Laws → Out.Laws2 → ThetaUnifAV → 
     GlobalTheory.T.geom_integral_of_etale_faithfully_flat_cover K R R₁ K₁ σA p₁A qA ⟨c₁, c₂, c₃⟩ (by rw [hpp]; exact hid)
   obtain ⟨Q'', π, hπ⟩ := exists_polPB hL.polBaseChange (spMap j) Q'
   obtain ⟨ψ', hψ'⟩ := polPB_cancel (g := spMap s) hπ (by
-    rw [← spMap_comp, hs]; exact hψ)
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hs]; exact hψ)
   refine ⟨k', inferInstance, inferInstance, S, inferInstance, inferInstance, Q'', s, s₀, ψ', hS, hψ',
     fun P₀ φ₀ h₀ => ?_⟩
   have a₁ := (sqOf_calculus _ k K ζ F.X _ _ F.s F.univ _).1 _ _ _ _ _
@@ -875,8 +875,8 @@ theorem GlobalTheory.KeyFam.polFam : Out.Laws → Out.Laws2 → ThetaUnifAV → 
   obtain ⟨β, -, w, hβg, -, hβ, hw, -⟩ := hy'
   have a₂ := (sqOf_calculus _ k K ζ F.X _ _ F.s F.univ _).1 _ _ _ _ _ hyq (⟨hβ, hβg, w, hw⟩ : PolPB y'.P y.P _ β)
   have e : spMap s₀.toRingHom ≫ spMap j ≫ spMap (algebraMap R R₁) ≫ i = spMap ii ≫ spMap q' ≫ i := by
-    rw [← Category.assoc, ← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp, ← spMap_comp, hs₀,
-      spMap_comp, Category.assoc]
+    rw [← Category.assoc, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hs₀,
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   rw [e] at a₁
   obtain ⟨ε, hε, -, hl⟩ := (sqOf_calculus _ k K ζ F.X _ (Sp k') F.s F.univ _).2.1 _ _ _ _ a₂ a₁
   exact GlobalTheory.T.potentiallyKnown_of_same_lambdaBundle hL hU k' y' P₀ ε hε hl hk'

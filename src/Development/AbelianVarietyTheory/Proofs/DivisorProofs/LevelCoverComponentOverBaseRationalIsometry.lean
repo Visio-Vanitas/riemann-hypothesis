@@ -183,7 +183,7 @@ theorem over_comp : ∀ (D : D7) (j : ℕ) (H : ReciprocityTheory.ChartRestricti
   letI : Field (CAt σ) := inferInstanceAs (Field ℂ)
   have hy : (F₂.u (ik₂ k₂) P₀ ≫ d.r) ≫ Xo.s = spMap (σ.comp (IntermediateField.inclusion c.le).toRingHom) := by
     rw [CategoryTheory.Category.assoc, GlobalTheory.ClsVal.Cmp.point_over_of_ne hpq hA d hle,
-      ← CategoryTheory.Category.assoc, F₂.over_σ _ P₀ hp₀, GlobalTheory.ClsVal.Cmp.spMap_comp', hinc]
+      ← CategoryTheory.Category.assoc, F₂.over_σ _ P₀ hp₀, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hinc]
   have hframe {S : Type} [Field S] [Algebra c.F S] (x : Sp S ⟶ Xo.X)
       (hx : x ≫ Xo.s = sOf c S) : ∃ y : FrPt Xo c S, y.x = x := by
     choose u hu using fun τ => GlobalTheory.IntFramesCompare.exists_eigenBasisAt (c := c) hx τ

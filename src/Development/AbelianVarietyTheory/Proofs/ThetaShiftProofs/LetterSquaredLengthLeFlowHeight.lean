@@ -80,7 +80,7 @@ theorem isPull_scale {a : A} {ν ω : GtPt D₀ (epsR A)} {ν₁ ω₁ : GtPt D�
   have e : spMap (dualMap f) ≫ spMap (epsScaleR a) = spMap (epsScaleR (f a)) ≫ spMap (dualMap f) :=
     LieCombBaseChange.dualMap_epsScale f a
   have o : spMap (epsScaleR (f a)) ≫ (epsR A').hom = (epsR A').hom :=
-    (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun x => by
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun x => by
       simp [epsScaleR, TrivSqZeroExt.algebraMap_eq_inl]))
   have hb : ω₁.b.left = spMap (epsScaleR (f a)) ≫ ν₁.b.left := by
     refine gp.1.hom_ext ?_ ?_

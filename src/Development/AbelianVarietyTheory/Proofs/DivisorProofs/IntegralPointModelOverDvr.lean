@@ -246,8 +246,8 @@ theorem images_eigenBasis : ∀ (E : Type) [Field E] [NumberField E] [IsCMField 
     have hov : ∀ j, u' j ≫ t'.G.hom = spMap (algebraMap T.Fr (DualNumber T.Fr)) := by
       intro j
       apply spMap_frac_cancel (V := T.V)
-      rw [Category.assoc, ← m2.cart.1.w, ← Category.assoc, hu2, Category.assoc, Over.w (ub σ j), spMap_comp',
-        ← dualMap_comp_alg, ← spMap_comp']
+      rw [Category.assoc, ← m2.cart.1.w, ← Category.assoc, hu2, Category.assoc, Over.w (ub σ j), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+        ← dualMap_comp_alg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
     have hov' : ∀ j, (u' j ≫ k.φ) ≫ t₂.G.hom = spMap (algebraMap T.Fr (DualNumber T.Fr)) ≫ 𝟙 _ := by
       intro j
@@ -278,7 +278,7 @@ theorem images_eigenBasis : ∀ (E : Type) [Field E] [NumberField E] [IsCMField 
         apply hmono.right_cancellation
         have e3 : spMap (dualMap (algebraMap T.V T.Fr)) ≫ spMap (algebraMap T.V (DualNumber T.V)) ≫ xV =
             spMap (algebraMap T.Fr (DualNumber T.Fr)) ≫ yy ≫ Y.j := by
-          rw [← Category.assoc, spMap_comp', dualMap_comp_alg, ← spMap_comp', Category.assoc, hxV]
+          rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hxV]
         show (spMap _ ≫ yy) ≫ Y.j = w ≫ Y.oF.t.G.hom ≫ Y.jQ ≫ pullback.fst _ _
         rw [← Y.m.cart.1.w, ← Category.assoc w, hw, Category.assoc (spMap _) u, e1, e3, Category.assoc]
     have h5 := isCombAtG_push n₁ (𝟙 _) hc₂

@@ -324,7 +324,7 @@ theorem GlobalTheory.LevelFinite.finite_ratio_field : ∀ (o Ω : Type) [CommRin
   refine (hS.biUnion (fun y _ => hfib y)).subset ?_
   rintro _ ⟨m, rfl⟩
   refine Set.mem_biUnion (x := spMap ((τ m : Ω →+* AlgebraicClosure Ω)) ≫ spMap R.val.toRingHom ≫ x) ?_ rfl
-  refine ⟨((τ m : Ω →+* AlgebraicClosure Ω)).comp R.val.toRingHom, by rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc], ?_⟩
+  refine ⟨((τ m : Ω →+* AlgebraicClosure Ω)).comp R.val.toRingHom, by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc], ?_⟩
   by_cases h : ∃ i, (v i : Ω) ≠ 0
   · obtain ⟨i0, hi0⟩ := h
     have hc0 : algebraMap Ω (AlgebraicClosure Ω) (v i0) ≠ 0 := by

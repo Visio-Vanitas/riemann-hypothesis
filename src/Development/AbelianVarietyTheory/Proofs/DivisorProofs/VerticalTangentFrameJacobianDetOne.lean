@@ -89,7 +89,7 @@ theorem snd_ev_toBase_of_isVert : ∀ (E : Type) [Field E] [NumberField E] [IsCM
   have hx : w.x = spMap (GlobalTheory.FlagTan.cst c K).toRingHom ≫ P.x := (GlobalTheory.FlagTan.exists_isVert_iff.1 ⟨N', hv⟩).2
   have hfr : frX w = spMap (GlobalTheory.FlagTan.cst c K).toRingHom ≫ frX P :=
     (GlobalTheory.FlagMod.eq_frX w (by rw [Category.assoc, GlobalTheory.FlagMod.frX_fst, hx])
-      (by rw [Category.assoc, GlobalTheory.FlagMod.frX_snd, spMap_comp']
+      (by rw [Category.assoc, GlobalTheory.FlagMod.frX_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
           exact congrArg spMap (GlobalTheory.FlagTan.cst c K).comp_algebraMap)).symm
   have hb : zw ≫ toBase TF Z = spMap (GlobalTheory.FlagTan.cst c K).toRingHom ≫ (frX P ≫ TF.Y.j) := by
     show zw ≫ (inc₀ TF.X Z ≫ TF.X.π) = _
@@ -274,7 +274,7 @@ theorem frVec_isVert_isCombAtG : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
     rw [FlagMod.ev_congr ecst.symm U.1 hUx (ecst ▸ hUx), FlagMod.ev_spMap]
   have e3 : ∀ k, (tv (frVec TF.Y P₀' hx' σ k)).left = spMap (dualMap (ev x U.1 hUx)) ≫ v (e ⟨σ, k⟩) := by
     intro k
-    rw [← FlagMod.tanPull_frVec h0 rfl hx' ecst, FlagMod.tanPull_left, hB σ k, ← Category.assoc, spMap_comp',
+    rw [← FlagMod.tanPull_frVec h0 rfl hx' ecst, FlagMod.tanPull_left, hB σ k, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       ← dualMap_comp, eev]
   open MonoidalCategory CartesianMonoidalCategory MonObj ReciprocityTheory.ChartRestriction.G.PullbackSections in
   have key : frVec TF.Y w hx σ i = ∑ k, (GlobalTheory.FlagTan.unip K N' σ *

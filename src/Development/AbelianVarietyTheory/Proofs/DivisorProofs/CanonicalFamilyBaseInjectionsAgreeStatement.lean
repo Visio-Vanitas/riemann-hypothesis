@@ -1056,7 +1056,7 @@ theorem comp_b_eq {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E
   have key : ∀ (θ : R →+* V) (κ : Sp (FractionRing V) ⟶ Sp (FractionRing R)), κ ≫ jK R = jK V ≫ spMap θ →
       jK V ≫ spMap (θ.comp F.b) = κ ≫ F.y ≫ pullback.snd _ _ := by
     intro θ κ h
-    rw [F.y_over, ← Category.assoc, h, Category.assoc, spMap_comp]
+    rw [F.y_over, ← Category.assoc, h, Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have e : jK V ≫ spMap (θ₁.comp F.b) = jK V ≫ spMap (θ₂.comp F.b) := by
     rw [key θ₁ κ₁ h₁, key θ₂ κ₂ h₂, ← Category.assoc, hy, Category.assoc]
   simp only [jK, spMap, ← Spec.map_comp] at e
@@ -1147,8 +1147,8 @@ theorem injBase : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Ho
   obtain ⟨κv, hκv⟩ := GlobalTheory.PolDeg.exists_genericMap hjv
   have h := injBase_cdvr Xo c φ hpq hφ hns R hR C Cn V hV (jv.comp θ₁) (jv.comp θ₂) (hjv.comp hθ₁) (hjv.comp hθ₂)
     (RingHom.isLocalHom_comp _ _) (RingHom.isLocalHom_comp _ _) (κv ≫ κ₁) (κv ≫ κ₂)
-    (by rw [Category.assoc, hκ₁, ← Category.assoc, hκv, Category.assoc, ← spMap_comp])
-    (by rw [Category.assoc, hκ₂, ← Category.assoc, hκv, Category.assoc, ← spMap_comp])
+    (by rw [Category.assoc, hκ₁, ← Category.assoc, hκv, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
+    (by rw [Category.assoc, hκ₂, ← Category.assoc, hκv, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     (by rw [Category.assoc, Category.assoc, hy])
   ext r
   exact hjv (by simpa using DFunLike.congr_fun h r)

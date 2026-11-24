@@ -86,13 +86,13 @@ theorem bc_one {R V : Type} [CommRing R] [CommRing V] (f : R →+* V) {A : Over 
   rw [one_left, one_left, ← Category.assoc]
   congr 1
   simp only [Over.mk_hom, Category.comp_id]
-  rw [spMap_comp, spMap_comp]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext a <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
 
 theorem bc_eps {R V : Type} [CommRing R] [CommRing V] (f : R →+* V) (N : ℕ) :
     spMap (dualMap f) ≫ spMap (GlobalTheory.CompanionTheory.Ar.epsMul (N : R)) = spMap (GlobalTheory.CompanionTheory.Ar.epsMul (N : V)) ≫ spMap (dualMap f) := by
-  rw [spMap_comp, spMap_comp]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext a <;> simp [dualMap, GlobalTheory.CompanionTheory.Ar.epsMul, TrivSqZeroExt.algebraMap_eq_inl]
 

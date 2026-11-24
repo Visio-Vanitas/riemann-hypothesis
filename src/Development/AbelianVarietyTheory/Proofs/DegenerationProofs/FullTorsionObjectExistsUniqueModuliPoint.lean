@@ -66,8 +66,8 @@ theorem GlobalTheory.FullPoint.fullAt_existsUnique_exists_ext : HV → Laws6 →
   · obtain ⟨y, ⟨h₁, h₂⟩, hu⟩ := FullPoint.existsUnique_point hv.1.1 Y bF o hρ hζ
     refine ⟨y, ⟨h₁, (FullPoint.fullAt_iff Y y o).2 ⟨h₂, fun f hf => ?_⟩⟩,
       fun y' h => hu y' ⟨h.1, ((FullPoint.fullAt_iff Y y' o).1 h.2).1⟩⟩
-    rw [pullback.condition, ← Category.assoc, h₁, ← spMap_comp] at hf
-    obtain rfl := FullPoint.spMap_inj hf
+    rw [pullback.condition, ← Category.assoc, h₁, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hf
+    obtain rfl := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq hf
     exact ⟨hρ _ rfl, hζ _ rfl⟩
   · obtain ⟨o, h⟩ := FullPoint.exists_isFibre Y.oF y
     exact ⟨o, (FullPoint.fullAt_iff Y y o).2 h⟩
@@ -76,7 +76,7 @@ theorem GlobalTheory.FullPoint.fullAt_existsUnique_exists_ext : HV → Laws6 →
     refine (FullPoint.fullAt_iff Y _ o').2 ⟨FullPoint.IsFibre.ext f h₁ ψ g₁ g₂ g₃ g₄, fun g hg => ?_⟩
     obtain ⟨j, hj⟩ : ∃ j : KA l →+* K, y ≫ pullback.fst _ _ ≫ Xo.s = spMap j :=
       ⟨(Spec.preimage (y ≫ pullback.fst _ _ ≫ Xo.s)).hom, (Spec.map_preimage _).symm⟩
-    rw [Category.assoc, hj, ← spMap_comp] at hg
-    obtain rfl := FullPoint.spMap_inj hg
+    rw [Category.assoc, hj, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hg
+    obtain rfl := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq hg
     rw [hρ, hζ _ l.A_pos, (h₂ j hj).1, (h₂ j hj).2]
     exact ⟨rfl, rfl⟩

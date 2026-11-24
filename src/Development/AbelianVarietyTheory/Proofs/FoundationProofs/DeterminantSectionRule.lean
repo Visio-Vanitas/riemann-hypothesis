@@ -127,13 +127,13 @@ open GlobalTheory GlobalTheory.IndefiniteRowSideFullHecke GlobalTheory.CM Global
 
 namespace GlobalTheory.DetExtendZero
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem spMap_id (R : Type) [CommRing R] : spMap (RingHom.id R) = 𝟙 _ := Spec.map_id _
 
 theorem dual_comp {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R') (g : R' →+* R'') :
     spMap (Chart.dualMapR (g.comp f)) = spMap (Chart.dualMapR g) ≫ spMap (Chart.dualMapR f) := by
-  rw [← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   refine RingHom.ext fun x => ?_
   ext <;> simp [Chart.dualMapR]
@@ -183,7 +183,7 @@ theorem comb_one {x : Sp R ⟶ S} {n : ℕ} {v : Fin n → (FramedFlatCoordinate
     · have : epsScaleR (0 : R) = (algebraMap R (DualNumber R)).comp (TrivSqZeroExt.fstHom R R R).toRingHom := by
         refine RingHom.ext fun x => ?_
         ext <;> simp [epsScaleR, TrivSqZeroExt.algebraMap_eq_inl]
-      simp only [if_neg hk, Matrix.one_apply_ne (Ne.symm hk), this, spMap_comp]
+      simp only [if_neg hk, Matrix.one_apply_ne (Ne.symm hk), this, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       refine Eq.trans ?_ (Category.assoc _ _ _).symm
       refine Eq.trans ?_ (congrArg (spMap (algebraMap R (DualNumber R)) ≫ ·) (hv k)).symm
       let D : FramedFlatCoordinates.epsAt x ⟶ Over.mk x := Over.homMk (spMap (algebraMap R (DualNumber R))) rfl
@@ -238,7 +238,7 @@ theorem exists_above (hT : EigStable Y.t c) (g : R →+* R') {φ : c.F →+* R} 
   obtain ⟨v', hv', ev⟩ := exists_basis hT g (j := φ) (τ := τ) hx h.2.1
   obtain ⟨w', hw', ew⟩ := exists_basis hT g (j := φ) (τ := conjEmb τ) hx h.2.2
   refine ⟨⟨spMap g ≫ x ≫ toGen Y, ?_, ?_, v', w', hv', hw'⟩, rfl, rfl, ev, ew⟩
-  · rw [Category.assoc, Category.assoc, toGen_snd, h.1, spMap_comp φ g, RingHom.comp_id]
+  · rw [Category.assoc, Category.assoc, toGen_snd, h.1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ g, RingHom.comp_id]
   · rintro _ ⟨z, rfl⟩
     rw [Scheme.Hom.comp_apply]
     exact hg z
@@ -305,7 +305,7 @@ theorem exists_extValue (hT : EigStable Y.t c) (hU : IsOpen (FramedFlatCoordinat
     have hg : g = g'.comp (Ideal.Quotient.mk _) := rfl
     have hc : FramedFlatCoordinates.IsChange a a' g' 1 1 := by
       refine ⟨ha'.1, ?_, fun i => ?_, fun i => ?_⟩
-      · rw [ha'.2.1, ha.2.1, hg, spMap_comp, Category.assoc]
+      · rw [ha'.2.1, ha.2.1, hg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       · have := comb_one (fun k => (a'.v_basis.1 k).1) i
         convert this using 2 with k
         rw [ha'.2.2.1, ha.2.2.1, hg, dual_comp, Category.assoc]
@@ -340,12 +340,12 @@ theorem IsExtValue.map {sig : FramedFlatCoordinates.Rule Y U τ} {φ : c.F →+*
     IsExtValue sig (g.comp φ) (spMap g ≫ x) v' w' (g r) := by
   refine ⟨fun R'' _ g' j a ha => hr.1 _ (g'.comp g) j a ⟨ha.1, ?_, fun i => ?_, fun i => ?_⟩,
     fun R'' _ g' hg => hr.2 _ (g'.comp g) fun z => ?_⟩
-  · rw [ha.2.1, spMap_comp, Category.assoc, Category.assoc]
+  · rw [ha.2.1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
   · rw [ha.2.2.1, hv, dual_comp, Category.assoc]
   · rw [ha.2.2.2, hw, dual_comp, Category.assoc]
   · have := hg z
     rw [Category.assoc, Scheme.Hom.comp_apply (spMap g)] at this
-    rwa [spMap_comp, Scheme.Hom.comp_apply (spMap g')]
+    rwa [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Scheme.Hom.comp_apply (spMap g')]
 
 theorem IsExtValue.change (hT : EigStable Y.t c) (hU : IsOpen (FramedFlatCoordinates.compactification Y U))
     {sig : FramedFlatCoordinates.Rule Y U τ} (hs : sig ∈ FramedFlatCoordinates.sections Y U τ) {φ : c.F →+* R} {x : Sp R ⟶ Y.X}

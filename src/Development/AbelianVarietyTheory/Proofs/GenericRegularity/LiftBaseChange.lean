@@ -153,7 +153,7 @@ theorem exists_comp' {S S' S'' : Scheme.{0}} {t : SAB H S} {t' : SAB H S'} {t'' 
   subst eh
   exact sabComp pullCubComp E H _ _ _ _ _ _ _ _ m m'
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem dualMapR_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
     Chart.dualMapR (g.comp f) = (Chart.dualMapR g).comp (Chart.dualMapR f) := by
@@ -183,20 +183,20 @@ theorem lift_baseChange : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E]
     exact ⟨_, ⟨m⟩⟩
   obtain ⟨p⟩ := p
   have e2 : spMap (ψ.toRingHom.comp f) ≫ M.hU.fromSpec = spMap ψ.toRingHom ≫ spMap f ≫ M.hU.fromSpec := by
-    rw [spMap_comp', Category.assoc]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   obtain ⟨n', hn'⟩ := exists_comp' Λ.m' p _ rfl
   obtain ⟨n1, hn1⟩ := exists_comp' Λ.m1 p _ rfl
   obtain ⟨n2, hn2⟩ := exists_comp' Λ.m2 p _ e2
   refine ⟨⟨spMap ψ.toRingHom ≫ Λ.xF, by rw [Category.assoc, Λ.xF_fst], ?_, by rw [Category.assoc, Λ.xF_j, e2],
     t'', n', n1, n2, by rw [hn1, hn', Λ.liftedChartMap_eq, Category.assoc], by rw [hn2, hn', Λ.matrix_two_by_two_congr, Category.assoc]⟩, ?_, ?_⟩
-  · rw [Category.assoc, Λ.xF_snd, ← spMap_comp']
+  · rw [Category.assoc, Λ.xF_snd, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap ψ.comp_algebraMap
   · rintro cv w ⟨v, u, hv, hc, hu⟩
     choose v' hv' using fun j => exists_vec_lift ψ.toRingHom p.cart.1 (v j)
     obtain ⟨u', hu'⟩ := exists_vec_lift ψ.toRingHom p.cart.1 u
     refine ⟨v', u', fun j => ?_, (lieComb_baseChange R S ψ.toRingHom _ _ _ p.cart _ v u cv v' u' hv' hc).1 hu', ?_⟩
     · show (v' j).left ≫ n2.φ = _
-      rw [hn2, ← Category.assoc, dualMapR_comp, spMap_comp', Category.assoc (spMap _), ← hv j]
+      rw [hn2, ← Category.assoc, dualMapR_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc (spMap _), ← hv j]
       exact (congrArg (· ≫ Λ.m2.φ) (hv' j)).trans (Category.assoc _ _ _)
     · show u'.left ≫ n1.φ = _
       rw [hn1, ← Category.assoc, ← hu]

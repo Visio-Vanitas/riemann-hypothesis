@@ -476,8 +476,8 @@ theorem exists_away_lift {X : Scheme.{0}} {S R : Type} [CommRing S] [CommRing R]
     simp only [spMap, θ₀, CommRingCat.ofHom_hom, Spec.map_preimage]
   refine ⟨g₀, θ₀, hg, by rw [hθ₀, hℓ], fun ι hι => ?_⟩
   have e : spMap (ι.comp θ₀) ≫ x = spMap θ ≫ x := by
-    rw [← GlobalTheory.Frames.ChgBC.spMap_comp_ring, Category.assoc, hθ₀, hℓ, ← Category.assoc,
-      GlobalTheory.Frames.ChgBC.spMap_comp_ring, hι, h]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hθ₀, hℓ, ← Category.assoc,
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hι, h]
   have e' := (cancel_mono x).1 e
   have e'' := Spec.map_injective e'
   exact congrArg CommRingCat.Hom.hom e''
@@ -598,7 +598,7 @@ theorem exists_tied (Y : Model Xo c β) {B : Type} [CommRing B] (y : Sp B ⟶ Xo
   have hsec : spMap (TrivSqZeroExt.fstHom B B B).toRingHom ≫ spMap (algebraMap B (DualNumber B)) = 𝟙 _ := by
     have e : (TrivSqZeroExt.fstHom B B B).toRingHom.comp (algebraMap B (DualNumber B)) = RingHom.id B :=
       RingHom.ext fun a => by simp
-    rw [GlobalTheory.Frames.ChgBC.spMap_comp_ring, e, GlobalTheory.Frames.ChgBC.spMap_id]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, GlobalTheory.Frames.ChgBC.spMap_id]
   have u0 : spMap (TrivSqZeroExt.fstHom B B B).toRingHom ≫ u = y ≫ η[Y.oF.t.G].left := by
     refine hq.hom_ext ?_ ?_
     · rw [Category.assoc, hu1, h0, Category.assoc, e1]
@@ -623,8 +623,8 @@ theorem Tied.pull {Y : Model Xo c β} {B B' : Type} [CommRing B] [CommRing B'] (
     Tied Y (spMap ρ ≫ y) (spMap (Formalism.L2.Pj.dualMap ρ) ≫ V) (spMap (Formalism.L2.Pj.dualMap ρ) ≫ v') := by
   obtain ⟨u, a, b, c⟩ := h
   refine ⟨spMap (Formalism.L2.Pj.dualMap ρ) ≫ u, ?_, by rw [Category.assoc, b], by rw [Category.assoc, c]⟩
-  rw [Category.assoc, a, ← Category.assoc, ← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring,
-    GlobalTheory.Frames.ChgBC.spMap_comp_ring, GlobalTheory.Frames.ChgBC.dualMap_alg]
+  rw [Category.assoc, a, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+    ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, GlobalTheory.Frames.ChgBC.dualMap_alg]
 
 theorem comb_total_iff {B : Type} [CommRing B] (xB : Sp B ⟶ Xo.X)
     (uu : ∀ τ : E →+* ℂ, Fin (D.mult τ) → (Sp (DualNumber B) ⟶ Xo.univ.t.G.left))
@@ -663,12 +663,12 @@ theorem tan_pull (Y : Model Xo c β) {R B : Type} [CommRing R] [CommRing B] {x :
     ∃ V, Tied Y y V (spMap (Formalism.L2.Pj.dualMap θ₀) ≫ v.left) ∧ Formalism.L2.Pj.IsTanAt (y ≫ pullback.fst _ _) V := by
   refine exists_tied Y y _ ?_ ?_
   · have hw : v.left ≫ Y.t.G.hom = spMap (algebraMap R (DualNumber R)) ≫ x := Over.w v
-    rw [Category.assoc, hw, ← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring,
-      GlobalTheory.Frames.ChgBC.dualMap_alg, ← GlobalTheory.Frames.ChgBC.spMap_comp_ring, Category.assoc, h]
+    rw [Category.assoc, hw, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      GlobalTheory.Frames.ChgBC.dualMap_alg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, h]
   · have hv' : spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ v.left = x ≫ η[Y.t.G].left :=
       (show _ = _ from hv).trans (one_left_eq Y.t.G x)
-    rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring, fst_dualMap,
-      ← GlobalTheory.Frames.ChgBC.spMap_comp_ring, Category.assoc, hv', ← Category.assoc, h, Category.assoc]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_dualMap,
+      ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hv', ← Category.assoc, h, Category.assoc]
 
 theorem tan_family {B : Type} [CommRing B] {xB : Sp B ⟶ Xo.X}
     {uu : ∀ τ : E →+* ℂ, Fin (D.mult τ) → (Sp (DualNumber B) ⟶ Xo.univ.t.G.left)}
@@ -727,18 +727,18 @@ theorem spread_family (Y : Model Xo c β) {S : Type} [CommRing S] [Algebra c.F S
     obtain ⟨V, hVt, hVc⟩ := hyp i
     have h1 := Tied.pull ι (hV₀ i)
     have hy : spMap ι ≫ spMap φ₀ ≫ zPt z = spMap φT ≫ zPt z := by
-      rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring, hι']
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hι']
     have hv' : spMap (Formalism.L2.Pj.dualMap ι) ≫ spMap (Formalism.L2.Pj.dualMap θ₀) ≫ (e i).left =
         spMap (Formalism.L2.Pj.dualMap θ) ≫ (e i).left := by
-      rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring, dualMap_comp, hιθ]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp, hιθ]
     rw [hy, hv'] at h1
     have hVV := Tied.unique_left h1 hVt
     have hxT : spMap φT ≫ z.x = spMap ι ≫ spMap φ₀ ≫ z.x := by
-      rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring, hι']
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hι']
     have c1 : Formalism.L2.Pj.IsCombAt (spMap φT ≫ z.x)
         (fun j => spMap (Formalism.L2.Pj.dualMap φT) ≫ z.u (ee j).1 (ee j).2) (fun j => ι (a i j)) V :=
       GlobalTheory.Frames.ChgBC.isCombAt_pull ι hxT
-        (fun j => by rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring, dualMap_comp, hι']) hVV.symm (ha i)
+        (fun j => by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp, hι']) hVV.symm (ha i)
     have hT := tan_family (uu := fun τ k => spMap (Formalism.L2.Pj.dualMap φT) ≫ z.u τ k) ee hBT
     have c2 : Formalism.L2.Pj.IsCombAt (spMap φT ≫ z.x)
         (fun j => spMap (Formalism.L2.Pj.dualMap φT) ≫ z.u (ee j).1 (ee j).2)
@@ -785,10 +785,10 @@ theorem spread_family (Y : Model Xo c β) {S : Type} [CommRing S] [Algebra c.F S
       exact hd
     · have h1 := Tied.pull ρ (hV₀ i)
       have hy : spMap ρ ≫ spMap φ₀ ≫ zPt z = spMap (ρ.comp φ₀) ≫ zPt z := by
-        rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring]
+        rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have hv' : spMap (Formalism.L2.Pj.dualMap ρ) ≫ spMap (Formalism.L2.Pj.dualMap θ₀) ≫ (e i).left =
           spMap (Formalism.L2.Pj.dualMap (ρ.comp θ₀)) ≫ (e i).left := by
-        rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring, dualMap_comp]
+        rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp]
       rw [hy, hv'] at h1
       exact h1
     · let A : ∀ τ : E →+* ℂ, Fin (D.mult τ) → B := fun τ k => ρ (a i (ee.symm ⟨τ, k⟩))
@@ -799,12 +799,12 @@ theorem spread_family (Y : Model Xo c β) {S : Type} [CommRing S] [Algebra c.F S
         rw [ee.apply_symm_apply]
         exact h
       have hx : spMap (ρ.comp φ₀) ≫ z.x = spMap ρ ≫ spMap φ₀ ≫ z.x := by
-        rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring]
+        rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have c1 : Formalism.L2.Pj.IsCombAt (spMap (ρ.comp φ₀) ≫ z.x)
           (fun j => spMap (Formalism.L2.Pj.dualMap (ρ.comp φ₀)) ≫ z.u (ee j).1 (ee j).2) (fun j => ρ (a i j))
           (spMap (Formalism.L2.Pj.dualMap ρ) ≫ V₀ i) :=
         GlobalTheory.Frames.ChgBC.isCombAt_pull ρ hx
-          (fun j => by rw [← Category.assoc, GlobalTheory.Frames.ChgBC.spMap_comp_ring, dualMap_comp]) rfl (ha i)
+          (fun j => by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp]) rfl (ha i)
       have hAe : (fun j => ρ (a i j)) = fun j => A (ee j).1 (ee j).2 := by
         funext j
         simp [A]
@@ -833,8 +833,8 @@ theorem exists_away_frames : ∀ (E : Type) [Field E] [NumberField E] [IsCMField
     (isUnit_of_mul_isUnit_right hd)
   rw [hρ] at G₁ G₂
   refine ⟨g, ρ.comp θ₀, C₁', C₂', hg, ?_, u₁, u₂, G₁, G₂⟩
-  rw [← GlobalTheory.Frames.ChgBC.spMap_comp_ring, Category.assoc, hθ₀, ← Category.assoc,
-    GlobalTheory.Frames.ChgBC.spMap_comp_ring, hρ]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hθ₀, ← Category.assoc,
+    ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ]
 
 end GlobalTheory.CompanionTheory.Ar.LocFn.Spread
 end -- clump:auto
@@ -1051,11 +1051,6 @@ noncomputable section
 
 namespace GlobalTheory.CompanionTheory.Ar.LocFn.Spread
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (c : A →+* B) (d : B →+* C) :
-    spMap (d.comp c) = spMap d ≫ spMap c := by
-  simp only [spMap, ← Spec.map_comp]
-  rfl
-
 theorem exists_ringHom {X : Scheme.{0}} {A B : Type} [CommRing A] [CommRing B] (x : Sp A ⟶ X) [IsOpenImmersion x]
     (z : Sp B ⟶ X) (hr : Set.range z ⊆ Set.range x) : ∃ a : A →+* B, spMap a ≫ x = z := by
   refine ⟨(Spec.preimage (IsOpenImmersion.lift x z hr)).hom, ?_⟩
@@ -1081,14 +1076,14 @@ theorem exists_frac {X : Scheme.{0}} {R : Type} [CommRing R] (x : Sp R ⟶ X) [I
   obtain ⟨φ, hφ⟩ := exists_ringHom x x₂ hrange.le
   obtain ⟨φ', hφ'⟩ := exists_ringHom x₂ x hrange.ge
   have hcomp : φ.comp φ' = RingHom.id R₂ := ringHom_ext x₂ (by
-    rw [spMap_comp, Category.assoc, hφ', hφ]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hφ', hφ]
     simp [spMap])
   let g : R₂ →+* X.presheaf.stalk P := (X.presheaf.germ x.opensRange P hP).hom
   have hg : spMap g ≫ x₂ = X.fromSpecStalk P := by
     rw [← IsAffineOpen.fromSpecStalk_eq_fromSpecStalk hU hP]
     rfl
   have hgφ : g.comp φ = θ := ringHom_ext x (by
-    rw [spMap_comp, Category.assoc, hφ, hg, hθ])
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hφ, hg, hθ])
   have hgs : ∀ t, θ (φ' t) = g t := fun t => by
     rw [← hgφ]
     exact congrArg g (RingHom.congr_fun hcomp t)
@@ -1132,7 +1127,7 @@ theorem exists_chart_spread : ∀ (X : Scheme.{0}) (G : Over X) [GrpObj G] [IsCo
   have hx : IsOpenImmersion x := inferInstance
   have hxθ : spMap θ ≫ x = X.fromSpecStalk P := by
     change spMap θ ≫ spMap (algebraMap R₁ R) ≫ x₁ = _
-    rw [← Category.assoc, ← Spread.spMap_comp, hθc, hθ₁]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hθc, hθ₁]
   have hlift : ∀ a, den a ∣ h → ∃ a' : R, θ a' = a := fun a hd => by
     have hu : IsUnit (algebraMap R₁ R (den a)) :=
       isUnit_of_dvd_unit (map_dvd _ hd) (IsLocalization.Away.algebraMap_isUnit h)
@@ -1477,11 +1472,11 @@ theorem exists_basic {R : Type} [CommRing R] (A : Set (PrimeSpectrum R)) (hA : I
   obtain ⟨_, ⟨g, rfl⟩, hg, hs⟩ := PrimeSpectrum.isTopologicalBasis_basic_opens.exists_subset_of_mem_open hq hA
   exact ⟨g, hg, fun t ht => hs ht⟩
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 theorem dualMap_spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
     spMap (Formalism.L2.Pj.dualMap g) ≫ spMap (Formalism.L2.Pj.dualMap f) = spMap (Formalism.L2.Pj.dualMap (g.comp f)) := by
-  rw [← spMap_comp']
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext a <;> simp [Formalism.L2.Pj.dualMap]
 
@@ -1489,7 +1484,7 @@ def frPtF {S : Type} [CommRing S] [Algebra c.F S] (z : Formalism.L2.Pj.FrPt Xo c
   pullback.lift z.x (spMap (algebraMap c.F S)) (by
     rw [z.x_over]
     unfold Formalism.L2.Pj.sOf
-    rw [spMap_comp'])
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
 
 abbrev fpt {S : Type} [CommRing S] [Algebra c.F S] (z : Formalism.L2.Pj.FrPt Xo c S) {F : Type} [Field F] (ψ : S →+* F) :
     Sp F ⟶ Xo.XF c := spMap ψ ≫ frPtF z
@@ -1500,7 +1495,7 @@ theorem fpt_under {S : Type} [CommRing S] [Algebra c.F S] (z : Formalism.L2.Pj.F
 
 theorem fpt_snd {S : Type} [CommRing S] [Algebra c.F S] (z : Formalism.L2.Pj.FrPt Xo c S) {F : Type} [Field F]
     (ψ : S →+* F) : fpt z ψ ≫ pullback.snd _ _ = spMap (ψ.comp (algebraMap c.F S)) := by
-  rw [fpt, frPtF, Category.assoc, pullback.lift_snd, spMap_comp']
+  rw [fpt, frPtF, Category.assoc, pullback.lift_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 theorem eq_fpt {S : Type} [CommRing S] [Algebra c.F S] (z : Formalism.L2.Pj.FrPt Xo c S) {F : Type} [Field F]
     (ψ : S →+* F) {y : Sp F ⟶ Xo.XF c} (h1 : under y = spMap ψ ≫ z.x)
@@ -1717,7 +1712,7 @@ theorem exists_flat_rule : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E
       intro F _ ψ
       let ψ' : p.R →+* F := ψ.comp f.toRingHom
       have h1 : under (fpt z ψ) = spMap ψ' ≫ y.x := by
-        rw [fpt_under, h.1, ← Category.assoc, ← spMap_comp']
+        rw [fpt_under, h.1, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have h2 : fpt z ψ ≫ pullback.snd _ _ = spMap (ψ'.comp (algebraMap c.F p.R)) := by
         rw [fpt_snd]
         congr 1

@@ -285,7 +285,7 @@ theorem GlobalTheory.CompanionTheory.Ar.Fl.CMValue.value_on_cmFrame : ∀ (E : T
   have hyu : under y' = spMap f ≫ under X.y := Category.assoc _ _ _
   have hy'u : under y' = FU.u i P := hyu.trans X.pt
   have hy's : y' ≫ pullback.snd _ _ = spMap (algebraMap c.F ℂ) := by
-    rw [Category.assoc, X.hy, ← hcomp, spMap_comp]
+    rw [Category.assoc, X.hy, ← hcomp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hU : Set.range X.y ⊆ U := by
     rw [← CMValue.range_comp f X.y]
     exact hmem P y' hP hy'u hy's

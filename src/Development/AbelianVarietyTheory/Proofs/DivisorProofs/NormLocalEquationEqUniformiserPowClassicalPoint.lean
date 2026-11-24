@@ -60,7 +60,7 @@ theorem norm_val_eqAt : ∀ (o Ω : Type) [CommRing o] [Field Ω] [Algebra o Ω]
   obtain ⟨u, hu⟩ := (Ideal.span_singleton_eq_span_singleton).1 key
 
   have hval : M.val (gPt p ≫ spMap j ≫ ξ) (valF M.pt (D.U i) (D.f i)) = ((j e : OO p) : PadicAlgCl p) := by
-    rw [← Category.assoc, gPt, _root_.GlobalTheory.spMap_comp_ring, RatModel.val_spMap_comp _ ξ (specializes_rfl : z ⤳ z)
+    rw [← Category.assoc, gPt, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RatModel.val_spMap_comp _ ξ (specializes_rfl : z ⤳ z)
       ⟨valF M.pt (D.U i) (D.f i), RatModel.valF_mem_O hxi _⟩]
     have hv : M.valLoc ξ z specializes_rfl ⟨valF M.pt (D.U i) (D.f i), RatModel.valF_mem_O hxi _⟩ = e := by
       simp only [RatModel.valLoc, RingHom.comp_apply, RingEquiv.toRingHom_eq_coe, RingEquiv.coe_toRingHom,

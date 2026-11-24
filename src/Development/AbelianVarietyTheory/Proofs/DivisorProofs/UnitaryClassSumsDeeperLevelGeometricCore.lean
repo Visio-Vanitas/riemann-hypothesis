@@ -864,7 +864,7 @@ theorem exists_base (X₁ : USetup C) (Ω₂ : Type) [Field Ω₂] [Algebra X₁
     exact RingHom.finiteType_algebraMap.1 h₂
   refine ⟨o₃, _, _, ⟨hded, hft, inferInstance, hinj⟩, κ, ze, hκ, congrArg Units.val hze, ?_⟩
   rw [moduli_point_comp_compactification_structure, ← Category.assoc, ← hβ, hc]
-  exact _root_.GlobalTheory.spMap_comp_ring C.b β.hom
+  exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp C.b β.hom).symm
 
 theorem exists_model (X₁ : USetup C) (o₃ Ω₂ : Type) [CommRing o₃] [Field Ω₂] [Algebra o₃ Ω₂] [ArithBase o₃ Ω₂]
     [Algebra X₁.Ω₁ Ω₂] [FiniteDimensional X₁.Ω₁ Ω₂] (κ : C.o →+* o₃) (hκ : κ.Finite)
@@ -922,7 +922,7 @@ theorem exists_udeep_proj : ∀ (E : Type) [Field E] [NumberField E] [IsCMField 
   have hPg : P.g = X₁.ρ.P.g := hPg₁.trans hPg₀
   let ψ := φ₀ ≫ ψ₀
   have hpb : IsGrpPullback P.A X₁.ρ.P.A (spMap h) ψ := by
-    rw [← _root_.GlobalTheory.spMap_comp_ring]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact hpb₁.comp hpb₀
   have hlb : LBIso P.L (X₁.ρ.P.L.pull ψ) :=
     LBIso.trans P.isLB (pull_isLB P₀.isLB _) (pull_isLB X₁.ρ.P.isLB _) hlb₁ (UDeepEx.lbIso_pull_comp hlb₀ φ₀ rfl)
@@ -934,7 +934,7 @@ theorem exists_udeep_proj : ∀ (E : Type) [Field E] [NumberField E] [IsCMField 
   set h' : X₁.S.R →+* S₂.R := (Subalgebra.inclusion hR).toRingHom.comp h with hh'
   have hval : ∀ a, ((h' a : S₂.R) : Ω₂) = algebraMap X₁.Ω₁ Ω₂ a := fun a => hh a
   have hpb' : IsGrpPullback ρ₂.P.A X₁.ρ.P.A (spMap h') (φ ≫ ψ) := by
-    rw [hh', ← _root_.GlobalTheory.spMap_comp_ring]
+    rw [hh', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact hpb₂.comp hpb
   have hlb' : LBIso ρ₂.P.L (X₁.ρ.P.L.pull (φ ≫ ψ)) :=
     LBIso.trans ρ₂.P.isLB (pull_isLB P.isLB _) (pull_isLB X₁.ρ.P.isLB _) hlb₂ (UDeepEx.lbIso_pull_comp hlb φ rfl)
@@ -953,7 +953,7 @@ theorem exists_udeep_proj : ∀ (E : Type) [Field E] [NumberField E] [IsCMField 
     exact hval a
   have key : spMap (ratHull S₂.R).val.toRingHom ≫ spMap τ =
       spMap (algebraMap X₁.Ω₁ Ω₂) ≫ spMap (ratHull X₁.S.R).val.toRingHom := by
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have hpulled : UOver Xo cf ρ₂.P (toRat S₂.R) (spMap τ ≫ X₁.u) := by
     rw [uOver_baseChange_iff hpb' hlb', hτ]

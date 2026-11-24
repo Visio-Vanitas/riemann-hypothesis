@@ -966,7 +966,7 @@ theorem exists_isFibreOf_pull_local {R R' R'' : Type} [CommRing R] [CommRing R']
     have u₂ := isUnit_of_mul_isUnit_right (e ▸ u₁)
     rw [gs_eq (𝟙 _) y _ hl] at u₂
     exact ⟨y, hy, TopologicalSpace.Opens.mem_iSup.2 ⟨l, (t'.G.left.mem_basicOpen _ _ hl).2 u₂⟩⟩
-  have hsp : spMap (f'.comp f) = spMap f' ≫ spMap f := spMap_comp _ _
+  have hsp : spMap (f'.comp f) = spMap f' ≫ spMap f := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   have hc := m.cart
   have hp := hc.1
   obtain ⟨φ', hφ, hw0⟩ : ∃ φ' : x.P.A.left ⟶ t'.G.left, φ' ≫ m.φ = φ'' ∧ φ' ≫ t'.G.hom = x.P.A.hom ≫ spMap f' :=
@@ -1005,7 +1005,7 @@ theorem exists_isFibreOf_pull_local {R R' R'' : Type} [CommRing R] [CommRing R']
   · ext <;> simp [Chart.dualMapR, TrivSqZeroExt.algebraMap_eq_inl]
   · ext <;> simp [Chart.dualMapR]
   · apply hp.hom_ext
-    · rw [Category.assoc, hv'', Category.assoc, hvv, ← hFF, ← Category.assoc, spMap_comp]
+    · rw [Category.assoc, hv'', Category.assoc, hvv, ← hFF, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · rw [Category.assoc, hw0, ← Category.assoc, Over.w, Category.assoc, Over.w]
       show Spec.map _ ≫ Spec.map _ = Spec.map _ ≫ Spec.map _
       rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]

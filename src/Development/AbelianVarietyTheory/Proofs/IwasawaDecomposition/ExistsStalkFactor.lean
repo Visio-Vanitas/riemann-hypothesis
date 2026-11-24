@@ -276,7 +276,7 @@ theorem eigFrame_of_basis (Z : Model Xo c β) {R : Type} [CommRing R] (φ : c.F 
   simp only [k]
   exact existsUnique_eq'
 
-alias spMap_inj := _root_.GlobalTheory.ZM.DenseFib.spMap_inj
+alias spMap_inj := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
 
 end GlobalTheory.ShFam.EigLoc
 

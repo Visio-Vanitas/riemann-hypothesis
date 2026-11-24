@@ -466,7 +466,7 @@ open GlobalTheory.FullLevel
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E}
 
-alias spMap_comp := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem zeta_pow (l : Geo.Tor.Level H) : zeta l.M' ^ (l.M' / l.A) = zeta l.A := by
   obtain ⟨m, hm⟩ := A_dvd_M' l
@@ -490,9 +490,9 @@ theorem torsion_fixed {D : Datum H} {l : Geo.Tor.Level H} {B : Type} [CommRing B
   obtain ⟨ev, ⟨⟨h1, h2, h3, h4, h5⟩, h6, h7⟩, hu⟩ := exists_unique_fullLevel o k x β hx z hz hzA
   have hid : spMap (RingHom.id k) = 𝟙 (Sp k) := Spec.map_id _
   have e1 : spMap (σ.symm : k →+* k) ≫ spMap (σ : k →+* k) = 𝟙 _ := by
-    rw [spMap_comp, ← hid]; congr 1; ext a; simp
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hid]; congr 1; ext a; simp
   have e2 : spMap (σ : k →+* k) ≫ spMap (σ.symm : k →+* k) = 𝟙 _ := by
-    rw [spMap_comp, ← hid]; congr 1; ext a; simp
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hid]; congr 1; ext a; simp
   have hσ' : spMap (σ.symm : k →+* k) ≫ x = x := by
     conv_lhs => rw [← hσ, ← Category.assoc, e1, Category.id_comp]
   let g : (Over.mk x : Over S) ⟶ Over.mk x := Over.homMk (spMap (σ : k →+* k)) hσ
@@ -545,7 +545,7 @@ theorem torsion_rational : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E
   letI : Algebra K K' := κ.toAlgebra
   let inc := (IntermediateField.inclusion c.le).toRingHom
   have hs : (spMap κ ≫ y ≫ pullback.fst _ _) ≫ Xo.s = spMap (κ.comp (bF.comp inc)) := by
-    rw [Category.assoc, Category.assoc, pullback.condition, ← Category.assoc y, hbF, spMap_comp, spMap_comp]
+    rw [Category.assoc, Category.assoc, pullback.condition, ← Category.assoc y, hbF, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let z₀ : c.F := ⟨zeta l.M', c.zeta_mem⟩
   have hz₀ : IsPrimitiveRoot z₀ l.M' := IsPrimitiveRoot.of_map_of_injective (f := c.F.val.toRingHom)
     (Complex.isPrimitiveRoot_exp l.M' (M'_pos l).ne') Subtype.val_injective
@@ -559,7 +559,7 @@ theorem torsion_rational : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E
     exact Subtype.ext (zeta_pow l)
   obtain ⟨p, hp, -⟩ := GlobalTheory.FixedPoint.existsUnique_factor_of_isAlgClosed (K₀ := K) (L := K') x.left fun σ =>
     torsion_fixed Xo.univ K' _ _ hs z hz hzA σ.toRingEquiv (by
-      rw [← Category.assoc, spMap_comp]
+      rw [← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 2
       ext a
       exact σ.commutes a) (σ.commutes (bF z₀)) x hx

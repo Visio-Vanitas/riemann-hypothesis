@@ -421,7 +421,7 @@ theorem main : ∀ (h n : ℕ), 1 ≤ h → 3 ≤ n → Odd n → ∀ (K : Type)
   intro lam t' m₁ m₂
   have hf : spMap (dirMap lam) ≫ spMap ((algebraMap K (TrivSqZeroExt K (Fin r → K))).comp β) =
       spMap ((algebraMap K (DualNumber K)).comp β) ≫ spMap (RingHom.id (cycAway n)) := by
-    rw [← spMap_comp, ← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun z => by
       simp [dirMap, TrivSqZeroExt.algebraMap_eq_inl])
   obtain ⟨c', hc'⟩ := (GlobalTheory.SiegelRingChange.siegPre_pull_ringChange h n _ _ (zetaAway n) (zetaAway n) (RingHom.id _) _ _ _ _
@@ -1503,7 +1503,7 @@ theorem classified_of_complete : ∀ (g n : ℕ), 1 ≤ g → 3 ≤ n → Odd n 
   have hthick : ∀ e, Out.thick R m e ≫ spMap β = spMap (βe e) ≫ spMap (RingHom.id (cycAway n)) := by
     intro e
     rw [_root_.GlobalTheory.LN.Cmp.spMap_ringHom_id, Category.comp_id]
-    exact (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β (Ideal.Quotient.mk (m ^ (e + 1)))).symm
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β (Ideal.Quotient.mk (m ^ (e + 1)))).symm
   have hpull := fun e => GlobalTheory.SiegelRingChange.siegPre_pull_ringChange g n (cycAway n) (cycAway n) (zetaAway n)
     (zetaAway n) (RingHom.id _) (Sp R) (Sp (R ⧸ m ^ (e + 1))) (spMap β) (spMap (βe e)) (Out.thick R m e) rfl (hthick e)
   choose ce hce using fun e => (hpull e).1 c
@@ -1516,7 +1516,7 @@ theorem classified_of_complete : ∀ (g n : ℕ), 1 ≤ g → 3 ≤ n → Odd n 
     refine _root_.GlobalTheory.SiegUniq.eq_of_siegPB g n hg hn hodd F _ (spMap (βe e)) (ce e) _ _ ?_ (hxs e)
       (GlobalTheory.SiegelPullComp.pb_comp (hxpb (e + 1)) h1) (hxpb e)
     rw [Category.assoc, hxs (e + 1)]
-    exact (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (by ext a; rfl))
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (by ext a; rfl))
   obtain ⟨f, hf⟩ := _root_.GlobalTheory.LocalThickGlue.exists_glue R hR F.X x hcomp
   have hfs : f ≫ F.s = spMap β := by
     refine ext_affine R m hR.toIsHausdorff (cycAway n) _ _ fun e => ?_

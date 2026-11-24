@@ -83,7 +83,7 @@ noncomputable section
 
 namespace GlobalTheory.SiegAct
 
-alias spMap_comp' := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 alias spMap_id' := _root_.GlobalTheory.LevelFibre.spMap_id'
 
@@ -119,7 +119,7 @@ def relabel (C : SiegPre h N ζ s) (T : (Fin h ⊕ Fin h → ℤ) →ₗ[ℤ] (F
   lev_tors a := C.lev_tors _
   geom k _ _ x β z hx hz := by
     obtain ⟨β₀, hβ₀⟩ := _root_.GlobalTheory.LevCover.exists_spMap (x ≫ s)
-    have hb : β = β₀.comp σ := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← hx, ← Category.assoc, hβ₀, spMap_comp'])
+    have hb : β = β₀.comp σ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← hx, ← Category.assoc, hβ₀, spMap_comp'])
     have h1 : β₀ ζ ^ N = 1 := by rw [← map_pow, hζ, map_one]
     let z₀ : kˣ := Units.ofPowEqOne (β₀ ζ) N h1 hN
     obtain ⟨g1, g2, g3⟩ := C.geom k x β₀ z₀ hβ₀ rfl
@@ -758,7 +758,7 @@ theorem Twist.eq_id_of_fixed (hn : 3 ≤ n) (hN : Odd N) (hnN : n ∣ N) (hj : j
   have hN0 : N ≠ 0 := hN.pos.ne'
   obtain ⟨β, hβ⟩ := _root_.GlobalTheory.LevCover.exists_spMap (y ≫ F.s)
   have hσβ : β.comp σ = β :=
-    _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by rw [← spMap_comp', ← hβ, Category.assoc, ← t.comm, ← Category.assoc, hy])
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← spMap_comp', ← hβ, Category.assoc, ← t.comm, ← Category.assoc, hy])
   have e : β (zetaAway N) ^ m = β (zetaAway N) ^ 1 := by
     rw [pow_one, ← map_pow, ← t.root, ← RingHom.comp_apply, hσβ]
   have hσ1 : σ = RingHom.id _ := (cycAway_galois N hN0).2.1 _ σ (RingHom.id _) (by
@@ -837,7 +837,7 @@ theorem exists_twist_of_points (hn : 3 ≤ n) (hN : Odd N) (hnN : n ∣ N) (hj :
       _root_.one_mul] at e4
     exact e4
 
-  have hbj : β.comp j = β'.comp j := _root_.GlobalTheory.ZM.DenseFib.spMap_inj (by
+  have hbj : β.comp j = β'.comp j := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by
     rw [← spMap_comp', ← spMap_comp', ← hβ, ← hβ', Category.assoc, Category.assoc, hs])
   let r := IsLocalRing.residue R
   have e5 : (r.comp β) (zetaAway N) ^ (N / n) = (r.comp β) (zetaAway N) ^ (m * (N / n)) := by

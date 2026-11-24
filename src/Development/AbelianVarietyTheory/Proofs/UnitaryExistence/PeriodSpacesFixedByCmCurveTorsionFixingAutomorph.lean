@@ -118,7 +118,7 @@ theorem exists_coeff_idempotents_any_level :
   let pr : Xo.XF c' ⟶ Xo.X := pullback.fst _ _
   have hover : ∀ p : Sp ℂ ⟶ Xo.XF c', p ≫ s = spMap σ → (p ≫ pr) ≫ Xo.s = spMap (KA l).val.toRingHom := by
     intro p hp
-    rw [Category.assoc, pullback.condition, ← Category.assoc, hp, GlobalTheory.CompIdem.spMap_comp]
+    rw [Category.assoc, pullback.condition, ← Category.assoc, hp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have hconst : ∀ p q : Sp ℂ ⟶ Xo.XF c', p ≫ s = spMap σ → q ≫ s = spMap σ →
       p (IsLocalRing.closedPoint ℂ) ∈ connectedComponent (q (IsLocalRing.closedPoint ℂ)) →
@@ -185,7 +185,7 @@ theorem exists_map (F : FamilyUnif Xo σ ty) (hD : 1 ≤ D.p + D.q) (hσ : σ (b
     rw [hA, hτ]
   have hon : ∀ i P, IsPeriod (F.Di i) ty P → ∃ i' P', IsPeriod (F.Di i') ty P' ∧
       F.u i' P' = spMap (τ : ℂ →+* ℂ) ≫ F.u i P := fun i P hP =>
-    F.onto _ (by rw [Category.assoc, F.over_σ i P hP, ConjPermutes.spMap_comp, hτσ])
+    F.onto _ (by rw [Category.assoc, F.over_σ i P hP, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hτσ])
   choose P₀ hP₀ using exists_period F hty
   choose π P₁ hP₁ hu₁ using fun i => hon i (P₀ i) (hP₀ i)
   refine ⟨π, fun i P hP => ?_⟩
@@ -200,13 +200,13 @@ theorem exists_map (F : FamilyUnif Xo σ ty) (hD : 1 ≤ D.p + D.q) (hσ : σ (b
     exact (τ.symm_apply_eq.2 (hτ x).symm).symm
   have w : ∀ Q, IsPeriod (F.Di i) ty Q →
       F.u i Q ≫ Xo.s = spMap j ≫ spMap (IntermediateField.inclusion c.le).toRingHom := fun Q hQ => by
-    rw [F.over_σ i Q hQ, ConjPermutes.spMap_comp, ← hjσ]
+    rw [F.over_σ i Q hQ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hjσ]
   have key : ∀ Q (hQ : IsPeriod (F.Di i) ty Q) k Q', IsPeriod (F.Di k) ty Q' →
       F.u k Q' = spMap (τ : ℂ →+* ℂ) ≫ F.u i Q →
       τ (valAt' (X := Xo.XF c) (pullback.lift _ _ (w Q hQ)) ⊤ e) = if k = π i then 1 else 0 := by
     intro Q hQ k Q' hQ' h
     rw [← hv k Q' hQ' (spMap (τ : ℂ →+* ℂ) ≫ pullback.lift _ _ (w Q hQ))
-      (by rw [Category.assoc, pullback.lift_fst, h]) (by rw [Category.assoc, pullback.lift_snd, ConjPermutes.spMap_comp, hj]),
+      (by rw [Category.assoc, pullback.lift_fst, h]) (by rw [Category.assoc, pullback.lift_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hj]),
       valAt'_spMap_comp]
     rfl
   have hconst := _root_.GlobalTheory.CompRat.valAt_eq_of_finite_values_anyLevel E H D l Xo σ g ty F hD hσ hty c j e {0, 1} (Set.toFinite _)
@@ -231,7 +231,7 @@ theorem exists_perm : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H 
     obtain ⟨P'', hP'', h''⟩ := hπ' (π i) P' hP'
     have e : (τ.symm : ℂ →+* ℂ).comp (τ : ℂ →+* ℂ) = RingHom.id ℂ := RingHom.ext fun a => τ.symm_apply_apply a
     have e' : spMap (RingHom.id ℂ) = 𝟙 _ := Spec.map_id (CommRingCat.of ℂ)
-    rw [← h', ← Category.assoc, ConjPermutes.spMap_comp, e, e', Category.id_comp] at h''
+    rw [← h', ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, e', Category.id_comp] at h''
     exact (F.disj _ _ _ _ hP hP'' h'').symm
   exact ⟨Equiv.ofBijective π (Finite.injective_iff_bijective.1 hinv.injective), hπ⟩
 
@@ -384,7 +384,7 @@ theorem conj_point_eq_of_isSplit {E : Type} [Field E] [NumberField E] [IsCMField
     rw [← hσ]
     exact RingHom.congr_fun hτσ _
   obtain ⟨i', P', hP', hu⟩ := F.onto (spMap (τ : ℂ →+* ℂ) ≫ F.u i P)
-    (by rw [Category.assoc, F.over_σ i P hP, GlobalTheory.ConjPermutes.spMap_comp, hτσ])
+    (by rw [Category.assoc, F.over_σ i P hP, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hτσ])
   obtain ⟨Φ, hE, hp, hm, hlevA, hlev⟩ := _root_.GlobalTheory.CompRat.marking_conj_lcm E H D l Xo σ g ty F hD hσ hty τ hτ C io hC.1 i P hP i' P' hP' hs
     hu.symm (1, 0) hC
   obtain ⟨L, hL⟩ := exists_complex_linear_of_pure_types E H _ _ g ty P P' hP hP' Φ hs (fun a ha => (hp a).2 ha)

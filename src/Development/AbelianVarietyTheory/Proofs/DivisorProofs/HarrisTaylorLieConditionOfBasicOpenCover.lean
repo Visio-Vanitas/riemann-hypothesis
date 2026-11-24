@@ -136,17 +136,13 @@ section Geo
 open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField
 open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor ReciprocityTheory.ChartRestriction.G.PullbackSections GlobalTheory.UPel.HT
 
-theorem spMap_comp_loc {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-
 variable {S : Scheme.{0}} {A : Over S} [GrpObj A] [IsCommMonObj A] {R' : Type} [CommRing R']
 
 theorem tan_iff (x : Sp R' ⟶ S) (v : epsPtR x ⟶ A) :
     spMap (TrivSqZeroExt.fstHom R' R' R').toRingHom ≫ v.left = (1 : Over.mk x ⟶ A).left ↔
       Formalism.L2.Pj.smT x 0 v = 1 := by
   have e1 : spMap (TrivSqZeroExt.fstHom R' R' R').toRingHom ≫ spMap (algebraMap R' (DualNumber R')) = 𝟙 _ := by
-    rw [_root_.GlobalTheory.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom R' R' R').toRingHom.comp (algebraMap R' (DualNumber R')) = RingHom.id R' := by
       ext r; simp
     rw [this]
@@ -158,7 +154,7 @@ theorem tan_iff (x : Sp R' ⟶ S) (v : epsPtR x ⟶ A) :
   have ejh : j ≫ h = 𝟙 _ := Over.OverMorphism.ext (by simp only [Over.comp_left, Over.homMk_left, j, h, e1]; rfl)
   have e0 : Formalism.L2.Pj.homAt x (Formalism.L2.Pj.tm ((0 : R') • (LinearMap.id : R' →ₗ[R'] R'))) = h ≫ j := by
     apply Over.OverMorphism.ext
-    simp only [Formalism.L2.Pj.homAt, Over.comp_left, Over.homMk_left, j, h, _root_.GlobalTheory.spMap_comp_ring]
+    simp only [Formalism.L2.Pj.homAt, Over.comp_left, Over.homMk_left, j, h, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     ext r <;> simp [TrivSqZeroExt.algebraMap_eq_inl]
   have es : Formalism.L2.Pj.smT x 0 v = h ≫ (j ≫ v) := by
@@ -201,7 +197,7 @@ variable {R'' : Type} [CommRing R'']
 def rho (x : Sp R' ⟶ S) (g : R' →+* R'') : epsPtR (spMap g ≫ x) ⟶ epsPtR x :=
   Over.homMk (spMap (Chart.dualMapR g)) (by
     show spMap _ ≫ spMap (algebraMap R' (DualNumber R')) ≫ x = spMap (algebraMap R'' (DualNumber R'')) ≫ spMap g ≫ x
-    rw [← Category.assoc, ← Category.assoc, spMap_comp_loc, spMap_comp_loc]
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have e : (Chart.dualMapR g).comp (algebraMap R' (DualNumber R')) =
         (algebraMap R'' (DualNumber R'')).comp g := by
       refine RingHom.ext fun z => TrivSqZeroExt.ext ?_ ?_ <;>
@@ -211,7 +207,7 @@ def rho (x : Sp R' ⟶ S) (g : R' →+* R'') : epsPtR (spMap g ≫ x) ⟶ epsPtR
 theorem smT_rho (x : Sp R' ⟶ S) (g : R' →+* R'') (c : R') (w : epsPtR x ⟶ A) :
     Formalism.L2.Pj.smT (spMap g ≫ x) (g c) (rho x g ≫ w) = rho x g ≫ Formalism.L2.Pj.smT x c w := by
   apply Over.OverMorphism.ext
-  simp only [Over.comp_left, Formalism.L2.Pj.smT_left, rho, Over.homMk_left, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+  simp only [Over.comp_left, Formalism.L2.Pj.smT_left, rho, Over.homMk_left, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have e : (epsMul (g c)).comp (Chart.dualMapR g) = (Chart.dualMapR g).comp (epsMul c) := by
     refine RingHom.ext fun z => TrivSqZeroExt.ext ?_ ?_ <;>
       simp [Chart.dualMapR, epsMul, mul_comm]
@@ -273,7 +269,7 @@ theorem eq_zero_of_res (x : Sp R' ⟶ S) (t : Finset R') (ht : Ideal.span (t : S
     rw [MonObj.comp_one]
     exact congrArg tv (h a.1 a.2)
   have ha : 𝒰.f a = spMap (Chart.toL (a : R')) ≫ spMap (Chart.dAway (a : R')) := by
-    rw [spMap_comp_loc, Chart.toL_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Chart.toL_comp]
     rfl
   have hleft := congrArg (fun φ => φ.left) hlocal
   change spMap (Chart.dAway (a : R')) ≫ (tv U).left =

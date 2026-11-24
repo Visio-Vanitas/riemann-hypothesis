@@ -1196,7 +1196,7 @@ theorem exists_map_to_base {U U'' U₀ : Scheme.{0}} {F F'' F₀ O O'' O₀ R V 
       ∀ y : t''.G.left ⟶ τ.G.left, y ≫ n₁.φ = C''.m.φ → y ≫ n₂.φ = (ν''.φ ≫ ν.φ) ≫ C₀.m.φ := by
   have w₀ : (pullback.fst C''.s (spMap b) ≫ A''.π) ≫ C'.s = (pullback.snd _ _ ≫ spMap e) ≫ spMap b₁ := by
     rw [Category.assoc, A''.π_over, ← Category.assoc, pullback.condition, Category.assoc, Category.assoc,
-      ← spMap_comp, ← spMap_comp, he]
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he]
   let g₀ : pullback C''.s (spMap b) ⟶ pullback C'.s (spMap b₁) := pullback.lift _ _ w₀
   have hg₀ : g₀ ≫ pullback.fst _ _ = pullback.fst _ _ ≫ A''.π := pullback.lift_fst _ _ _
   obtain ⟨_, _, _, _, _, n₁, -⟩ := sabPull Out.CubePf.cubePull (pullback.fst C''.s (spMap b)) C''.t
@@ -1205,7 +1205,7 @@ theorem exists_map_to_base {U U'' U₀ : Scheme.{0}} {F F'' F₀ O O'' O₀ R V 
   obtain ⟨k₃, hk₃⟩ := LevelCover.sab_comp m₂ A₁.mu rfl
   obtain ⟨n₂, hn₂⟩ := LevelCover.sab_comp k₂ k₃ rfl
   have w₁ : C'.j ≫ C'.s = (c ≫ spMap ω) ≫ spMap b₁ := by
-    rw [Cpt.j, Category.assoc, pullback.condition, ← Category.assoc, C'.jQ_over, Category.assoc, ← spMap_comp, hω]
+    rw [Cpt.j, Category.assoc, pullback.condition, ← Category.assoc, C'.jQ_over, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hω]
   let g₁ : U ⟶ pullback C'.s (spMap b₁) := pullback.lift _ _ w₁
   have hg₁ : g₁ ≫ pullback.fst _ _ = C'.j := pullback.lift_fst _ _ _
   refine ⟨_, _, n₁, n₂, fun g hg => ?_, fun y hy => ?_⟩
@@ -1306,7 +1306,7 @@ theorem exists_global_model : (∀ (T K : Type) [CommRing T] [IsDomain T] [IsDis
       Category.assoc]
   · rw [hν', ← Category.assoc, LevelCover.sec_pow m0.toSABMap _ _ (m0.etaA x), Category.assoc, (hlev i.2).2,
       Category.assoc]
-  · rw [Category.assoc, hr, ← Category.assoc, pullback.condition, Category.assoc, spMap_comp]
+  · rw [Category.assoc, hr, ← Category.assoc, pullback.condition, Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 end GlobalTheory.GlobalModel
 end -- clump:auto
@@ -1382,7 +1382,7 @@ open GlobalTheory.ZM
 noncomputable section
 namespace GlobalTheory.SiegelFromSharp
 
-alias spMap_comp := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 alias spMap_id := _root_.GlobalTheory.ZM.FamilyScheme.spMap_id
 
@@ -1403,7 +1403,7 @@ def restrictBase {h k : ℕ} {B B' : Type} [CommRing B] [CommRing B'] {ζ : B} {
     obtain ⟨φ, hφ⟩ := Spec.map_surjective (x ≫ s')
     refine c.geom K x φ.hom z hφ.symm ?_
     have : spMap (φ.hom.comp j) = spMap β := by
-      rw [← spMap_comp, ← hx, ← Category.assoc, ← hφ]; rfl
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hx, ← Category.assoc, ← hφ]; rfl
     have e : φ.hom.comp j = β := congrArg CommRingCat.Hom.hom (Spec.map_injective this)
     rw [hz, ← e, ← hj]; rfl
 
@@ -1416,7 +1416,7 @@ theorem finiteType_of_isQProjOver {R : Type} [CommRing R] {X : Scheme.{0}} {f : 
 theorem dirMap_base {o K : Type} [CommRing o] [Field K] {r : ℕ} (β : o →+* K) (lam : (Fin r → K) →ₗ[K] K) :
     spMap (dirMap lam) ≫ spMap ((algebraMap K (TrivSqZeroExt K (Fin r → K))).comp β) =
       constPt (spMap (dirMap lam)) ≫ spMap ((algebraMap K (TrivSqZeroExt K (Fin r → K))).comp β) := by
-  simp only [constPt, spMap_comp]
+  simp only [constPt, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext x <;> simp [dirMap]
 

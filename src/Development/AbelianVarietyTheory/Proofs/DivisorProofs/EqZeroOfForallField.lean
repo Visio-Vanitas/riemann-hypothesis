@@ -210,7 +210,7 @@ theorem pbT_base {G X Z : Scheme.{0}} (p : G ⟶ X) (U : X.affineOpens) {R : Typ
   generalize (Spec.preimage (y ≫ q)).hom = β' at e
   have hy' : ⊤ ≤ (y ≫ z) ⁻¹ᵁ O₀ := fun p hp => hO (hy hp)
   rw [valR_constFn q y hy e, ← pbT_of_le, valR_pbT y z hO hy, valR_pbT _ _ h₀ hy',
-    Category.assoc, hz, ← Category.assoc, e, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp', valR_chart]
+    Category.assoc, hz, ← Category.assoc, e, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, valR_chart]
   rfl
 
 theorem exists_ksCoc {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {X : Scheme.{0}} (t : SAB H X)
@@ -305,7 +305,7 @@ theorem exists_ksCoc {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Hos
       le_preimage_of_red ((hw c).red (hut c)) h
     have key := hdiff (κ a) (κ b) _ (le_inf (him a O (hO.trans inf_le_left)) (him b O (hO.trans inf_le_right))) (σ O f) B
       (β.comp x₀) (y ≫ m ≫ io) (fun c => w c ≫ m ≫ io)
-      (by rw [Category.assoc, hM.1.w, ← Category.assoc, e, ← Category.assoc, GlobalTheory.LogKSLoc.spMap_comp']) hy₂
+      (by rw [Category.assoc, hM.1.w, ← Category.assoc, e, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) hy₂
       fun c => IsTransl.isTranslate_comp t _ A _ hM x₀ (v c) (u c) (hu c) β y e (w c) (hw c)
     have k₁ : ∀ c, (valR (w c ≫ m ≫ io) _ (σ O f)).snd = valR y _ (dd c _ ((m.app O).hom f)) := fun c => by
       rw [← snd_valR_transl (hut c) (hdd c) (hw c) hy, happ, valR_pbT _ _ (hpre O) (hwO c _ hy)]

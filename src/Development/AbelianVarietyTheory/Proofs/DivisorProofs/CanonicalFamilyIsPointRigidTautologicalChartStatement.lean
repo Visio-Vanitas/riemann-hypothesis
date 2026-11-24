@@ -579,7 +579,7 @@ theorem coords_eq : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] {H : 
   obtain ⟨k₀, hk₀⟩ := exists_genericMap hη
   have hk : ∀ (θ : R →+* R') (κ : Sp (FractionRing R') ⟶ Sp (FractionRing R)), κ ≫ jK R = jK R' ≫ spMap θ →
       (k₀ ≫ κ) ≫ jK R = jK V ≫ spMap (η'.comp θ) := fun θ κ hκ => by
-    rw [Category.assoc, hκ, ← Category.assoc, hk₀, Category.assoc, GlobalTheory.GenericBundleDescent.sp_comp]
+    rw [Category.assoc, hκ, ← Category.assoc, hk₀, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨D₁, D₂, hD₁, hD₂, j₁, j₂, b, ph, hE₁, hE₂, hM, hlin, hpairs, -⟩ := pair_match Xo c φ R hR C.toFam V hV f₁ f₂ hf₁ hf₂
     lf₁ lf₂ (k₀ ≫ κ₁) (k₀ ≫ κ₂) (c₁ ▸ hk θ₁ κ₁ hκ₁) (c₂ ▸ hk θ₂ κ₂ hκ₂) (by rw [Category.assoc, hy, Category.assoc])
   obtain ⟨ββ₁, w₁, hF₁⟩ := from_pull T ε l.M' R V _ C.P.D iw s e β ββ w f₁ D₁.toPre hD₁ hf₁ hF

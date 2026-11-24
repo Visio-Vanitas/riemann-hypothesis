@@ -183,11 +183,11 @@ theorem isProjOver_descends_to_subring :
   have hsp : ∀ {A B : Subring S} (hAB : A ≤ B),
       spMap B.subtype ≫ spMap (Subring.inclusion hAB) = spMap A.subtype := by
     intro A B hAB
-    rw [← spMap_comp, hsub]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hsub]
   have hsp2 : ∀ {A B C : Subring S} (hAB : A ≤ B) (hBC : B ≤ C) (hAC : A ≤ C),
       spMap (Subring.inclusion hBC) ≫ spMap (Subring.inclusion hAB) = spMap (Subring.inclusion hAC) := by
     intro A B C hAB hBC hAC
-    rw [← spMap_comp, hincl]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hincl]
   obtain ⟨M, i, hci, hif⟩ := hP
   have : LocallyOfFinitePresentation (PSpace.str R₀ M) := locallyOfFinitePresentation_pspace_str R₀ M
   have hφ : (i ≫ ProjSpace.baseChange M R₀.subtype) ≫ PSpace.str R₀ M = π ≫ f₀ := by
@@ -307,7 +307,7 @@ theorem exists_isGrpPullback_of_le {S : Type} [CommRing S] {R₀ R₁ : Subring 
     ∃ φ₁ : A.left ⟶ ((Over.pullback (spMap (Subring.inclusion h))).obj A₀).left,
       IsGrpPullback A ((Over.pullback (spMap (Subring.inclusion h))).obj A₀) (spMap R₁.subtype) φ₁ := by
   have e : spMap R₀.subtype = spMap R₁.subtype ≫ spMap (Subring.inclusion h) :=
-    spMap_comp (Subring.inclusion h) R₁.subtype
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (Subring.inclusion h) R₁.subtype
   have hp := isGrpPullback_pullback A₀ (spMap (Subring.inclusion h))
   refine ⟨hp.1.lift φ (A.hom ≫ spMap R₁.subtype) (by rw [H.1.w, e, Category.assoc]), ?_⟩
   exact IsGrpPullback.cancel hp (H.congr e (hp.1.lift_fst _ _ _).symm) (hp.1.lift_snd _ _ _)
@@ -328,7 +328,7 @@ theorem exists_projective_abelian_model : ∀ (S : Type) [CommRing S] [IsDomain 
     exact ⟨_, _, inferInstance, φ₁, hF R₁ h₀₁ hF₁ _ _ _ (IsPullback.of_hasPullback _ _),
       inferInstanceAs (Smooth (pullback.snd _ _)), H₁⟩
   let κ := IsLocalRing.residue S
-  have e₁ : spMap (κ.comp R₁.subtype) = spMap κ ≫ spMap R₁.subtype := spMap_comp _ _
+  have e₁ : spMap (κ.comp R₁.subtype) = spMap κ ≫ spMap R₁.subtype := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   have hfib : GeometricallyConnected (pullback.snd A₁.hom (spMap (κ.comp R₁.subtype))) := by
     have Q := IsPullback.of_hasPullback A₁.hom (spMap (κ.comp R₁.subtype))
     let l := H₁.1.lift (pullback.fst A₁.hom (spMap (κ.comp R₁.subtype))) (pullback.snd _ _ ≫ spMap κ)
@@ -349,7 +349,7 @@ theorem exists_projective_abelian_model : ∀ (S : Type) [CommRing S] [IsDomain 
   have hab : IsAbelianScheme ((Over.pullback (spMap (Subring.inclusion h₁₂))).obj A₁) :=
     ⟨inferInstance, inferInstanceAs (Smooth (pullback.snd _ _)), projProper _ _ _ hp₂, hconn R₂ _ hunit⟩
   refine ⟨R₂, _, inferInstance, φ₂, hft₂, hab, ?_, hp₂, H₂⟩
-  have e₂ : spMap (κ.comp R₂.subtype) = spMap κ ≫ spMap R₂.subtype := spMap_comp _ _
+  have e₂ : spMap (κ.comp R₂.subtype) = spMap κ ≫ spMap R₂.subtype := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _
   refine GlobalTheory.CM.smoothOfRelativeDimension_of_fibre R₂ _ (κ.comp R₂.subtype) _ _
     (pullback.fst P.A.hom (spMap κ) ≫ φ₂) (pullback.snd P.A.hom (spMap κ)) P.g hab ?_ ?_
   · rw [e₂]; exact (IsPullback.of_hasPullback _ _).paste_horiz H₂.1

@@ -65,8 +65,8 @@ theorem stalkPt_genStr (B : GlobalTheory.ProjVar.Var F) (e : F ≃+* c.F) (j : B
   have hpt : genericPt B ≫ B.str = spMap (algebraMap F B.Fn) := (ratOf B).pt_s
   have key : ((algebraMap (B.X.presheaf.stalk z) B.X.functionField).comp ψ.hom).comp e.toRingHom =
       algebraMap F B.Fn := by
-    apply _root_.GlobalTheory.ZM.DenseFib.spMap_inj
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hpt, ← hj, ← hgen,
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hpt, ← hj, ← hgen,
       show spMap ψ.hom = stalkPt B z ≫ j ≫ genStr Z from hψ]
     simp only [Category.assoc]
   have hψeq : ψ.hom = φA := by
@@ -201,7 +201,7 @@ theorem coord_iff (hπ : C.π = f ≫ j) (hT : Tied e B j f₀ S A₀) (hT' : Ti
     exact coord_unique' hev hh (coord_comp' hN hh')
   obtain ⟨hxg, hχ, -⟩ := id hh
   have hxg' : x ≫ genι Z = spMap (Scheme.stalkClosedPointTo (R := .of K) p).hom ≫ (stalkPt C.Y (p (IsLocalRing.closedPoint K)) ≫ C.π ≫ genι Z) := by
-    rw [hxC, hxg, hev, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+    rw [hxC, hxg, hev, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have hχ' : χ = (Scheme.stalkClosedPointTo (R := .of K) p).hom.comp φ₁ := by
     rw [hχ, hev, hφ₁, RingHom.comp_assoc]
   obtain ⟨h'', hh'', -⟩ := exists_coord_unit_det_of_baseChange f₁ (Scheme.stalkClosedPointTo (R := .of K) p).hom hxg' hχ' g
@@ -231,13 +231,13 @@ theorem flagex_lifts : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H
   obtain ⟨-, hφA, -⟩ := id hfA
   have hsg := stalkPt_genStr B e j hj (x' (IsLocalRing.closedPoint K)) φA hφA
   have hχ : χ = (Scheme.stalkClosedPointTo (R := .of K) x').hom.comp φA := by
-    apply _root_.GlobalTheory.ZM.DenseFib.spMap_inj
+    apply ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq
     calc spMap χ = x ≫ genStr Z := hxs.symm
       _ = (x' ≫ j) ≫ genStr Z := by rw [hx']
       _ = ((spMap (Scheme.stalkClosedPointTo (R := .of K) x').hom ≫ stalkPt B (x' (IsLocalRing.closedPoint K))) ≫ j) ≫ genStr Z := by rw [hx'f]
       _ = spMap (Scheme.stalkClosedPointTo (R := .of K) x').hom ≫ (stalkPt B (x' (IsLocalRing.closedPoint K)) ≫ j ≫ genStr Z) := by simp only [Category.assoc]
       _ = spMap (Scheme.stalkClosedPointTo (R := .of K) x').hom ≫ spMap φA := by rw [hsg]
-      _ = spMap ((Scheme.stalkClosedPointTo (R := .of K) x').hom.comp φA) := (_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
+      _ = spMap ((Scheme.stalkClosedPointTo (R := .of K) x').hom.comp φA) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have hxg : x ≫ genι Z = spMap (Scheme.stalkClosedPointTo (R := .of K) x').hom ≫ (stalkPt B (x' (IsLocalRing.closedPoint K)) ≫ j ≫ genι Z) := by
     calc x ≫ genι Z = (x' ≫ j) ≫ genι Z := by rw [hx']
       _ = ((spMap (Scheme.stalkClosedPointTo (R := .of K) x').hom ≫ stalkPt B (x' (IsLocalRing.closedPoint K))) ≫ j) ≫ genι Z := by rw [hx'f]

@@ -268,7 +268,7 @@ theorem exists_flat_sec : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E]
       intro F _ ψ
       let ψ' : p.R →+* F := ψ.comp f.toRingHom
       have h1 : under (fpt z ψ) = spMap ψ' ≫ y.x := by
-        rw [fpt_under, h.1, ← Category.assoc, Flat.spMap_comp']
+        rw [fpt_under, h.1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have h2 : fpt z ψ ≫ pullback.snd _ _ = spMap (ψ'.comp (algebraMap c.F p.R)) := by
         rw [fpt_snd]
         congr 1

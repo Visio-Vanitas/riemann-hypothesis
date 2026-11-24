@@ -130,7 +130,7 @@ theorem exists_comp {R R' R'' : Type} [CommRing R] [IsDomain R] [CommRing R'] [I
     ∃ r : IsPullDeg (j.comp i) D D'', proj r = proj q ≫ proj p₀ ∧ ∀ x, r.xe x = p₀.xe (q.xe x) := by
   obtain ⟨p, hW, e₁, e₂⟩ := exists_top p₀ hU
   rw [← e₁, ← e₂]
-  have sc : spMap j ≫ spMap i = spMap (j.comp i) := (spMap_comp i j).symm
+  have sc : spMap j ≫ spMap i = spMap (j.comp i) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i j).symm
   have gp : IsGrpPullback D''.P.A D.P.A (spMap (j.comp i)) (proj q ≫ proj p) :=
     ((pull_grp q).comp (pull_grp p)).congr sc rfl
   have g₁ := (isGen_iff _).1 p.w_gen
@@ -177,7 +177,7 @@ theorem exists_cancel {R₀ R₁ R₂ : Type} [CommRing R₀] [IsDomain R₀] [C
   rw [← e₁', ← e₂']
   have hW : specOf α ⁻¹ᵁ h₁.W = ⊤ := by rw [hW₁]; rfl
   have p₁ : IsGrpPullback D₁.P.A D₀.P.A (spMap α) (proj h₁) := pull_grp h₁
-  have sc : spMap β ≫ spMap α = spMap (β.comp α) := (spMap_comp α β).symm
+  have sc : spMap β ≫ spMap α = spMap (β.comp α) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp α β).symm
   have p : IsGrpPullback D.P.A D₀.P.A (spMap β ≫ spMap α) (proj h) := (pull_grp h).congr sc.symm rfl
   obtain ⟨Φ, e₁, e₂⟩ : ∃ Φ : D.P.A.left ⟶ D₁.P.A.left, Φ ≫ proj h₁ = proj h ∧ Φ ≫ D₁.P.A.hom = D.P.A.hom ≫ spMap β :=
     ⟨p₁.1.lift (proj h) (D.P.A.hom ≫ spMap β) (p.1.w.trans (Category.assoc _ _ _).symm), p₁.1.lift_fst _ _ _,

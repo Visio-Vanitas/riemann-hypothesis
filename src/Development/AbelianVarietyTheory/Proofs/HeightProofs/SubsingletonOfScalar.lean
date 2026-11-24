@@ -153,7 +153,7 @@ theorem ext_of_injective {R A : Type} [CommRing R] [CommRing A] (i : R →+* A) 
 
 variable {R : Type} [CommRing R]
 
-alias sp_comp := _root_.GlobalTheory.TanMod.spMap_comp'
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem dual_base (i : R →+* k) : spMap (dualMapR i) ≫ spMap (algebraMap R (DualNumber R)) =
     spMap (algebraMap k (DualNumber k)) ≫ spMap i := by

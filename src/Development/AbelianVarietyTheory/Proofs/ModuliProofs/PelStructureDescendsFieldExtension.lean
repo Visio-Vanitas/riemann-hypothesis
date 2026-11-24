@@ -124,12 +124,6 @@ theorem detCond_pull {S S' : Scheme.{0}} {G : Over S} {G' : Over S'} [GrpObj G] 
     GlobalTheory.LiePull.lieMult_pull (𝓞 E) S S' G G' f φ a a' h hact k x σ n
   exact forall_congr' fun σ => and_congr (imp_congr_right fun _ => key σ _) (imp_congr_right fun _ => key σ _)
 
-private theorem spMap_comp_var2 {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R')
-    (g : R' →+* R'') : spMap g ≫ spMap f = spMap (g.comp f) := by
-  show Spec.map _ ≫ Spec.map _ = Spec.map _
-  rw [← Spec.map_comp]
-  rfl
-
 private theorem exists_algClosed_amalgam_of_charZero {K₀ K K' : Type} [Field K₀] [Field K] [Field K'] [CharZero K'] (i : K₀ →+* K)
     (κ : K₀ →+* K') : ∃ (Ω : Type) (_ : Field Ω) (_ : IsAlgClosed Ω) (_ : CharZero Ω) (iK : K →+* Ω) (iK' : K' →+* Ω),
       iK.comp i = iK'.comp κ := by
@@ -182,7 +176,7 @@ theorem isPEL_descends : Out.Laws → ∀ (E : Type) [Field E] [NumberField E] [
     show x' = Spec.map (CommRingCat.ofHom (Spec.preimage x').hom)
     rw [CommRingCat.ofHom_hom, Spec.map_preimage]
   have hβ : κ.comp β₀ = β := by
-    have h1 : spMap (κ.comp β₀) = spMap β := by rw [← spMap_comp_var2, ← hxκ, hx']
+    have h1 : spMap (κ.comp β₀) = spMap β := by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hxκ, hx']
     have h2 := Spec.map_injective h1
     exact congrArg CommRingCat.Hom.hom h2
   have hk : 0 < k := by
@@ -195,9 +189,9 @@ theorem isPEL_descends : Out.Laws → ∀ (E : Type) [Field E] [NumberField E] [
 
   obtain ⟨Ω, _, _, _, iK, iK', hΩ⟩ := exists_algClosed_amalgam_of_charZero i κ
   have hsq : spMap iK' ≫ x' = spMap iK ≫ spMap i := by
-    rw [hxκ, spMap_comp_var2, spMap_comp_var2, hΩ]
+    rw [hxκ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hΩ]
   have hsΩ : spMap iK ≫ s = spMap (iK.comp (i.comp β₀)) := by
-    rw [hs, ← Category.assoc, spMap_comp_var2, spMap_comp_var2]
+    rw [hs, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hbr : ∀ z : o, iK (i (β₀ z)) = iK' (β z) := fun z => by
     rw [← hβ]
     exact congrArg (fun F : K₀ →+* Ω => F (β₀ z)) hΩ

@@ -406,7 +406,7 @@ theorem exists_witnesses : ∀ {g n : ℕ} {F : SFam g n (zetaAway n)} {W : Matr
     refine 𝔪.cart.1.hom_ext ?_ ?_
     · show _ = (spMap f ≫ (x b).left) ≫ 𝔪.φ
       rw [Category.assoc, ← hφ, ← Category.assoc, h1', Category.assoc, 𝔗.lam_pt, Category.assoc, h1, ← Category.assoc,
-        ← Category.assoc, ← spMap_comp, ← spMap_comp, hyK]
+        ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hyK]
     · rw [Category.assoc, hcart.1.w, ← Category.assoc, Over.w, Over.w]
       exact hg₂
   have hfr : ∀ b, FrUp wψ (fr₂ (𝔗.lam b)) (frExt (FractionRing V') (fr b)) (ρ b : FractionRing V') := fun b z J J' hJ hJ' => by

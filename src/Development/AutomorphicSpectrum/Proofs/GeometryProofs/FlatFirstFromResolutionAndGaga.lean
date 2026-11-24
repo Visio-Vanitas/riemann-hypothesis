@@ -128,13 +128,9 @@ open _root_.GlobalTheory.CompanionTheory.Ar (dualMap)
 
 variable {S : Scheme.{0}} {R : Type} [CommRing R]
 
-theorem spMap_spMap {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (a : B →+* C) (b : A →+* B) :
-    spMap a ≫ spMap b = spMap (a.comp b) := by
-  rw [← Spec.map_comp]; rfl
-
 theorem spMap_spMap_assoc {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (a : B →+* C) (b : A →+* B)
     {T : Scheme.{0}} (g : Sp A ⟶ T) : spMap a ≫ spMap b ≫ g = spMap (a.comp b) ≫ g := by
-  rw [← Category.assoc, spMap_spMap]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
 
 theorem spMap_idR (A : Type) [CommRing A] : spMap (RingHom.id A) = 𝟙 _ :=
   Spec.map_id (CommRingCat.of A)
@@ -258,7 +254,7 @@ theorem hasInfNorm_conj : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E]
   let w' : Vecs (spMap (starRingEnd ℂ) ≫ y) D.q := fun i => tr (starRingEnd ℂ) hy (w i)
   have hfr' : IsFramed U τ s (spMap (starRingEnd ℂ) ≫ y) v' w' := by
     refine ⟨?_, ?_, ?_, ?_⟩
-    · rw [Category.assoc, h1, spMap_spMap, hcomp]
+    · rw [Category.assoc, h1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomp]
     · rintro _ ⟨a, rfl⟩
       exact h2 ⟨(spMap (starRingEnd ℂ)) a, by simp⟩
     · have := isEigFrame_tr Xo.univ.t.act (starRingEnd ℂ) hcc hy h3

@@ -357,7 +357,7 @@ theorem cechPt_over (P : GPt A) : P.x ≫ A.hom = spMap (algebraMap K P.B) :=
   B := DualNumber P.B
   x := spMap (algebraMap P.B (DualNumber P.B)) ≫ P.x
   w := (congrArg (_ ≫ ·) (Category.comp_id A.hom)).trans (by
-    rw [Category.assoc, cechPt_over, ← Cris.spMap_comp, ← IsScalarTower.algebraMap_eq])
+    rw [Category.assoc, cechPt_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← IsScalarTower.algebraMap_eq])
 
 theorem Pt.In.cst {P : GPt A} {U : A.left.Opens} (h : P.In U) : P.cst.In U :=
   fun _ _ ↦ h (Set.mem_univ _)
@@ -377,7 +377,7 @@ theorem fst_comp_inl (P : GPt A) :
 theorem cst_red (P : GPt A) :
     spMap (TrivSqZeroExt.fstHom K P.B P.B : DualNumber P.B →+* P.B) ≫ P.cst.x = P.x := by
   show _ ≫ spMap _ ≫ P.x = P.x
-  rw [← Category.assoc, ← Cris.spMap_comp, fst_comp_inl, Cris.spMap_id, Category.id_comp]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_inl, Cris.spMap_id, Category.id_comp]
 
 theorem cst_val (P : GPt A) {U : A.left.Opens} (hU : P.In U) (g : Γ(A.left, U)) :
     TrivSqZeroExt.fst (valR P.cst.x U g) = valR P.x U g := by
@@ -425,11 +425,11 @@ theorem cechKS_lifts : ∀ (K : Type) [Field K] (A : Over (Sp K)) [GrpObj A] (A'
         (TrivSqZeroExt.fstHom K P.B P.B : DualNumber P.B →+* P.B) := RingHom.ext fun _ ↦ rfl
     calc spMap (TrivSqZeroExt.fstHom K P.B P.B : DualNumber P.B →+* P.B) ≫ _
         = spMap (Ideal.Quotient.lift I _ hI) ≫ spMap (Ideal.Quotient.mk I) ≫ lam k (DualNumber P.B) P.cst.x := by
-          rw [← Category.assoc, ← Cris.spMap_comp, hq]
+          rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hq]
           rfl
       _ = spMap (Ideal.Quotient.lift I _ hI) ≫ spMap (Ideal.Quotient.mk I) ≫ P.cst.x ≫ i := by rw [h2]
       _ = (spMap (TrivSqZeroExt.fstHom K P.B P.B : DualNumber P.B →+* P.B) ≫ P.cst.x) ≫ i := by
-          rw [← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, hq, Category.assoc]
+          rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hq, Category.assoc]
       _ = P.x ≫ i := by rw [cst_red]
   · intro k P Q φ hP
     letI : Algebra (DualNumber K) (DualNumber P.B) := (dualMap (algebraMap K P.B)).toAlgebra
@@ -441,7 +441,7 @@ theorem cechKS_lifts : ∀ (K : Type) [Field K] (A : Over (Sp K)) [GrpObj A] (A'
     have h3 := (hlift k (DualNumber P.B) P.cst.x (hx P) hP.cst).2.2 (DualNumber Q.B) ρ
     have hc : spMap (dualMap (φ.ρ : P.B →+* Q.B)) ≫ P.cst.x = Q.cst.x := by
       show spMap _ ≫ spMap _ ≫ P.x = spMap _ ≫ Q.x
-      rw [← φ.pt, ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp, dualMap_comp_algebraMap]
+      rw [← φ.pt, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_algebraMap]
     exact h3.trans (congrArg _ hc)
   · intro k k' P U f hk hk' hU
     letI : Algebra (DualNumber K) (DualNumber P.B) := (GlobalTheory.CompanionTheory.Ar.dualMap (algebraMap K P.B)).toAlgebra
@@ -781,13 +781,13 @@ theorem ev_sec_sub_ev_tan (h : IsGrpPullback A A' (GlobalTheory.DeRham.epsRed K)
   have hc : (spMap (algebraMap P.B (DualNumber P.B)) ≫ P.x ≫ i) ≫ A'.hom ≫ 𝟙 _ =
       spMap (algebraMap (DualNumber K) ((fibMor h).isMor.obj P.ext).B) := by
     rw [Category.assoc, w]
-    exact (Cris.spMap_comp g (algebraMap P.B (DualNumber P.B))).symm.trans (congrArg spMap (RingHom.ext fun _ ↦ rfl))
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g (algebraMap P.B (DualNumber P.B))).symm.trans (congrArg spMap (RingHom.ext fun _ ↦ rfl))
   have ec : spMap ((fibMor h).isMor.obj P.ext).π ≫ spMap (algebraMap P.B (DualNumber P.B)) ≫ P.x ≫ i =
       ((fibMor h).isMor.obj P.ext).x := by
     let π' : DualNumber P.B →+* P.B := TrivSqZeroExt.fstHom K P.B P.B
     have e : π'.comp (algebraMap P.B (DualNumber P.B)) = RingHom.id _ := RingHom.ext fun _ ↦ rfl
     show spMap π' ≫ spMap (algebraMap P.B (DualNumber P.B)) ≫ P.x ≫ i = P.x ≫ i
-    rw [← Category.assoc, ← Cris.spMap_comp, e, Cris.spMap_id, Category.id_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e, Cris.spMap_id, Category.id_comp]
   have ht : (P.trx v ≫ i) ≫ A'.hom ≫ 𝟙 _ =
       spMap (algebraMap (DualNumber K) ((fibMor h).isMor.obj P.ext).B) :=
     ((fibMor h).isMor.obj (P.tr v).triv).w

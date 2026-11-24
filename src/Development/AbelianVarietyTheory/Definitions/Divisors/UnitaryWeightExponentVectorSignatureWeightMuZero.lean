@@ -173,7 +173,7 @@ theorem spMap_algId {S : Type} [CommRing S] [Algebra c.F S] {Z : Scheme.{0}} (z 
 theorem spMap_algComp {S S' S'' : Type} [CommRing S] [Algebra c.F S] [CommRing S'] [Algebra c.F S'] [CommRing S'']
     [Algebra c.F S''] (ψ : S →ₐ[c.F] S') (χ : S' →ₐ[c.F] S'') {Z : Scheme.{0}} (z : Sp S ⟶ Z) :
     spMap (χ.comp ψ).toRingHom ≫ z = spMap χ.toRingHom ≫ spMap ψ.toRingHom ≫ z := by
-  rw [← Category.assoc, spMap_comp']; rfl
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
 
 namespace Frames
 

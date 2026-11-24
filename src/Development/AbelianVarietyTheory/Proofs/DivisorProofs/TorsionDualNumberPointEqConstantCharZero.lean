@@ -65,10 +65,6 @@ noncomputable section
 
 namespace GlobalTheory.TorsConst
 
-theorem sp_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) :=
-  (Spec.map_comp (CommRingCat.ofHom f) (CommRingCat.ofHom g)).symm
-
 theorem ext_of_two {B C : Type} [CommRing B] [CommRing C] [IsLocalRing B] [IsLocalRing C]
     (d e : B →+* C) [IsLocalHom d] [IsLocalHom e] (hde : ∀ x y, d x = d y → e x = e y → x = y)
     {X : Scheme.{0}} (a b : Sp B ⟶ X) (h1 : spMap d ≫ a = spMap d ≫ b) (h2 : spMap e ≫ a = spMap e ≫ b) :
@@ -125,7 +121,7 @@ def ovH {B C : Type} [CommRing B] [Algebra K B] [CommRing C] [Algebra K C] (φ :
     ovO (K := K) C ⟶ ovO B :=
   Over.homMk (spMap φ.toRingHom) (by
     simp only [ovO, Over.mk_hom]
-    rw [sp_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
     exact φ.comp_algebraMap)
 
@@ -135,7 +131,7 @@ theorem ovH_left {B C : Type} [CommRing B] [Algebra K B] [CommRing C] [Algebra K
 theorem ovH_comp {B C E : Type} [CommRing B] [Algebra K B] [CommRing C] [Algebra K C] [CommRing E] [Algebra K E]
     (φ : B →ₐ[K] C) (ψ : C →ₐ[K] E) : ovH (ψ.comp φ) = ovH ψ ≫ ovH φ := by
   ext1
-  simp only [Over.comp_left, ovH_left, _root_.GlobalTheory.spMap_comp_ring]
+  simp only [Over.comp_left, ovH_left, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem ovH_id {B : Type} [CommRing B] [Algebra K B] : ovH (AlgHom.id K B) = 𝟙 (ovO B) := by
@@ -238,4 +234,4 @@ theorem GlobalTheory.TorsConst.torsion_eq_const : ∀ (K : Type) [Field K] [Char
   have e : (algebraMap K (DualNumber K)).comp (TrivSqZeroExt.fstHom K K K).toRingHom = (GlobalTheory.TorsConst.sc (0 : K)).toRingHom := by
     ext x <;> simp [TrivSqZeroExt.algebraMap_eq_inl]
   conv_lhs => rw [key]
-  rw [Over.comp_left, GlobalTheory.TorsConst.ovH_left, ← e, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring]
+  rw [Over.comp_left, GlobalTheory.TorsConst.ovH_left, ← e, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]

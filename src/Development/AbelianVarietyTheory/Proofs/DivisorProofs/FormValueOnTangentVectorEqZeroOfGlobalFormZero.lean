@@ -100,7 +100,7 @@ theorem snd_val_affine {R' : Type} [CommRing R'] [Algebra R R'] (U : X.affineOpe
     simp [Φ, α₀, RingHom.algebraMap_toAlgebra]
   have e₀ : spMap (α₀ : Sec s U.1 →+* R') ≫ affPt s U =
       spMap ((SqExt.ofModule R R' R').π : TrivSqZeroExt R' R' →+* R') ≫ y := by
-    rw [← e, ← Category.assoc, ← Cris.spMap_comp]; rfl
+    rw [← e, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   let Ψ := (diagExt R (Sec s U.1)).thickHom (SqExt.ofModule R R' R') Φ α₀ hπ hx
     ((SqExt.ofModule R R' R').red_w hy) e₀
   let a1 : Thick.triv (Sec s U.1) (affPt s U) hx ⟶
@@ -153,7 +153,7 @@ theorem snd_val_eq_zero (y : Sp (DualNumber R) ⟶ X)
     let y' := spMap (φ : DualNumber R →+* TrivSqZeroExt R' R') ≫ y
     have hy' : y' ≫ s = spMap (algebraMap R (TrivSqZeroExt R' R')) := by
       change (spMap (φ : DualNumber R →+* TrivSqZeroExt R' R') ≫ y) ≫ s = _
-      rw [Category.assoc, hy, ← Cris.spMap_comp, φ.comp_algebraMap]
+      rw [Category.assoc, hy, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, φ.comp_algebraMap]
     have hv := (SqExt.dual R).val_map (SqExt.ofModule R R' R') φ (Algebra.ofId R R')
       (fun c ↦ by simp [φ]) (fun b ↦ by ext <;> simp [φ, TrivSqZeroExt.algebraMap_eq_inl']) y hy y' hy' rfl f
     obtain ⟨U, hU, hp, -⟩ := exists_isAffineOpen_mem_and_subset (X := X) (U := ⊤)
@@ -172,7 +172,7 @@ theorem snd_val_eq_zero (y : Sp (DualNumber R) ⟶ X)
       simp only [← Category.assoc, ← Spec.map_comp, Iso.inv_hom_id, Spec.map_id, Category.id_comp]
     have hc : α₁.comp (algebraMap R (Sec s U)) = algebraMap R (TrivSqZeroExt R' R') := by
       have e2 : spMap (α₁.comp (algebraMap R (Sec s U))) = spMap (algebraMap R (TrivSqZeroExt R' R')) := by
-        rw [Cris.spMap_comp, ← affPt_w s ⟨U, hU⟩, ← Category.assoc, hα, hy']
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← affPt_w s ⟨U, hU⟩, ← Category.assoc, hα, hy']
       exact congrArg CommRingCat.Hom.hom (Spec.map_injective e2)
     let α : Sec s U →ₐ[R] TrivSqZeroExt R' R' :=
       { α₁ with commutes' := fun r ↦ RingHom.congr_fun hc r }

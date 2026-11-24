@@ -1058,7 +1058,7 @@ theorem exists_model_relSnc : ∀ (k : Type) [Field k] (X : Scheme.{0}) (f : X �
   have hρ : IsPullback ρ g f₁ (spMap χ) := IsPullback.of_hasPullback f₁ (spMap χ)
   have hZ := hsp R' χ hχ _ g ρ hρ
   have hcomp : spMap R.subtype = spMap R'.subtype ≫ spMap χ := by
-    rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, subtype_comp_toAdjInv]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, subtype_comp_toAdjInv]
   have hw : π ≫ f₁ = (f ≫ spMap R'.subtype) ≫ spMap χ := by
     rw [Category.assoc, ← hcomp]; exact hpb.w
   let π' : X ⟶ pullback f₁ (spMap χ) := pullback.lift π (f ≫ spMap R'.subtype) hw

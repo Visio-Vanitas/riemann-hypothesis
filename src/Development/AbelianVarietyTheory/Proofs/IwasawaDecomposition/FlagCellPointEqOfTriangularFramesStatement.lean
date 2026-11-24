@@ -82,7 +82,7 @@ theorem cell_pt_eq_of_tri (O K : Type) [CommRing O] [Field K] (β : O →+* K) (
   have hO : ψ.comp ((MvPolynomial.C : _ →+* CR m (V b)).comp ((α b).comp β)) =
       ψ'.comp ((MvPolynomial.C : _ →+* CR m (V b')).comp ((α b').comp β)) := by
     have e := congrArg (· ≫ s) hb
-    simp only [cbase, Category.assoc, hc.ovr, _root_.GlobalTheory.spMap_comp_ring] at e
+    simp only [cbase, Category.assoc, hc.ovr, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at e
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective e)
   refine hp.ext _ _ _ ?_ fun en => ?_
   · rw [Category.assoc, Category.assoc, hp.base, hp.base, hb]

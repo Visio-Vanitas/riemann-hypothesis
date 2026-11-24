@@ -1501,12 +1501,6 @@ noncomputable section
 
 namespace GlobalTheory.TanRepr
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap]
-  rw [← Spec.map_comp]
-  rfl
-
 variable {R : Type} [CommRing R]
 
 section Base
@@ -1560,7 +1554,7 @@ theorem unit_w : (show Sp R ⟶ A.left from η[A].left) ≫ A.hom = 𝟙 (Sp R) 
 theorem fst_baseMap_left (v : TM R M ⟶ A) (h : zeroSec R M ≫ v = η[A]) :
     spMap (TrivSqZeroExt.fstHom B B M).toRingHom ≫ spMap (baseMap R B M) ≫ v.left =
       spMap (algebraMap R B) ≫ (show Sp R ⟶ A.left from η[A].left) := by
-  rw [← Category.assoc, spMap_comp', fst_comp_baseMap, ← spMap_comp', Category.assoc]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_comp_baseMap, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   congr 1
   exact congrArg Over.Hom.left h
 
@@ -1577,7 +1571,7 @@ theorem lifts_baseMap (v : TM R M ⟶ A) (h : zeroSec R M ≫ v = η[A]) :
   refine ⟨?_, fst_baseMap_left A v h⟩
   rw [Category.assoc, Over.w v]
   change spMap (baseMap R B M) ≫ spMap (algebraMap R (TrivSqZeroExt R M)) = _
-  rw [spMap_comp', baseMap_comp_algebraMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, baseMap_comp_algebraMap]
 
 theorem exists_of_lifts (z : Sp (TrivSqZeroExt B M) ⟶ A.left) (hz : Lifts A.hom (unitPt A B) z) :
     ∃ (v : TM R M ⟶ A) (_ : zeroSec R M ≫ v = η[A]), spMap (baseMap R B M) ≫ v.left = z := by
@@ -1591,11 +1585,11 @@ theorem exists_of_lifts (z : Sp (TrivSqZeroExt B M) ⟶ A.left) (hz : Lifts A.ho
     (𝟙 (Sp R)) (z ≫ A.hom) hb
   have e₁ := hu (z₀ ≫ A.hom) ⟨by rw [← Category.assoc, a₁, unit_w], by rw [← Category.assoc, a₂]⟩
   have e₂ := hu (spMap (algebraMap R (TrivSqZeroExt R M))) ⟨by
-      rw [spMap_comp']
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have : (TrivSqZeroExt.fstHom R R M).toRingHom.comp (algebraMap R (TrivSqZeroExt R M)) =
           RingHom.id R := by ext x; rfl
       rw [this]; simp only [spMap]; first | (rw [CommRingCat.ofHom_id, Spec.map_id]) | simp, by
-      rw [spMap_comp', baseMap_comp_algebraMap, h₁]⟩
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, baseMap_comp_algebraMap, h₁]⟩
   refine ⟨Over.homMk z₀ (e₁.trans e₂.symm), Over.OverMorphism.ext a₁, a₂⟩
 
 def phiLin (v : TM R M ⟶ A) (h : zeroSec R M ≫ v = η[A]) : Wmod A →ₗ[R] M where
@@ -1652,13 +1646,13 @@ theorem cotangentAtUnit_tangentBijection_naturality (α : B →ₐ[R] B') (f : M
   have hw : (spMap g ≫ v.left) ≫ A.hom = (TM R M').hom := by
     rw [Category.assoc, Over.w v]
     change spMap g ≫ spMap (algebraMap R (TrivSqZeroExt R M)) = spMap (algebraMap R (TrivSqZeroExt R M'))
-    rw [spMap_comp']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (TrivSqZeroExt.map f).comp_algebraMap
   let v' : TM R M' ⟶ A := Over.homMk (spMap g ≫ v.left) hw
   have h' : zeroSec R M' ≫ v' = η[A] := by
     apply Over.OverMorphism.ext
     change spMap (TrivSqZeroExt.fstHom R R M').toRingHom ≫ spMap g ≫ v.left = η[A].left
-    rw [← Category.assoc, spMap_comp']
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom R R M').toRingHom.comp g = (TrivSqZeroExt.fstHom R R M).toRingHom := by
       ext x; simp [g]
     rw [this]
@@ -1670,7 +1664,7 @@ theorem cotangentAtUnit_tangentBijection_naturality (α : B →ₐ[R] B') (f : M
       (baseMap_isSum R B' M').1, (baseMap_isSum R B' M').2, hβ.1, hβ.2, id, AlgHom.commutes]
   have e : spMap β ≫ spMap (baseMap R B M) ≫ v.left = spMap (baseMap R B' M') ≫ v'.left := by
     change _ = spMap (baseMap R B' M') ≫ spMap g ≫ v.left
-    rw [← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', hc]
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc]
   rw [e, phiOf_eq A v' h', phiOf_eq A v h]
   ext w
   exact (GlobalTheory.T.cotangentFormOfSqZeroPoint_linear_natural R A M v h).2 M' f g hg v' h' rfl w

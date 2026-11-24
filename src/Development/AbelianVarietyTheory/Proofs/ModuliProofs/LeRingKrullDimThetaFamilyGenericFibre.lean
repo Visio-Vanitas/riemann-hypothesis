@@ -98,7 +98,7 @@ theorem exists_extension {o : Type} [CommRing o] {g n N' : ℕ} {I : Ideal (MvPo
     (hle : P ≤ RingHom.ker (MvPolynomial.eval₂Hom (y.comp β) v)) :
     ∃ (K : Type) (_ : Field K) (j : FractionRing (R ⧸ q) →+* K) (u : Kˣ),
       RingHom.ker (MvPolynomial.eval₂Hom (j.comp (y.comp β)) (fun a => u * j (v a))) = P := by
-  have h3 : (spMap y ≫ x) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hx, sp_comp]
+  have h3 : (spMap y ≫ x) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hK := Y.loc _ _ _ _ h3 hv
   set ev := MvPolynomial.eval₂Hom (y.comp β) v with hev
   let e : (MvPolynomial (Ix g (N' ^ 2)) o ⧸ P) →+* FractionRing (R ⧸ q) :=
@@ -136,7 +136,7 @@ theorem exists_extension {o : Type} [CommRing o] {g n N' : ℕ} {I : Ideal (MvPo
     simpa using hc
   obtain ⟨z, ⟨hz1, hz2⟩, -⟩ := Y.pts L _ _ hL
   have h4 := (Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB hz2).1 _ ψ
-  have h5 : (spMap ψ ≫ z) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hz1, sp_comp, hβ]
+  have h5 : (spMap ψ ≫ z) ≫ Y.s = spMap (y.comp β) := by rw [Category.assoc, hz1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβ]
   have heq : spMap ψ ≫ z = spMap y ≫ x := by
     refine (Y.pts _ _ _ hK).unique ⟨h5, ?_⟩ ⟨h3, hv⟩
     simpa only [hw] using h4
@@ -153,8 +153,8 @@ theorem exists_extension {o : Type} [CommRing o] {g n N' : ℕ} {I : Ideal (MvPo
     rw [← Scheme.Hom.comp_apply, ← Scheme.Hom.comp_apply, heq]
   obtain ⟨φ, hφ⟩ := sp_surj (IsOpenImmersion.lift x z hr)
   have hz : spMap φ ≫ x = z := by rw [hφ, IsOpenImmersion.lift_fac]
-  have hφy : ψ.comp φ = y := sp_inj (by rw [← cancel_mono x, ← sp_comp, Category.assoc, hz, heq])
-  have hφβ : φ.comp β = π.comp MvPolynomial.C := sp_inj (by rw [← sp_comp, ← hx, ← Category.assoc, hz, hz1])
+  have hφy : ψ.comp φ = y := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← cancel_mono x, ← sp_comp, Category.assoc, hz, heq])
+  have hφβ : φ.comp β = π.comp MvPolynomial.C := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq (by rw [← sp_comp, ← hx, ← Category.assoc, hz, hz1])
   have hy0 : ∀ r, y r = 0 ↔ r ∈ q := fun r => by
     rw [hy, RingHom.comp_apply, map_eq_zero_iff _ (IsFractionRing.injective (R ⧸ q) _),
       Ideal.Quotient.eq_zero_iff_mem]
@@ -167,7 +167,7 @@ theorem exists_extension {o : Type} [CommRing o] {g n N' : ℕ} {I : Ideal (MvPo
   rw [← hy] at hj
   have h6 := (Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB hv).1 _ j
   have h7 := (Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB hz2).1 _ lam
-  rw [← Category.assoc, sp_comp, hj, ← sp_comp, Category.assoc, hz] at h6
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hj, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hz] at h6
   obtain ⟨u, hu'⟩ := (Coord.secCoord_bc_scale_unique _ _ _ _ _ _ _ Y.isLB h6).2.2 _ h7
   refine ⟨K, inferInstance, j, u, ?_⟩
   ext F
@@ -225,7 +225,7 @@ theorem le_ringKrullDim_genericFibre : Out.Laws → Out.Laws2 → ∀ (g n N' : 
   have hy : y.comp (algebraMap o R) = algebraMap o _ := by
     rw [IsScalarTower.algebraMap_eq o (R ⧸ q) (FractionRing (R ⧸ q))]; rfl
   obtain ⟨v, hv⟩ := exists_secCoord_field F.Y.isLB F.Y.th (spMap y ≫ x ≫ F.U.ι)
-  have hK := F.Y.loc _ (y.comp (algebraMap o R)) _ _ (by rw [Category.assoc, hx', sp_comp]) hv
+  have hK := F.Y.loc _ (y.comp (algebraMap o R)) _ _ (by rw [Category.assoc, hx', ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) hv
   obtain ⟨c, hc⟩ := hK.2 ⊥ Ideal.isPrime_bot 0
   obtain ⟨P, a₀, a, hP, hI, hle, -, hind⟩ := _root_.GlobalTheory.ThetaPrime.exists_prime_independent_ratios h1 h2 g N' J Mat κ w w' o b em C d hb hC
     (RingHom.ker (MvPolynomial.eval₂Hom (y.comp (algebraMap o R)) v)) _ (by omega) (RingHom.ker_isPrime _)

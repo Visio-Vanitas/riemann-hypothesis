@@ -80,7 +80,7 @@ theorem val_univ_one (T : Over (Sp R)) (χ : D.X) {y : T.left} {J} (hJ : Good D.
 
 theorem gtTanR_split {v : epsR R ⟶ D.P.A} (hv : IsTangent v) : GtTanR (s (epsR R) v) := by
   let o : Over.mk (𝟙 (Sp R)) ⟶ epsR R := Over.homMk (spMap (TrivSqZeroExt.fstHom R R R).toRingHom)
-    ((spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun _ => rfl)).trans (Spec.map_id (CommRingCat.of R))))
+    ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun _ => rfl)).trans (Spec.map_id (CommRingCat.of R))))
   have ho : o ≫ v = 1 := Over.OverMorphism.ext (hv.trans (Category.id_comp _).symm)
   have e := hs.2.2 _ _ o v
   rw [ho] at e

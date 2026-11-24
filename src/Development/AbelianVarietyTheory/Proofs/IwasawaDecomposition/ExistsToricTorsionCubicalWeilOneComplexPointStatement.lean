@@ -117,7 +117,7 @@ theorem lieBasis_card (X : Scheme.{0}) (G : Over X) [GrpObj G] [IsCommMonObj G] 
       have e2 : η[G'].left ≫ pullback.snd G.hom y = 𝟙 _ := Over.w η[G']
       rw [Category.assoc, e1, e2]
       show spMap _ ≫ spMap _ = _
-      rw [GlobalTheory.TanMod.spMap_comp']
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have : (TrivSqZeroExt.fstHom ℂ ℂ ℂ).toRingHom.comp (algebraMap ℂ (DualNumber ℂ)) = RingHom.id ℂ :=
         RingHom.ext fun _ => rfl
       rw [this]
@@ -144,7 +144,7 @@ theorem lieBasis_card (X : Scheme.{0}) (G : Over X) [GrpObj G] [IsCommMonObj G] 
     have hov : (spMap (epsScaleR c) ≫ (Dl w).left) ≫ G'.hom = (epsR ℂ).hom := by
       rw [Category.assoc, Over.w (Dl w)]
       show spMap _ ≫ spMap _ = spMap _
-      rw [GlobalTheory.TanMod.spMap_comp']
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have hc : (epsScaleR c).comp (algebraMap ℂ (DualNumber ℂ)) = algebraMap ℂ (DualNumber ℂ) :=
         RingHom.ext fun a => by ext <;> simp [epsScaleR]
       rw [hc]

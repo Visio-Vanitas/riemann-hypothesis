@@ -166,7 +166,7 @@ theorem expandsG_of_genericRel : GlobalFnsSt → ∀ (R : Type) [CommRing R] [Is
   have hρ : ∀ i, ρ (a i) ≠ 0 := fun i =>
     (map_ne_zero_iff ρ ((algebraMap (FractionRing R) F).injective.comp
       (IsFractionRing.injective R (FractionRing R)))).2 (ha i)
-  have hT : jFK (R := R) F ≫ jK R = Spec.map (CommRingCat.ofHom ρ) := (spMap_comp _ _).symm
+  have hT : jFK (R := R) F ≫ jK R = Spec.map (CommRingCat.ofHom ρ) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have pG : UnifPre.gFK (G := G) F ≫ G.hom =
       (fst (TFK (R := R) F) ((Over.pullback (jK R)).obj G)).left ≫ Spec.map (CommRingCat.ofHom ρ) := by
     have e₁ := Over.w (snd (TFK (R := R) F) ((Over.pullback (jK R)).obj G))

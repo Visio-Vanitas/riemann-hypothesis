@@ -894,7 +894,7 @@ theorem bijective_liftSemi_pull1 : ∀ (R D : Type) [CommRing R] [CommRing D] [A
   subst hφ ht
   obtain ⟨e₁, n⟩ := GlobalTheory.SmoothLift.crystallineSmoothLift_natural_local
   have hb : spMap π ≫ spMap (algebraMap R D) = 𝟙 _ := by
-    rw [← Cris.spMap_comp, show π.comp (algebraMap R D) = RingHom.id R from RingHom.ext hπ, Cris.spMap_id]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, show π.comp (algebraMap R D) = RingHom.id R from RingHom.ext hπ, Cris.spMap_id]
   obtain ⟨X', q, s', H⟩ : ∃ (X' : Scheme.{0}) (q : X' ⟶ X) (s' : X' ⟶ Sp D),
       IsPullback q s' s (spMap (algebraMap R D)) := ⟨_, _, _, IsPullback.of_hasPullback _ _⟩
   let i : X ⟶ X' := H.lift (𝟙 X) (s ≫ spMap π) (by rw [Category.assoc, hb]; simp)

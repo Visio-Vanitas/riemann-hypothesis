@@ -253,18 +253,15 @@ theorem hasTh_of_local (ho : Odd N') {R : Type} [CommRing R] {x : Sp R ⟶ S} {v
     · exact (congrArg (fun q => q.hom (v a))
         (Scheme.ΓSpecIso_inv_naturality (CommRingCat.ofHom (algebraMap R (Localization.Away f))))).symm
 
-theorem spMap_comp' {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (y : R →+* R') (φ : R' →+* R'') :
-    spMap φ ≫ spMap y = spMap (φ.comp y) := (Spec.map_comp (CommRingCat.ofHom y) (CommRingCat.ofHom φ)).symm
-
 theorem exists_ideal_hasTh_iff : Out.Laws → Out.Laws2 → ∀ (o : Type) [CommRing o] (g N' : ℕ) (J : Type) (b : TBase o (N' ^ 2)) (R : Type) [CommRing R] (s : Sp R ⟶ Sp o) (t : TObj g (N' ^ 2) J b s) (v : Ix g (N' ^ 2) → R), Odd N' → 3 ≤ N' → Ideal.span (Set.range v) = ⊤ → ∃ 𝔞 : Ideal R, ∀ (R' : Type) [CommRing R'] (y : R →+* R'), t.HasTh (spMap y) (fun a => y (v a)) ↔ ∀ r ∈ 𝔞, y r = 0 := by
   intro h₁ h₂ o _ g N' J b R _ s t v ho h3 hv
   have bc : ∀ (R' R'' : Type) [CommRing R'] [CommRing R''] (y : R →+* R') (φ : R' →+* R'') (w : Ix g (N' ^ 2) → R'),
       t.HasTh (spMap y) w → t.HasTh (spMap (φ.comp y)) (fun a => φ (w a)) := fun R' R'' _ _ y φ w H =>
-    spMap_comp' y φ ▸ _root_.GlobalTheory.hasTh_baseChange h₂ o g N' J b _ s t R' R'' φ _ w H
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp y φ).symm ▸ _root_.GlobalTheory.hasTh_baseChange h₂ o g N' J b _ s t R' R'' φ _ w H
   refine exists_ideal_of_locally (fun R' _ y => t.HasTh (spMap y) (fun a => y (v a)))
     (fun R' R'' _ _ y φ H => bc R' R'' y φ _ H) (fun R' _ y H => hasTh_of_local t ho fun q hq => ?_) fun p => ?_
   · obtain ⟨f, hf, H⟩ := H q hq
-    exact ⟨f, hf, by rw [spMap_comp']; exact H⟩
+    exact ⟨f, hf, by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact H⟩
   obtain ⟨R₁, _, x, w₁, hx, hp, H₁⟩ := _root_.GlobalTheory.ThetaLocal.exists_hasTh h₁ h₂ o g N' J b _ s t ho p
   obtain ⟨φ, rfl⟩ := Spec.map_surjective x
   obtain ⟨_, ⟨f, rfl⟩, hf, hle⟩ := PrimeSpectrum.isTopologicalBasis_basic_opens.exists_subset_of_mem_open hp

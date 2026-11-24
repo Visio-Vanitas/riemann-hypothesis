@@ -145,12 +145,6 @@ namespace GlobalTheory.ChartBaseChange
 
 open Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
-theorem sp_sp {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R' →+* R'')
-    (g : R →+* R') : spMap f ≫ spMap g = spMap (f.comp g) := by
-  unfold spMap
-  rw [← Spec.map_comp]
-  rfl
-
 section Alg
 
 variable {V V' : Type} [CommRing V] [CommRing V']
@@ -319,7 +313,7 @@ theorem univ_toAlg (G : Over (Sp V)) [GrpObj G] (κ : Type) (z : GlobalTheory.Po
     change spMap _ ≫ (z m).left = (spMap (algebraMap V V) ≫ 𝟙 _) ≫ η[G].left at h
     change spMap ((asJet (jetZeroR V κ m)) : Jet V κ m →+* Jet V κ 0) ≫ (z m).left =
       spMap (algebraMap V (Jet V κ 0)) ≫ η[G].left
-    rw [jetZero_eq, AlgHom.comp_toRingHom, ← sp_sp, Category.assoc, h, Category.comp_id, ← Category.assoc, sp_sp]
+    rw [jetZero_eq, AlgHom.comp_toRingHom, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, h, Category.comp_id, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · let y' : overAt (𝟙 (Sp V)) (Jet V κ' m) ⟶ G := ofAlg (A := Jet V κ' m) y
     have hy' : Formalism.L2.Pj.homAt (𝟙 (Sp V)) (jetAug : Jet V κ' m →ₐ[V] V) ≫ y' = 1 := by
@@ -329,7 +323,7 @@ theorem univ_toAlg (G : Over (Sp V)) [GrpObj G] (κ : Type) (z : GlobalTheory.Po
         spMap (algebraMap V (Jet V κ' 0)) ≫ η[G].left at h
       change spMap ((jetAug : Jet V κ' m →ₐ[V] V) : Jet V κ' m →+* V) ≫ (y' : overAt (𝟙 (Sp V)) (Jet V κ' m) ⟶ G).left =
         (spMap (algebraMap V V) ≫ 𝟙 _) ≫ η[G].left
-      rw [← aug_jetZero, AlgHom.comp_toRingHom, ← sp_sp, Category.assoc, h, Category.comp_id, ← Category.assoc,
+      rw [← aug_jetZero, AlgHom.comp_toRingHom, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, h, Category.comp_id, ← Category.assoc,
         spMap_comp_alg]
     obtain ⟨ψ, ⟨a1, a2⟩, hu⟩ := h3 (Jet V κ' m) jetAug m (ker_aug_pow κ' m) _ hy'
     refine ⟨ψ, ⟨(zero_iff ψ).2 a1, ?_⟩, fun ψ' h' => hu ψ' ⟨(zero_iff ψ').1 h'.1, ?_⟩⟩
@@ -358,7 +352,7 @@ theorem left_sq {n : ℕ} (m : ℕ) (g : Jet V (Fin 1 × Fin d) m →ₐ[V] Jet 
       spMap (jetCoef φ (Fin n × Fin d) m) ≫ (Formalism.L2.Pj.homAt (𝟙 (Sp V)) g ≫ z m).left := by
   change (spMap (g' : Jet V' (Fin 1 × Fin d) m →+* Jet V' (Fin n × Fin d) m) ≫ (z' m).left) ≫ Fm =
     spMap _ ≫ spMap (g : Jet V (Fin 1 × Fin d) m →+* Jet V (Fin n × Fin d) m) ≫ (z m).left
-  rw [Category.assoc, hz, ← Category.assoc, sp_sp, h, ← sp_sp, Category.assoc]
+  rw [Category.assoc, hz, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
 
 include hP hz in
 theorem law_bc (m : ℕ) (F : Fin d → PS V 2 d) (hF : ∀ j, MvPowerSeries.constantCoeff (F j) = 0)
@@ -376,7 +370,7 @@ theorem law_bc (m : ℕ) (F : Fin d → PS V 2 d) (hF : ∀ j, MvPowerSeries.con
     Over.homMk (spMap (jetCoef φ (Fin 2 × Fin d) m)) (by
       change spMap _ ≫ spMap (algebraMap V (Jet V (Fin 2 × Fin d) m)) ≫ 𝟙 _ =
         spMap (algebraMap V' (Jet V' (Fin 2 × Fin d) m)) ≫ spMap φ
-      rw [Category.comp_id, sp_sp, sp_sp, coef_alg])
+      rw [Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, coef_alg])
   have h := hP.2 (algOver V' (Jet V' (Fin 2 × Fin d) m))
     (algOverHom (jetPt (d := d) (0 : Fin 2) m) ≫ toAlg (z' m))
     (algOverHom (jetPt (d := d) (1 : Fin 2) m) ≫ toAlg (z' m))

@@ -164,11 +164,11 @@ theorem isUnit_V {n : ℕ} (h : IsUnit (n : OO p)) : IsUnit (n : u.V) := by
 
 theorem gPt_j : gPt p ≫ spMap u.j =
     spMap (algebraMap (FractionRing u.V) (PadicAlgCl p)) ≫ spMap (algebraMap u.V (FractionRing u.V)) := by
-  rw [← spMap_comp, ← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem spMap_y₀ : spMap y₀ = spMap (algebraMap (FractionRing u.V) (PadicAlgCl p)) ≫ spMap u.yK := by
-  rw [← spMap_comp, u.fac]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, u.fac]
 
 theorem isPullback_gen : IsPullback (u.U.gen.hom.left ≫ u.φ) (pullback.snd u.G.hom (jK u.V))
     ρ.P.A.hom (spMap u.yK) := by

@@ -86,7 +86,7 @@ theorem gt_push (h : IsGrpPullback G' G f φ) {x : Sp R ⟶ X'} {w : Sp (DualNum
     by rw [← Category.assoc, hw.2, one_push h]⟩
 
 theorem alg_fst : spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ spMap (algebraMap R (DualNumber R)) = 𝟙 _ := by
-  rw [← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have : (TrivSqZeroExt.fstHom R R R).toRingHom.comp (algebraMap R (DualNumber R)) = RingHom.id R := by
     ext r
     simp
@@ -107,7 +107,7 @@ theorem gt_bc (ψ : R →+* R') {x : Sp R ⟶ X} {w : Sp (DualNumber R) ⟶ G.le
     exact congrArg (· ≫ x) (GlobalTheory.LieCombBaseChange.dualMap_over ψ)
   · have e : spMap (TrivSqZeroExt.fstHom R' R' R').toRingHom ≫ spMap (dualMapR ψ) =
         spMap ψ ≫ spMap (TrivSqZeroExt.fstHom R R R).toRingHom := by
-      rw [← spMap_comp, ← spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       refine RingHom.ext fun r => ?_
       simp [dualMapR]

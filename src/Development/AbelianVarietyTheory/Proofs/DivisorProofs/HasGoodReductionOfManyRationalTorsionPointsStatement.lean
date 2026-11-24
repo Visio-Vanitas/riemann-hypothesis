@@ -204,15 +204,15 @@ theorem curve_baseChange_two_points : ∀ (R F : Type) [CommRing R] [Field F] (�
     exact hlc.ne_zero h'.symm
   have hcomm : (spMap (locMap ψ P₁) ≫ u₁) ≫ X.hom =
       spMap (algebraMap F (Localization.Away (P₁.map ψ))) ≫ spMap ψ := by
-    rw [Category.assoc, hu, ← Geo.Tor.spMap_comp, ← Geo.Tor.spMap_comp, locMap_comp_algebraMap]
+    rw [Category.assoc, hu, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, locMap_comp_algebraMap]
   refine ⟨P₁.map ψ, hP, pullback.lift _ _ hcomm, evalAt ψ P₁ α hα, evalAt ψ P₁ β hβ, ?_, ?_⟩
   · exact pullback.lift_snd _ _ _
   · intro h
     apply hne
     have h2 := congrArg (· ≫ pullback.fst X.hom (spMap ψ)) h
     simp only [Category.assoc, pullback.lift_fst] at h2
-    rw [← Category.assoc, ← Category.assoc, ← Geo.Tor.spMap_comp, ← Geo.Tor.spMap_comp, ← evalAt_comp,
-      ← evalAt_comp, Geo.Tor.spMap_comp, Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← evalAt_comp,
+      ← evalAt_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
     exact h2
 
 end GlobalTheory

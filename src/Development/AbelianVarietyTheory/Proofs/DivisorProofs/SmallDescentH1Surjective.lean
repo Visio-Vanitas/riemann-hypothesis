@@ -85,7 +85,7 @@ theorem exists_isLoc (T : Thick κ s) (x : T.B) : ∃ (L : Thick κ s) (ι : T �
       ker := fun _ ↦ Ideal.Quotient.eq_zero_iff_mem
       x := spMap j₀ ≫ T.x
       w := by
-        rw [Category.assoc, T.w, ← Cris.spMap_comp]
+        rw [Category.assoc, T.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         congr 1
         exact RingHom.ext fun r ↦ (hj₀ _).trans
           (congrArg (Ideal.Quotient.mk J') (IsScalarTower.algebraMap_apply R T.B A r).symm) }
@@ -116,7 +116,7 @@ theorem exists_isLoc (T : Thick κ s) (x : T.B) : ∃ (L : Thick κ s) (ι : T �
         dp := hdp
         pt := by
           change spMap _ ≫ spMap j₀ ≫ T.x = S.x
-          rw [← Category.assoc, ← Cris.spMap_comp, ← a.pt]
+          rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← a.pt]
           congr 2
           refine RingHom.ext fun b ↦ ?_
           obtain ⟨b, rfl⟩ := T.surj b

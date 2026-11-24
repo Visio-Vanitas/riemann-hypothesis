@@ -58,7 +58,7 @@ theorem Cpt.exists_above : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E
   intro E _ _ _ H U F O _ _ c t β U' F' O' _ _ c' t' β' C b k r hr ν _ hD hβ hN hfin
   obtain ⟨⟨_, _⟩, _, hfr⟩ := hD
   let _ := β'.toAlgebra
-  have hsq : spMap β' ≫ spMap b = spMap k ≫ spMap β := by rw [← spMap_comp, ← spMap_comp, hβ]
+  have hsq : spMap β' ≫ spMap b = spMap k ≫ spMap β := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβ]
   have hjs : C.j ≫ C.s = c ≫ spMap β := by
     rw [Cpt.j, Category.assoc, pullback.condition, ← Category.assoc, C.jQ_over]
   have hopen := C.jQ_open

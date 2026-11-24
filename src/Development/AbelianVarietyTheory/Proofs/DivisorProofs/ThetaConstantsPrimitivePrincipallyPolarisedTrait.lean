@@ -174,7 +174,7 @@ theorem prim_of_polFib : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] 
   have e₂ : SecAt.pull t.G t.PP.L (SecAt.pull t.G t.PP.L σ gW) i' = VVRank.pullS t.G _ (b₁ ≫ b₂) σ :=
     GlobalTheory.ThetaRuleCompare.pullS_comp _ _ _
   have hx : spMap i' ≫ spMap gW = spMap k ≫ spMap i := by
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring, hi'c]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hi'c]
   rw [e₁] at hT₁
   obtain ⟨pt₂, hT₂⟩ := thList_move t.G t.PP.L t.PP.rig m σ (by rw [← Category.assoc, ← hx, Category.assoc])
     (a₁ ≫ a₂) (b₁ ≫ b₂) (by simp [a₁, a₂, b₁, b₂, hx]) pt₁ _ hT₁

@@ -264,7 +264,7 @@ variable [Algebra (FractionRing ℂ) ℂ] [IsScalarTower ℂ (FractionRing ℂ) 
   {a : ArcIn D l β ℂ b} {χ : Sp ℂ⟦X⟧ ⟶ Y.X}
 
 theorem tf_hom_eq_id : (Out.TF (R := ℂ) ℂ).hom = 𝟙 (Sp ℂ) :=
-  ((spMap_comp (algebraMap ℂ (FractionRing ℂ)) (algebraMap (FractionRing ℂ) ℂ)).symm.trans
+  ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (algebraMap ℂ (FractionRing ℂ)) (algebraMap (FractionRing ℂ) ℂ)).symm.trans
     (congrArg spMap (IsScalarTower.algebraMap_eq ℂ (FractionRing ℂ) ℂ).symm)).trans (Spec.map_id _)
 
 theorem exists_gtPt_const (W : ArcWit Y a (Ideal.span {PowerSeries.X}) (PowerSeries.C (R := ℂ)) PowerSeries.X χ)

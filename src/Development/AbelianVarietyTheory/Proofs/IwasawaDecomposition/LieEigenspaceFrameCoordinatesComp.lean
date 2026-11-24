@@ -67,10 +67,10 @@ theorem comb_map {S S' : Type} [CommRing S] [CommRing S'] (φ : S →+* S') {x :
   let δ : tEpsG (spMap φ ≫ x) ⟶ tEpsG x := Over.homMk (spMap (dualMap φ)) (by
     show spMap (dualMap φ) ≫ spMap (algebraMap S (DualNumber S)) ≫ x =
       spMap (algebraMap S' (DualNumber S')) ≫ spMap φ ≫ x
-    rw [← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_alg])
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg])
   refine ⟨fun i => δ ≫ u i, fun i => ?_, ?_⟩
   · simp only [Over.comp_left, δ, Over.homMk_left]
-    rw [hu i, ← Category.assoc, ← Category.assoc, spMap_comp', spMap_comp', dualMap_comp_epsMul]
+    rw [hu i, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul]
   · rw [List.prod_ofFn, List.prod_ofFn, ← comp_prodT]
     rfl
 
@@ -100,10 +100,10 @@ theorem GlobalTheory.ShFam.CoordComp.coord_comp : ∀ (E : Type) [Field E] [Numb
   obtain ⟨a1, a2, a3⟩ := h₁
   obtain ⟨b1, b2, b3⟩ := h₂
   subst a1 a2 b1 b2
-  refine ⟨by rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc], rfl, fun τ i => ?_⟩
+  refine ⟨by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc], rfl, fun τ i => ?_⟩
   have e : (fun k => spMap (dualMap (ψ'.comp ψ)) ≫ f.v τ k) =
       fun k => spMap (dualMap ψ') ≫ spMap (dualMap ψ) ≫ f.v τ k :=
-    funext fun k => by rw [_root_.GlobalTheory.FramedBaseChange.dual_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
+    funext fun k => by rw [_root_.GlobalTheory.FramedBaseChange.dual_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   rw [e]
   exact comb_comb Z.t
     (fun j => GlobalTheory.FactorDepth.isTanAtG_map _ ψ' (GlobalTheory.FactorDepth.isTanAtG_map _ ψ (f.tan τ j)))

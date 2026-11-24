@@ -193,7 +193,7 @@ theorem objPull_of_pol : (∀ (S S' : Scheme.{0}) (G : Over S) (G' : Over S') [G
             geom := fun k _ _ x β hx => ?_ },
     ⟨⟨m, fun a => secPull_left m.cart _, fun a => secPull_left m.cart _⟩⟩⟩
   obtain ⟨hdet, I, hI, hA, hM⟩ := o.geom k (x ≫ f) (β.comp j)
-    (by rw [Category.assoc, hs, ← Category.assoc, hx, spMap_comp])
+    (by rw [Category.assoc, hs, ← Category.assoc, hx, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   rw [RingHom.comp_apply, hρ] at hdet
   rw [RingHom.comp_apply, hζ] at hI
   refine ⟨fun τ => ?_, tateMove (pushEquiv m.cart (Over.mk x)) (fun c g => ?_) (fun n g g' c hc => ?_) I,

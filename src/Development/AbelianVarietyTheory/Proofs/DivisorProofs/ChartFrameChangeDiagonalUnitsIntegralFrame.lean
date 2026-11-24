@@ -311,7 +311,7 @@ theorem _root_.GlobalTheory.T.frameVector_eq_integralFrameTangent_on_model : ∀
     rw [← cancel_mono (spMap (algebraMap T.V T.Fr)), Category.assoc, ← m2.cart.1.w, ← Category.assoc, hu2,
       Category.assoc, Over.w]
     show spMap (dualMap (algebraMap T.V T.Fr)) ≫ spMap (algebraMap T.V (DualNumber T.V)) = _
-    rw [spMap_comp', spMap_comp', dualMap_comp_alg]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_alg]
   refine ((GlobalTheory.FlagMod.toModel_eq_iff _ _ _ _ _).2 ⟨u' ≫ ρ, ?_, ?_, ?_⟩).symm
   · rw [Category.assoc, hρh, ← Category.assoc, hb]
   · rw [Category.assoc, hρ0, hu1]
@@ -354,7 +354,7 @@ theorem isEigV_of_tanPull_mem : ∀ {E : Type} [Field E] [NumberField E] [IsCMFi
   · rw [Over.comp_left, Category.assoc, ψ.act a, ← Category.assoc, ← hv, h2, hv, Category.assoc]
   · rw [Over.comp_left, Category.assoc, Over.w, Over.w, Category.assoc, Over.w]
     show spMap _ = spMap (epsMul z) ≫ spMap _
-    rw [spMap_comp', hc]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc]
 
 end GlobalTheory.TanEigInt
 end -- clump:auto

@@ -65,7 +65,7 @@ theorem exists_descend_algClosed (hM : MulNSt) {K F C : Type} [Field K] [Field F
   have c₁ := (hM _ P n hn).2.2.2.2 C (spMap c) hC
   have c₂ := (hM _ P n hn).2.2.2.2 F (spMap a) hF
   have := Nat.finite_of_card_ne_zero (c₁ ▸ pow_ne_zero _ (by omega) : _ ≠ 0)
-  let u : Over.mk (spMap c) ⟶ Over.mk (spMap a) := Over.homMk (spMap i) (spMap_comp h)
+  let u : Over.mk (spMap c) ⟶ Over.mk (spMap a) := Over.homMk (spMap i) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp h)
   let Φ : {y : Over.mk (spMap a) ⟶ P.A // y ^ n = 1} → {y : Over.mk (spMap c) ⟶ P.A // y ^ n = 1} :=
     fun y => ⟨u ≫ y.1, by rw [← MonObj.comp_pow, y.2, MonObj.comp_one]⟩
   have := epi_spMap i
@@ -117,8 +117,8 @@ theorem exists_finset_ratTors (hL : Laws) {K F C : Type} [Field K] [Field F] [Is
     rfl⟩
   obtain ⟨s, hs⟩ := exists_finset (F := F) hL.mulN P hn
   refine ⟨s, fun R _ _ _ β hβ h₁ h₂ r hr B ψ hψ x hx => ?_⟩
-  have e₁ : spMap i ≫ spMap β = jFK (R := R) C := spMap_comp hβ
-  have e₂ : spMap i ≫ spMap (algebraMap K F) = spMap (i.comp (algebraMap K F)) := spMap_comp fun _ => rfl
+  have e₁ : spMap i ≫ spMap β = jFK (R := R) C := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp hβ
+  have e₂ : spMap i ≫ spMap (algebraMap K F) = spMap (i.comp (algebraMap K F)) := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp fun _ => rfl
   obtain ⟨e, he⟩ := exists_mulEquiv_of_isGrpPullback hψ (jFK (R := R) C ≫ jK R) _ rfl
   obtain ⟨e', he'⟩ := exists_mulEquiv_of_isGrpPullback hφ (spMap (i.comp (algebraMap K F)))
     ((jFK (R := R) C ≫ jK R) ≫ r) (by rw [← e₁, ← e₂, Category.assoc, Category.assoc, hr, Category.assoc])
@@ -169,8 +169,8 @@ theorem exists_cDvr_ratTors : Laws → ∀ (W : Type) [CommRing W] [IsDomain W] 
     rw [map_div₀, hβ, hβ]
     exact (div_eq_iff h0).2 e.symm
   have e : spMap β ≫ jK V ≫ spMap (algebraMap W V) = spMap (algebraMap (FractionRing W) F) ≫ jK W := by
-    rw [← Category.assoc, spMap_comp hβ, spMap_comp (d := algebraMap W F) fun _ => rfl]
-    exact (spMap_comp fun _ => rfl).symm
+    rw [← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp hβ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (d := algebraMap W F) fun _ => rfl]
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp fun _ => rfl).symm
   have : CharZero V := (algebraMap V F).charZero
   refine ⟨V, inferInstance, inferInstance, inferInstance, inferInstance, algebraMap W V, ⟨dV, cV, inferInstance⟩,
     fun a b h => iW (congrArg Subtype.val h), RingHom.finite_algebraMap.2 fV, lV, hA, cExt_of_integral hext hA,

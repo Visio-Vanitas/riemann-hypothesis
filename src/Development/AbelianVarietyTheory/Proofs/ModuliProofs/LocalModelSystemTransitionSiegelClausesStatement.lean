@@ -373,14 +373,14 @@ theorem levelMap_etale (hL : Out.Laws) (hL₂ : Out.Laws2) (hL₃ : Out.Laws3) (
   subst ek
   obtain ⟨v, hv⟩ := LevelCover.sab_comp ν m0.toSABMap rfl
   have hr'' : (r ≫ pullback.fst _ _) ≫ (Xo l).s = r' ≫ (Xo l).s := by
-    rw [hr', Category.assoc, pullback.condition, ← Category.assoc, hr, spMap_comp, Category.assoc]
+    rw [hr', Category.assoc, pullback.condition, ← Category.assoc, hr, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   have e : r ≫ pullback.fst _ _ = r' :=
     (LevUniq.map_to_univ_unique hL hL₂ hL₃ E H D l l₁ (Xo l) _ _ _ _ o₁ _ _ v ν' inferInstance hr''
       ⟨fun a => by rw [hv, ← Category.assoc, hν.1 a, Category.assoc, m0.eta a, Category.assoc],
         fun a => by rw [hv, ← Category.assoc, hν.2 a, Category.assoc, m0.etaA a, Category.assoc]⟩ hν').1
   have P := (IsPullback.of_hasPullback (pullback.snd (Xo l).s (spMap (IntermediateField.inclusion c.le).toRingHom))
     (spMap (IntermediateField.inclusion hc).toRingHom)).paste_horiz (IsPullback.of_hasPullback _ _)
-  rw [← spMap_comp] at P
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at P
   have e' : pullback.lift r _ hr = pullback.lift r' _ hr' ≫ P.isoPullback.inv := by
     rw [Iso.eq_comp_inv]
     apply pullback.hom_ext
@@ -432,7 +432,7 @@ theorem abelianLocus_finite_etale : Out.Laws → Out.Laws2 → Out.Laws3 → ∀
 
   let inc : c.F →+* c₁.F := (IntermediateField.inclusion hc).toRingHom
   have hinc' : β₁.comp b = inc.comp β := RingHom.ext fun x => Subtype.ext (hinc x)
-  have hinc'' : spMap β₁ ≫ spMap b = spMap inc ≫ spMap β := by rw [← spMap_comp, ← spMap_comp, hinc']
+  have hinc'' : spMap β₁ ≫ spMap b = spMap inc ≫ spMap β := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hinc']
   have R : IsPullback (spMap β₁) (spMap inc) (spMap b) (spMap β) := by
     letI := β.toAlgebra
     letI := β₁.toAlgebra

@@ -95,13 +95,13 @@ def CombAt (x : Sp R ⟶ S) {m : ℕ} (v : Fin m → (epsAt x ⟶ G)) (a : Fin m
 
 theorem epsMul_over (a : R) :
     spMap (epsMul a) ≫ spMap (algebraMap R (DualNumber R)) = spMap (algebraMap R (DualNumber R)) := by
-  rw [GlobalTheory.EtaVal.spMap_comp_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext s <;> simp [epsMul, TrivSqZeroExt.algebraMap_eq_inl]
 
 theorem fst_over :
     spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫ spMap (algebraMap R (DualNumber R)) = 𝟙 _ := by
-  rw [GlobalTheory.EtaVal.spMap_comp_spMap]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have : (TrivSqZeroExt.fstHom R R R).toRingHom.comp (algebraMap R (DualNumber R)) = RingHom.id R := by
     ext s; simp
   rw [this]
@@ -201,7 +201,7 @@ theorem exists_extension (Y : Model Xo c β) {la : HeightOneSpectrum (𝓞 c.F)}
       spMap (algebraMap T.V T.Fr) ≫ ιT = z ≫ Y.j ∧ ιT ≫ Y.s = spMap b := by
   obtain ⟨b, hb⟩ := GlobalTheory.EtaVal.exists_base_map_of_overLa (fun a => (hB.2 (β a)).1 ⟨a, rfl⟩) T io e ho
   have hcond : x ≫ Xo.s = spMap io ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [hxs, GlobalTheory.EtaVal.spMap_comp_spMap]
+    rw [hxs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let z : Sp T.Fr ⟶ Xo.XF c := pullback.lift x (spMap io) hcond
   have hzs : z ≫ pullback.snd _ _ = spMap io := pullback.lift_snd _ _ _
   have hzf : z ≫ pullback.fst _ _ = x := pullback.lift_fst _ _ _
@@ -273,7 +273,7 @@ theorem exists_factor {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Re
   have hy' : P.y = spMap eF ≫ z := by
     apply pullback.hom_ext
     · rw [h2, Category.assoc, hzf]
-    · rw [P.y_over, Category.assoc, hzs, GlobalTheory.EtaVal.spMap_comp_spMap, h1]
+    · rw [P.y_over, Category.assoc, hzs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, h1]
   have halg : (intRestrict T eF hle).comp b = P.alg := by
     refine RingHom.ext fun a => Subtype.ext ?_
     have q1 := DFunLike.congr_fun P.compat a
@@ -283,9 +283,9 @@ theorem exists_factor {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Re
     show eF (algebraMap T.V T.Fr (b a)) = _
     rw [q2, q3]; exact q1.symm
   refine ⟨ιT, GlobalTheory.EtaVal.point_ext_of_injective (intO ↥C.S).subtype Subtype.val_injective Y.s _ _ ?_ ?_⟩
-  · rw [P.ext, hy', ← Category.assoc, GlobalTheory.EtaVal.spMap_comp_spMap, hg, ← GlobalTheory.EtaVal.spMap_comp_spMap,
+  · rw [P.ext, hy', ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc, hj, Category.assoc]
-  · rw [P.yt_over, Category.assoc, hs, GlobalTheory.EtaVal.spMap_comp_spMap, halg]
+  · rw [P.yt_over, Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, halg]
 
 theorem exists_lies_and_factor : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : ReciprocityTheory.ChartRestriction.G.Geo.Tor.Host E) (Dw : Datum H) (l : Level H) (Xo : Moduli Dw l) (c : Coeff l), ∀ (la : HeightOneSpectrum (𝓞 c.F)) (Tw : PointsOfFlagModel.Tower (WeightAlgebra.resCh la) Xo c), PointsOfFlagModel.TowerAt Tw → ∀ (T : CDVR) (io : c.F →+* T.Fr) (e : ℕ), OverLa la T.V io e → ∀ y : IntFr Xo c T io, algCls Xo c T io y → (∃ z, LiesOverBaseChange la Tw T io y z) ∧ ∀ z, LiesOverBaseChange la Tw T io y z → ∃ (g : T.V →+* intO ↥z.2.1.S) (ιT : Sp T.V ⟶ (Tw.Y z.1).X), Function.Injective g ∧ (∀ a ∈ maximalIdeal T.V, ‖((g a : intO ↥z.2.1.S) : ↥z.2.1.S)‖ < 1) ∧ spMap g ≫ ιT = z.2.2.1.yt := by
   intro E _ _ _ H Dw l Xo c la Tw hTw T io e ho y hy
@@ -301,11 +301,11 @@ theorem exists_lies_and_factor : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
         fK := eF.comp io
         compat := by rw [← RingHom.comp_assoc, hg, RingHom.comp_assoc, hb, RingHom.comp_assoc]
         y := spMap eF ≫ z
-        y_over := by rw [Category.assoc, hzs, GlobalTheory.EtaVal.spMap_comp_spMap]
+        y_over := by rw [Category.assoc, hzs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         yt := spMap (intRestrict T eF hle) ≫ ιT
-        yt_over := by rw [Category.assoc, hs, GlobalTheory.EtaVal.spMap_comp_spMap]
+        yt_over := by rw [Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         ext := by
-          rw [← Category.assoc, GlobalTheory.EtaVal.spMap_comp_spMap, hg, ← GlobalTheory.EtaVal.spMap_comp_spMap, Category.assoc, hj,
+          rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hj,
             Category.assoc] }
     have hP : P.y ≫ pullback.fst _ _ = spMap eF ≫ y.1.x := by
       show (spMap eF ≫ z) ≫ _ = _

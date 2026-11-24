@@ -1068,7 +1068,7 @@ theorem injective_of_flat {o R : Type} [CommRing o] [IsDomain o] [CommRing R] [N
   have : Module.Flat o R := RingHom.flat_algebraMap_iff.1 h
   FaithfulSMul.algebraMap_injective o R
 
-alias spMap_comp := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem exists_integral_chart {o : Type} [CommRing o] [IsDomain o] [IsNoetherianRing o] {X : Scheme.{0}} [IsReduced X]
     (s : X ⟶ Sp o) [LocallyOfFiniteType s] [Flat s] {ξ : X} (hξ : ξ ∈ genericPoints X)
@@ -1097,16 +1097,16 @@ theorem exists_integral_chart {o : Type} [CommRing o] [IsDomain o] [IsNoetherian
     have : IsIso (CommRingCat.ofHom (e : L →+* j.range)) := e.toRingEquiv.toCommRingCatIso.isIso_hom
     infer_instance
   have ho : IsOpenImmersion (spMap ((e : L →+* j.range).comp (algebraMap R₀ L)) ≫ x) := by
-    rw [← spMap_comp]; infer_instance
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; infer_instance
   have hs : (spMap ((e : L →+* j.range).comp (algebraMap R₀ L)) ≫ x) ≫ s = spMap (algebraMap o j.range) := by
     rw [Category.assoc, ← hβ]
-    refine (spMap_comp β.hom _).trans (congrArg spMap (RingHom.ext fun a => ?_))
+    refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β.hom _).trans (congrArg spMap (RingHom.ext fun a => ?_))
     exact e.commutes a
   refine ⟨Ω, inferInstance, inferInstance, j.range, _, ho, ?_, hs, ?_, fun z => ?_, ?_⟩
   · obtain ⟨q, hq⟩ := (PrimeSpectrum.localization_away_comap_range L f).ge hf
     obtain ⟨q', rfl⟩ := (spMap (e : L →+* j.range)).surjective q
     refine ⟨q', ?_⟩
-    rw [← spMap_comp, Scheme.Hom.comp_apply, Scheme.Hom.comp_apply]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Scheme.Hom.comp_apply, Scheme.Hom.comp_apply]
     exact congrArg x hq
   · have : Algebra.FiniteType o L := Algebra.FiniteType.trans (S := R₀) inferInstance inferInstance
     exact (Subalgebra.fg_iff_finiteType _).2 (this.equiv e)
@@ -1144,7 +1144,7 @@ theorem closure_ratios_eq_top (h₁ : Out.Laws) (h₂ : Out.Laws2) {o : Type} [C
   have hI := (GlobalTheory.ZM.ThIdeal.thIdeal_radical_homogeneous_torsionFree o g N' J b em C hem).2.1
   let ρ : R →+* Ω := R.val.toRingHom
   have hx : (spMap ρ ≫ i) ≫ F.s = spMap (algebraMap o Ω) := by
-    rw [Category.assoc, hi, spMap_comp]; rfl
+    rw [Category.assoc, hi, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   have hvΩ := _root_.GlobalTheory.hasTh_baseChange h₂ o g N' J b _ _ F.univ R Ω ρ i v hv
   obtain ⟨v', hv', he, hc⟩ := F.loc Ω _ _ hx
   obtain ⟨u, hu⟩ := ThetaUniq.exists_unit_local h₁.globalFns F.univ _ hvΩ hv'
@@ -1172,7 +1172,7 @@ theorem closure_ratios_eq_top (h₁ : Out.Laws) (h₂ : Out.Laws2) {o : Type} [C
   obtain ⟨y, ⟨hy, hty⟩, -⟩ := F.pts K β w mK
   have hxy : spMap K.subtype ≫ y = spMap ρ ≫ i := by
     refine (F.pts Ω _ _ mΩ).unique ⟨?_, ?_⟩ ⟨hx, ThetaClosed.hasTh_unit_mul F.univ (Units.mk0 _ (inv_ne_zero ha₀)) hv'⟩
-    · rw [Category.assoc, hy, spMap_comp, hβ]
+    · rw [Category.assoc, hy, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβ]
     · have := _root_.GlobalTheory.hasTh_baseChange h₂ o g N' J b _ _ F.univ K Ω K.subtype y w hty
       simpa only [hw] using this
   have hle : Set.range y ⊆ Set.range i := by
@@ -1183,7 +1183,7 @@ theorem closure_ratios_eq_top (h₁ : Out.Laws) (h₂ : Out.Laws2) {o : Type} [C
   obtain ⟨ψ, hψ⟩ := Spec.map_surjective (IsOpenImmersion.lift i y hle)
   have h3 : K.subtype.comp ψ.hom = ρ := by
     have h4 : spMap (K.subtype.comp ψ.hom) = spMap ρ := by
-      rw [← cancel_mono i, ← hxy, ← spMap_comp, Category.assoc]
+      rw [← cancel_mono i, ← hxy, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       congr 1
       exact (congrArg (· ≫ i) hψ).trans (IsOpenImmersion.lift_fac _ _ _)
     exact congrArg CommRingCat.Hom.hom (Spec.map_injective h4)

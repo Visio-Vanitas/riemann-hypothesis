@@ -50,20 +50,9 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.S
 noncomputable section
 namespace GlobalTheory.ZM.DwModel
 
-private lemma spMap_comp_moduli_spaces {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := by
-  show Spec.map _ = Spec.map _ ≫ Spec.map _
-  rw [← Spec.map_comp]
-  rfl
-
 private lemma spMap_surjective' {A B : Type} [CommRing A] [CommRing B] (y : Sp B ⟶ Sp A) :
     ∃ f : A →+* B, spMap f = y :=
   ⟨(Spec.preimage y).hom, by simp [spMap]⟩
-
-private lemma spMap_inj_lemma_3 {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) :
-    f = g := by
-  have h' := Spec.map_injective h
-  exact congrArg CommRingCat.Hom.hom h'
 
 theorem isGaloisCover_field (K L : Type) [Field K] [Field L] [Algebra K L] [FiniteDimensional K L] [IsGalois K L] :
     IsGaloisCover (L ≃ₐ[K] L) (fun σ => spMap (σ : L →+* L)) (spMap (algebraMap K L)) := by
@@ -81,10 +70,10 @@ theorem isGaloisCover_field (K L : Type) [Field K] [Field L] [Algebra K L] [Fini
     rfl
   · intro a c
     show spMap (((a * c : L ≃ₐ[K] L) : L →+* L)) = _
-    rw [← spMap_comp_moduli_spaces]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · intro a
-    rw [← spMap_comp_moduli_spaces]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r
     exact a.commutes r
@@ -100,8 +89,8 @@ theorem isGaloisCover_field (K L : Type) [Field K] [Field L] [Algebra K L] [Fini
   · intro K' _ _ y y' h
     obtain ⟨f, rfl⟩ := spMap_surjective' y
     obtain ⟨f', rfl⟩ := spMap_surjective' y'
-    rw [← spMap_comp_moduli_spaces, ← spMap_comp_moduli_spaces] at h
-    have hfa := spMap_inj_lemma_3 h
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at h
+    have hfa := ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq h
     let _ : Algebra K K' := (f.comp (algebraMap K L)).toAlgebra
     let φ : L →ₐ[K] K' := { f with commutes' := fun _ => rfl }
     let φ' : L →ₐ[K] K' :=
@@ -116,14 +105,14 @@ theorem isGaloisCover_field (K L : Type) [Field K] [Field L] [Algebra K L] [Fini
     obtain ⟨a, ha⟩ := (hinj.bijective_of_nat_card_le hcard).2 φ'
     refine ⟨a, ?_, fun b hb => ?_⟩
     · show spMap f ≫ spMap (a : L →+* L) = spMap f'
-      rw [← spMap_comp_moduli_spaces]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       ext x
       exact AlgHom.congr_fun ha x
     · have hb' : f.comp (b : L →+* L) = f' := by
         have hb0 : spMap f ≫ spMap (b : L →+* L) = spMap f' := hb
-        rw [← spMap_comp_moduli_spaces] at hb0
-        exact spMap_inj_lemma_3 hb0
+        rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at hb0
+        exact ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq hb0
       apply hinj
       ext x
       exact (RingHom.congr_fun hb' x).trans (AlgHom.congr_fun ha x).symm

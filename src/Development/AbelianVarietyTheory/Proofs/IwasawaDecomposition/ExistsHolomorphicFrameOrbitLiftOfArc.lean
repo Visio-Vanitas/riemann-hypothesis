@@ -131,7 +131,7 @@ theorem exists_hol_away {A : Type} [CommRing A] (ψ : ℂ → (A →+* ℂ)) (V 
 
 theorem spMap_dualMap_sq {A B : Type} [CommRing A] [CommRing B] (f : A →+* B) :
     spMap (dualMap f) ≫ spMap (algebraMap A (DualNumber A)) = spMap (algebraMap B (DualNumber B)) ≫ spMap f := by
-  rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   exact RingHom.ext fun z => by ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
 
@@ -166,7 +166,7 @@ theorem arc_descends_to_moduli : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
   let e : R →+* CAt σ := ev u
   have he : e.comp ι = (show A →+* CAt σ from ψ u) := hev u hu
   have hp : GlobalTheory.AllWt.ptF (y u) = spMap e ≫ x' := by
-    rw [← cancel_mono Z.jQ, h1, Category.assoc, hx', ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, he]
+    rw [← cancel_mono Z.jQ, h1, Category.assoc, hx', ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, he]
   refine ⟨?_, fun τ i => ?_⟩
   · show _ = spMap e ≫ x' ≫ _
     rw [← Category.assoc, ← hp]
@@ -176,7 +176,7 @@ theorem arc_descends_to_moduli : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
     rw [← hw2, ← Category.assoc]
     congr 1
     apply P.hom_ext
-    · rw [hw3, Category.assoc, P.lift_fst, ← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.Frames.Glue.dual_comp, he]
+    · rw [hw3, Category.assoc, P.lift_fst, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.GlobalTheory.Frames.Glue.dual_comp, he]
     · rw [hw1, Category.assoc, P.lift_snd, ← Category.assoc, spMap_dualMap_sq, Category.assoc, hp]
 
 end GlobalTheory.ShFam.BdArc

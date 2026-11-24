@@ -183,7 +183,7 @@ theorem exists_setting (hL : Laws) (hL2 : Laws2) (hL3 : Laws3) {R : Type} [CommR
     IsFractionRing.lift (g := (algebraMap V (FractionRing V)).comp g) ((IsFractionRing.injective V _).comp hg)
   have hgam : ∀ r, gam (algebraMap R _ r) = algebraMap V _ (g r) := fun r => IsFractionRing.lift_algebraMap _ r
   have sq : spMap gam ≫ jK R = jK V ≫ spMap g :=
-    (spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (spMap_comp g _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ gam).symm.trans ((congrArg spMap (RingHom.ext hgam)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g _))
   obtain ⟨A', gA, pA, -, mA, tA⟩ := hL.polBaseChange _ _ (spMap gam) A
   have gpA : IsGrpPullback A'.A A.A (spMap gam) gA := ⟨pA, fun T x y x₀ y₀ hx hy => by
     have e₁ : x₀ = toBase pA.w x := Over.OverMorphism.ext hx
@@ -221,7 +221,7 @@ theorem exists_setting (hL : Laws) (hL2 : Laws2) (hL3 : Laws3) {R : Type} [CommR
     Ideal.Quotient.eq_zero_iff_mem.2 (by rw [zero_add, pow_one]; exact hI ha)
   obtain ⟨E₁, -, -, -, -, hE₁⟩ := hL3.gtBaseChange _ _ (spMap k) E₀ _ hE₀
   have hc : spMap k ≫ spMap (Ideal.Quotient.mk I) = thick V m 0 ≫ spMap g :=
-    (spMap_comp _ k).symm.trans (spMap_comp g (Ideal.Quotient.mk _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ k).symm.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g (Ideal.Quotient.mk _))
   obtain ⟨e, he, -⟩ := grpPullback_iso (((isGrpPullback_pullback _ (spMap k)).comp
     (isGrpPullback_pullback G (spMap (Ideal.Quotient.mk I)))).congr hc rfl)
     ((isGrpPullback_pullback G' (thick V m 0)).comp pb)

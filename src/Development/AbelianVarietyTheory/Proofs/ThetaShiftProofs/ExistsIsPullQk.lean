@@ -78,7 +78,7 @@ theorem IsPullQk.ext {hD : IsPullDeg φ D D'} {k : ℕ} {p : QkPt D (FractionRin
     (congrArg (algebraMap (FractionRing R') F) (hK r)).trans (hF r).symm)
   have hs : spMap (algebraMap (FractionRing R) F) =
       spMap (algebraMap (FractionRing R') F) ≫ spMap (algebraMap (FractionRing R) (FractionRing R')) := by
-    rw [← hc, spMap_comp]
+    rw [← hc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have e₁ : QkExt (algebraMap (FractionRing R') F) q₀ q := by
     refine ⟨hq.1.trans e₀.1.symm, ?_, fun χ => corr_of_val D.P.isLB fun y J hJ => ?_⟩
     · rw [hq.2.1, e₀.2.1, hs, Category.assoc]
@@ -190,7 +190,7 @@ def pullArc : ArcIn D l β O'' (f.comp b) :=
         fun v hv => lev _ _ _ (exists_isPullQk hG hf hD a.bimult (a.eta v)).choose_spec (h₄ v hv)⟩
       obtain ⟨n, hn, hn'⟩ := h₁ τ
       refine ⟨n, (LiePull.lieMult_pull _ _ _ _ _ _ _ (ofRingAct a.oa.onB.toRingAct) _ (pull_grp hD) ho F _ τ n).2 ?_, ?_⟩
-      · rw [← spMap_comp]; exact hn
+      · rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact hn
       · rw [(({ hD.xe with map_smul' := hx } : D'.X ≃ₗ[𝓞 E] a.D₀.X)).finrank_eq]
         exact hn' }
 

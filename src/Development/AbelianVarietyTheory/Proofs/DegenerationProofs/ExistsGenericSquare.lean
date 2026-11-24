@@ -94,9 +94,6 @@ theorem exists_fibre_pull (laws : Laws) {S S' Z Z' : Scheme.{0}} {j : Z ⟶ S} {
     · rw [Category.assoc, Category.assoc]
       exact e.symm
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := (Spec.map_comp _ _).symm
-
 theorem exists_generic_square {R V : Type} [CommRing R] [IsDomain R] [CommRing V] [IsDomain V]
     (φ : R →+* V) (hφ : Function.Injective φ) :
     ∃ ψ : Spec (CommRingCat.of (FractionRing V)) ⟶ Spec (CommRingCat.of (FractionRing R)),
@@ -106,7 +103,7 @@ theorem exists_generic_square {R V : Type} [CommRing R] [IsDomain R] [CommRing V
     ⟨IsFractionRing.lift hg, RingHom.ext fun x => IsFractionRing.lift_algebraMap hg x⟩
   obtain ⟨ψ, hψ⟩ := gen (FractionRing R) (FractionRing V) ((algebraMap V (FractionRing V)).comp φ)
     ((IsFractionRing.injective V (FractionRing V)).comp hφ)
-  exact ⟨spMap ψ, (spMap_comp _ ψ).trans ((congrArg spMap hψ).trans (spMap_comp φ _).symm)⟩
+  exact ⟨spMap ψ, (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ ψ).symm.trans ((congrArg spMap hψ).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ _))⟩
 
 theorem exists_desc_pull {S S' : Scheme.{0}} {f : S' ⟶ S} {X : Type} [AddCommGroup X] {G : Over S} {G' : Over S'}
     [GrpObj G] [IsCommMonObj G] [GrpObj G'] [IsCommMonObj G'] {F : G'.left ⟶ G.left} (pF : IsGrpPullback G' G f F)

@@ -84,8 +84,8 @@ theorem levelMaps_rank_zero (hD : D.p + D.q = 0) : ToroidalLevelCompatibility (H
       (pullback.snd Xo₂.s (spMap (IntermediateField.inclusion c₂.le).toRingHom) ≫
         spMap (IntermediateField.inclusion hc.le).toRingHom) ≫
         spMap (IntermediateField.inclusion c.le).toRingHom := by
-    rw [Category.assoc, hr, pullback.condition_assoc, Category.assoc, GlobalTheory.Models.RankZero.spMap_comp,
-      GlobalTheory.Models.RankZero.spMap_comp, hring]
+    rw [Category.assoc, hr, pullback.condition_assoc, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring]
   have e₁ := pullback.lift_fst _ _ w
   have e₂ := pullback.lift_snd _ _ w
   have i₀ : IsIso (spMap (IntermediateField.inclusion hc.le).toRingHom) := by

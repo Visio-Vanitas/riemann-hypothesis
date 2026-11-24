@@ -115,7 +115,7 @@ theorem exists_isFilLift_dir (P : AbelianDeRham) {ι : Type} [Fintype ι] {C : O
   have cst : GrpMor (dp0 R) (𝟙 _) A κ (spMap (TrivSqZeroExt.fstHom R R (ι → R)).toRingHom) A
       (algebraMap R (TrivSqZeroExt R (ι → R))) (𝟙 _) (Over.Hom.left (𝟙 A)) :=
     GrpMor.of_hom (isDPMorphism_of_eq_bot _ rfl _ _)
-      (by rw [← Cris.spMap_comp]; exact (Cris.spMap_id R).symm) (𝟙 A)
+      (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; exact (Cris.spMap_id R).symm) (𝟙 A)
   have red : GrpMor κ (spMap (TrivSqZeroExt.fstHom R R (ι → R)).toRingHom) A (dp0 R) (𝟙 _) A
       (TrivSqZeroExt.fstHom R R (ι → R)).toRingHom (𝟙 _) (Over.Hom.left (𝟙 A)) := by
     refine GrpMor.of_hom ?_ (by rw [Category.id_comp]) (𝟙 A)
@@ -160,7 +160,7 @@ theorem exists_isFilLift_dir (P : AbelianDeRham) {ι : Type} [Fintype ι] {C : O
   have μ : GrpMor κ (spMap (TrivSqZeroExt.fstHom R R (ι → R)).toRingHom) A (epsDP R) (epsRed R) A
       (TrivSqZeroExt.map (Fintype.linearCombination R m)).toRingHom (𝟙 _) (Over.Hom.left (𝟙 A)) :=
     GrpMor.of_hom (isDPMorphism_sqDP _ _ _ fun a ha => (TrivSqZeroExt.fst_map _ a).trans ha) (by
-      rw [← Cris.spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (RingHom.ext fun a => (TrivSqZeroExt.fst_map _ a).symm)) (𝟙 A)
   have em : μ.Corr D d' := fun c => by
     obtain ⟨c, rfl⟩ := rC.2 c
@@ -256,7 +256,7 @@ theorem IsKS.row (P : AbelianDeRham) {Φ : Finset (E →+* ℂ)} {y : FrPt Xo c 
     have hc : ∀ r : R, dualMap σ (algebraMap R (DualNumber R) r) = algebraMap R' (DualNumber R') (σ r) := fun r => by
       ext <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
     have e₀ : spMap σ ≫ spMap (E.π : E.C →+* E.B) ≫ v.left = (spMap (E'.π : E'.C →+* E'.B) ≫ v'.left) ≫ φ := by
-      rw [Category.assoc, e, ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp]
+      rw [Category.assoc, e, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 2
       ext a <;> simp [dualMap, E, E', TrivSqZeroExt.algebraMap_eq_inl]
     let Φ : E.thick _ (E.red_w hy) ⟶ m.obj (E'.thick _ (E'.red_w hy')) :=
@@ -292,12 +292,12 @@ theorem IsKS.row (P : AbelianDeRham) {Φ : Finset (E →+* ℂ)} {y : FrPt Xo c 
       (ev : v'.left ≫ φ = spMap (dualMap (algebraMap R R')) ≫ v.left) (hv : IsLieImage h v) : IsLieImage h' v' := open CategoryTheory.MonoidalCategory CategoryTheory.CartesianMonoidalCategory CategoryTheory.MonObj in open scoped CategoryTheory.Obj in by
     have ht : IsTangent v' := by
       apply hφ.1.hom_ext
-      · rw [Category.assoc, ev, ← Category.assoc, ← Cris.spMap_comp]
+      · rw [Category.assoc, ev, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
         have ee : (TrivSqZeroExt.fstHom R' R' R').toRingHom.comp
             (dualMap (algebraMap R R')) =
             (algebraMap R R').comp (TrivSqZeroExt.fstHom R R R).toRingHom := by
           ext x <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl]
-        rw [ee, Cris.spMap_comp, Category.assoc, hv.1]
+        rw [ee, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hv.1]
         letI : Monoid (Over.mk (𝟙 (Sp R')) ⟶ B) := CategoryTheory.Hom.monoid
         letI : Monoid (Over.mk ((Over.mk (𝟙 (Sp R'))).hom ≫ spMap (algebraMap R R')) ⟶ A) := CategoryTheory.Hom.monoid
         have he := congrArg (fun t => t.left) (map_one (pushHom hφ (Over.mk (𝟙 (Sp R')))))
@@ -353,13 +353,13 @@ theorem isKS_dir_sum : GlobalTheory.CovTop.Hypotheses₂ → ∀ (E : Type) [Fie
   have P := Pr.p5
   have e₀ : ∀ m : ι → K, DeRham.epsRed K ≫ spMap (dir c m).toRingHom =
       spMap (TrivSqZeroExt.fstHom K K (ι → K)).toRingHom := fun m => by
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun z => fst_dir (c := c) m z)
   have tan : IsTanX y (spMap (dir c M).toRingHom ≫ X) := by
     refine ⟨?_, ?_⟩
     · rw [Category.assoc, hXs]
       unfold sOf
-      rw [← Cris.spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (RingHom.ext fun r => (dir c M).commutes _)
     · rw [← Category.assoc, ← hXy]
       exact congrArg (· ≫ X) (e₀ M)

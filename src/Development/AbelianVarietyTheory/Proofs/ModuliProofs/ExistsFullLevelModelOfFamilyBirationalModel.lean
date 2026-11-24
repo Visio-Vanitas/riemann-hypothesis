@@ -415,11 +415,11 @@ theorem GlobalTheory.famCore_exists_aut : Out.Laws → Out.Laws2 → ∀ (E : Ty
     (RingHom.ext fun x => hinj (by simp [hτx, hτx'])) (RingHom.ext fun x => hinj (by simp [hτx, hτx']))
   have hσ₀ : β.comp σ₀.toRingHom = σ.toRingHom.comp β := hτ
   have hra : r.hom ≫ a ≫ sM = a ≫ sM ≫ spMap σ₀.toRingHom := by
-    rw [← Category.assoc a, h, reassoc_of% hr, Category.assoc, ← spMap_comp, ← spMap_comp, hσ₀]
+    rw [← Category.assoc a, h, reassoc_of% hr, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ₀]
   have hss : spMap σ₀.toRingHom ≫ spMap σ₀.symm.toRingHom = 𝟙 _ := by
-    rw [← spMap_comp, RingEquiv.toRingHom_comp_symm_toRingHom, spMap_id']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingEquiv.toRingHom_comp_symm_toRingHom, spMap_id']
   have hss' : spMap σ₀.symm.toRingHom ≫ spMap σ₀.toRingHom = 𝟙 _ := by
-    rw [← spMap_comp, RingEquiv.symm_toRingHom_comp_toRingHom, spMap_id']
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingEquiv.symm_toRingHom_comp_toRingHom, spMap_id']
   have hra' : r.inv ≫ a ≫ sM = a ≫ sM ≫ spMap σ₀.symm.toRingHom := by
     rw [Iso.inv_comp_eq, reassoc_of% hra, hss, Category.comp_id]
 
@@ -431,7 +431,7 @@ theorem GlobalTheory.famCore_exists_aut : Out.Laws → Out.Laws2 → ∀ (E : Ty
       rw [pullback.lift_snd]; infer_instance
     have := locallyOfFiniteType_of_comp (pullback.lift a _ h) (pullback.snd _ _)
     obtain ⟨y, hy⟩ := ObjDesc.exists_geomPt_lift (pullback.lift a _ h) k
-      (pullback.lift x (spMap gam) (hδ.trans (spMap_comp _ _)))
+      (pullback.lift x (spMap gam) (hδ.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)))
     refine ⟨y, ?_⟩
     have := hy =≫ pullback.fst _ _
     rwa [Category.assoc, pullback.lift_fst, pullback.lift_fst] at this
@@ -519,10 +519,6 @@ theorem charZero_residueField {k : Type} [Field k] [CharZero k] {S : Scheme.{0}}
     CharZero (S.residueField p) := by
   obtain ⟨φ, -⟩ := Spec.map_surjective (S.fromSpecResidueField p ≫ s)
   exact charZero_of_injective_ringHom (R := k) φ.hom.injective
-
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : B →+* C) (g : A →+* B) :
-    spMap f ≫ spMap g = spMap (f.comp g) := by
-  rw [spMap, spMap, ← Spec.map_comp]; rfl
 
 theorem asIdeal_spMap {A k : Type} [CommRing A] [Field k] (β : A →+* k) (hβ : Function.Injective β) (x : Sp k) :
     (spMap β x).asIdeal = ⊥ := by
@@ -736,7 +732,7 @@ theorem exists_iso (hH : GlobalTheory.LN.HomExtSt) (hR : IsDedekindDomain R) [Ch
     rw [C.j_over, reassoc_of% C.j_over, ← reassoc_of% he, hρ]
   have h₁ : (e₁ ≫ C.j) ≫ C.s = (e₂ ≫ C.j) ≫ C.s ≫ spMap σ.symm.toRingHom := by
     have : spMap σ.toRingHom ≫ spMap σ.symm.toRingHom = 𝟙 _ := by
-      rw [spMap_comp, RingEquiv.toRingHom_comp_symm_toRingHom]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingEquiv.toRingHom_comp_symm_toRingHom]
       exact Spec.map_id _
     rw [← Category.assoc _ C.s, h₂, Category.assoc (e₁ ≫ C.j), Category.assoc C.s, this, Category.comp_id]
   obtain ⟨τ, hτ⟩ := _root_.GlobalTheory.AmpUniq.exists_hom_of_ampFrames hH E H R C.Z C.Z _ C.s _ C.t C.t t' _ _ p₁ p₂ _ C.amp C.amp hR inferInstance hft
@@ -845,7 +841,7 @@ theorem exists_top : GlobalTheory.LN.HomExtSt → Out.Laws → Out.Laws2 → ∀
     obtain ⟨κ', hκ'⟩ := comp_of_eq (ν l h) κ rfl
     have := hfl l' h'
     obtain ⟨e₁, e₂⟩ := eq_of_level hL h3 hodd F h' (Xo l') (hβ l' h') κ' (ν l' h')
-      (by rw [Category.assoc, hb, reassoc_of% hr, spMap_comp, hkβ]) (hb l' h')
+      (by rw [Category.assoc, hb, reassoc_of% hr, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hkβ]) (hb l' h')
       (fun x => by rw [hκ', reassoc_of% hκ x, hlev, Category.assoc r]) (hlev l' h')
     have e₃ : r ≫ b l h = b l' h' := by rwa [← cancel_mono W₀.ι, Category.assoc]
     refine ⟨by rw [reassoc_of% e₃], ?_⟩

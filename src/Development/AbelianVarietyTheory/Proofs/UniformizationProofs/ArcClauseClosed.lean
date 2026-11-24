@@ -785,7 +785,7 @@ theorem over_of_generic {S : Scheme.{0}} {k : Type} [CommRing k] (s : S ⟶ Sp k
     (spMap ev.toRingHom ≫ y) ≫ s = spMap σ := by
   obtain ⟨φ, hφ⟩ := Spec.map_surjective (y ≫ s)
   have h₁ : y ≫ s = spMap φ.hom := hφ.symm
-  rw [Category.assoc, h₁, ← spMap_comp] at h ⊢
+  rw [Category.assoc, h₁, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at h ⊢
   have h₂ := congrArg CommRingCat.Hom.hom (Spec.map_injective h)
   congr 1
   ext x
@@ -1035,7 +1035,7 @@ theorem exists_generic_point {E : Type} [Field E] [NumberField E] [IsCMField E] 
     ∃ yF : Sp ℂ⸨X⸩ ⟶ Xo.XF c, yF ≫ Y.j = gen ≫ χ ∧
       yF ≫ pullback.snd _ _ = spMap ((algebraMap ℂ ℂ⸨X⸩).comp bF) := by
   have h : (gen ≫ χ) ≫ Y.s = spMap ((algebraMap ℂ ℂ⸨X⸩).comp bF) ≫ spMap β := by
-    rw [Category.assoc, hχ, ← algebraMap_laurent_comp_C, spMap_comp, spMap_comp, spMap_comp]
+    rw [Category.assoc, hχ, ← algebraMap_laurent_comp_C, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     simp only [Category.assoc]
   have := Y.jQ_open
   have hr : Set.range (pullback.lift _ _ h) ⊆ Set.range Y.jQ := by
@@ -1099,7 +1099,7 @@ theorem holomorphic_curve : ∀ (Z : Scheme.{0}) (T : ℝ) (yT : Sp (Conv.halfRi
   · have hfac : spMap (Conv.halfRing T).val.toRingHom ≫ yT =
         spMap (algebraMap Conv.convLaurent ℂ⸨X⸩) ≫
           (spMap (Conv.halfIncl T : Conv.halfRing T →+* Conv.convLaurent) ≫ yT) := by
-      rw [← Category.assoc, ← spMap_comp]
+      rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       rfl
     have hU' : ⊤ ≤ (spMap (Conv.halfIncl T : Conv.halfRing T →+* Conv.convLaurent) ≫ yT) ⁻¹ᵁ U := by
       intro p _
@@ -1114,7 +1114,7 @@ theorem holomorphic_curve : ∀ (Z : Scheme.{0}) (T : ℝ) (yT : Sp (Conv.halfRi
           Conv.halfRing T' →+* Conv.halfRing T'').comp
           (Subalgebra.inclusion (Conv.halfRing_mono h) : Conv.halfRing T →+* Conv.halfRing T') :=
         RingHom.ext fun r => Subtype.ext (hi r)
-      rw [hi', spMap_comp, Category.assoc]
+      rw [hi', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       exact fun p _ => hT' (x := spMap _ p) trivial
     · obtain ⟨T', h, h1, h2⟩ := Conv.exists_valAt'_halfCurve rfl hU'
       obtain ⟨hf, hv⟩ := h2 f
@@ -1450,7 +1450,7 @@ theorem specPts_nonempty : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E] [
     have e2 := HolHom.valR_spMap (algebraMap Conv.convLaurent ℂ⸨X⸩)
       (spMap ((algebraMap ℂ Conv.convLaurent).comp b₀)) ⊤ le_top g
     rw [← Category.assoc, hy₀, hy] at e1
-    rw [← spMap_comp] at e2
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at e2
     exact e1.symm.trans e2
   obtain ⟨T₁, hT₁, y₁, hy₁U, hy₁, -⟩ :=
     Conv.exists_halfRing_point s₀ b₀ y₀ hs₀ C.aff (hin _ C.mem) (max C.T C'.T)
@@ -1458,7 +1458,7 @@ theorem specPts_nonempty : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E] [
   set yT := spMap (Subalgebra.inclusion (Conv.halfRing_mono hT) : Conv.halfRing T₁ →+* Conv.halfRing T) ≫ y₁ with hyT
   have hU : ⊤ ≤ yT ⁻¹ᵁ C.U := le_comp _ _ _ hy₁U
   have hgen : spMap (Conv.halfRing T).val.toRingHom ≫ yT = y := by
-    rw [← hy₀, ← hy₁, hyT, ← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp]
+    rw [← hy₀, ← hy₁, hyT, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have hC : C.T ≤ T := ((le_max_left _ _).trans hT₁).trans hT
   have hC' : C'.T ≤ T := ((le_max_right _ _).trans hT₁).trans hT
@@ -1478,13 +1478,13 @@ theorem specPts_nonempty : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E] [
       (fun i x' j => C.val i v x' j) C'.U (le_comp _ _ _ hU') (C'.b i')
       (Subalgebra.inclusion (Γ.le _ w hw₂) (C'.cf i' v)) (Γ.unit w _ (by rw [Γ.ev_eq]; exact hi'))
       (fun x' j => C'.val i' v x' j)
-    rw [← Category.assoc, ← spMap_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact (Over.w (Φ.x v)).trans hgen.symm
   choose z σ hz1 hz2 hz3 hz4 using key
   have hpi : ∀ (w : ℂ) (hw : T < w.im) (v : A.V),
       (spMap (Γ.ev w).toRingHom ≫ z w hw v) ≫ o.t.G.hom = Conv.halfCurve yT w := by
     intro w hw v
-    rw [Category.assoc, hz1, ← Category.assoc, ← spMap_comp, Conv.halfCurve_eq yT hw]
+    rw [Category.assoc, hz1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Conv.halfCurve_eq yT hw]
     congr 2
     exact RingHom.ext fun r => Γ.ev_eq T w hw r
   exact ⟨{
@@ -1537,7 +1537,7 @@ theorem main : ReciprocityTheory.ChartRestriction.G.Out.Laws → ReciprocityTheo
   have hfin : AnFin Λ.A := (GlobalTheory.ArcThetaSpaces.sections_theta L₁ L₂ E H D l c O β _ a Λ).2.1
   have hover : (C.yF ≫ pullback.fst _ _) ≫ Xo.s =
       spMap ((algebraMap ℂ ℂ⸨X⸩).comp (bF.comp (IntermediateField.inclusion c.le).toRingHom)) := by
-    rw [Category.assoc, pullback.condition, ← Category.assoc, C.yF_over, ← spMap_comp]
+    rw [Category.assoc, pullback.condition, ← Category.assoc, C.yF_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hrat : C.Φ.Rational := GlobalTheory.ConstRational.rational L₁ L₂ E H D l Xo Λ.A _ _ C.Φ laA laM hfin hover levA levM
   obtain ⟨Γ⟩ := _root_.GlobalTheory.GermRing.germs_spec.1
   obtain ⟨Ψ⟩ := GlobalTheory.ArcPts.Special.specPts_nonempty L₁ L₂ E H D l _ _ Xo.X Xo.s Xo.univ Λ.A _ C.Φ Γ _ Xo.s _ hover hfin hrat

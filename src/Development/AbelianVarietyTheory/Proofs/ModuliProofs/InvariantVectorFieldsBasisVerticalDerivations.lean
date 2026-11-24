@@ -119,7 +119,7 @@ theorem existsUnique_coeff_alg [Smooth G.hom] {v : Fin n → (epsR K ⟶ G)} (hv
   obtain ⟨x', hx', hx'ψ⟩ := exists_evalPt_eq hW ψ
   have h2 : ⊤ ≤ (y.left ≫ m) ⁻¹ᵁ W := h
   have hym : y.left ≫ m ≫ p = spMap ((algebraMap K C).comp x₀) := by
-    rw [H.w, ← Category.assoc, Over.w y, spMap_comp]
+    rw [H.w, ← Category.assoc, Over.w y, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have hbase' : ∀ r, evalPt (x' ≫ p) ⊤ le_rfl ((Scheme.ΓSpecIso (CommRingCat.of R)).inv.hom r) =
       ((algebraMap K (DualNumber C)).comp x₀) r := by
@@ -133,7 +133,7 @@ theorem existsUnique_coeff_alg [Smooth G.hom] {v : Fin n → (epsR K ⟶ G)} (hv
     rw [h3, TrivSqZeroExt.inr_zero, add_zero]
     rfl
   have hsq : x' ≫ p = (sp (R₀ := K) (DualNumber C)).hom ≫ spMap x₀ := by
-    rw [eq_spMap_of_evalPt _ _ hbase', spMap_comp]
+    rw [eq_spMap_of_evalPt _ _ hbase', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   let wL : Sp (DualNumber C) ⟶ G.left := H.lift x' (sp (R₀ := K) (DualNumber C)).hom hsq
   have hwLm : wL ≫ m = x' := H.lift_fst _ _ _
@@ -176,7 +176,7 @@ theorem existsUnique_coeff_alg [Smooth G.hom] {v : Fin n → (epsR K ⟶ G)} (hv
       apply Over.OverMorphism.ext
       rw [Over.comp_left]
       change spMap _ ≫ spMap _ = 𝟙 _
-      rw [← spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       have e2 : ((fstD C).restrictScalars K).toRingHom.comp (TrivSqZeroExt.inlAlgHom K C C).toRingHom =
           RingHom.id C := RingHom.ext fun _ => rfl
       rw [e2]

@@ -143,7 +143,7 @@ theorem exists_glue {X : Scheme.{0}} [IsReduced X] {ι : Type} (A : ι → Type)
       rw [hχ, hχ', Category.assoc, Category.assoc, pullback.condition])
     rw [← Category.assoc, ← Category.assoc, ← hχ, ← hχ']
     change spMap χ.hom ≫ spMap (ev i) = spMap χ'.hom ≫ spMap (ev i')
-    rw [GlobalTheory.LocalFrame.spMap_spMap, GlobalTheory.LocalFrame.spMap_spMap]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     refine Polynomial.ringHom_ext (fun n => by simp) ?_
     simpa [ev] using e
@@ -183,7 +183,7 @@ theorem exists_fn : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : 
     intro K _ _ _ y p χ hχ
     have h1 : χ.comp (algebraMap c.F (A p)) = algebraMap c.F K := by
       have h2 : spMap (χ.comp (algebraMap c.F (A p))) = spMap (algebraMap c.F K) := by
-        rw [← GlobalTheory.LocalFrame.spMap_spMap, ← hsn, ← Category.assoc, hχ]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hsn, ← Category.assoc, hχ]
         exact pullback.lift_snd _ _ _
       exact congrArg CommRingCat.Hom.hom (Spec.map_injective h2)
     refine evR_eq_of_chart s hs hfree (u p) ⟨χ, fun r => RingHom.congr_fun h1 r⟩ y ?_
@@ -194,9 +194,9 @@ theorem exists_fn : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : 
     intro K _ _ p p' χ χ' hχ
     letI : Algebra c.F K := (χ.comp (algebraMap c.F (A p))).toAlgebra
     have hsn' : (spMap χ ≫ j p) ≫ pullback.snd _ _ = spMap (algebraMap c.F K) := by
-      rw [Category.assoc, hsn, GlobalTheory.LocalFrame.spMap_spMap]
+      rw [Category.assoc, hsn, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have hx : ((spMap χ ≫ j p) ≫ pullback.fst _ _) ≫ Xo.s = sOf c K := by
-      rw [Category.assoc, pullback.condition, ← Category.assoc, hsn', sOf, GlobalTheory.LocalFrame.spMap_spMap]
+      rw [Category.assoc, pullback.condition, ← Category.assoc, hsn', sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     obtain ⟨y, hy⟩ : ∃ y : FrPt Xo c K, y.x = (spMap χ ≫ j p) ≫ pullback.fst _ _ := by
       choose u hu using fun τ => GlobalTheory.IntFramesCompare.exists_eigenBasisAt (c := c) hx τ
       obtain ⟨s, hs⟩ := gfp_gen GlobalTheory.abelianSchemeLaws_all.2.secTwist ((spMap χ ≫ j p) ≫ pullback.fst _ _)

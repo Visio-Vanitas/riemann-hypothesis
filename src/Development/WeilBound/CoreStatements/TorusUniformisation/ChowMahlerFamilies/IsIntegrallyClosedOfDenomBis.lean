@@ -378,7 +378,7 @@ theorem exists_coords {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Ho
 
 theorem spMap_cancel {F Ω k : Type} [Field F] [Field Ω] [Field k] (κ : F ≃+* Ω) (f : F →+* k) {Z : Scheme.{0}}
     (g : Sp F ⟶ Z) : spMap (f.comp κ.symm.toRingHom) ≫ spMap κ.toRingHom ≫ g = spMap f ≫ g := by
-  rw [← Category.assoc, ← Tor.spMap_comp]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 2
   ext a
   simp

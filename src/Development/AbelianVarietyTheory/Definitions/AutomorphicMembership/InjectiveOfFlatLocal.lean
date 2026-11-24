@@ -177,8 +177,8 @@ theorem residue_comp {X : Scheme.{0}} (x : X) [IsNoetherianRing (X.presheaf.stal
   have h : ((ResidueField.map (algebraMap (Cpl X x) R)).comp
       (ResidueField.map (algebraMap (X.presheaf.stalk x) (Cpl X x)))).comp (residue (X.presheaf.stalk x)) =
       (residue R).comp ((algebraMap (Cpl X x) R).comp (algebraMap (X.presheaf.stalk x) (Cpl X x))) := rfl
-  have h' := (spMap_comp _ _).symm.trans ((congrArg spMap h).trans ((spMap_comp _ _).trans
-    (congrArg (spMap (residue R) ≫ ·) (spMap_comp _ _))))
+  have h' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap h).trans ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).trans
+    (congrArg (spMap (residue R) ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))))
   have h'' := congrArg (· ≫ X.fromSpecStalk x) h'
   exact (Category.assoc _ _ _).symm.trans (h''.trans (by simp only [Category.assoc]; rfl))
 
@@ -251,7 +251,7 @@ theorem exists_bdat (hp : p ≠ 0) (hW : (p : ℂ) ∈ W.nonunits) (Z : Mdl Y i�
   obtain ⟨m', -⟩ := sabComp pullCubComp E H _ _ _ _ _ _ _ _ Z.tMap m
   have e : spMap (algebraMap (Cpl Z.X x) R) ≫ fromSpecCompletedStalk Z.X x =
       spMap ((algebraMap (Cpl Z.X x) R).comp (algebraMap (Z.X.presheaf.stalk x) (Cpl Z.X x))) ≫ Z.X.fromSpecStalk x := by
-    rw [spMap_comp, Category.assoc]; rfl
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]; rfl
   let ξ : Sp R := (⊥ : PrimeSpectrum R)
   have hab := SharedLaws.abP_of_isGenP hp hW Z _ (generic_image x _ hinj ξ rfl)
   rw [← e] at hab
@@ -278,7 +278,7 @@ theorem nonempty_bdat (hp : p ≠ 0) (hW : (p : ℂ) ∈ W.nonunits) (Z : Mdl Y 
     have h₂ : spMap j ≫ spMap (algebraMap ((Y Z.i).X.residueField (Z.π x)) k) =
         spMap ((ResidueField.map (algebraMap (Cpl Z.X x) R)).comp
           (ResidueField.map (algebraMap (Z.X.presheaf.stalk x) (Cpl Z.X x)))) ≫ spMap (Z.π.residueFieldMap x).hom :=
-      (spMap_comp _ _).symm.trans ((congrArg spMap hj).trans (spMap_comp (Z.π.residueFieldMap x).hom
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap hj).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (Z.π.residueFieldMap x).hom
         ((ResidueField.map (algebraMap (Cpl Z.X x) R)).comp
           (ResidueField.map (algebraMap (Z.X.presheaf.stalk x) (Cpl Z.X x))))))
     rw [← Category.assoc, ← Category.assoc, ← h₁]

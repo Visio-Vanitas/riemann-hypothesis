@@ -412,7 +412,7 @@ def dualConst {k R : Type} [Field k] [CommRing R] (ρ : R →+* DualNumber k) : 
 
 theorem constPt_spMap {K R : Type} [Field K] [CommRing R] (ψ : R →+* DualNumber K) :
     constPt (spMap ψ) = spMap (dualConst ψ) := by
-  rw [constPt, spMap_comp', spMap_comp']
+  rw [constPt, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   rfl
 
 theorem chart_comp {F : Type} [CommRing F] {X : Scheme.{0}} (s : X ⟶ Sp F) (U : X.affineOpens) :
@@ -445,7 +445,7 @@ theorem snd_eq_zero {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host
     have h0 : spMap (RingHom.id c.F) = 𝟙 _ := Spec.map_id _
     rw [Model.j, Category.assoc, pullback.condition, ← Category.assoc, Y.jQ_over, h0, Category.comp_id]
   have e₂ : y' ≫ pullback.snd _ _ = spMap (φ.comp σ) := by
-    rw [← hjs, reassoc_of% hy', hcs, spMap_comp']
+    rw [← hjs, reassoc_of% hy', hcs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have e₃ : y' = constPt y' := by
     refine pullback.hom_ext e₁ ?_
     show _ = constPt (y' ≫ pullback.snd _ _)

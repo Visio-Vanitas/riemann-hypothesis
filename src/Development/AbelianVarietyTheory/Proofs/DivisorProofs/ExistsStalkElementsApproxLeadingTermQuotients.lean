@@ -970,7 +970,7 @@ theorem values_of_finite (hk : IsAlgClosed k₀) (f : X ⟶ Y) [IsFinite f] {x :
   have h₁ : ∀ a, θ.comp (f.stalkMap x).hom a ∈ k₀ := mem_of_defOver _ (by
     have e₁ : spMap (f.stalkMap x).hom ≫ Y.fromSpecStalk (f x) = X.fromSpecStalk x ≫ f :=
       Scheme.SpecMap_stalkMap_fromSpecStalk f
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, e₁]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, e₁]
     exact h)
   refine mem_of_isIntegralElem hk _ h₁ ?_
   have hf := (GlobalTheory.residueField_map_finite_of_quasiFinite (f.stalkMap x).hom (f.quasiFiniteAt x)).to_isIntegral
@@ -1050,7 +1050,7 @@ theorem evalZ_eq_of_addEquiv (φ : InvFun ℤ) {X Y : Type} [AddCommGroup X] [Ad
 
 theorem jK_spMap_apply {A B : Type} [CommRing A] [IsDomain A] [CommRing B] [IsDomain B] (ρ : A →+* B)
     (hρ : Function.Injective ρ) (w : Sp (FractionRing B)) : (jK B ≫ spMap ρ) w = (⊥ : PrimeSpectrum A) := by
-  rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   refine PrimeSpectrum.ext ?_
   have : w.asIdeal = ⊥ := @Ideal.eq_bot_of_prime _ _ _ w.isPrime
   change w.asIdeal.comap _ = ⊥
@@ -1100,7 +1100,7 @@ theorem exists_mem_of_ordGe {g n : ℕ} {F : SFam g n (zetaAway n)} {Z : Scheme.
   obtain ⟨T, f₁, fK, hf₁, hl₁, -, hfK, hy⟩ := GlobalTheory.T.traitExistsAfterFiniteExtension_of_completeDVR g n _ _ F V
     ⟨⟨inferInstance, inferInstance, inferInstance, hc⟩, inferInstance⟩ inferInstance (IsOpenImmersion.lift i _ hr')
   have hsq : jK T.V ≫ spMap f₁ = spMap fK ≫ jK V := by
-    rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun a => (hfK a).symm
   have hgen : jK T.V ≫ spMap f₁ ≫ ξ ≫ p₁ ≫ X₁.π = T.y ≫ i := by
@@ -1108,13 +1108,13 @@ theorem exists_mem_of_ordGe {g n : ℕ} {F : SFam g n (zetaAway n)} {Z : Scheme.
   have hreg : RegAt X₁ z₁ (f₁.comp ev) := by
     intro a ha
     have e : jK T.V ≫ spMap (f₁.comp ev) ≫ X₁.M.Z.fromSpecStalk z₁ = spMap fK ≫ jK V ≫ ξ ≫ p₁ := by
-      rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hξ, ← Category.assoc, hsq, Category.assoc]
+      rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hξ, ← Category.assoc, hsq, Category.assoc]
     rw [e]
     exact hV₀ _ (hr ⟨_, rfl⟩).1 a ha
   obtain ⟨y, f₂, e₂, hm, hP, hf₂, hl₂, hev₂, hδ⟩ : ∃ (y : Φ.Y) (f : T.V →+* Φ.V y) (e : Φ.X y ≃+ T.D.toPre.X),
       Φ.m y = 1 ∧ IsPrincipalIdealRing (Φ.V y) ∧ Function.Injective f ∧ IsLocalHom f ∧ f.comp (f₁.comp ev) = Φ.ev y ∧
       ∀ k, Φ.t y k = f T.ϖ ∧ ∀ a b, Φ.δ y k a b = T.β (e a) (e b) := hT T (f₁.comp ev) inferInstance hreg (by
-    rw [← hgen, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← Category.assoc (spMap ev), hξ, Category.assoc])
+    rw [← hgen, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← Category.assoc (spMap ev), hξ, Category.assoc])
   obtain ⟨a₀, ha₀, hJ₀⟩ := hval T _ hgen
   have hpowJ : idlAlong (J ^ D) (spMap f₁ ≫ ξ ≫ p₁ ≫ X₁.π) = idlAlong J (spMap f₁ ≫ ξ ≫ p₁ ≫ X₁.π) ^ D := by
     rw [idlAlong, stalkId_pow', Ideal.map_pow, ← idlAlong]
@@ -1188,7 +1188,7 @@ theorem exists_elements : ∀ g : ℕ, 1 ≤ g → ∀ n : ℕ, 3 ≤ n → Odd 
   have hsl : IsLocalHom s := Scheme.isLocalHom_stalkClosedPointTo' (R := Φ.V y) ξ₁
   have hs : spMap s ≫ S₁.fromSpecStalk _ = ξ₁ := Scheme.Spec_stalkClosedPointTo_fromSpecStalk (R := .of (Φ.V y)) ξ₁
   have hP : spMap (ev₁.comp s) ≫ S₁.fromSpecStalk _ ≫ ν = spMap ev ≫ ξ := by
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← Category.assoc (spMap s), hs, hξν, ← Category.assoc, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hev₁]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← Category.assoc (spMap s), hs, hξν, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hev₁]
   have hρl : IsLocalHom ρ := hρf.to_isIntegral.isLocalHom hρi
   obtain ⟨hθl, hθ⟩ := values_of_finite hk ν (ev₁.comp s) (by
     rw [hP]

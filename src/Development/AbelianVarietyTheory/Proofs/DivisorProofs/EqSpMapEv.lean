@@ -67,6 +67,6 @@ variable {Z : Scheme.{0}} {κ : ∀ b, Pm Dw.mult → (Sp (CR Dw.mult (A.V b)) �
 
 theorem eq_spMap_ev (k : A.B × Pm Dw.mult) (z : Sp S ⟶ Z) (hz : ⊤ ≤ z ⁻¹ᵁ (κ k.1 k.2).opensRange) :
     spMap ((ev z _ hz).comp (cellθ κ k).toRingHom) ≫ κ k.1 k.2 = z := by
-  rw [← spMap_comp', Category.assoc, spMap_cellθ, spMap_ev]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, spMap_cellθ, spMap_ev]
 
 end GlobalTheory.FlagMod.FieldFlag

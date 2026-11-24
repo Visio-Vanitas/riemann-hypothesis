@@ -260,7 +260,7 @@ open GlobalTheory.Toroidal GlobalTheory.Cartier GlobalTheory.ShFam
 
 namespace GlobalTheory.CarrySpec
 
-alias spMap_comp := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : ReciprocityTheory.ChartRestriction.G.Geo.Tor.Host E} {Dw : Datum H}
   {l : Level H} {Xo : Moduli Dw l} {c : Coeff l} {O : Type} [CommRing O] {β : O →+* c.F} {Z : Model Xo c β}
@@ -330,7 +330,7 @@ theorem tri_spec {R V L k : Type} [CommRing R] [CommRing V] [CommRing L] [CommRi
     rw [hco]
     exact ⟨hm.1, fun i => by rw [hm.2, Matrix.map_apply, hNd]⟩
   refine ⟨fun τ i => ((hAd τ i).map r).unit * tk τ i, tri_of_co hfhk ?_ ?_ _ (fun τ => (key τ).1) fun τ i => ?_⟩
-  · rw [hk.1, hxV, spMap_comp, Category.assoc]
+  · rw [hk.1, hxV, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
   · rw [hk.2.1, hφV, RingHom.comp_assoc]
   · rw [(key τ).2, Units.val_mul, IsUnit.unit_spec]
 
@@ -348,13 +348,13 @@ theorem spec_of_anypoint (hany : ∀ (E : Type) [Field E] [NumberField E] [IsCMF
   have hq : spMap ρ ≫ stalkPt C.Y y₀ = q := Scheme.Spec_stalkClosedPointTo_fromSpecStalk (R := CommRingCat.of V) q
   obtain ⟨φ₁, f, t, hf, -⟩ := C.gr_spec y₀
   have hpL : spMap ν ≫ q = spMap (ν.comp ρ) ≫ stalkPt C.Y y₀ :=
-    (congrArg (spMap ν ≫ ·) hq).symm.trans (by rw [spMap_comp, Category.assoc])
+    (congrArg (spMap ν ≫ ·) hq).symm.trans (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
   obtain ⟨t', hfL⟩ := hany E H Dw l Xo c O β Z F e C L φL xL gL (spMap ν ≫ q) hcar y₀ (ν.comp ρ) φ₁ f t hpL hf
   have hxV' : xV = spMap ρ ≫ (stalkPt C.Y y₀ ≫ C.π ≫ genι Z) :=
     hxV.trans ((congrArg (· ≫ C.π ≫ genι Z) hq).symm.trans (Category.assoc _ _ _))
   obtain ⟨t'', htri⟩ := tri_spec f ρ ν hν r hxV' gV gL tL hL t' hfL gk tk hk
   exact ⟨y₀, r.comp ρ, φ₁, f, t, t'',
-    (congrArg (spMap r ≫ ·) hq).symm.trans (by rw [spMap_comp, Category.assoc]), hf, htri⟩
+    (congrArg (spMap r ≫ ·) hq).symm.trans (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]), hf, htri⟩
 
 end GlobalTheory.CarrySpec
 end -- clump:auto
@@ -666,7 +666,7 @@ theorem isMap_id {R : Type} [CommRing R] {φ : c.F →+* R} {x : Sp R ⟶ Z.X} (
     ext r <;> simp [dualMap]
   rw [h1, Category.id_comp]
 
-alias spMap_comp := _root_.GlobalTheory.spMap_comp_ring
+alias spMap_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 end GlobalTheory.GenFrame
 

@@ -100,7 +100,7 @@ theorem spMap_chartRing (p : Pair f₀) : spMap (chartRing hI P P' hkf p) = char
 theorem chart_ext {A : Type} [CommRing A] (U : AffOp X₀) {a b : S.F.obj U →+* A}
     (e : spMap a ≫ P.y U = spMap b ≫ P.y U) : a = b :=
   haveI := P.isOpen U
-  _root_.GlobalTheory.ZM.DenseFib.spMap_inj ((cancel_mono (P.y U)).1 e)
+  ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ((cancel_mono (P.y U)).1 e)
 
 include hkf in
 theorem chartRing_fac (p : Pair f₀) :
@@ -112,8 +112,8 @@ include hkf in
 theorem chartRing_comp_algebraMap (hf : f ≫ s = t) (p : Pair f₀) :
     (chartRing hI P P' hkf p).comp (algebraMap R (S.F.obj (Opposite.op p.1.2))) =
       algebraMap R (S'.F.obj (Opposite.op p.1.1)) := by
-  refine _root_.GlobalTheory.ZM.DenseFib.spMap_inj ?_
-  rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← P.base, ← Category.assoc, chartRing_fac, Category.assoc, hf, P'.base]
+  refine ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← P.base, ← Category.assoc, chartRing_fac, Category.assoc, hf, P'.base]
 
 def chartAlg (hf : f ≫ s = t) (p : Pair f₀) : S.F.obj (Opposite.op p.1.2) →ₐ[R] S'.F.obj (Opposite.op p.1.1) :=
   { chartRing hI P P' hkf p with
@@ -125,7 +125,7 @@ theorem chartRing_red (p : Pair f₀) :
     (S'.p (Opposite.op p.1.1)).comp (chartRing hI P P' hkf p) =
       (GlobalTheory.CechDR.secPull s₀ t₀ p).comp (S.p (Opposite.op p.1.2)) := by
   refine chart_ext P _ ?_
-  rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, chartRing_fac, chart_red P P' hkf p]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, chartRing_fac, chart_red P P' hkf p]
 
 
 include hkf in
@@ -135,7 +135,7 @@ theorem chartRing_nat {p q : Pair f₀} (a : q ≤ p) (b : S.F.obj (Opposite.op 
   have e : ((mp S'.F (homOfLE (Pair.le_fst a)).op : _ →+* _)).comp (chartRing hI P P' hkf p) =
       (chartRing hI P P' hkf q).comp (mp S.F (homOfLE (Pair.le_snd a)).op : _ →+* _) := by
     refine chart_ext P _ ?_
-    rw [_root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, chartRing_fac, P.nat,
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc, chartRing_fac, P.nat,
       chartRing_fac, ← Category.assoc, P'.nat]
   exact congrArg (fun g ↦ g b) e
 

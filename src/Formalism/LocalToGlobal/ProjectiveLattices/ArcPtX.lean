@@ -80,7 +80,7 @@ theorem arcPt_point (Y : Model Xo c β) {K₁ : Type} [Field K₁] (b : O →+* 
       z ≫ Y.jQ ≫ pullback.snd _ _ = spMap (algebraMap c.F (ArcS Dw K₁)) := by
   haveI := Y.jQ_open
   have hw : (spMap (arcι Dw K₁) ≫ χ) ≫ Y.s = spMap (algebraMap c.F (ArcS Dw K₁)) ≫ spMap β := by
-    rw [Category.assoc, hχs, ← spMap_comp, ← spMap_comp, ← spMap_comp, hcomp]
+    rw [Category.assoc, hχs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomp]
   let g : Sp (ArcS Dw K₁) ⟶ pullback Y.s (spMap β) :=
     pullback.lift (spMap (arcι Dw K₁) ≫ χ) (spMap (algebraMap c.F (ArcS Dw K₁))) hw
   have hg : Set.range g ⊆ Set.range Y.jQ := by

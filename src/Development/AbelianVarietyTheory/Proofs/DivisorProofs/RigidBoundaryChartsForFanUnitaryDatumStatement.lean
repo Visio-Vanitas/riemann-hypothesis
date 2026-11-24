@@ -755,7 +755,7 @@ theorem _root_.GlobalTheory.UPoinc.ideal_orders_of_proper_model : ∀ (E : Type)
     GlobalTheory.exists_complete_dvr_of_finite_fractionRing_hom W hcpl K' σ hσ
   have hfK : ∀ a, (τ.comp σ) (algebraMap W _ a) = algebraMap V' _ (f a) := hτ
   obtain ⟨ξ', hξπ, hξg⟩ := GlobalTheory.proper_lift_trait πY hprop W V' f (τ.comp σ) hfK χ (spMap τ ≫ yK) (by
-    rw [Category.assoc, hyK, spMap_comp, Category.assoc])
+    rw [Category.assoc, hyK, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc])
   have hB' : GlobalTheory.Mum.Base V' := ⟨⟨inferInstance, inferInstance, inferInstance, hc'⟩, inferInstance⟩
   obtain ⟨T₂, f₂, fK₂, hf₂i, hf₂l, -, hf₂K, hT₂y⟩ :=
     _root_.GlobalTheory.UTraitExt.uTraitExtSt E H Dw l Xo c V' hB' inferInstance (spMap (τ.comp σ) ≫ y)
@@ -766,7 +766,7 @@ theorem _root_.GlobalTheory.UPoinc.ideal_orders_of_proper_model : ∀ (E : Type)
       jK S ≫ spMap u = spMap uK ≫ jK R := by
     intro R S _ _ _ _ u uK hu
     change spMap (algebraMap S (FractionRing S)) ≫ spMap u = spMap uK ≫ spMap (algebraMap R (FractionRing R))
-    rw [← spMap_comp, ← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun a => (hu a).symm)
 
   have hcomm : T₂.y ≫ C.i = jK T₂.V ≫ (spMap f₂ ≫ ξ') ≫ πY ≫ X₁.π := by
@@ -777,7 +777,7 @@ theorem _root_.GlobalTheory.UPoinc.ideal_orders_of_proper_model : ∀ (E : Type)
       _ = spMap fK₂ ≫ (jK V' ≫ ξ') ≫ πY ≫ X₁.π := by rw [e1]; simp only [Category.assoc]
       _ = spMap fK₂ ≫ spMap τ ≫ (yK ≫ πY) ≫ X₁.π := by rw [hξg]; simp only [Category.assoc]
       _ = spMap fK₂ ≫ spMap τ ≫ spMap σ ≫ (jK W ≫ χ ≫ X₁.π) := by rw [hyK]; simp only [Category.assoc]
-      _ = T₂.y ≫ C.i := by rw [← hy, hT₂y, spMap_comp]; simp only [Category.assoc]
+      _ = T₂.y ≫ C.i := by rw [← hy, hT₂y, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; simp only [Category.assoc]
   obtain ⟨tK₂, m₁, m₂⟩ := T₂.gen
   obtain ⟨a', ha', hid⟩ := hval T₂.V T₂.cdvr T₂.ϖ T₂.irr (spMap f₂ ≫ ξ') T₂.y hcomm trivial T₂.t tK₂ m₁ m₂ T₂.P T₂.be
     T₂.lev T₂.mono
@@ -801,7 +801,7 @@ theorem _root_.GlobalTheory.UPoinc.ideal_orders_of_proper_model : ∀ (E : Type)
       exact (Scheme.Hom.appLE_comp_appLE _ _ _ _ _ _ _).symm
     rw [e, Category.assoc, Scheme.ΓSpecIso_naturality, ← Category.assoc, CommRingCat.hom_comp]
     rfl
-  rw [GlobalTheory.PullAlong.idlAlong_comap_eq, Category.assoc, hξπ, ← Category.assoc, ← spMap_comp,
+  rw [GlobalTheory.PullAlong.idlAlong_comap_eq, Category.assoc, hξπ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
     idlAlong_comp_local] at hid
 
   set h := f₂.comp f with hh
@@ -818,7 +818,7 @@ theorem _root_.GlobalTheory.UPoinc.ideal_orders_of_proper_model : ∀ (E : Type)
   obtain ⟨b, hb, hI⟩ := GlobalTheory.ideal_map_eq_span_pow_uniformizer W T₂.V h hinj ϖ T₂.ϖ e a' _ hϖ T₂.irr he hid
   have hval2 : φ.evalZ T₂.be = e * φ.evalZ be :=
     GlobalTheory.UPoinc.LiftOrd.evalZ_ram T T₂ h (fK₂.comp (τ.comp σ)) hinj hloc
-      (fun a => by rw [RingHom.comp_apply, hfK, hf₂K]; rfl) (by rw [hT₂y]; simp only [spMap_comp, Category.assoc]; first | rfl) e he φ hφ
+      (fun a => by rw [RingHom.comp_apply, hfK, hf₂K]; rfl) (by rw [hT₂y]; simp only [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]; first | rfl) e he φ hφ
   refine ⟨b, ?_, hI⟩
   have h1 : (e : ℝ) * b = e * (ι * φ.evalZ be) := by
     rw [← Nat.cast_mul, hb, ha', hval2]; ring
@@ -1135,8 +1135,8 @@ theorem exists_uTrait_lift_setup (hExt : UTraitExtSt) : ∀ (E : Type) [Field E]
     RingHom.ext fun a => (he a).symm
   haveI : ValuationRing V₂ := inferInstance
   have hsq : (spMap e ≫ η) ≫ X₁.π = jK V₂ ≫ (spMap j ≫ ξ) := by
-    rw [Category.assoc, hη, ← Category.assoc, spMap_comp', ← Category.assoc, ← Category.assoc, spMap_comp',
-      show jK V₂ = spMap (algebraMap V₂ (FractionRing V₂)) from rfl, spMap_comp', hring]
+    rw [Category.assoc, hη, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
+      show jK V₂ = spMap (algebraMap V₂ (FractionRing V₂)) from rfl, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring]
   obtain ⟨l₁, hl1, -⟩ := exists_lift_of_isFinite X₁.π V₂ (spMap e ≫ η) (spMap j ≫ ξ) hsq
   obtain ⟨T', f'', fK'', hinj'', hloc'', -, hc'', hy''⟩ := hExt E H Dw l Xo c V₂ hB hD
     (spMap (e.comp (algebraMap (FractionRing T.V) L)) ≫ T.y)
@@ -1147,19 +1147,19 @@ theorem exists_uTrait_lift_setup (hExt : UTraitExtSt) : ∀ (E : Type) [Field E]
     rw [← hc'', ← he]
   have key : jK T'.V ≫ spMap (f''.comp j) = spMap (fK''.comp (e.comp (algebraMap (FractionRing T.V) L))) ≫ jK T.V := by
     rw [show jK T'.V = spMap (algebraMap T'.V (FractionRing T'.V)) from rfl,
-      show jK T.V = spMap (algebraMap T.V (FractionRing T.V)) from rfl, spMap_comp', spMap_comp', hring2]
+      show jK T.V = spMap (algebraMap T.V (FractionRing T.V)) from rfl, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hring2]
   haveI := hloc''
   refine ⟨T', f''.comp j, fK''.comp (e.comp (algebraMap (FractionRing T.V) L)), spMap f'' ≫ l₁, hinj''.comp hj,
     inferInstance, fun a => (RingHom.congr_fun hring2 a).symm, ?_, ?_, ?_⟩
-  · rw [hy'', ← Category.assoc, spMap_comp']
-  · rw [Category.assoc, hl1, ← Category.assoc, spMap_comp']
+  · rw [hy'', ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  · rw [Category.assoc, hl1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   · symm
     calc jK T'.V ≫ (spMap f'' ≫ l₁) ≫ X₁.π = jK T'.V ≫ spMap (f''.comp j) ≫ ξ := by
-          rw [Category.assoc, hl1, ← spMap_comp', Category.assoc]
+          rw [Category.assoc, hl1, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       _ = spMap (fK''.comp (e.comp (algebraMap (FractionRing T.V) L))) ≫ jK T.V ≫ ξ := by
           rw [← Category.assoc, key, Category.assoc]
       _ = T'.y ≫ C.i := by
-          rw [← hξ, hy'', ← spMap_comp']
+          rw [← hξ, hy'', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
           simp only [Category.assoc]
 
 theorem uTraitLift_setup : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (Dw : Datum H) (l : Geo.Tor.Level H) (Xo : Moduli Dw l) (c : Coeff l) (C : UCompact Xo c) (X₁ : USetup C), IsClopen (Set.range X₁.π) → ∀ (T : UTrait Xo c) (ξ : Sp T.V ⟶ C.Z), T.y ≫ C.i = jK T.V ≫ ξ → ξ (closedPoint T.V) ∈ Set.range X₁.π → ∃ (T' : UTrait Xo c) (f : T.V →+* T'.V) (fK : FractionRing T.V →+* FractionRing T'.V) (ξ₁ : Sp T'.V ⟶ X₁.M.Z), Function.Injective f ∧ IsLocalHom f ∧ (∀ a, fK (algebraMap T.V (FractionRing T.V) a) = algebraMap T'.V (FractionRing T'.V) (f a)) ∧ T'.y = spMap fK ≫ T.y ∧ spMap f ≫ ξ = ξ₁ ≫ X₁.π ∧ T'.y ≫ C.i = jK T'.V ≫ ξ₁ ≫ X₁.π :=

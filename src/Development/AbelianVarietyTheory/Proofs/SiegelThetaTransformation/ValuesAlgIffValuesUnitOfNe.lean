@@ -74,12 +74,6 @@ noncomputable section
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {r g q0 n : ℕ} {H : Host E} {Dw : Datum H}
   {l : Geo.Tor.Level H} {Xo : Moduli Dw l} {c : Coeff l}
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (f' : B →+* C) :
-    spMap f' ≫ spMap f = spMap (f'.comp f) := by
-  show Spec.map _ ≫ Spec.map _ = Spec.map _
-  rw [← Spec.map_comp]
-  rfl
-
 theorem exists_spMap' {A B : Type} [CommRing A] [CommRing B] (x : Sp B ⟶ Sp A) : ∃ β : A →+* B, x = spMap β := by
   exact ⟨(Spec.preimage x).hom, (Spec.map_preimage x).symm⟩
 
@@ -190,9 +184,9 @@ theorem point_over_of_ne (hpq : Dw.p ≠ Dw.q) (hA : l.A = 1) (d : DeltaDat Xo c
     let ι := algebraMap K (AlgebraicClosure K)
     apply ι.injective
     have e := rho_eq_of_ne hpq d.m (x := spMap ι ≫ t) (β := ι.comp γ1) (β₂ := ι.comp γ2)
-      (by simp only [Category.assoc]; rw [e1, spMap_comp']) (by rw [Category.assoc, e2, spMap_comp'])
+      (by simp only [Category.assoc]; rw [e1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) (by rw [Category.assoc, e2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
     exact e
-  rw [e1, ← Category.assoc, e2, spMap_comp', key]
+  rw [e1, ← Category.assoc, e2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, key]
 
 theorem overBase_of_ne (hpq : Dw.p ≠ Dw.q) (hA : l.A = 1) (d : DeltaDat Xo c n) : OverBase d := by
   intro h

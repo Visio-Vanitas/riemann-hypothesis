@@ -433,7 +433,7 @@ theorem primPull_const_pull (g : A₀ ⟶ A₀) [IsMonHom g] (q : primDR A₀) :
       (m : GrpMor κ t A κ' t' A' σ b φ) (m' : GrpMor κ' t' A' κ'' t'' A'' τ b' ψ) :
       GrpMor κ t A κ'' t'' A'' (τ.comp σ) (b' ≫ b) (ψ ≫ φ) := by
     refine { dp := DividedPowers.IsDPMorphism.comp _ m'.dp m.dp, base := ?_, w := ?_, mul := ?_ }
-    · rw [Category.assoc, m.base, ← Category.assoc, m'.base, Category.assoc, Cris.spMap_comp]
+    · rw [Category.assoc, m.base, ← Category.assoc, m'.base, Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     · rw [Category.assoc, m.w, ← Category.assoc, m'.w, Category.assoc]
     · intro T x y x₀ y₀ hx hy
       let x₁ : Over.mk (T.hom ≫ b') ⟶ A' := Over.homMk (x.left ≫ ψ) (by
@@ -764,10 +764,10 @@ theorem GlobalTheory.UPel.HT.exists_sqZero_lift_realising_ks : ∀ (p : ℕ) [Fa
     fun a => ⟨TrivSqZeroExt.inl a, by simp⟩
   have htR : spMap (algebraMap k (TrivSqZeroExt k (Fin d → k))) ≫ t =
       spMap ((algebraMap k (TrivSqZeroExt k (Fin d → k))).comp β) := by
-    rw [ht]; exact (GlobalTheory.Cris.spMap_comp _ _).symm
+    rw [ht]; exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   have ht₀ : t = spMap (TrivSqZeroExt.fstHom k k (Fin d → k)).toRingHom ≫
       (spMap (algebraMap k (TrivSqZeroExt k (Fin d → k))) ≫ t) := by
-    rw [← Category.assoc, ← GlobalTheory.Cris.spMap_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : (TrivSqZeroExt.fstHom k k (Fin d → k)).toRingHom.comp (algebraMap k (TrivSqZeroExt k (Fin d → k))) = RingHom.id k := by
       ext a; simp
     rw [this]

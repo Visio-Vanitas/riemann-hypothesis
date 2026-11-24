@@ -132,7 +132,7 @@ theorem exists_le_halfPlane {Z : Scheme.{0}} {T : ℝ} (yT : Sp (Conv.halfRing T
   have hfac : spMap (Conv.halfRing T).val.toRingHom ≫ yT =
       spMap (algebraMap Conv.convLaurent ℂ⸨X⸩) ≫
         (spMap (Conv.halfIncl T : Conv.halfRing T →+* Conv.convLaurent) ≫ yT) := by
-    rw [← Category.assoc, ← spMap_comp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   refine Conv.exists_le_preimage_inclusion yT fun p _ => ?_
   rw [hfac] at hU
@@ -171,7 +171,7 @@ theorem exists_germ_lift (Y : Model Xo c β) (bF : c.F →+* ℂ) {A : AnArc (�
         x ≫ Y.oF.t.G.hom ≫ pullback.snd _ _ = spMap bF → x = spMap (Γ.ev w).toRingHom ≫ xg := by
   have hb : spMap (Conv.halfRing Ψ.T).val.toRingHom ≫ spMap ((algebraMap ℂ (Conv.halfRing Ψ.T)).comp bF) =
       yF ≫ pullback.snd _ _ := by
-    rw [hover, ← spMap_comp]; rfl
+    rw [hover, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
   have hs : Ψ.yT ≫ Xo.s = spMap ((algebraMap ℂ (Conv.halfRing Ψ.T)).comp bF) ≫
       spMap (IntermediateField.inclusion c.le).toRingHom := by
     refine spMap_cancel (ρ := (Conv.halfRing Ψ.T).val.toRingHom) Subtype.val_injective ?_
@@ -197,13 +197,13 @@ theorem exists_germ_lift (Y : Model Xo c β) (bF : c.F →+* ℂ) {A : AnArc (�
   · apply hP.hom_ext
     · rw [Category.assoc, e1, Ψ.xt_gen]
       exact (hx v).symm
-    · rw [Category.assoc, e2, ← Category.assoc, ← spMap_comp]
+    · rw [Category.assoc, e2, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact hg.trans (Over.w (ΦF.x v)).symm
   · rw [e2]
     have : spMap (Subalgebra.inclusion (Γ.le Ψ.T w hw)).toRingHom =
         spMap (Subalgebra.inclusion (Γ.le T₁ w hw₁)).toRingHom ≫ spMap (Subalgebra.inclusion (Conv.halfRing_mono hT) :
           Conv.halfRing Ψ.T →+* Conv.halfRing T₁) := by
-      rw [← spMap_comp]; rfl
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl
     rw [this, Category.assoc]
     exact FormalValue.top_le_comp hU₁ _
   · have e3 : x ≫ Y.m0.toSABMap.φ = (spMap (Γ.ev w).toRingHom ≫ hP.lift _ _ hc) ≫ Y.m0.toSABMap.φ := by
@@ -212,7 +212,7 @@ theorem exists_germ_lift (Y : Model Xo c β) (bF : c.F →+* ℂ) {A : AnArc (�
     refine hP.hom_ext e3 (pullback.hom_ext ?_ ?_)
     · rw [Category.assoc, ← hP.w, ← Category.assoc, Category.assoc _ _ (pullback.fst _ _), ← hP.w, ← Category.assoc]
       exact congrArg (· ≫ Xo.univ.t.G.hom) e3
-    · rw [Category.assoc, hx2, Category.assoc, Category.assoc, reassoc_of% e2, h2, ← spMap_comp, ← spMap_comp]
+    · rw [Category.assoc, hx2, Category.assoc, Category.assoc, reassoc_of% e2, h2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 1
       ext a
       exact ((Γ.ev w).commutes (bF a)).symm

@@ -126,12 +126,6 @@ theorem isTypeFn_fst {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Hos
     unfold Datum.mult
     rw [if_neg h]
 
-theorem spMap_spMap {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R' →+* R'')
-    (g : R →+* R') : spMap f ≫ spMap g = spMap (f.comp g) := by
-  unfold spMap
-  rw [← Spec.map_comp]
-  rfl
-
 theorem dualMap_comp_epsMul {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* T) (a : S) :
     (dualMap ψ).comp (epsMul a) = (epsMul (ψ a)).comp (dualMap ψ) := by
   ext s <;> simp [dualMap, epsMul, TrivSqZeroExt.algebraMap_eq_inl]
@@ -142,7 +136,7 @@ theorem isEigAt_pull {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Hos
     {v : Sp (DualNumber S) ⟶ Xo.univ.t.G.left} (hv : IsEigAt c τ v) :
     IsEigAt c τ (spMap (dualMap ψ) ≫ v) := by
   intro a
-  rw [Category.assoc, hv a, ← Category.assoc, spMap_spMap, dualMap_comp_epsMul, ← spMap_spMap,
+  rw [Category.assoc, hv a, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_epsMul, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
     Category.assoc, hψ]
 
 theorem smooth_of_chart {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}
@@ -187,7 +181,7 @@ theorem exists_integral_chart_frame : ReciprocityTheory.ChartRestriction.G.Out.S
   have hopen : IsOpenImmersion (spMap ψ) := inferInstanceAs
     (IsOpenImmersion (Spec.map (CommRingCat.ofHom (algebraMap R (Localization.Away g)))))
   have hsA : (spMap ψ ≫ jR) ≫ pullback.snd _ _ = spMap (algebraMap c.F A) := by
-    rw [Category.assoc, hs, spMap_spMap]
+    rw [Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   let x' : Sp A ⟶ Xo.X := spMap ψ ≫ x
   let u' : ∀ τ : E →+* ℂ, Fin (Dw.mult τ) → (Sp (DualNumber A) ⟶ Xo.univ.t.G.left) :=
     fun τ i => spMap (dualMap ψ) ≫ u τ i
@@ -208,7 +202,7 @@ theorem exists_integral_chart_frame : ReciprocityTheory.ChartRestriction.G.Out.S
         ((spMap ψ ≫ jR) ≫ pullback.snd _ _) ≫ spMap (IntermediateField.inclusion c.le).toRingHom := by
       simp only [x', x, Category.assoc]
       rw [pullback.condition]
-    rw [h1, hsA, sOf, spMap_spMap]
+    rw [h1, hsA, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   refine ⟨A, inferInstance, hA, inferInstance, spMap ψ ≫ jR, ⟨x', hx, u', htan, heig', hbasis, s', hgen⟩,
     inferInstance, ?_, hsA, smooth_of_chart _ hsA, (Category.assoc _ _ _).symm⟩
   have hr : q ∈ Set.range (PrimeSpectrum.comap ψ) := by

@@ -141,7 +141,7 @@ theorem HasPhi.baseChange {T T' : CDVR} {io : c.F →+* T.Fr} {io' : c.F →+* T
   obtain ⟨n1, -⟩ := sabComp pullCubComp E H _ _ _ _ _ _ _ _ m1 n
   obtain ⟨n2, -⟩ := sabComp pullCubComp E H _ _ _ _ _ _ _ _ m2 n
   have sq : spMap ψ ≫ spMap (algebraMap T.V T.Fr) = spMap (algebraMap T'.V T'.Fr) ≫ spMap g :=
-    (spMap_comp _ ψ).symm.trans ((congrArg spMap hg.symm).trans (spMap_comp g _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ ψ).symm.trans ((congrArg spMap hg.symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp g _))
   rw [sq] at n2
   rw [← hx] at n1
   obtain ⟨n3, -⟩ := sabCancel pullCubCancel E H _ _ _ _ _ _ _ _ m₀ n2

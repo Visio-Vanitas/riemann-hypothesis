@@ -943,7 +943,7 @@ theorem defOver_comp {P : Sp K ⟶ X} (h : DefOver k₀ P) (f : X ⟶ Y) : DefOv
   exact ⟨P₀ ≫ f, (Category.assoc _ _ _).symm⟩
 
 theorem defOver_spMap {O : Type} [CommRing O] {θ : O →+* K} (h : ∀ a, θ a ∈ k₀) : DefOver k₀ (spMap θ) :=
-  ⟨spMap (θ.codRestrict k₀ h), by rw [← spMap_comp]; rfl⟩
+  ⟨spMap (θ.codRestrict k₀ h), by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl⟩
 
 theorem mem_of_defOver {y : Y} (θ : Y.presheaf.stalk y →+* K) (h : DefOver k₀ (spMap θ ≫ Y.fromSpecStalk y)) (a) :
     θ a ∈ k₀ := by
@@ -972,7 +972,7 @@ theorem defOver_of_comp (hk : IsAlgClosed k₀) {P : Sp K ⟶ X} (f : X ⟶ Y) [
   have h₁ : ∀ a, θ.comp (f.stalkMap x).hom a ∈ k₀ := mem_of_defOver _ (by
     have e₁ : spMap (f.stalkMap x).hom ≫ Y.fromSpecStalk (f x) = X.fromSpecStalk x ≫ f :=
       Scheme.SpecMap_stalkMap_fromSpecStalk f
-    rw [spMap_comp, Category.assoc, e₁, ← Category.assoc, e]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, e₁, ← Category.assoc, e]
     exact h)
   rw [← e]
   refine defOver_comp (defOver_spMap fun a => mem_of_isIntegralElem hk _ h₁ ?_) _
@@ -1094,7 +1094,7 @@ theorem quasiFinite_of_sepAt {S : Scheme.{0}} {V : Type} [CommRing V] [IsDomain 
     obtain ⟨k₀, hk₀, hφ, hint⟩ := exists_algClosure (ev.comp φ) hev
     have hz : ∀ a ∈ maximalIdeal V, ev a ∈ k₀ → ev a = 0 := fun a ha h₀ =>
       eq_zero_of_inv_mem ev ha ((hint _ h₀).2 ev.range (fun b => ⟨φ b, rfl⟩) ⟨a, rfl⟩)
-    have e₁ : spMap ev ≫ ξ = spMap (ev.comp φ) ≫ S.fromSpecStalk _ := by rw [spMap_comp, Category.assoc, eφ]
+    have e₁ : spMap ev ≫ ξ = spMap (ev.comp φ) ≫ S.fromSpecStalk _ := by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, eφ]
     obtain ⟨-, hA, hB⟩ := hsep K ev k₀ hk₀ (fun p => by
       have h₁ : spMap (ev.comp φ) p = closedPoint O := by
         refine PrimeSpectrum.ext (((maximalIdeal.isMaximal O).eq_of_le (spMap (ev.comp φ) p).isPrime.ne_top ?_).symm)
@@ -1115,13 +1115,13 @@ theorem quasiFinite_of_sepAt {S : Scheme.{0}} {V : Type} [CommRing V] [IsDomain 
       · have h₁ := defOver_comp (hA' 0) F'.univ.A.hom
         have h₂ : (Q.c 0).left ≫ Q.B.hom = 𝟙 _ := Over.w (Q.c 0)
         rw [Category.assoc, Category.assoc, hβ.1.w, ← Category.assoc (Q.c 0).left, h₂] at h₁
-        rw [spMap_comp, Category.assoc, Category.assoc]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
         exact (Category.id_comp (spMap (ib.comp ga) ≫ (LowChart.powA F' r).left.fromSpecStalk y ≫
           (LowChart.powA F' r).hom)) ▸ h₁
       · obtain ⟨a, ha⟩ := hc i
         have h₁ := hA' a
         rw [ha] at h₁
-        rw [spMap_comp, Category.assoc, Category.assoc]
+        rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, Category.assoc]
         exact h₁
     have hy := mem_of_defOver _ hP
     have hW : ∀ w ∈ maximalIdeal W, ev.comp ib w = 0 := by
@@ -1235,7 +1235,7 @@ theorem quasiFinite_tautChart : GlobalTheory.Poinc.Sep.SepSt → ∀ g : ℕ, 1 
     Scheme.Spec_stalkClosedPointTo_fromSpecStalk (R := .of C.W) C.u
   have eq₁ : spMap (C.iw.comp (Scheme.stalkClosedPointTo (R := .of C.W) C.u).hom) ≫ Scheme.fromSpecStalk _ _ =
       spMap C.iw ≫ C.u := by
-    rw [spMap_comp, Category.assoc, eu]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, eu]
   have hLT : (abelian₂ C.T.B C.T.M.L).IsLB := LB.isLB_linComb C.T.M.isLB _ _
   have hLQ : (abelian₂ C.Q.B C.Q.M.L).IsLB := LB.isLB_linComb C.Q.M.isLB _ _
   exact quasiFinite_of_sepAt ξ C.Q τ₀ C.s hsep (by omega) C.F _ (isUnit_natCast (show n ≠ 0 by omega))

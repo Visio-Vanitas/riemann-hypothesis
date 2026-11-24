@@ -57,8 +57,8 @@ theorem isTanX_dir {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Recip
     unfold sOf
     have e : (GlobalTheory.FlagTan.dir c M).toRingHom.comp (algebraMap c.F (TrivSqZeroExt K (ι → K))) =
         algebraMap c.F (DualNumber K) := (GlobalTheory.FlagTan.dir c M).comp_algebraMap
-    rw [_root_.GlobalTheory.spMap_comp_ring, ← RingHom.comp_assoc, e]
-  · rw [← Category.assoc, _root_.GlobalTheory.spMap_comp_ring, ← h2]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, e]
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← h2]
     congr 2
     ext z <;> simp
 

@@ -73,7 +73,7 @@ theorem pt_comp (X₁ : GSet) (z₁ : X₁.M.Z) {V V' : Type} [CommRing V] [IsDo
       spMap (fracMap hj) ≫ (jK V ≫ spMap ev ≫ X₁.M.Z.fromSpecStalk z₁) := by
   have sq := fracMap_sq hj
   rw [Category.id_comp] at sq
-  rw [spMap_comp, Category.assoc, ← Category.assoc (jK V'), sq]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, ← Category.assoc (jK V'), sq]
   simp only [genMap, Category.assoc]
 
 theorem regAt_comp (X₁ : GSet) (z₁ : X₁.M.Z) {V V' : Type} [CommRing V] [IsDomain V] [CommRing V'] [IsDomain V']
@@ -121,7 +121,7 @@ theorem gMem_baseChange : ∀ (I : Type) (X₁ : GlobalTheory.GSep.GSet) (z₁ :
     A := A'
     U := U'
     φ := gA ≫ 𝔪.φ
-    cart := (hgA.comp 𝔪.cart).congr (by rw [spMap_comp]) rfl
+    cart := (hgA.comp 𝔪.cart).congr (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) rfl
     wl := wl
     wl_gen := hwl
     equiv := fun a => ?_
@@ -153,7 +153,7 @@ theorem gMem_baseChange : ∀ (I : Type) (X₁ : GlobalTheory.GSep.GSet) (z₁ :
       rw [AddEquiv.trans_apply, hp'y, hpy]
     · show x'.left ≫ gA ≫ 𝔪.φ = spMap ((algebraMap (FractionRing V') (AlgebraicClosure (FractionRing V'))).comp
           ((fracMap hj).comp 𝔪.yK)) ≫ (X₁.ρ.pt a).left
-      rw [← Category.assoc, hx', Category.assoc, hxφ, ← Category.assoc, ← spMap_comp]
+      rw [← Category.assoc, hx', Category.assoc, hxφ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 2
       rw [← RingHom.comp_assoc, hσ, RingHom.comp_assoc]
 

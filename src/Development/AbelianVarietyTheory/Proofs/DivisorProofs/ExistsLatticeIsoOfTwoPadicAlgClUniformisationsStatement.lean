@@ -667,7 +667,7 @@ theorem model_descends : ∀ (k K : Type) [Field k] [Field K] (σ : k →+* K), 
   have hα₁β : β.comp α₁ = L₁.val.toRingHom := RingHom.ext fun x => hρ₀ x
   have hα₁ : α₁.comp (algebraMap k L₁) = α := RingHom.ext fun r => β.injective
     ((hρ₀ _).trans (RingHom.congr_fun hαβ r).symm)
-  have hsp : spMap α₁ ≫ spMap (algebraMap k L₁) = spMap α := by rw [_root_.GlobalTheory.spMap_comp_ring, hα₁]
+  have hsp : spMap α₁ ≫ spMap (algebraMap k L₁) = spMap α := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα₁]
   have hw : χ ≫ B₁.A.hom = (C.A.hom ≫ spMap α₁) ≫ spMap (algebraMap k L₁) := by
     rw [hχ.1.w, Category.assoc, hsp]
   let j : C.A.left ⟶ ((Over.pullback (spMap (algebraMap k L₁))).obj B₁.A).left := pullback.lift χ (C.A.hom ≫ spMap α₁) hw
@@ -692,7 +692,7 @@ theorem model_descends : ∀ (k K : Type) [Field k] [Field K] (σ : k →+* K), 
     have hdj : d ≫ j = φP := by
       apply pullback.hom_ext
       · rw [Category.assoc, hj₁, hd₁, hfst]
-      · rw [Category.assoc, hj₂, ← Category.assoc, hd₂, Category.assoc, _root_.GlobalTheory.spMap_comp_ring, hα₁β]
+      · rw [Category.assoc, hj₂, ← Category.assoc, hd₂, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα₁β]
         exact hφP.1.w.symm
     rw [reassoc_of% hdj]
     exact hc₂
@@ -1153,12 +1153,6 @@ attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace GlobalTheory.UnifTorsK
 
-theorem spComp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : B →+* C) (g : A →+* B) :
-    spMap f ≫ spMap g = spMap (f.comp g) := by
-  unfold spMap
-  rw [← Spec.map_comp]
-  rfl
-
 theorem bc {S S' : Scheme.{0}} (f : S' ⟶ S) (P : PolAV S) : ∃ (P' : PolAV S') (φ : P'.A.left ⟶ P.A.left),
     P'.g = P.g ∧ IsGrpPullback P'.A P.A f φ ∧ LBIso P'.L (P.L.pull φ) := by
   refine ⟨GlobalTheory.AmpleSpecialisation.baseChange P f, pullback.fst P.A.hom f, rfl, isGrpPullback_pullback P.A f, ?_⟩
@@ -1203,10 +1197,10 @@ theorem main : ∀ {o Ω o' Ω' : Type} [CommRing o] [Field Ω] [Algebra o Ω] [
   obtain ⟨B₂, b₂, -, hb₂, hLb₂⟩ := bc (spMap φK₀') u'.A
   have hpa : IsGrpPullback P₀.A u.A.A
       (spMap (algebraMap (FractionRing W₀) (PadicAlgCl p)) ≫ spMap φK₀) a :=
-    ha.congr (by rw [_root_.Formalism.L2.Pj.spMap_comp_ring, hcp₀]) rfl
+    ha.congr (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcp₀]) rfl
   have hpa' : IsGrpPullback P₀.A u'.A.A
       (spMap (algebraMap (FractionRing W₀) (PadicAlgCl p)) ≫ spMap φK₀') a' :=
-    ha'.congr (by rw [spComp, hcp₀']) rfl
+    ha'.congr (by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcp₀']) rfl
   obtain ⟨c₁, hc₁b, hc₁h, hc₁, hc₁L⟩ := GlobalTheory.T.polarisedAbelianPoint_lifts_through_intermediate_pullback (spMap φK₀)
     (spMap (algebraMap (FractionRing W₀) (PadicAlgCl p))) u.A B₁ P₀ b₁ a hb₁ hpa
   obtain ⟨c₂, hc₂b, hc₂h, hc₂, hc₂L⟩ := GlobalTheory.T.polarisedAbelianPoint_lifts_through_intermediate_pullback (spMap φK₀')
@@ -1247,13 +1241,13 @@ theorem main : ∀ {o Ω o' Ω' : Type} [CommRing o] [Field Ω] [Algebra o Ω] [
     rw [← RingHom.comp_assoc, hαcp, hcp₀']
 
   obtain ⟨C, ψ₁, hgC, hψ₁, hLψ₁⟩ := bc (spMap (αK.comp φK₀)) u.A
-  have hψ₁' : IsGrpPullback C.A u.A.A (spMap αK ≫ spMap φK₀) ψ₁ := hψ₁.congr (spComp _ _).symm rfl
+  have hψ₁' : IsGrpPullback C.A u.A.A (spMap αK ≫ spMap φK₀) ψ₁ := hψ₁.congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _) rfl
   obtain ⟨χ, hχb, -, hχ, hχL⟩ := GlobalTheory.T.polarisedAbelianPoint_lifts_through_intermediate_pullback (spMap φK₀) (spMap αK) u.A B₁ C b₁ ψ₁ hb₁ hψ₁'
   have hLχ := hχL hLψ₁ hLb₁
   obtain ⟨χ₂, hχ₂, hLχ₂, hd⟩ :=
     hs (FractionRing W) αK (algebraMap (FractionRing W) (PadicAlgCl p)) hαcp hsW C χ hχ hLχ
   have hψ₂ : IsGrpPullback C.A u'.A.A (spMap (αK.comp φK₀')) (χ₂ ≫ b₂) :=
-    (hχ₂.comp hb₂).congr (_root_.Formalism.L2.Pj.spMap_comp_ring _ _) rfl
+    (hχ₂.comp hb₂).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm rfl
   have hLψ₂ : LBIso C.L (u'.A.L.pull (χ₂ ≫ b₂)) := lbcomp u'.A.isLB B₂.isLB C.isLB hLb₂ hLχ₂
   have hgC' : C.g = u'.A.g := GlobalTheory.T.polarisedAbelian_relDim_eq_of_grpPullback_field (FractionRing W) _ (spMap (αK.comp φK₀')) u'.A C (χ₂ ≫ b₂) hψ₂
 
@@ -1303,7 +1297,7 @@ theorem main : ∀ {o Ω o' Ω' : Type} [CommRing o] [Field Ω] [Algebra o Ω] [
 
     have hsq : c₁ ≫ B₁.A.hom =
         (P₀.A.hom ≫ spMap (algebraMap (FractionRing W) (PadicAlgCl p))) ≫ spMap αK := by
-      rw [hc₁h, Category.assoc, _root_.Formalism.L2.Pj.spMap_comp_ring, hαcp]
+      rw [hc₁h, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hαcp]
     obtain ⟨d, hdχ, hdh⟩ : ∃ d : P₀.A.left ⟶ C.A.left, d ≫ χ = c₁ ∧
         d ≫ C.A.hom = P₀.A.hom ≫ spMap (algebraMap (FractionRing W) (PadicAlgCl p)) :=
       ⟨hχ.1.lift _ _ hsq, hχ.1.lift_fst _ _ _, hχ.1.lift_snd _ _ _⟩

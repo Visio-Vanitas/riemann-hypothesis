@@ -53,10 +53,6 @@ noncomputable section
 namespace GlobalTheory.ZM.ClosedCoord
 open MvPolynomial
 
-theorem spMap_comp_eq {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [← Spec.map_comp]; rfl
-
 theorem exists_ideal_factor {Y Z : Scheme.{0}} (i : Y ⟶ Z) [IsClosedImmersion i] {S : Type} [CommRing S]
     (x : Sp S ⟶ Z) : ∃ J : Ideal S, ∀ (R' : Type) [CommRing R'] (φ : S →+* R'),
       (∃ y : Sp R' ⟶ Y, y ≫ i = spMap φ ≫ x) ↔ ∀ f ∈ J, φ f = 0 := by
@@ -203,7 +199,7 @@ theorem projRep_closed : ∀ (R σ : Type) [CommRing R] [Finite σ] (I : Ideal (
     (fun A _ β' w => ∃ y : Sp A ⟶ Y, y ≫ i ≫ s = spMap β' ∧ SecCoord M th (y ≫ i) w)
     (by
       rintro A B _ _ φ β' w ⟨y, h1, h2⟩
-      refine ⟨spMap φ ≫ y, by rw [Category.assoc, h1, spMap_comp_eq], ?_⟩
+      refine ⟨spMap φ ≫ y, by rw [Category.assoc, h1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp], ?_⟩
       rw [Category.assoc]; exact hbc _ _ φ _ _ h2)
     (by
       rintro A _ u β' w ⟨y, h1, h2⟩
@@ -238,7 +234,7 @@ theorem projRep_closed : ∀ (R σ : Type) [CommRing R] [Finite σ] (I : Ideal (
             SecCoord M th (spMap (Ideal.Quotient.lift _ _ h) ≫ xa) w := by
         intro h
         refine ⟨?_, ?_⟩
-        · rw [Category.assoc, hxa1, spMap_comp_eq]
+        · rw [Category.assoc, hxa1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
           congr 1
           ext r
           simp
@@ -270,7 +266,7 @@ theorem projRep_closed : ∀ (R σ : Type) [CommRing R] [Finite σ] (I : Ideal (
     obtain ⟨y, h1, h2⟩ := key a
     refine (hJ _ (algebraMap R' _)).1 ⟨y, ?_⟩ f hf
     refine huniq _ _ _ _ _ (by simpa using h1) h2 ?_ (hbc _ _ _ _ _ hx2)
-    rw [Category.assoc, hx1, spMap_comp_eq])
+    rw [Category.assoc, hx1, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
   have hid : spMap (RingHom.id R') = 𝟙 (Sp R') := Spec.map_id _
   rw [hid, Category.id_comp] at hy
   refine ⟨y, ⟨by rw [← Category.assoc, hy, hx1], by rw [hc, hy]; exact hx2⟩, ?_⟩

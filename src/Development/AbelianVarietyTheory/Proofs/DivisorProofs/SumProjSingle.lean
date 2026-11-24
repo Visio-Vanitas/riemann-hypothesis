@@ -72,7 +72,7 @@ theorem constMorV (A₀ : Over (Sp k)) [GrpObj A₀] :
       (algebraMap k (TrivSqZeroExt k V)) (𝟙 _) (Over.Hom.left (𝟙 A₀)) :=
   GrpMor.of_hom (isDPMorphism_of_eq_bot _ rfl _ _)
     (by
-      rw [← GlobalTheory.Cris.spMap_comp, ← GlobalTheory.Cris.spMap_id]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← GlobalTheory.Cris.spMap_id]
       congr 1) (𝟙 A₀)
 
 variable {k V}

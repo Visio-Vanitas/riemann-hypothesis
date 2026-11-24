@@ -454,7 +454,7 @@ theorem UpperTheory.Gal.Ord.dzero :
   intro v
   have hw : (spMap v.toRingHom ≫ hA.fromSpec) ≫ s = spMap (algebraMap k (DualNumber k)) := by
     change spMap v.toRingHom ≫ GlobalTheory.CechDR.affPt s V' ≫ s = _
-    rw [GlobalTheory.CechDR.affPt_w, ← Geo.Tor.spMap_comp]
+    rw [GlobalTheory.CechDR.affPt_w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap v.comp_algebraMap
   have hc : IsConst (spMap v.toRingHom ≫ hA.fromSpec ≫ ψ) := by
     convert hψ _ hw using 1
@@ -488,7 +488,7 @@ theorem UpperTheory.Gal.Ord.rootMor :
   haveI : Epi (GlobalTheory.VB.frob (A ⊗ A).left p (cast_left p k hk (A ⊗ A))) :=
     (epi p (A ⊗ A).left (cast_left p k hk (A ⊗ A))).1
   have hσ : spMap (frobR p k hk) ≫ spMap σ' = spMap σ := by
-    rw [← Geo.Tor.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext x
     rw [RingHom.comp_apply, GlobalTheory.ConjSeq.frobR_apply, hpow]

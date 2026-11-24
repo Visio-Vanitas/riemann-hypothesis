@@ -576,7 +576,7 @@ theorem trait_finrank_le {R : Type} [CommRing R] [IsDomain R] [IsLocalRing R] [I
   haveI : CharZero K := ⟨fun a b h => Nat.cast_injective (R := R) (hf (by simpa using h))⟩
   let x' : Sp K ⟶ Sp (FractionRing R) := spMap (algebraMap (FractionRing R) K)
   have hx : x' ≫ jK R = spMap f := by
-    rw [← GlobalTheory.TorRef.DomFine.spMap_comp']
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨β₀, hβ₀⟩ := Spec.map_surjective ((x' ≫ y ≫ pullback.fst _ _) ≫ Xo.s)
   have hdet := (Xo.univ.geom K (x' ≫ y ≫ pullback.fst _ _) β₀.hom hβ₀.symm).1
   have hr : (β₀.hom (baseKA l).ρ) ^ 2 = -(H.d : K) := by
@@ -605,11 +605,6 @@ theorem spMap_sq {A B C D : Type} [CommRing A] [CommRing B] [CommRing C] [CommRi
   congr 1
   ext a
   exact h a
-
-theorem spMap_comp_ {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := by
-  rw [← Spec.map_comp]
-  rfl
 
 theorem exists_monoFam_through : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Geo.Tor.Level H} (Xo : Moduli Dw l) (c : Coeff l) (φ : InvFun (𝓞 E)), 1 ≤ Dw.p + Dw.q → IsPolFan H.bar (min Dw.p Dw.q) φ → NoSelfInt H.bar (min Dw.p Dw.q) φ → ∀ {Z : Scheme.{0}} (zs : Z ⟶ Sp c.F) (i : Xo.XF c ⟶ Z) (OZ : LB Z) (N d : ℕ) (J : Z.IdealSheafData) {S : Scheme.{0}} (π : S ⟶ Z) (j : Xo.XF c ⟶ S) [IsOpenImmersion j] (BD : EffCartierData S), GlobalTheory.UPoinc.UPoinOnX Xo c φ zs i OZ N d J π j BD → SepB Xo c φ j → ∀ x : S, x ∉ Set.range j → ∃ (V : Type) (_ : CommRing V) (_ : IsDomain V) (_ : IsLocalRing V) (C : MonoFam Xo c φ V) (ξV : Sp V ⟶ S), GlobalTheory.Mum.Base V ∧ C.y ≫ j = jK V ≫ ξV ∧ ξV (closedPoint V) = x := by
   intro E _ _ _ H Dw l Xo c φ hpq hpol hnsi Z zs i OZ N d J S π j _ BD hU hsep x hx
@@ -648,7 +643,7 @@ theorem exists_monoFam_through : ∀ {E : Type} [Field E] [NumberField E] [IsCMF
     rw [hT₂y, hTy]
     simp only [Category.assoc]
     rw [hy0s, reassoc_of% hW₁, reassoc_of% hT₁]
-    simp only [bb, spMap_comp_]
+    simp only [bb, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have hev : ∀ i z, gm i z z = 2 * gm i (H.w0 • z) z := fun i z => bal_diag_eq (hgm.mem i) z
   have hnn : ∀ i z, 0 ≤ gm i (H.w0 • z) z := fun i z => by
     have := hgm.nonneg i z
@@ -706,7 +701,7 @@ theorem exists_monoFam_through : ∀ {E : Type} [Field E] [NumberField E] [IsCMF
     show T₂.y ≫ j = _
     rw [hT₂y, hTy]
     simp only [Category.assoc]
-    rw [hy₀, reassoc_of% hW₁, reassoc_of% hT₁, spMap_comp_]
+    rw [hy₀, reassoc_of% hW₁, reassoc_of% hT₁, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     simp only [Category.assoc]
   have hcl : (spMap (g.comp f₁) ≫ a) (closedPoint T₂.V) = x := by
     have h1 : spMap (g.comp f₁) (closedPoint T₂.V) = closedPoint W := IsLocalRing.comap_closedPoint (g.comp f₁)

@@ -288,7 +288,7 @@ def Pt (u : Unif F s σ) (W : Opens (Tot I g)) : Prop :=
 theorem Pt.mono {u : Unif F s σ} {W W' : Opens (Tot I g)} (hW : W' ≤ W) (h : Pt u W) : Pt u W' := by
   obtain ⟨x, hx⟩ := h
   refine ⟨spMap (Hol.comap id analyticOnNhd_id (fun p hp ↦ hW hp)).toRingHom ≫ x, fun p hp ↦ ?_⟩
-  rw [← Category.assoc, ← Cris.spMap_comp]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have e : (Hol.ev p hp).toRingHom.comp (Hol.comap id analyticOnNhd_id (fun p hp ↦ hW hp) : Hol W →ₐ[ℂ] Hol W').toRingHom =
       (Hol.ev p (hW hp)).toRingHom :=
     RingHom.ext fun f ↦ by
@@ -344,7 +344,7 @@ theorem over_base (K : Charts F) (k : K.K) (x : Sp (Hol (K.W k)) ⟶ X)
     x ≫ s = spMap ((K.cst k).comp σ) :=
   point_hol_ext (Tot I g) (K.W k) (Sp B) _ (Limits.terminal.from _) _ _ (Limits.terminal.hom_ext _ _) fun p hp ↦ by
     change spMap (Hol.ev p hp).toRingHom ≫ x ≫ s = spMap (Hol.ev p hp).toRingHom ≫ _
-    rw [← Category.assoc, hx p hp, u.w p (K.base k p hp), ← Cris.spMap_comp, ← RingHom.comp_assoc, ev_cst]
+    rw [← Category.assoc, hx p hp, u.w p (K.base k p hp), ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← RingHom.comp_assoc, ev_cst]
 
 variable [IsSeparated s]
 
@@ -358,7 +358,7 @@ def rmax : Real (Kmax u) s σ where
   x k := k.2.2.choose
   w k := over_base u (Kmax u) k _ k.2.2.choose_spec
   compat {l k k'} h := pt_unique u (Kmax u) k' _ _ (fun p hp ↦ by
-    rw [← Category.assoc, ← Cris.spMap_comp, ev_sh h p hp]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ev_sh h p hp]
     exact (k.2.2.choose_spec _ _).trans (u.per l p (k'.2.1 p hp))) k'.2.2.choose_spec
 
 variable {u} {K : Charts F} {r : Real K s σ}

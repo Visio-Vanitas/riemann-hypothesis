@@ -898,7 +898,7 @@ theorem exists_restrict {R Ω : Type} [CommRing R] [IsLocalRing R] [Field Ω] [A
   rw [map_sub, map_pow, sub_eq_zero] at this
   exact this
 
-alias sp_comp := _root_.GlobalTheory.RedPts.spMap_comp
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem smConn_pullback {S T : Scheme.{0}} (f : T ⟶ S) (G : Over S) [GrpObj G] (h : SmConn G) :
     SmConn ((Over.pullback f).obj G) := by
@@ -1452,7 +1452,7 @@ open GlobalTheory.SS
 
 namespace GlobalTheory.SemiPol
 
-alias sp_comp := _root_.GlobalTheory.SS.WeakNeronEx.sp_comp
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem exists_prime_unit (V : Type) [CommRing V] [IsLocalRing V] :
     ∃ l : ℕ, l.Prime ∧ 3 ≤ l ∧ IsUnit (l : V) := by

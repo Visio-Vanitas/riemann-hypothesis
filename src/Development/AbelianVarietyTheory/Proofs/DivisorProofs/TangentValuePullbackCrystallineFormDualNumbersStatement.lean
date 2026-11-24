@@ -70,7 +70,7 @@ theorem tanVal_pullForm_ofModule : ∀ (R R' : Type) [CommRing R] [CommRing R'] 
     IsScalarTower.algebraMap_apply R R' (DualNumber R') r
   have e₀ : spMap (RingHom.id R') ≫ spMap (E.π : E.C →+* E.B) ≫ v.left ≫ φ =
       (spMap (E'.π : E'.C →+* E'.B) ≫ v.left) ≫ φ := by
-    rw [Category.assoc, ← Category.assoc, ← Cris.spMap_comp]
+    rw [Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   have e : spMap (RingHom.id (DualNumber R')) ≫ v.left ≫ φ = v.left ≫ φ := by
     rw [Cris.spMap_id, Category.id_comp]

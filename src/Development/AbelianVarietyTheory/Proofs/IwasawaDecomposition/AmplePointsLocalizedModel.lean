@@ -105,15 +105,11 @@ theorem mem_range_of_generic {U V : Scheme.{0}} (j : U ⟶ V) [IsOpenImmersion j
   have hs : g ⤳ u := specializes_iff_mem_closure.2 (hle hu)
   exact j.isOpenEmbedding.isOpen_range.stableUnderGeneralization hs hu'
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [spMap, spMap, spMap, ← Spec.map_comp]; rfl
-
 theorem injective_of_flat {O A : Type} [CommRing O] [IsDomain O] [CommRing A] [IsDomain A] [IsLocalRing A]
     {X : Scheme.{0}} (s : X ⟶ Sp O) (hs : Flat s) (ξ₀ : Sp A ⟶ X) (hfl : (Scheme.stalkClosedPointTo ξ₀).hom.Flat)
     (κ : O →+* A) (hκ : spMap κ = ξ₀ ≫ s) : Function.Injective ((algebraMap A (FractionRing A)).comp κ) := by
   have hsρ : spMap ((algebraMap A (FractionRing A)).comp κ) = (jK A ≫ ξ₀) ≫ s := by
-    rw [← spMap_comp', hκ, Category.assoc]
+    rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hκ, Category.assoc]
   refine GlobalTheory.GenericFlat.injective_of_apply_eq_genericPoint _ (⊥ : PrimeSpectrum (FractionRing A)) ?_
   obtain ⟨y, hy, e⟩ := Flat.generalizingMap s
     (genericPoint_specializes (s ((jK A ≫ ξ₀) (⊥ : PrimeSpectrum (FractionRing A)))))
@@ -139,7 +135,7 @@ theorem exists_generic_fibre {O F A : Type} [CommRing O] [IsDomain O] [Field F] 
     have h0 : κ y ≠ 0 := fun h => hy (hρ (by simp [h]))
     exact IsLocalization.map_units (FractionRing A) (⟨κ y, mem_nonZeroDivisors_of_ne_zero h0⟩ : nonZeroDivisors A))
   have hv : (jK A ≫ ξ₀) ≫ s = spMap ρ' ≫ spMap (algebraMap O F) := by
-    rw [spMap_comp', hρ', ← spMap_comp', hκ, Category.assoc]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hκ, Category.assoc]
   exact ⟨pullback.lift (jK A ≫ ξ₀) _ hv, pullback.lift_fst _ _ _⟩
 
 theorem exists_generic_point (O F : Type) [CommRing O] [IsDedekindDomain O] [Field F] [Algebra O F] [IsFractionRing O F]

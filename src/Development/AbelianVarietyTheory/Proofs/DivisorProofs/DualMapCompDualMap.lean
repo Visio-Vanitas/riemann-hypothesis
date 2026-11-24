@@ -92,7 +92,7 @@ def Pt.Hom.id (P : Pt s) : P.Hom P := ⟨AlgHom.id R _, by
 
 def Pt.Hom.comp {P Q T : Pt s} (φ : P.Hom Q) (ψ : Q.Hom T) : P.Hom T := ⟨ψ.ρ.comp φ.ρ, by
   change spMap ((ψ.ρ : Q.B →+* T.B).comp (φ.ρ : P.B →+* Q.B)) ≫ _ = _
-  rw [Cris.spMap_comp, Category.assoc, φ.pt, ψ.pt]⟩
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, φ.pt, ψ.pt]⟩
 
 def Pt.In (P : Pt s) (U : X.Opens) : Prop := ⊤ ≤ P.x ⁻¹ᵁ U
 
@@ -204,9 +204,9 @@ alias dualMap_comp_dualMap := _root_.GlobalTheory.Frames.Glue.dual_comp
 theorem exists_isTransl {B : Type} [CommRing B] (φ : K →+* B) (x : Sp B ⟶ A.left) (hx : x ≫ A.hom = spMap φ)
     (v : epsR K ⟶ A) : ∃ w, IsTransl φ x v w := by
   have e1 : (spMap (algebraMap B (DualNumber B)) ≫ x) ≫ A.hom = spMap ((algebraMap B (DualNumber B)).comp φ) := by
-    rw [Category.assoc, hx, ← Cris.spMap_comp]
+    rw [Category.assoc, hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have e2 : (spMap (dualMap φ) ≫ v.left) ≫ A.hom = spMap ((algebraMap B (DualNumber B)).comp φ) := by
-    rw [Category.assoc, Over.w v, ← dualMap_comp_algebraMap, Cris.spMap_comp] <;> rfl
+    rw [Category.assoc, Over.w v, ← dualMap_comp_algebraMap, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] <;> rfl
   exact ⟨_, Over.homMk _ e1, Over.homMk _ e2, rfl, rfl, rfl⟩
 
 theorem IsTransl.unique {B : Type} [CommRing B] {φ : K →+* B} {x : Sp B ⟶ A.left} {v : epsR K ⟶ A}
@@ -229,16 +229,16 @@ theorem IsTransl.map {B B' : Type} [CommRing B] [CommRing B'] {φ : K →+* B} {
   obtain ⟨x', v', hx', hv', rfl⟩ := h
   have eg : spMap (dualMap ρ) ≫ spMap ((algebraMap B (DualNumber B)).comp φ) =
       spMap ((algebraMap B' (DualNumber B')).comp (ρ.comp φ)) := by
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext b <;> simp [dualMap, TrivSqZeroExt.algebraMap_eq_inl']
   let g : Over.mk (spMap ((algebraMap B' (DualNumber B')).comp (ρ.comp φ))) ⟶
       Over.mk (spMap ((algebraMap B (DualNumber B)).comp φ)) := Over.homMk (spMap (dualMap ρ)) eg
   refine ⟨g ≫ x', g ≫ v', ?_, ?_, ?_⟩
   · change spMap (dualMap ρ) ≫ x'.left = _
-    rw [hx', ← Category.assoc, ← Category.assoc, ← Cris.spMap_comp, ← Cris.spMap_comp, dualMap_comp_algebraMap]
+    rw [hx', ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_algebraMap]
   · change spMap (dualMap ρ) ≫ v'.left = _
-    rw [hv', ← Category.assoc, ← Cris.spMap_comp, dualMap_comp_dualMap]
+    rw [hv', ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp_dualMap]
   · have e : g ≫ x' * g ≫ v' = g ≫ (x' * v') := by
       first
         | exact (comp_mul g x' v').symm
@@ -251,17 +251,17 @@ theorem IsTransl.red {B : Type} [CommRing B] {φ : K →+* B} {x : Sp B ⟶ A.le
   obtain ⟨x', v', hx', hv', rfl⟩ := h
   have eg : spMap (TrivSqZeroExt.fstHom B B B).toRingHom ≫ spMap ((algebraMap B (DualNumber B)).comp φ) =
       spMap φ := by
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
   let g : Over.mk (spMap φ) ⟶ Over.mk (spMap ((algebraMap B (DualNumber B)).comp φ)) := Over.homMk _ eg
   have e1 : g ≫ v' = 1 := by
     apply Over.OverMorphism.ext
     change spMap (TrivSqZeroExt.fstHom B B B).toRingHom ≫ v'.left = (toUnit (Over.mk (spMap φ)) ≫ η).left
-    rw [Over.comp_left, hv', ← Category.assoc, ← Cris.spMap_comp]
+    rw [Over.comp_left, hv', ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have e3 : (TrivSqZeroExt.fstHom B B B).toRingHom.comp (dualMap φ) =
         φ.comp (TrivSqZeroExt.fstHom K K K).toRingHom := by
       exact RingHom.ext fun c ↦ by simp [dualMap]
-    rw [e3, Cris.spMap_comp, Category.assoc, hv]
+    rw [e3, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hv]
     congr 1
   have e : g ≫ x' * g ≫ v' = g ≫ (x' * v') := by
     first
@@ -274,7 +274,7 @@ theorem IsTransl.red {B : Type} [CommRing B] {φ : K →+* B} {x : Sp B ⟶ A.le
     _ = (g ≫ x').left := by rw [e1, _root_.mul_one]
     _ = x := by
       change spMap (TrivSqZeroExt.fstHom B B B).toRingHom ≫ x'.left = x
-      rw [hx', ← Category.assoc, ← Cris.spMap_comp, e4, Cris.spMap_id, Category.id_comp]
+      rw [hx', ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, e4, Cris.spMap_id, Category.id_comp]
 
 abbrev GPt (A : Over (Sp K)) : Type 1 := Pt (A.hom ≫ 𝟙 (Sp K))
 
@@ -323,7 +323,7 @@ theorem Pt.In.tr {P : GPt A} {U : A.left.Opens} (h : P.In U) {v : epsR K ⟶ A} 
       rw [← e6]
       exact sub_mem h1 hn
   have hy : (spMap (algebraMap P.B (DualNumber P.B)) ≫ spMap (TrivSqZeroExt.fstHom P.B P.B P.B).toRingHom).base y = y := by
-    rw [← Cris.spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     first
       | exact key y
   have h1 : (spMap (TrivSqZeroExt.fstHom P.B P.B P.B).toRingHom ≫ P.trx v).base
@@ -386,7 +386,7 @@ omit [GrpObj A] in
   w := by
     have e : P.x ≫ A.hom = spMap (algebraMap K P.B) :=
       (congrArg (P.x ≫ ·) (Category.comp_id _)).symm.trans P.w
-    rw [← Category.assoc, e, ← Cris.spMap_comp]
+    rw [← Category.assoc, e, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun c ↦ (add_zero _).symm)
 
 def IsLift (i : A.left ⟶ A'.left) (P : GPt A) (y : Sp (DualNumber P.B) ⟶ A'.left) : Prop :=

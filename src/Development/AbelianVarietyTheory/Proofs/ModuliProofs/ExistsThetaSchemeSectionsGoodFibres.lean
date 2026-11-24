@@ -151,7 +151,7 @@ theorem exists_retraction {K R' : Type} [Field K] [CommRing R'] (φ : K →+* R'
     exact hp)
   refine ⟨(Spec.preimage (inv (spMap φ))).hom, ?_⟩
   have h : spMap ((Spec.preimage (inv (spMap φ))).hom.comp φ) = spMap (RingHom.id K) := by
-    rw [spMap_id, spMap_comp]
+    rw [spMap_id, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : spMap (Spec.preimage (inv (spMap φ))).hom = inv (spMap φ) := Spec.map_preimage _
     rw [this, IsIso.inv_hom_id]
   exact congrArg CommRingCat.Hom.hom (Spec.map_injective h)
@@ -161,7 +161,7 @@ theorem secCoord_of_local {X : Scheme.{0}} {M : LB X} (hM : M.IsLB) {I : Type} {
     (hp : p ∈ Set.range (spMap φ)) (h : SecCoord M th (spMap φ ≫ y) (fun i => φ (v i))) : SecCoord M th y v := by
   obtain ⟨ψ, hψ⟩ := exists_retraction φ hφ p hp
   have h1 := (Coord.secCoord_bc_scale_unique X M I th R' _ _ hM h).1 K ψ
-  rw [← Category.assoc, ← spMap_comp, hψ, spMap_id, Category.id_comp] at h1
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψ, spMap_id, Category.id_comp] at h1
   have e : (fun i => ψ (φ (v i))) = v := funext fun i => RingHom.congr_fun hψ (v i)
   rwa [e] at h1
 
@@ -183,7 +183,7 @@ theorem exists_emb (l1 : Out.Laws) (l2 : Out.Laws2) {o : Type} [CommRing o] {g N
   obtain ⟨ψ, hψ⟩ := exists_retraction φ hφ _ hp
   let h : Over.mk (𝟙 (Sp K)) ⟶ Over.mk (spMap φ ≫ 𝟙 (Sp K)) := Over.homMk (spMap ψ) (by
     show spMap ψ ≫ spMap φ ≫ 𝟙 _ = 𝟙 _
-    rw [Category.comp_id, ← spMap_comp, hψ, spMap_id])
+    rw [Category.comp_id, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψ, spMap_id])
   obtain ⟨σ', hE', hc⟩ := GlobalTheory.T.thetaEmbeddingSections_baseChange_affine l2 o g N' J b _ s t m _ _ h σ
     (inferInstanceAs (IsAffine (Spec _))) (inferInstanceAs (IsAffine (Spec _))) hE
   refine ⟨σ', hE', ?_⟩
@@ -337,7 +337,7 @@ theorem exists_scheme_sections_fibres : Out.Laws → Out.Laws2 → ∀ (g : ℕ)
     have hc : ∀ h, SecCoord _ σ (lift (𝟙 (Over.mk (𝟙 (Sp K)))) (t'.lab h ^ n ^ j)).left (fun a => x (p h a)) := by
       intro h
       obtain ⟨R', _, φ, hφ, hpt, hs⟩ := hco o J b (Sp K) _ t' K (x.comp β) (𝟙 _) (fun a => x (v a)) σ
-        (by rw [Category.id_comp, spMap_comp]) hth (span_theta l1 l2 t' n _ hn.two_le hnd hth) hE h
+        (by rw [Category.id_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) hth (span_theta l1 l2 t' n _ hn.two_le hnd hth) hE h
         (lift (𝟙 (Over.mk (𝟙 (Sp K)))) (t'.lab h ^ n ^ j)).left
         (congrArg (fun z => (lift (𝟙 (Over.mk (𝟙 (Sp K)))) (z ^ n ^ j)).left)
           ((Category.id_comp (t'.lab h)).symm.trans (congrArg (· ≫ t'.lab h) (to_base_ext _ _))))
@@ -345,7 +345,7 @@ theorem exists_scheme_sections_fibres : Out.Laws → Out.Laws2 → ∀ (g : ℕ)
       refine secCoord_of_local hP.1 φ hφ _ hpt ?_
       simp only [hp, map_mul x]
       exact hs
-    exact ⟨σ, hE, hP, hc, hcut' K (x.comp β) _ (spMap_comp β x).symm t' σ _ hE fun h => hc (hh h)⟩
+    exact ⟨σ, hE, hP, hc, hcut' K (x.comp β) _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp β x).symm t' σ _ hE fun h => hc (hh h)⟩
   obtain ⟨Z, M, th, hZ, hproj, hflat, -, hφ⟩ := _root_.GlobalTheory.ZM.FlatFamily.exists_flat_projRep_vanIdeal R _ Hh (fun h => p (hh h)) Q d
     (fun K _ x I => (∀ F ∈ I, ∀ e, MvPolynomial.homogeneousComponent e F ∈ I) ∧ CutBy I Q d (fun h i => x (p (hh h) i)))
     (fun _ _ _ _ h => h) (by

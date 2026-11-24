@@ -250,10 +250,6 @@ attribute [local instance] Over.cartesianMonoidalCategory
 noncomputable section
 namespace GlobalTheory.UMin.PrimModel
 
-theorem spMap_comp' {R R' R'' : Type} [CommRing R] [CommRing R'] [CommRing R''] (f : R →+* R') (g : R' →+* R'') :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp [spMap, ← Spec.map_comp]
-
 section
 variable {S : Scheme.{0}} {G : Over S} [GrpObj G] {L : LB G.left}
 
@@ -349,7 +345,7 @@ theorem main : ∀ (W : Type) [CommRing W] [IsDomain W] [IsDiscreteValuationRing
   have hy : spMap i' ≫ spMap i ≫ 𝟙 (Sp W) = spMap j ≫ x' := by
     rw [Category.comp_id]
     change _ = spMap j ≫ (spMap (algebraMap (FractionRing W) F) ≫ spMap (algebraMap W (FractionRing W)))
-    rw [← Category.assoc, spMap_comp', spMap_comp', spMap_comp', hsq]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hsq]
   have hPy : PolFib G U.LG.L g (spMap j ≫ x') := by
     have := polFib_unif U Kb (spMap j ≫ jFK (R := W) F)
     simpa only [hx', Category.assoc] using this
@@ -364,7 +360,7 @@ theorem main : ∀ (W : Type) [CommRing W] [IsDomain W] [IsDiscreteValuationRing
     refine heq_pullS hy _ _ ?_ σ
     simp only [Over.comp_left, Over.homMk_left]
     change spMap i' ≫ spMap i = spMap j ≫ (spMap (algebraMap (FractionRing W) F) ≫ spMap (algebraMap W (FractionRing W)))
-    rw [spMap_comp', spMap_comp', spMap_comp', hsq]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hsq]
   obtain ⟨ptK, hptK, hLK⟩ := thList_of_eq U.LG.rig m hy hθ hL1
   obtain ⟨ptF', hptF', hLF'⟩ := GlobalTheory.UMin.ThPull.thList_pull (Sp W) G U.LG.L U.LG.rig U.LG.isLB U.LG.rigGen m (m ^ (4 * g))
     F Kb j x' θF ptF cF hLF

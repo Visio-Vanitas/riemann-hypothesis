@@ -523,7 +523,7 @@ theorem exists_coords {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Ho
 
 theorem spMap_cancel {F Ω k : Type} [Field F] [Field Ω] [Field k] (κ : F ≃+* Ω) (f : F →+* k) {Z : Scheme.{0}}
     (g : Sp F ⟶ Z) : spMap (f.comp κ.symm.toRingHom) ≫ spMap κ.toRingHom ≫ g = spMap f ≫ g := by
-  rw [← Category.assoc, ← Tor.spMap_comp]
+  rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 2
   ext a
   simp
@@ -595,7 +595,7 @@ theorem PositivityTheory.Xgn.sequence_test_function : GlobalTheory.CompanionTheo
     rw [hb, hχ, P.Dh_e, hee, pow_val_mul _ _ hζ1]
   · rw [← hrk, P.toLi_bc.finrank_eq]
   · have hk : spMap (f.comp κ.symm.toRingHom) ≫ 𝔐.ξ = spMap f ≫ (BT.genPt (CR O y c')).hom ≫ P.x := by
-      rw [← hq, Tor.spMap_comp, Category.assoc]
+      rw [← hq, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
     obtain ⟨I, hz, hI⟩ := hev.tate' D 𝔐.t 𝔐.ξ k _ _ hk
     refine ⟨I, ?_, fun x => ?_⟩
     · rw [hz, ← hζa, ← hκ]

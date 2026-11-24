@@ -82,7 +82,7 @@ theorem GlobalTheory.UPoinc.tied_chain_generic : ∀ (E : Type) [Field E] [Numbe
   obtain ⟨m₁, p₁, b₁, t₁⟩ := h1
   obtain ⟨m₂, p₂, b₂, t₂⟩ := h2
   refine ⟨w₂.G, inferInstance, mT ≫ m₁, m₂, ?_, p₂, ?_, ?_⟩
-  · exact (pT.comp p₁).congr (Geo.Tor.spMap_comp (ratHull R').val.toRingHom (algebraMap X₁.Ω₁ D.X.Ω₁)).symm rfl
+  · exact (pT.comp p₁).congr (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp (ratHull R').val.toRingHom (algebraMap X₁.Ω₁ D.X.Ω₁)).symm rfl
   · rw [Category.assoc, b₁, bT, b₂]
   · intro x
     obtain ⟨w, hw, hw'⟩ := tT x
@@ -102,7 +102,7 @@ theorem GlobalTheory.UPoinc.tied_chain_generic : ∀ (E : Type) [Field E] [Numbe
     refine ⟨w, ?_, ?_⟩
     · rw [← Category.assoc, ← Category.assoc, hwm]
       simp only [Category.assoc]
-      rw [hw₁', Geo.Tor.spMap_comp R'.val.toRingHom (algebraMap X₁.Ω₁ D.X.Ω₁), Category.assoc]
+      rw [hw₁', ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp R'.val.toRingHom (algebraMap X₁.Ω₁ D.X.Ω₁), Category.assoc]
     · rw [hwe, hw₂']
 end -- clump:auto
 end -- clump:auto
@@ -199,7 +199,7 @@ noncomputable section
 
 namespace GlobalTheory.UPoinc.Transport
 
-alias spMap_comp₂ := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp₂ := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 
 open GlobalTheory.Poinc.Extend in

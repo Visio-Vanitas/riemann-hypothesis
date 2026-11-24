@@ -303,7 +303,7 @@ theorem fixed_of_extends {R T F : Type} [CommRing R] [IsDomain R] [CommRing T] [
     (σ : F →ₐ[FractionRing R] F) (hσ : ∀ x ∈ T', σ x = x) (x : TFK (R := R) F ⟶ A) (hx : x ^ k = 1) :
     x.left = spMap σ.toRingHom ≫ x.left := by
   have sq : spMap (algebraMap T F) ≫ spMap (algebraMap R T) = jFK (R := R) F ≫ jK R := by
-    rw [← spMap_comp, hc, spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   have w : x.left ≫ A.hom = jFK (R := R) F := Over.w x
   let x₀ : Over.mk (jFK (R := R) F ≫ jK R) ⟶ G := Over.homMk (x.left ≫ Φ) (by
     show (x.left ≫ Φ) ≫ G.hom = jFK (R := R) F ≫ jK R
@@ -314,12 +314,12 @@ theorem fixed_of_extends {R T F : Type} [CommRing R] [IsDomain R] [CommRing T] [
   have e₁ : x₁.left ≫ pullback.fst G.hom (spMap (algebraMap R T)) = x₀.left := pullback.lift_fst _ _ _
   obtain ⟨x', hx'⟩ := hT x₁ ((pow_eq_one_iff_of_pull sq (isGrpPullback_pullback G _) e₁).2 h₀)
   have s₁ : spMap σ.toRingHom ≫ spMap T'.val.toRingHom = spMap T'.val.toRingHom := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a
     exact hσ a a.2
   have s₂ : spMap σ.toRingHom ≫ jFK (R := R) F = jFK (R := R) F := by
-    refine (spMap_comp _ _).symm.trans ?_
+    refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ?_
     congr 1
     ext a
     exact σ.commutes a

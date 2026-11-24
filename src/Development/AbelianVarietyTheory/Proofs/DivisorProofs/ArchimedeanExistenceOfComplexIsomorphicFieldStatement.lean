@@ -96,7 +96,7 @@ def rhoE : TE R F' ⟶ TE R F :=
         spMap (algebraMap (FractionRing R) F) ≫ spMap (algebraMap R (FractionRing R)) =
       spMap (algebraMap F' (DualNumber F')) ≫ spMap (algebraMap (FractionRing R) F') ≫
         spMap (algebraMap R (FractionRing R))
-    simp only [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     apply congrArg spMap
     ext r <;> simp [dualMap, he, TrivSqZeroExt.algebraMap_eq_inl])
 
@@ -106,7 +106,7 @@ def sigE : TF (R := R) F' ⟶ TF (R := R) F :=
   Over.homMk (spMap (e : F →+* F')) (by
     show spMap (e : F →+* F') ≫ spMap (algebraMap (FractionRing R) F) ≫ spMap (algebraMap R (FractionRing R)) =
       spMap (algebraMap (FractionRing R) F') ≫ spMap (algebraMap R (FractionRing R))
-    simp only [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+    simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext fun r => by simp [he])
 
@@ -117,7 +117,7 @@ theorem sigE_left : (sigE e he).left = spMap (e : F →+* F') := rfl
 theorem red_comm : (sigE e he).left ≫ redE F = redE F' ≫ (rhoE e he).left := by
   rw [sigE_left, rhoE_left]
   show spMap _ ≫ spMap _ = spMap _ ≫ spMap _
-  rw [← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   exact RingHom.ext fun z => by simp [dualMap]
 
@@ -176,7 +176,7 @@ theorem adapted_map [CharZero F] [CharZero F'] (D : DegPre R) {N : NumD F} (ν :
         (val_pull hJ _ _ _))).symm)
       rw [Category.id_comp, Category.id_comp, red_comm]
   · refine (hgm' _).1.trans ?_
-    rw [hb i, ← Category.assoc, rhoE_left, ← _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp, toF_comp e he]
+    rw [hb i, ← Category.assoc, rhoE_left, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_comp, toF_comp e he]
   · exact Over.OverMorphism.ext ((hgm' _).1.trans ((congrArg (fun q => (rhoE e he).left ≫ q.left) (ht l).1).trans
       (congrArg Over.Hom.left hzT)))
   · obtain ⟨χ₀, rfl⟩ := I.e.surjective χ

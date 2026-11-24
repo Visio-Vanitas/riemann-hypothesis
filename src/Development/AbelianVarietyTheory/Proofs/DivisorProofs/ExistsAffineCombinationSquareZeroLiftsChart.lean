@@ -74,11 +74,6 @@ theorem chartHom_congr {Y : Scheme.{0}} (V : Y.Opens) {S : Type} [CommRing S] {x
     (e : x = x') (h : x ⁻¹ᵁ V = ⊤) (h' : x' ⁻¹ᵁ V = ⊤) : chartHom V x h = chartHom V x' h' := by
   subst e; rfl
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap (g.comp f) = spMap g ≫ spMap f := by
-  show Spec.map (CommRingCat.ofHom (g.comp f)) = Spec.map _ ≫ Spec.map _
-  rw [← Spec.map_comp]; rfl
-
 theorem chartHom_fromSpec {Y : Scheme.{0}} {V : Y.Opens} (hV : IsAffineOpen V) {S : Type} [CommRing S]
     (χ : Γ(Y, V) →+* S) (hc : (spMap χ ≫ hV.fromSpec) ⁻¹ᵁ V = ⊤) :
     chartHom V (spMap χ ≫ hV.fromSpec) hc = χ := by
@@ -91,7 +86,7 @@ theorem chartHom_spMap_comp {Y : Scheme.{0}} {V : Y.Opens} (hV : IsAffineOpen V)
     chartHom V (spMap g ≫ x) h' = g.comp (chartHom V x hx) := by
   have e : spMap (chartHom V (spMap g ≫ x) h') ≫ hV.fromSpec =
       spMap (g.comp (chartHom V x hx)) ≫ hV.fromSpec := by
-    rw [chart_rebuild, spMap_comp', Category.assoc, chart_rebuild]
+    rw [chart_rebuild, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, chart_rebuild]
   rw [cancel_mono] at e
   exact congrArg CommRingCat.Hom.hom (Spec.map_injective e)
 
@@ -174,9 +169,9 @@ theorem exists_comb : ∀ (Y : Scheme.{0}) (V : Y.Opens), IsAffineOpen V →
   refine ⟨spMap χ ≫ hV.fromSpec, ⟨hu, hc, hwV, fun x => ?_⟩, ?_, ?_⟩
   · rw [chartHom_fromSpec hV χ hc]; rfl
   · calc spMap q ≫ spMap χ ≫ hV.fromSpec = spMap (q.comp χ) ≫ hV.fromSpec := by
-          rw [spMap_comp', Category.assoc]
+          rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc]
       _ = spMap (q.comp (chartHom V u hu)) ≫ hV.fromSpec := by rw [comp_combHom]
-      _ = spMap q ≫ u := by rw [spMap_comp', Category.assoc, chart_rebuild]
+      _ = spMap q ≫ u := by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, chart_rebuild]
   · intro R' _ p hp
     let θ : CommRingCat.of R' ⟶ Γ(Y, V) := Spec.preimage (hV.fromSpec ≫ p)
     have key : ∀ (x : Sp S ⟶ Y) (hx : x ⁻¹ᵁ V = ⊤), x ≫ p = spMap ((chartHom V x hx).comp θ.hom) := by

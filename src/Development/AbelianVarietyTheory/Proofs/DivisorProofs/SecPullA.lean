@@ -65,7 +65,7 @@ def πe (T : TT s) : T.obj.B ≃+* T.obj.B₀ := RingEquiv.ofBijective T.obj.π 
 def pt (T : TT s) : Sp T.obj.B ⟶ X := spMap ((πe T).symm : T.obj.B₀ →+* T.obj.B) ≫ T.obj.x
 
 theorem pt_w (T : TT s) : pt T ≫ s = algStr R T.obj.B := by
-  rw [pt, Category.assoc, T.obj.w, ← spMap_comp]
+  rw [pt, Category.assoc, T.obj.w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r
   exact (πe T).symm_apply_apply (algebraMap R T.obj.B r)
@@ -101,7 +101,7 @@ def aM (T : TT s) (p : Pair (pt T)) : (affF s).obj (op p.1.2) ⟶ thk T p :=
 theorem bM_pt (T : TT s) (p : Pair (pt T)) :
     spMap ((toSec R T.obj.B p.1.1).toRingHom.comp ((πe T).symm : T.obj.B₀ →+* T.obj.B)) =
       affPt (algStr R T.obj.B) p.1.1 ≫ spMap ((πe T).symm : T.obj.B₀ →+* T.obj.B) := by
-  rw [spMap_comp, affPt_eq]
+  rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, affPt_eq]
   rfl
 
 abbrev fv (f : Z1 ((IsTriv s).ι ⋙ O (dp0 R) s)) {T T' : TT s} (a : T ⟶ T') : T'.obj.B := f.1 T T' a

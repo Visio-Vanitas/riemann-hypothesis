@@ -68,7 +68,7 @@ theorem spOver_fst_ptV (v : epsR R ⟶ B) (hv : IsTangent v) (x : Pt A D) :
       toUnit _ ≫ GrpTangent.epsZero R := by
     refine Over.OverMorphism.ext ?_
     rw [spOver_comp, PDiv.spOver_left, Over.comp_left, Over.toUnit_left]
-    refine Eq.trans (congrArg spMap (RingHom.ext fun a ↦ ?_)) (Cris.spMap_comp
+    refine Eq.trans (congrArg spMap (RingHom.ext fun a ↦ ?_)) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
       (TrivSqZeroExt.fstHom R R R).toRingHom (algebraMap R D))
     simp [EpsWeil.epsMap, DualNumber.lift_apply_apply, TrivSqZeroExt.algebraMap_eq_inl']
   ext1

@@ -102,13 +102,13 @@ theorem exists_finite_isAbelianScheme_range {K : Type} [Field K] (B : Over (Sp K
   simp only [Set.union_subset_iff] at hs
   obtain ⟨b₀, bm, bi, be⟩ := hs
   obtain ⟨ρ, hρ⟩ := exists_factor β (s₀ : Set K) b₀
-  obtain ⟨φ₁, eφ, H₁⟩ := exists_baseChange (spMap_comp hρ) H₀
+  obtain ⟨φ₁, eφ, H₁⟩ := exists_baseChange (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp hρ) H₀
   have P₁ : IsPullback (pullback.fst B₀.hom (spMap ρ)) ((Over.pullback (spMap ρ)).obj B₀).hom B₀.hom (spMap ρ) :=
     .of_hasPullback _ _
   obtain ⟨m₁, hm₁⟩ := hm k₁ ρ β hρ bm _ _ (sq H₁.w) _ φ₁ _ (isPullback_sq P₁) P₁ (sq_comp eφ _ _ _) eφ
     (isPullback_sq H₁).w H₁.w
   obtain ⟨i₁, hi₁⟩ := hi k₁ ρ β hρ bi _ _ φ₁ _ φ₁ _ P₁ P₁ eφ eφ H₁.w H₁.w
-  obtain ⟨e₁, he₁⟩ := he k₁ ρ β hρ be (𝟙_ _) _ (spMap β) _ φ₁ _ (isPullback_unit (spMap ρ)) P₁ (spMap_comp hρ) eφ
+  obtain ⟨e₁, he₁⟩ := he k₁ ρ β hρ be (𝟙_ _) _ (spMap β) _ φ₁ _ (isPullback_unit (spMap ρ)) P₁ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp hρ) eφ
     (isPullback_unit (spMap β)).w H₁.w
   obtain ⟨gB, ab, gpB⟩ := _root_.GlobalTheory.isAbelianScheme_descends_subfield k₁ K β B _ φ₁ hB H₁ m₁ i₁ e₁ _ (sq_fst _) (sq_snd _) hm₁ hi₁ he₁
   exact ⟨_, gB, φ₁, ab, gpB⟩

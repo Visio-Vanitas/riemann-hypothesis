@@ -481,7 +481,7 @@ theorem agree_artinian {A : Type} [CommRing A] [IsLocalRing A] [IsArtinianRing A
     rw [ker_residue, ← jacobson_eq_maximalIdeal ⊥ bot_ne_top]
     exact IsArtinianRing.isNilpotent_jacobson_bot
   obtain ⟨s, hsa⟩ : ∃ s, spMap a ≫ spMap (algebraMap k K) = s := ⟨_, rfl⟩
-  have hsb : spMap b ≫ spMap (algebraMap k K) = s := by rw [← hsa, ← spMap_comp, ← spMap_comp, hab]
+  have hsb : spMap b ≫ spMap (algebraMap k K) = s := by rw [← hsa, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hab]
   have lift : ∀ {Y₀ : Over (Sp k)} [GrpObj Y₀] {Y : Over (Sp K)} [GrpObj Y] {ψ : Y.left ⟶ Y₀.left},
       IsGrpPullback Y Y₀ (spMap (algebraMap k K)) ψ → ∀ c : K →+* A, spMap c ≫ spMap (algebraMap k K) = s →
       ∃ g : ((Over.pullback s).obj Y₀).left ⟶ Y.left, g ≫ ψ = pullback.fst Y₀.hom s ∧
@@ -498,7 +498,7 @@ theorem agree_artinian {A : Type} [CommRing A] [IsLocalRing A] [IsArtinianRing A
   obtain ⟨qa, ia, qa₁, ia₁, mqa, mia, ka⟩ := exists_baseChange hga hba q i H
   obtain ⟨qb, ib, qb₁, ib₁, mqb, mib, kb⟩ := exists_baseChange hgb hbb q i H
   have τα : spMap (τ : K →+* K) ≫ spMap (algebraMap k K) = spMap (algebraMap k K) :=
-    (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext τ.commutes))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext τ.commutes))
   have w : φG ≫ G₀.hom = (G.hom ≫ spMap (τ : K →+* K)) ≫ spMap (algebraMap k K) := by
     rw [Category.assoc, τα, hG.1.w]
   have t₁ := hG.1.lift_fst _ _ w
@@ -506,7 +506,7 @@ theorem agree_artinian {A : Type} [CommRing A] [IsLocalRing A] [IsArtinianRing A
   obtain ⟨v₁, v₂⟩ := hinv τ _ t₁ t₂
   generalize hG.1.lift _ _ w = t at t₁ t₂ v₁ v₂
   have rτ : spMap (residue A) ≫ spMap b = (spMap (residue A) ≫ spMap a) ≫ spMap (τ : K →+* K) := by
-    rw [← spMap_comp, ← spMap_comp, ← spMap_comp, hτ]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hτ]
   have ea : ia.left ≫ pullback.fst G₀.hom s = bcMap (spMap a) X ≫ i.left ≫ φG := by
     rw [← ga₁, ← Category.assoc, ← ia₁, Category.assoc]
   have eb : ib.left ≫ pullback.fst G₀.hom s = bcMap (spMap b) X ≫ i.left ≫ φG := by
@@ -570,8 +570,8 @@ theorem nonempty_tq_of_normal [FiniteDimensional k K] [Normal k K] [Module.Free 
     obtain ⟨A, _, _, _, a, b, ψ, τ, ha, hb, hab, hτ⟩ :=
       exists_artinian u.hom v.hom (congrArg CommRingCat.Hom.hom (Spec.map_injective h))
     refine ⟨A, _, a, b, spMap ψ, ?_, ?_, agree_artinian hB₀ hG hB q i H hinv a b τ hab hτ⟩
-    · rw [← spMap_comp, ha]; rfl
-    · rw [← spMap_comp, hb]; rfl
+    · rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ha]; rfl
+    · rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hb]; rfl
   haveI h₁ : Flat (spMap (algebraMap k K)) := inferInstance
   haveI h₂ : Surjective (spMap (algebraMap k K)) := inferInstance
   haveI h₃ : QuasiCompact (spMap (algebraMap k K)) := inferInstance
@@ -660,7 +660,7 @@ theorem nonempty_tq {R R' : Type} [CommRing R] [IsDomain R] [IsLocalRing R] [Com
       (Ideal.Quotient.mk _) (Ideal.Quotient.mk _)
       Ideal.Quotient.mk_surjective Ideal.Quotient.mk_surjective (fun _ => rfl)
   have sq : thick R' (maximalIdeal R') 0 ≫ spMap ρ = spMap α ≫ thick R (maximalIdeal R) 0 :=
-    (spMap_comp ρ _).symm.trans ((congrArg spMap hα.symm).trans (spMap_comp _ α))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ _).symm.trans ((congrArg spMap hα.symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ α))
   obtain ⟨bD, hbD⟩ : ∃ bD, bD = hD.e.hom.left ≫ pullback.fst D.toPre.P.A.hom (specOf ρ) := ⟨_, rfl⟩
   have gG : IsGrpPullback (thickObj R' (maximalIdeal R') 0 G') G (spMap α ≫ thick R (maximalIdeal R) 0)
       ((fstG (maximalIdeal R') 0 G').left ≫ β) :=
@@ -691,9 +691,9 @@ theorem nonempty_tq {R R' : Type} [CommRing R] [IsDomain R] [IsLocalRing R] [Com
   obtain ⟨σ, σ₂⟩ := haut τ
   obtain ⟨h, bc, hbc, hPU, hxe, hov⟩ := a.unif σ
   have σt : thick R' (maximalIdeal R') 0 ≫ spMap (Gal.hom σ) = spMap (τ : _ →+* _) ≫ thick R' (maximalIdeal R') 0 :=
-    (spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext σ₂)).trans (spMap_comp _ _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext σ₂)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   have τα : spMap (τ : _ →+* _) ≫ spMap α = spMap α :=
-    (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext τ.commutes))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext τ.commutes))
   have c₀ : (fstG (maximalIdeal R') 0 G').left ≫ G'.hom =
     (thickObj R' (maximalIdeal R') 0 G').hom ≫ thick R' (maximalIdeal R') 0 := pullback.condition
   have hs : (fstG (maximalIdeal R') 0 G').left ≫ a.act σ = s ≫ (fstG (maximalIdeal R') 0 G').left := by
@@ -804,7 +804,7 @@ theorem lbIso_generic_descend : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLoca
   intro R _ _ _ _ R' _ _ _ ρ hρ G' _ _ G _ _ β _ _ pb A gen κ hgen hκ L' hL' h₁ P h₂
   obtain ⟨gam, hgam⟩ := _root_.GlobalTheory.Ex.OneGenBasis.exists_fractionMap ρ hρ.2.1
   have sq : spMap gam ≫ jK R = jK R' ≫ spMap ρ :=
-    (spMap_comp _ gam).symm.trans ((congrArg spMap hgam).trans (spMap_comp ρ _))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ gam).symm.trans ((congrArg spMap hgam).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ _))
   have hX : IsAbelianScheme ((Over.pullback (jK R)).obj G) :=
     GlobalTheory.PolPull.isAbelianScheme_of_isGrpPullback A.isAb (isGrpPullback_of_iso gen)
   have : IsPreimmersion (jK R) := IsPreimmersion.of_isLocalization (nonZeroDivisors R)
@@ -1308,7 +1308,7 @@ variable {R R' : Type} [CommRing R] [IsDomain R] [CommRing R'] [IsDomain R'] [Is
 
 omit [IsDomain R] [IsDomain R'] [IsLocalRing R'] in
 theorem spMap_gal (σ : Gal ρ) : spMap (Gal.hom σ) ≫ spMap ρ = spMap ρ :=
-  (spMap_comp ρ (Gal.hom σ)).symm.trans (congrArg spMap (RingHom.ext σ.2))
+  (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ (Gal.hom σ)).symm.trans (congrArg spMap (RingHom.ext σ.2))
 
 theorem cancel_of_gal (hρ : FinExt ρ) (hG : IsGal ρ) {Y Y' : Scheme.{0}} {y : Y ⟶ Sp R} {y' : Y' ⟶ Sp R'} {β : Y' ⟶ Y}
     (hy : Flat y) (pb : IsPullback β y' y (spMap ρ)) {W : Scheme.{0}} {g g' : Y ⟶ W} (h : β ≫ g = β ≫ g') : g = g' := by

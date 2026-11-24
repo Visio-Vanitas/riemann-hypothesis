@@ -102,7 +102,7 @@ variable (S S' : Sys I π s₀) (hI : I ^ 2 = 0)
   ker := S.ker U
   x := affPt s₀ U.unop
   w := by
-    rw [← Category.assoc, affPt_w, ← Cris.spMap_comp]
+    rw [← Category.assoc, affPt_w, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     exact congrArg spMap (RingHom.ext fun r ↦ ((S.semi U).map_algebraMap r).symm)
 
 def thickHom {U V : AffOp X₀} (a : U ⟶ V) (α : S.F.obj U →ₐ[R] S'.F.obj V)

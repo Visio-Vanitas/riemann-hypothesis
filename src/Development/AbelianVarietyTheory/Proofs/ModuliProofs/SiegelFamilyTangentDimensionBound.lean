@@ -524,9 +524,9 @@ theorem tmap_constPt (L1 : Out.Laws) (L2 : Out.Laws2)
       TMap t' t (spMap (dirMap lam)) ∧ TMap t' t (constPt (spMap (dirMap lam))) := by
   have e : spMap (TrivSqZeroExt.fstHom K K K).toRingHom ≫ spMap (dirMap lam) =
       spMap (TrivSqZeroExt.fstHom K K (Fin r → K)).toRingHom :=
-    (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun z => by simp [dirMap]))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun z => by simp [dirMap]))
   obtain ⟨t', m'⟩ := GlobalTheory.tObj_pull o g k J b _ _ _ (spMap ((algebraMap K (DualNumber K)).comp β)) (spMap (dirMap lam)) t
-    ((spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun z => by simp [dirMap])))
+    ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun z => by simp [dirMap])))
   refine ⟨t', m', ?_⟩
   have hp' := prim_pull m' ht
   obtain ⟨ψ, hψ, hψL, hψp, hψa⟩ := m'
@@ -581,7 +581,7 @@ theorem main : Out.Laws → Out.Laws2 → (∀ (S : Scheme.{0}) (P : Out.PolAV S
   choose f hf using fun m : Matrix (Fin 8) (Fin 8) ℤ => (hu t.A fun u => ∏ v, pr v ^ m u v).exists
   obtain ⟨t₀, φ₀, hφ, hL₀, hp₀, ha₀⟩ := GlobalTheory.tObj_pull o _ k J b _ _ _ (spMap β)
     (spMap (TrivSqZeroExt.fstHom K K (Fin r → K)).toRingHom) t
-    ((spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun z => by simp)))
+    ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun z => by simp)))
   letI := t₀.ab.comm
   obtain ⟨v, f₀, hv, hf₀, hF⟩ := exists_isLieBasis_kronecker (n := 7) hφ pr hpr hinj f hf t₀.dim
   obtain ⟨Θ, hs, hcomm, hzero⟩ := _root_.GlobalTheory.KSField.exists_ksMatrix L1 L2 hT K r t.pol t₀.pol φ₀ _ v hφ hL₀ hv

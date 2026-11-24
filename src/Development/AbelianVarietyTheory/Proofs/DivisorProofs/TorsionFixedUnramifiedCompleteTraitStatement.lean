@@ -418,7 +418,7 @@ theorem fixed_of_classes_fixed : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLoc
   have sq : (jFK (R := V) (AlgebraicClosure (FractionRing V)) ≫ jK V) ≫ spMap φ =
       jFK (R := R) (AlgebraicClosure (FractionRing V)) ≫ jK R := by
     show (spMap _ ≫ spMap _) ≫ spMap φ = spMap _ ≫ spMap _
-    rw [← spMap_comp, ← spMap_comp, ← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext r
     exact (hc r).symm
@@ -460,7 +460,7 @@ theorem fixed_of_classes_fixed : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLoc
   have heq : f q = x₀ := ((hfi p q).2 (hQ p q hpq)).symm.trans hp
   have s₂ : spMap σ.toRingHom ≫ jFK (R := R) (AlgebraicClosure (FractionRing V)) =
       jFK (R := R) (AlgebraicClosure (FractionRing V)) := by
-    refine (spMap_comp _ _).symm.trans ?_
+    refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ?_
     exact congrArg spMap hσf
   have wx₀ : x₀.left ≫ A.A.hom = jFK (R := R) (AlgebraicClosure (FractionRing V)) := Over.w x₀
   let x' : TFK (R := R) (AlgebraicClosure (FractionRing V)) ⟶ A.A :=
@@ -473,7 +473,7 @@ theorem fixed_of_classes_fixed : ∀ (R : Type) [CommRing R] [IsDomain R] [IsLoc
   have sV : spMap σ.toRingHom ≫ jFK (R := V) (AlgebraicClosure (FractionRing V)) ≫ jK V =
       jFK (R := V) (AlgebraicClosure (FractionRing V)) ≫ jK V := by
     show spMap _ ≫ spMap _ ≫ spMap _ = spMap _ ≫ spMap _
-    rw [← spMap_comp, ← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext v
     exact hσ v

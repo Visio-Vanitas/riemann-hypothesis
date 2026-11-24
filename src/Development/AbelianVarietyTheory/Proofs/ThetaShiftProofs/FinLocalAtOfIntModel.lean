@@ -544,7 +544,7 @@ theorem exists_generic_lift {E : Type} [Field E] [NumberField E] [IsCMField E] {
   have := Y.jQ_open
   have w : (Out.jK (PowerSeries k) ≫ χ) ≫ Y.s =
       (Out.jK (PowerSeries k) ≫ spMap (PowerSeries.C (R := k)) ≫ spMap bF) ≫ spMap β := by
-    rw [Category.assoc, hχ, spMap_comp]; simp only [Category.assoc]
+    rw [Category.assoc, hχ, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; simp only [Category.assoc]
   obtain ⟨q⟩ : Nonempty (Sp S) := (inferInstance : Nonempty (PrimeSpectrum S))
   have hq : PowerSeries.X ∉ (spMap ι q).asIdeal := fun h =>
     q.isPrime.ne_top (Ideal.eq_top_of_isUnit_mem _ (show ι PowerSeries.X ∈ q.asIdeal from h) hι)
@@ -722,11 +722,11 @@ theorem bcRigidAt_of_intModel : Out.Laws → Out.Laws2 → Out.UnifBaseChangeSt 
   have hC : ∀ {R R' : Type} [CommRing R] [CommRing R'] (f : R →+* R'),
       spMap (PowerSeries.map f) ≫ spMap (PowerSeries.C (R := R)) = spMap (PowerSeries.C (R := R')) ≫ spMap f :=
     fun f => by
-      rw [← spMap_comp, ← spMap_comp]
+      rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       exact congrArg spMap (RingHom.ext fun x => PowerSeries.map_C _ _)
   obtain rfl : y₂ = x₁ := _root_.GlobalTheory.ArcQ.isArcFr_eq_of_overBase h1 h2 h5 E H Dw l Xo c _ _ M.aK _ _ Yw d.Y _ _ W₁ W₂
-    (by rw [Category.assoc, hχ, ← Category.assoc, hC, Category.assoc, ← spMap_comp, ← M.bcw.1])
-    (by rw [Category.assoc, hd, ← Category.assoc, hC, Category.assoc, ← spMap_comp, RingHom.comp_assoc])
+    (by rw [Category.assoc, hχ, ← Category.assoc, hC, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← M.bcw.1])
+    (by rw [Category.assoc, hd, ← Category.assoc, hC, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, RingHom.comp_assoc])
     e₂ th₂ (n₂ _ _ t₂ nz) _ _ y₂ x₁ (isUnit_arcι_X Dw _) a₃ b₂
 
   obtain ⟨z₁, hz₁⟩ := frbc _ _ φ d.yF
@@ -846,7 +846,7 @@ theorem exists_dvr_frPt : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E] [N
       show g (f (β x)) = κ (b x)
       rw [h1, hg]
     have hcond : (spMap ι ≫ χ) ≫ Y.s = spMap (algebraMap c.F (ArcSR Dw Tv.V ϖ)) ≫ spMap β := by
-      rw [Category.assoc, hχ, ← spMap_comp, ← spMap_comp, ← spMap_comp, hcomp]
+      rw [Category.assoc, hχ, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hcomp]
     obtain ⟨z, hz1, hz2⟩ := exists_lift_open Y (algebraMap c.F (ArcSR Dw Tv.V ϖ)) (spMap ι ≫ χ) hcond (by
       intro q
       rw [Scheme.Hom.comp_apply]
@@ -856,7 +856,7 @@ theorem exists_dvr_frPt : Out.Laws → Out.Laws2 → ∀ (E : Type) [Field E] [N
     have hflat := (GlobalTheory.LetterDenom.main E H Dw Tv ϖ hϖ.ne_zero).2.2.1
     obtain ⟨y₀, -, hy₀⟩ := exists_isArcFr L1 L2 E H Dw l Xo c O β Y Tv.V b a χ W ρ e th hbasis hth (Or.inr hpush)
       (ArcSR Dw Tv.V ϖ) ι z hflat hz1
-      (by rw [pullback.condition, ← Category.assoc, hz2, ← spMap_comp]; rfl)
+      (by rw [pullback.condition, ← Category.assoc, hz2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl)
       (fun τ x => by rw [halg, ← hρ, hg]; rfl)
     obtain ⟨yR, hyR⟩ := (frChg_exists_unique_units E H Dw l Xo c (ArcSR Dw Tv.V ϖ) (letMR Dw Tv.V ϖ) 1 y₀).1
       (letMR_det_isUnit Dw Tv.V ϖ) isUnit_one
@@ -1229,7 +1229,7 @@ open scoped CategoryTheory.Obj
 
 def origin (R : Type) [CommRing R] : Over.mk (𝟙 (Sp R)) ⟶ epsR R :=
   Over.homMk (spMap (TrivSqZeroExt.fstHom R R R).toRingHom)
-    ((spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun _ => rfl)).trans (Spec.map_id (CommRingCat.of R))))
+    ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans ((congrArg spMap (RingHom.ext fun _ => rfl)).trans (Spec.map_id (CommRingCat.of R))))
 
 section
 
@@ -1257,7 +1257,7 @@ theorem gtTanR_of_scale {a : R} {ν ν' : GtPt D (epsR R)} (h : GtPt.IsPull (spM
     (ht : GtTanR ν) : GtTanR ν' := by
   obtain ⟨h₁, h₂⟩ := (gtTanR_iff ν).1 ht
   have s : (origin R).left ≫ spMap (epsScaleR a) = (origin R).left :=
-    (spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun x => by simp [epsScaleR]))
+    (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (congrArg spMap (RingHom.ext fun x => by simp [epsScaleR]))
   refine (gtTanR_iff ν').2 ⟨Over.OverMorphism.ext ?_, fun χ y J hJ => ?_⟩
   · rw [← h₁, Over.comp_left, Over.comp_left, h.1, ← Category.assoc, s]
   · refine (val_corr hJ (h.2 χ) _).trans ((val_pull hJ _ _ _).trans ?_)
@@ -1304,7 +1304,7 @@ theorem gtTanR_of_letBC {K K' : Type} [Field K] [Field K'] {f : K →+* K'} {D :
       PMaps p.w _ _ DegPre.gtε (ν'.s χ) (ν.s (p.xe χ)) (spMap (Formalism.L2.Pj.dualMap f)) := ⟨h.1, fun χ => ⟨(h.2 χ).1, (maps_iff p.w _ _ _ (ν'.s χ) (ν.s (p.xe χ)) _ _
     (GeneratorPullback.pullAlong_le _ _ _ _ _ (h.2 χ).1) (fun _ => rfl)).1 (h.2 χ).2⟩⟩
   have sq : (origin K').left ≫ spMap (Formalism.L2.Pj.dualMap f) = spMap f ≫ (origin K).left := by
-    refine (spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (spMap_comp _ _))
+    refine (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans (Eq.trans (congrArg spMap ?_) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
     exact RingHom.ext fun x => by simp [Formalism.L2.Pj.dualMap]
   have : Flat (spMap f) := by
     refine (HasRingHomProperty.Spec_iff (P := @Flat)).2 ?_

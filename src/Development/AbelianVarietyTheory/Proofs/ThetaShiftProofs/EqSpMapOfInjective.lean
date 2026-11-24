@@ -75,24 +75,24 @@ theorem sumsAt_of_halfRing {K F : Type} [CommRing K] [CommRing F] {X Y : Scheme.
   have hval : (Conv.halfRing T).val.toRingHom.comp ((algebraMap ℂ (Conv.halfRing T)).comp bF) =
       (algebraMap ℂ ℂ⸨X⸩).comp bF := RingHom.ext fun _ => rfl
   have hover : yT ≫ s = spMap ((algebraMap ℂ (Conv.halfRing T)).comp bF) ≫ spMap κ := by
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     refine eq_spMap_of_injective (Conv.halfRing T).val.toRingHom Subtype.val_injective _ _ ?_
-    rw [← Category.assoc, hT, Category.assoc, pullback.condition, ← Category.assoc, hs, ← spMap_comp,
+    rw [← Category.assoc, hT, Category.assoc, pullback.condition, ← Category.assoc, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       ← RingHom.comp_assoc, hval]
   let yF : Sp (Conv.halfRing T) ⟶ pullback s (spMap κ) := pullback.lift yT _ hover
   have hgen : spMap (Conv.halfRing T).val.toRingHom ≫ yF = y := by
     apply pullback.hom_ext
     · rw [Category.assoc, pullback.lift_fst, hT]
-    · rw [Category.assoc, pullback.lift_snd, hs, ← spMap_comp, hval]
+    · rw [Category.assoc, pullback.lift_snd, hs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hval]
   obtain ⟨T', hle, hw'⟩ := Conv.exists_sumsAt_halfCurve (yT := yF ≫ j) (χ := χ) rfl (RingHom.id _) (by
     rw [RingHom.id_comp, RingHom.id_comp, ← hj, ← hgen, Category.assoc, ← Category.assoc (spMap _) (spMap _),
-      ← spMap_comp]
+      ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl) hU
   refine ⟨T', hle, fun w hw hw2 z hz1 hz2 => ?_⟩
   have hz : z = spMap (Conv.ev T w hw).toRingHom ≫ yF := by
     apply pullback.hom_ext
     · rw [Category.assoc, pullback.lift_fst, hz1]
-    · rw [Category.assoc, pullback.lift_snd, hz2, ← spMap_comp]
+    · rw [Category.assoc, pullback.lift_snd, hz2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 2
       ext x
       exact ((Conv.ev T w hw).commutes (bF x)).symm

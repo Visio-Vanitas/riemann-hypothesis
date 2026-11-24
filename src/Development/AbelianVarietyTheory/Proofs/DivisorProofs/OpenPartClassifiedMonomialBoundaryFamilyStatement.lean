@@ -63,10 +63,6 @@ noncomputable section
 
 namespace GlobalTheory.UCanon.OpenPart
 
-theorem spMap_comp' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  simp only [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
 theorem pow_eq_one_of_left_eq {S T : Scheme.{0}} {G : Over S} [GrpObj G] {a b : T ⟶ S} (h : a = b)
     (u : Over.mk a ⟶ G) (v : Over.mk b ⟶ G) (huv : u.left = v.left) {n : ℕ} (hu : u ^ n = 1) : v ^ n = 1 := by
   subst h
@@ -83,7 +79,7 @@ theorem torsRat_of_point {Dw : Datum H} {l : Geo.Tor.Level H} (Xo : Moduli Dw l)
   intro K _ _ κ x hx
   let κ' : K₀ →+* K := κ.comp ρ
   have e₀ : spMap κ' ≫ spMap gA = spMap κ ≫ jK A := by
-    rw [_root_.GlobalTheory.spMap_comp_ring, _root_.GlobalTheory.spMap_comp_ring]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     show spMap (κ.comp (ρ.comp gA)) = _
     rw [hρ]
   have hw : x.left ≫ tO.G.hom = spMap κ' ≫ spMap gA := (Over.w x).trans e₀.symm
@@ -110,10 +106,10 @@ theorem torsRat_of_point {Dw : Datum H} {l : Geo.Tor.Level H} (Xo : Moduli Dw l)
       erw [Category.comp_id]
       exact k.cart.1.lift_snd _ _ _
   have hover : (spMap ρ ≫ s₀ ≫ k.φ) ≫ tO.G.hom = jK A := by
-    rw [Category.assoc, Category.assoc, k.cart.1.w, ← Category.assoc s₀, hs₀, Category.id_comp, _root_.GlobalTheory.spMap_comp_ring, hρ]
+    rw [Category.assoc, Category.assoc, k.cart.1.w, ← Category.assoc s₀, hs₀, Category.id_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hρ]
   refine ⟨Over.homMk (spMap ρ ≫ s₀ ≫ k.φ) hover, ?_⟩
   show x.left = spMap κ ≫ spMap ρ ≫ s₀ ≫ k.φ
-  have e₁ : spMap κ ≫ spMap ρ = spMap κ' := _root_.GlobalTheory.spMap_comp_ring _ _
+  have e₁ : spMap κ ≫ spMap ρ = spMap κ' := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
   calc x.left = xK.left ≫ k.φ := (k.cart.1.lift_fst _ _ _).symm
     _ = (spMap κ' ≫ s₀) ≫ k.φ := by rw [hK]
     _ = spMap κ ≫ spMap ρ ≫ s₀ ≫ k.φ := by rw [← e₁]; simp only [Category.assoc]
@@ -159,7 +155,7 @@ theorem openCls : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Ho
   let aR := algebraMap R (Localization.Away (∏ i, C.s i))
   let incl := (IntermediateField.inclusion c.le).toRingHom
   obtain ⟨gA, ρ, hgA, hρ, hgU⟩ := ring_facts _ hf0 (Localization.Away (∏ i, C.s i))
-  have eR : spMap gA ≫ spMap aR = jK R := by rw [_root_.GlobalTheory.spMap_comp_ring, hgA]
+  have eR : spMap gA ≫ spMap aR = jK R := by rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hgA]
 
   obtain ⟨tO, ⟨mO⟩⟩ := GlobalTheory.TraitOrder.exists_pull (spMap aR) C.t
   obtain ⟨hprop, hamp, hkt⟩ := GlobalTheory.T.isProper_relAmple_kTriv_of_trivialisations_generate R hR C.t C.P (∏ i, C.s i)
@@ -176,10 +172,10 @@ theorem openCls : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Ho
   have hs' : s' = spMap gA ≫ spMap (b'.comp incl) := by
     show (C.y ≫ pullback.fst _ _) ≫ Xo.s = _
     rw [Category.assoc, pullback.condition, ← Category.assoc, C.y_over, ← eR]
-    simp only [spMap_comp']
+    simp only [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   obtain ⟨o, ho, ⟨mo⟩⟩ := GlobalTheory.T.exists_unitaryModuliObject_spread_normal_domain Dw l c _ b' tO hprop hamp hkt htors (FractionRing R) gA s' oK hs' k₃
   obtain ⟨fX, ⟨hfs, ⟨mf⟩⟩, -⟩ := Xo.rep (Sp (Localization.Away (∏ i, C.s i))) (spMap (b'.comp incl)) inferInstance o
-  have hfs' : fX ≫ Xo.s = spMap b' ≫ spMap incl := hfs.trans (_root_.GlobalTheory.spMap_comp_ring _ _).symm
+  have hfs' : fX ≫ Xo.s = spMap b' ≫ spMap incl := hfs.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _)
   subst ho
   refine ⟨pullback.lift fX (spMap b') hfs', o.t, ⟨mO⟩, ?_, fun g hg => ?_⟩
   · rw [pullback.lift_fst]
@@ -200,7 +196,7 @@ theorem openCls : ∀ {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Ho
     obtain ⟨n₁, -⟩ := ((GlobalTheory.UCanon.obj_pull_comp_cancel (D := Dw) (l := l)).2 Xo.s (spMap (b'.comp incl)) s' Xo.univ o oK
       fX (spMap gA) mf).1 mo
     exact (huK _ ⟨by rw [Category.assoc, hfs]; exact hs'.symm, ⟨n₁⟩⟩).trans (huK _ ⟨rfl, ⟨mK⟩⟩).symm
-  · rw [Category.assoc, pullback.lift_snd, C.y_over, ← eR, Category.assoc, _root_.GlobalTheory.spMap_comp_ring C.b aR]
+  · rw [Category.assoc, pullback.lift_snd, C.y_over, ← eR, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp C.b aR]
 
 end GlobalTheory.UCanon.OpenPart
 end -- clump:auto

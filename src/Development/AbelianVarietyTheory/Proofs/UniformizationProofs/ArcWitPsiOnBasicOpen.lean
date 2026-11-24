@@ -214,9 +214,9 @@ theorem GlobalTheory.arcWit_psiOn_basicOpen : ∀ (E : Type) [Field E] [NumberFi
       congrArg (algebraMap (FractionRing R) F) (fracMap_algebraMap hf x)
     refine corr_of_geom _ ⟨⟨⊥, Ideal.isPrime_bot⟩, hu⟩ x (s x) F fun z hz p J hJ => ?_
     have hj : jFK (R := R) F ≫ jK R = specOf ((algebraMap (FractionRing R) F).comp (algebraMap R _)) :=
-      (spMap_comp _ _).symm
-    have k := H x F _ z (hz.trans hj) (jFK (R := O') F) ((spMap_comp _ _).symm.trans
-      ((congrArg spMap (RingHom.ext hF)).trans (spMap_comp f _)))
+      (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm
+    have k := H x F _ z (hz.trans hj) (jFK (R := O') F) ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans
+      ((congrArg spMap (RingHom.ext hF)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f _)))
     have k' := (s6 F _ hF rfl).1 (W.e.symm x)
     rw [LinearEquiv.apply_symm_apply] at k'
     have e := val_eq_of_genRel W.P.D.toPre.P.isLB a.D₀.P.isLB (by
@@ -224,7 +224,7 @@ theorem GlobalTheory.arcWit_psiOn_basicOpen : ∀ (E : Type) [Field E] [NumberFi
         jFK (R := R) F ≫ jK R ≫ (W.P.D.toPre.c x).left
       rw [← Category.assoc, hz, Category.assoc]) k k' p hJ
     rwa [val_pull hJ, val_pull hJ, Category.id_comp, Category.id_comp] at e
-  · have k := H (W.e y) F r z hz (jFK (R := O') F) ((spMap_comp _ _).symm.trans
-      ((congrArg spMap (RingHom.ext hr)).trans (spMap_comp f r)))
+  · have k := H (W.e y) F r z hz (jFK (R := O') F) ((ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm.trans
+      ((congrArg spMap (RingHom.ext hr)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp f r)))
     rw [LinearEquiv.symm_apply_apply] at k
     exact k

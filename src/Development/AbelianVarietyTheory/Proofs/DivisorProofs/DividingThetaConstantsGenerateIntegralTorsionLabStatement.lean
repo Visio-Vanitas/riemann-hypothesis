@@ -367,7 +367,7 @@ theorem uMem_baseChange_values : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (W 
     A := A'
     U := U'
     φ := gA ≫ 𝔪.φ
-    cart := (hgA.comp 𝔪.cart).congr (by rw [spMap_comp]) rfl
+    cart := (hgA.comp 𝔪.cart).congr (by rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]) rfl
     wl := wl
     wl_gen := hwl
     equiv := fun a a' ha => ?_
@@ -400,7 +400,7 @@ theorem uMem_baseChange_values : ∀ (g n : ℕ) (F : SFam g n (zetaAway n)) (W 
       rw [AddEquiv.trans_apply, hp'y, hpy]
     · show x'.left ≫ gA ≫ 𝔪.φ = spMap ((algebraMap (FractionRing V') (AlgebraicClosure (FractionRing V'))).comp
           ((fracMap hj).comp 𝔪.yK)) ≫ (X₁.ρ.pt a).left
-      rw [← Category.assoc, hx', Category.assoc, hxφ, ← Category.assoc, ← spMap_comp]
+      rw [← Category.assoc, hx', Category.assoc, hxφ, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       congr 2
       rw [← RingHom.comp_assoc, hσ, RingHom.comp_assoc]
 

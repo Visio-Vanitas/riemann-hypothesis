@@ -447,7 +447,7 @@ theorem exists_trunc_one {G : Over (Spec (CommRingCat.of R))} {κ : Type} (x : F
   | succ n ih =>
     obtain ⟨t, h1, h2⟩ := ih
     refine ⟨t.comp (jetTruncR R κ (n + 1)), fun j => h1 j, ?_⟩
-    rw [← spMap_comp, Category.assoc, hx, h2]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, hx, h2]
 
 theorem subst_map_algebraMap {σ τ S : Type} [Finite σ] [CommRing S] [Algebra R S] {a : σ → MvPowerSeries τ S}
     (ha : HasSubst a) (f : MvPowerSeries σ R) :
@@ -554,8 +554,8 @@ theorem dof_eq_of_eigen : JetAlgSt → RepSt → SerSt → ∀ (R : Type) [CommR
       have : c.comp (φ.comp t) = Θ.comp ψ := jet_ext fun j => by
         rw [AlgHom.comp_apply, AlgHom.comp_apply, AlgHom.comp_apply, ht, hφ, hψ, hΘ]
         exact (hT1 j).symm
-      rw [hψy, ← htx, ← Category.assoc (spMap φ), spMap_comp, ← Category.assoc, spMap_comp, this,
-        ← Category.assoc, spMap_comp]
+      rw [hψy, ← htx, ← Category.assoc (spMap φ), ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, this,
+        ← Category.assoc, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have e : (spMap Θ ≫ y₁ (n + 1)) * (spMap c ≫ spMap φ ≫ x 1) = spMap Θ ≫ (y₁ (n + 1) * y₂ (n + 1)) := by
       rw [e₂, MonObj.comp_mul]
     have h := H _ c (spMap Θ ≫ y₁ (n + 1)) (top_le_preimage_comp _ _ U (s₁ (n + 1)).1)

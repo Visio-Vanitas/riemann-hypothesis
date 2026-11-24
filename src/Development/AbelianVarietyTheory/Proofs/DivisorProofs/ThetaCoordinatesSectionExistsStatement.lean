@@ -963,7 +963,7 @@ theorem pull_pull_cast {S : Scheme.{0}} (G : Over S) [GrpObj G] (L : LB G.left) 
   rw [ThetaRuleCompare.pullS_comp, ThetaRuleCompare.pullS_comp]
   refine cast_pullS G L σ h _ _ ?_
   simp only [Over.comp_left, Over.homMk_left]
-  rw [← spMap_comp, ← spMap_comp, hc]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc]
 
 theorem secAt_eq_of_generic {S : Scheme.{0}} (G : Over S) [GrpObj G] [Flat G.hom] (L : LB G.left) {V : Type}
     [CommRing V] [IsDomain V] (x : Sp V ⟶ S) (τ₁ τ₂ : SecAt G L x)
@@ -1051,7 +1051,7 @@ theorem om_ext : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Hos
   obtain ⟨φK, hc⟩ := _root_.GlobalTheory.Ex.OneGenBasis.exists_fractionMap φ hφ
   have h : spMap φK ≫ spMap (algebraMap R (FractionRing R)) ≫ χ =
       spMap (algebraMap V (FractionRing V)) ≫ spMap φ ≫ χ := by
-    rw [← Category.assoc, ← Category.assoc, ← spMap_comp, ← spMap_comp, hc]
+    rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hc]
   obtain ⟨σV, hσV, z, hz₁, hz₂⟩ := key V hV φ φK h hc
   have hθ : SecAt.pull t.G t.PP.L σ (algebraMap R (FractionRing R)) = θ := secAt_ext t.G t.PP.L hσ
   have hFl : Flat t.G.hom := by haveI := t.semi.smooth; infer_instance

@@ -208,7 +208,7 @@ theorem spreads (hq : Dw.q = 0) (hp : 1 ≤ Dw.p) (hg : ∀ p : ℕ, p.Prime →
   letI : Algebra c₁.F R := ((algebraMap c.F R).comp d.eF.toRingEquiv.toRingHom).toAlgebra
   obtain ⟨y₁, hy₁⟩ := exists_frPt_local (Xo := Xo₁) (c := c₁) (L := R) GlobalTheory.abelianSchemeLaws_all.2.secTwist
     (y.x ≫ r) (by
-      rw [Category.assoc, hrs, ← Category.assoc, y.x_over, sOf, sOf, Formalism.L2.PjFree.spMap_comp']
+      rw [Category.assoc, hrs, ← Category.assoc, y.x_over, sOf, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
       refine congrArg spMap (RingHom.ext fun a => ?_)
       exact congrArg (algebraMap c.F R) (Subtype.ext (hj a)))
   obtain ⟨y₂, hx, ho⟩ := GlobalTheory.FrameLift.exists_frOver d (fun _ => rfl) y₁ y.x hy₁.symm y.x_over

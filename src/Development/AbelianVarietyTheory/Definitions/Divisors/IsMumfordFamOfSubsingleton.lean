@@ -120,7 +120,7 @@ theorem exists_genericMap {ρ : R →+* R'} (hρ : Function.Injective ρ) :
   have h : Function.Injective ((algebraMap R' (FractionRing R')).comp ρ) := (IsFractionRing.injective R' _).comp hρ
   refine ⟨spMap (IsFractionRing.lift (K := FractionRing R) h), ?_⟩
   change spMap _ ≫ spMap (algebraMap R (FractionRing R)) = spMap (algebraMap R' (FractionRing R')) ≫ spMap ρ
-  rw [← spMap_comp, ← spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   ext r
   simp

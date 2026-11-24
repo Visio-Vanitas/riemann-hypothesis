@@ -62,7 +62,7 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : D
 
 def liftF {S : Type} [CommRing S] [Algebra c.F S] (y : FrPt Xo c S) : Sp S ⟶ Xo.XF c :=
   pullback.lift y.x (spMap (algebraMap c.F S)) (by
-    rw [y.x_over, spMap_comp_ring]; rfl)
+    rw [y.x_over, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]; rfl)
 
 theorem liftF_fst {S : Type} [CommRing S] [Algebra c.F S] (y : FrPt Xo c S) :
     liftF y ≫ pullback.fst _ _ = y.x := pullback.lift_fst _ _ _
@@ -74,7 +74,7 @@ theorem liftF_map {S T : Type} [CommRing S] [Algebra c.F S] [CommRing T] [Algebr
     {y : FrPt Xo c S} {z : FrPt Xo c T} (h : FrMap φ y z) : liftF z = spMap φ.toRingHom ≫ liftF y := by
   apply pullback.hom_ext
   · rw [Category.assoc, liftF_fst, liftF_fst, h.1]
-  · rw [Category.assoc, liftF_snd, liftF_snd, spMap_comp_ring]
+  · rw [Category.assoc, liftF_snd, liftF_snd, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     ext a
     simp
@@ -89,7 +89,7 @@ theorem liftF_gen (h : GenFrEx Xo c) (Z : Comp Xo c) :
     liftF (genFr h Z) = spMap (algebraMap (kap Z) (Om Z)) ≫ genSp Z := by
   apply pullback.hom_ext
   · rw [Category.assoc, liftF_fst, (isGenFr_genFr h Z).1]; rfl
-  · rw [Category.assoc, liftF_snd, IsScalarTower.algebraMap_eq c.F (kap Z) (Om Z), ← spMap_comp_ring]
+  · rw [Category.assoc, liftF_snd, IsScalarTower.algebraMap_eq c.F (kap Z) (Om Z), ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact Spec.map_preimage (genSp Z ≫ strK)
 

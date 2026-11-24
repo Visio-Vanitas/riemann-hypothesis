@@ -73,7 +73,7 @@ theorem coBear_comp_of_isHom : ∀ (F : Type) [Field F] (ι : Type) [Fintype ι]
   let σ : IsLocalRing.ResidueField R →+* K := IsLocalRing.ResidueField.lift c.hom
   have hσ : σ.comp (IsLocalRing.residue R) = c.hom := IsLocalRing.ResidueField.lift_comp_residue c.hom
   have hp : spMap σ ≫ spMap (IsLocalRing.residue R) ≫ v₁ = p := by
-    rw [← Category.assoc, ← spMap_comp, hσ]
+    rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hσ]
     exact spMap_stalkClosedPointTo p
   have hbc := _root_.GlobalTheory.FlagBundle.coBear_spMap F ι m X Y₁ Y₂ Eb S₁ φ₁ f₁ S₂ φ₂ f₂ h₁ h₂ (IsLocalRing.ResidueField R) K σ _ _ _ hinc
   rw [← hp]

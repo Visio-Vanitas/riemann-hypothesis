@@ -61,12 +61,6 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {D : Da
 theorem exists_spMap {A B : Type} [CommRing A] [CommRing B] (g : Sp A ⟶ Sp B) : ∃ β : B →+* A, g = spMap β :=
   ⟨(Spec.preimage g).hom, (Spec.map_preimage g).symm⟩
 
-theorem spMap_inj' {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
-
-theorem spMap_comp'' {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (f : A →+* B) (g : B →+* C) :
-    spMap g ≫ spMap f = spMap (g.comp f) := (Spec.map_comp _ _).symm
-
 def fnOn {L : Type} [CommRing L] {T : Scheme.{0}} (g : T ⟶ Sp L) : L →+* Γ(T, ⊤) :=
   g.appTop.hom.comp (Scheme.ΓSpecIso (CommRingCat.of L)).inv.hom
 
@@ -173,8 +167,8 @@ theorem exists_full (t : SAB H S) {B L : Type} [Field B] [CharZero B] [Field L] 
   · rintro ⟨w, hw⟩
     obtain ⟨h1, h2⟩ := (HU _ (w ≫ i)).2 ((Hi _ _).2 ⟨w, rfl⟩)
     obtain ⟨β', hβ'⟩ := exists_spMap (A := k) ((w ≫ i).left ≫ g)
-    refine ⟨β', spMap_inj' ?_, fun c a => ?_, fun a b => ?_⟩
-    · rw [← spMap_comp'', ← hβ', ← hx, Category.assoc, hg, ← Category.assoc]
+    refine ⟨β', ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_, fun c a => ?_, fun a b => ?_⟩
+    · rw [ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hβ', ← hx, Category.assoc, hg, ← Category.assoc]
       exact congrArg (· ≫ s) (Over.w (w ≫ i))
     · rw [← hw, ← hw, ← Category.assoc, h1]
       simp only [Category.assoc]
@@ -183,7 +177,7 @@ theorem exists_full (t : SAB H S) {B L : Type} [Field B] [CharZero B] [Field L] 
       exact this
   · rintro ⟨β', hβ', h1, h2⟩
     obtain ⟨z, hz, -⟩ := R.2.2.2.2 _ α' hadd hpow
-    let c : Over.mk x ⟶ C := Over.homMk (pullback.lift x (spMap β') (by rw [hx, spMap_comp'', hβ']))
+    let c : Over.mk x ⟶ C := Over.homMk (pullback.lift x (spMap β') (by rw [hx, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hβ']))
       (pullback.lift_fst _ _ _)
     have hy : ∀ a, lift z c ≫ y a = α' a := fun a => by simp only [y]; rw [lift_fst_assoc, hz]
     have hg' : (lift z c).left ≫ g = spMap β' := by

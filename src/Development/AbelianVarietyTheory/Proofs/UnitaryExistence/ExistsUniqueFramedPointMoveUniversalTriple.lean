@@ -345,13 +345,13 @@ section Tangent
 
 theorem eps_alg {S : Type} [CommRing S] (a : S) :
     spMap (epsMul a) ≫ spMap (algebraMap S (DualNumber S)) = spMap (algebraMap S (DualNumber S)) := by
-  rw [← Geo.Tor.spMap_comp]
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
   congr 1
   exact RingHom.ext fun x => by ext <;> simp [epsMul, TrivSqZeroExt.algebraMap_eq_inl]
 
 theorem fst_alg {S : Type} [CommRing S] :
     spMap (TrivSqZeroExt.fstHom S S S).toRingHom ≫ spMap (algebraMap S (DualNumber S)) = 𝟙 (Sp S) := by
-  rw [← Geo.Tor.spMap_comp, ← LevelFibre.spMap_id']
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← LevelFibre.spMap_id']
   exact congrArg spMap (RingHom.ext fun x => by simp [TrivSqZeroExt.algebraMap_eq_inl])
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {Dw : Datum H} {l : Level H}

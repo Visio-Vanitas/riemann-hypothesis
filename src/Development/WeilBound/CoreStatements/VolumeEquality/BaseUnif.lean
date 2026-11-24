@@ -69,9 +69,6 @@ open GroundTheory.Heights₂.Heights.LowerBoundFree GlobalTheory.CompanionTheory
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {H : Host E} {D : Datum H} {l : Tor.Level H} {Xo : Moduli D l}
   {c : Coeff l}
 
-theorem spMap_injective {A B : Type} [CommRing A] [CommRing B] {f g : A →+* B} (h : spMap f = spMap g) : f = g :=
-  congrArg CommRingCat.Hom.hom (Spec.map_injective h)
-
 theorem baseUnif_of_kUnif (Y : Model Xo c (algebraMap (𝓞 c.F) c.F)) (sm : CMType H → CMType H ⊕ CMType H) (j j' n g : ℕ)
     (q : CMType H × Fin j × Fin j' ≃ Fin n) (U : ∀ κ, KUnif Y sm j j' n g q κ) :
     ∃ B : BaseUnif Y sm j j' n, B.Locc := by
@@ -91,7 +88,7 @@ theorem baseUnif_of_kUnif (Y : Model Xo c (algebraMap (𝓞 c.F) c.F)) (sm : CMT
     have h₂ := (U κ').comp_s_eq_spMap_of_isOver k' t' ht'
     dsimp only at h
     rw [h, h₂] at h₁
-    obtain rfl := hκ _ _ (spMap_injective h₁)
+    obtain rfl := hκ _ _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq h₁)
     rw [(U κ').disj k k' t ht t' ht' h]
   have hemb : ∀ p : Sp ℂ ⟶ Y.X, ∃ κ : c.F →+* ℂ, p ≫ Y.s = spMap (κ.comp (algebraMap (𝓞 c.F) c.F)) := fun p => by
     obtain ⟨κ, hκρ⟩ := FamEx.exists_ringHom_extend (Spec.preimage (p ≫ Y.s)).hom
@@ -148,8 +145,8 @@ theorem baseUnif_of_kUnif (Y : Model Xo c (algebraMap (𝓞 c.F) c.F)) (sm : CMT
       have e₂ := (U κ₂).comp_s_eq_spMap_of_isOver k₂ t' ht'
       rw [← h₁, hc b hb] at e₁
       rw [← h₂, hc b' hb'] at e₂
-      obtain rfl := hκ _ _ (spMap_injective e₁)
-      obtain rfl := hκ _ _ (spMap_injective e₂)
+      obtain rfl := hκ _ _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq e₁)
+      obtain rfl := hκ _ _ (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq e₂)
       rw [(U (κ b)).locc m T y hT hTc hy hyi hc b hb b' hb' k₁ k₂ t ht t' ht' h₁ h₂]
     exact e.symm.injective (key (a k) (a k') h h' (by rw [← hq (a k)]; exact ht) (by rw [← hq (a k')]; exact ht'))
 

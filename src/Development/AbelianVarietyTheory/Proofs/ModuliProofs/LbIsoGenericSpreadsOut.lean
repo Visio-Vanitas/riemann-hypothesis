@@ -134,7 +134,7 @@ theorem lbIso_generic_spreads_out : ∀ (R K : Type) [CommRing R] [IsDomain R] [
   refine ⟨f, hf0, fun R' _ φ hφ => ?_⟩
   obtain ⟨ψ, hψ⟩ := hf R' φ hφ
   have key : spMap φ = spMap ψ ≫ spMap (algebraMap R (Algebra.adjoin R (s : Set K))) := by
-    rw [spMap_comp_ring, hψ]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hψ]
   exact Spread.lbIso_pull_comp
     (pullback.lift (pullback.fst pB (spMap φ)) (pullback.snd _ _ ≫ spMap ψ)
       (by rw [pullback.condition, key, Category.assoc]))

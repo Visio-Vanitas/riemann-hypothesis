@@ -211,7 +211,7 @@ theorem dual_ext {S : Type} [CommRing S] {Y : Scheme.{0}} {n : ℕ} {h : Fin n �
   have key := GlobalTheory.Frames.existsUnique_glue_dual S Y n h hs
     (fun i => spMap (dualMap (algebraMap S (Localization.Away (h i)))) ≫ w') (by
       intro i j α β hα hβ
-      rw [← Category.assoc, ← Category.assoc, spMap_comp_ring, spMap_comp_ring, ← dualMap_comp, ← dualMap_comp,
+      rw [← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp, ← dualMap_comp,
         hα, hβ])
   exact key.unique e (fun _ => rfl)
 
@@ -247,18 +247,18 @@ theorem tan_pull {S T : Type} [CommRing S] [CommRing T] (ψ : S →+* T) {x : Sp
     IsTanAt (spMap ψ ≫ x) (spMap (dualMap ψ) ≫ v) := by
   obtain ⟨h1, h2⟩ := hv
   refine ⟨?_, ?_⟩
-  · rw [Category.assoc, h1, ← Category.assoc, spMap_comp_ring, dualMap_alg, ← spMap_comp_ring,
+  · rw [Category.assoc, h1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, dualMap_alg, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       Category.assoc]
-  · rw [← Category.assoc, spMap_comp_ring, fst_dual, ← spMap_comp_ring, Category.assoc, h2, one_pull]
+  · rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_dual, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, Category.assoc, h2, one_pull]
 
 theorem tan_local {S : Type} [CommRing S] {x : Sp S ⟶ Xo.X} {n : ℕ} {h : Fin n → S}
     (hs : Ideal.span (Set.range h) = ⊤) {v : Sp (DualNumber S) ⟶ Xo.univ.t.G.left}
     (hv : ∀ i, IsTanAt (spMap (algebraMap S (Localization.Away (h i))) ≫ x)
       (spMap (dualMap (algebraMap S (Localization.Away (h i)))) ≫ v)) : IsTanAt x v := by
   refine ⟨dual_ext hs fun i => ?_, base_ext hs fun i => ?_⟩
-  · rw [← Category.assoc, (hv i).1, ← Category.assoc, ← Category.assoc, spMap_comp_ring, spMap_comp_ring,
+  · rw [← Category.assoc, (hv i).1, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp,
       dualMap_alg]
-  · rw [one_pull, ← (hv i).2, ← Category.assoc, ← Category.assoc, spMap_comp_ring, spMap_comp_ring, fst_dual]
+  · rw [one_pull, ← (hv i).2, ← Category.assoc, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, fst_dual]
 
 theorem comb_unique {S : Type} [CommRing S] {x : Sp S ⟶ Xo.X} {m : ℕ}
     {v : Fin m → (Sp (DualNumber S) ⟶ Xo.univ.t.G.left)} {a : Fin m → S}
@@ -273,7 +273,7 @@ theorem comb_exists {S : Type} [CommRing S] {x : Sp S ⟶ Xo.X} {m : ℕ}
     ∃ w, IsCombAt x v a w := by
   refine ⟨_, fun i => Over.homMk (spMap (epsMul (a i)) ≫ v i) ?_, fun i => rfl, rfl⟩
   show (spMap (epsMul (a i)) ≫ v i) ≫ Xo.univ.t.G.hom = spMap (algebraMap S (DualNumber S)) ≫ x
-  rw [Category.assoc, (hv i).1, ← Category.assoc, spMap_comp_ring, eps_alg]
+  rw [Category.assoc, (hv i).1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, eps_alg]
 
 theorem comb_pull_comp {S A C : Type} [CommRing S] [CommRing A] [CommRing C] {φ : S →+* A} {χ : S →+* C}
     (α : A →+* C) (hα : α.comp φ = χ) {x : Sp S ⟶ Xo.X} {m : ℕ}
@@ -281,9 +281,9 @@ theorem comb_pull_comp {S A C : Type} [CommRing S] [CommRing A] [CommRing C] {φ
     {a : Fin m → A}
     (ha : IsCombAt (spMap φ ≫ x) (fun k => spMap (dualMap φ) ≫ v k) a (spMap (dualMap φ) ≫ w)) :
     IsCombAt (spMap χ ≫ x) (fun k => spMap (dualMap χ) ≫ v k) (fun j => α (a j)) (spMap (dualMap χ) ≫ w) :=
-  isCombAt_pull α (by rw [← Category.assoc, spMap_comp_ring, hα])
-    (fun j => by rw [← Category.assoc, spMap_comp_ring, ← dualMap_comp, hα])
-    (by rw [← Category.assoc, spMap_comp_ring, ← dualMap_comp, hα]) ha
+  isCombAt_pull α (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα])
+    (fun j => by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp, hα])
+    (by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp, hα]) ha
 
 theorem coeff_compat {S A B C : Type} [CommRing S] [CommRing A] [CommRing B] [CommRing C] {φ : S →+* A}
     {ψ : S →+* B} {χ : S →+* C} (α : A →+* C) (β : B →+* C) (hα : α.comp φ = χ) (hβ : β.comp ψ = χ)
@@ -296,9 +296,9 @@ theorem coeff_compat {S A B C : Type} [CommRing S] [CommRing A] [CommRing B] [Co
     (fun j => α (a j)) = fun j => β (b j) := by
   have hB : TanBasis (spMap χ ≫ x) (fun k => spMap (dualMap χ) ≫ v k) := by
     have := GlobalTheory.Frames.tanBasis_baseChange E H Dw l Xo _ _ α _ m _ hb
-    have e1 : spMap α ≫ spMap φ ≫ x = spMap χ ≫ x := by rw [← Category.assoc, spMap_comp_ring, hα]
+    have e1 : spMap α ≫ spMap φ ≫ x = spMap χ ≫ x := by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα]
     have e2 : (fun k => spMap (dualMap α) ≫ spMap (dualMap φ) ≫ v k) = fun k => spMap (dualMap χ) ≫ v k :=
-      funext fun k => by rw [← Category.assoc, spMap_comp_ring, ← dualMap_comp, hα]
+      funext fun k => by rw [← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← dualMap_comp, hα]
     rw [e1, e2] at this
     exact this
   exact (hB.2 _ (tan_pull χ hw)).unique (comb_pull_comp α hα ha) (comb_pull_comp β hβ hb')
@@ -356,7 +356,7 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.S
 
 namespace GlobalTheory.Frames.Glue
 
-alias sp_comp := _root_.Formalism.L2.Pj.spMap_comp_ring
+alias sp_comp := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp).symm
 
 theorem dual_comp {S T U : Type} [CommRing S] [CommRing T] [CommRing U] (φ : S →+* T) (ψ : T →+* U) :
     (dualMap ψ).comp (dualMap φ) = dualMap (ψ.comp φ) :=
@@ -589,7 +589,7 @@ open GlobalTheory.FramedBaseChange
 theorem spec_comp_alg {K S T U : Type} [Field K] [CommRing S] [CommRing T] [CommRing U] [Algebra K S]
     [Algebra K T] [Algebra K U] (φ : S →ₐ[K] T) (ψ : T →ₐ[K] U) :
     spMap (ψ.comp φ).toRingHom = spMap ψ.toRingHom ≫ spMap φ.toRingHom :=
-  spec_comp φ.toRingHom ψ.toRingHom
+  ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ.toRingHom ψ.toRingHom
 
 theorem algHom_eq_of_spec {K S T : Type} [Field K] [CommRing S] [CommRing T] [Algebra K S]
     [Algebra K T] (φ ψ : S →ₐ[K] T) (h : spMap φ.toRingHom = spMap ψ.toRingHom) : φ = ψ := by
@@ -659,7 +659,7 @@ theorem exists_chart_cover (hB : Out.SecBaseChangeSt) {S : Type} [CommRing S] [A
       ∀ i (T : Type) [CommRing T] [Algebra c.F T] (lam : S →ₐ[c.F] T), IsUnit (lam (g i)) →
         ∃ ψ : (p i).R →ₐ[c.F] T, spMap lam.toRingHom ≫ xF = spMap ψ.toRingHom ≫ j i := by
   classical
-  let xF : Sp S ⟶ Xo.XF c := pullback.lift x (spMap (algebraMap c.F S)) (hx.trans (spec_comp _ _))
+  let xF : Sp S ⟶ Xo.XF c := pullback.lift x (spMap (algebraMap c.F S)) (hx.trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   choose p j y₀ hj hr using fun q : Sp S => _root_.GlobalTheory.Frames.exists_openChart_testRing hB E H Dw l Xo c (xF q)
   choose g hg hfac using fun q : Sp S => GlobalTheory.Frames.openChart_factor_near_prime E H Dw l Xo c _ (j q) (y₀ q)
     (hj q) S xF (pullback.lift_snd _ _ _) q (hr q)
@@ -717,7 +717,7 @@ theorem x_restrict {R A B : Type} [CommRing R] [CommRing A] [CommRing B] [Algebr
     (x : Sp R ⟶ Xo.X) (f : R →+* A) (g : R →+* B) (α : A →ₐ[c.F] B) (hα : α.toRingHom.comp f = g)
     {v : FrPt Xo c A} {u : FrPt Xo c B} (hv : v.x = spMap f ≫ x) (hu : FrMap α v u) :
     u.x = spMap g ≫ x := by
-  rw [hu.1, hv, ← Category.assoc, ← spec_comp, hα]
+  rw [hu.1, hv, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hα]
 
 theorem exists_descent_of_local (hB : Out.SecBaseChangeSt) {S : Type} [CommRing S] [Algebra c.F S]
     (y : FrPt Xo c S) (S₁ : Subalgebra c.F S) (x₁ : Sp S₁ ⟶ Xo.X) (hx₁ : x₁ ≫ Xo.s = sOf c S₁)
@@ -810,7 +810,7 @@ theorem exists_fg_descent (hB : Out.SecBaseChangeSt) {S : Type} [CommRing S] [Al
   let incl : S₀ →ₐ[c.F] S₁ := Subalgebra.inclusion hle
   refine ⟨S₁, hS₁, exists_descent_of_local hB y S₁ (spMap incl.toRingHom ≫ x₀) ?_ ?_ h h₁ hh hs hs₁ κ hκ z hz v
     (fun i => ?_) (fun i => cancel _ _ (hv i) ((hκa i).symm ▸ hau i))⟩
-  · rw [Category.assoc, hx₀, sOf, sOf, ← spec_comp]
+  · rw [Category.assoc, hx₀, sOf, sOf, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     rfl
   · rw [← Category.assoc, ← spec_comp_alg, ← hx]
     rfl

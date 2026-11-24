@@ -90,7 +90,7 @@ theorem pow_fix {M : Type} [CommGroup M] (l : ℕ) (f : Monoid.End M) (h : ∀ x
         rw [ihk, map_mul, map_pow, hgd, pow_succ', ← _root_.mul_assoc, mul_comm (g x) x⁻¹, mul_inv_cancel_left]
     rw [pow_succ, pow_mul, ← hg, hk, hd, _root_.mul_one]
 
-alias spMap_comp' := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp' := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 variable {K Ω : Type} [Field K] [Field Ω] [Algebra K Ω]
 

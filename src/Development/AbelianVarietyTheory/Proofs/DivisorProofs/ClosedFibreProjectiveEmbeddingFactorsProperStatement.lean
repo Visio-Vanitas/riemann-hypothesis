@@ -347,16 +347,12 @@ theorem flat_spec_field {K : Type} [Field K] {Z : Scheme.{0}} (f : Z ⟶ Sp K) :
   haveI : Subsingleton (Sp K) := by unfold Sp; infer_instance
   infer_instance
 
-theorem spMap_comp {A B C : Type} [CommRing A] [CommRing B] [CommRing C] (i : A →+* B) (j : B →+* C) :
-    spMap (j.comp i) = spMap j ≫ spMap i := by
-  simp only [spMap, CommRingCat.ofHom_comp, Spec.map_comp]
-
 variable {F : Type} [CommRing F] {X : Scheme.{0}} (f : X ⟶ Sp F)
 
 def bc {K A : Type} [CommRing K] [CommRing A] (i₀ : F →+* K) (i : F →+* A) (j : A →+* K) (hji : j.comp i = i₀) :
     pullback f (spMap i₀) ⟶ pullback f (spMap i) :=
   pullback.map f (spMap i₀) f (spMap i) (𝟙 X) (spMap j) (𝟙 _) (by simp)
-    (by rw [Category.comp_id, ← hji, spMap_comp])
+    (by rw [Category.comp_id, ← hji, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp])
 
 theorem bc_fst {K A : Type} [CommRing K] [CommRing A] (i₀ : F →+* K) (i : F →+* A) (j : A →+* K) (hji : j.comp i = i₀) :
     bc f i₀ i j hji ≫ pullback.fst f (spMap i) = pullback.fst f (spMap i₀) := by
@@ -372,7 +368,7 @@ theorem isPullback_bc {K A : Type} [CommRing K] [CommRing A] (i₀ : F →+* K) 
     IsPullback (bc f i₀ i j hji) (pullback.snd f (spMap i₀)) (pullback.snd f (spMap i)) (spMap j) := by
   have s : IsPullback (bc f i₀ i j hji ≫ pullback.fst f (spMap i)) (pullback.snd f (spMap i₀)) f
       (spMap j ≫ spMap i) := by
-    rw [bc_fst, ← spMap_comp, hji]
+    rw [bc_fst, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hji]
     exact IsPullback.of_hasPullback f (spMap i₀)
   exact IsPullback.of_right s (bc_snd f i₀ i j hji) (IsPullback.of_hasPullback f (spMap i))
 
@@ -382,7 +378,7 @@ theorem bc_trans {K A B : Type} [CommRing K] [CommRing A] [CommRing B] (i₀ : F
     bc f i₀ i₁ j₁ h₁ = bc f i₀ i₂ j₂ h₂ ≫ bc f i₂ i₁ k hk := by
   apply pullback.hom_ext
   · simp [bc_fst]
-  · rw [Category.assoc, bc_snd, bc_snd, ← Category.assoc, bc_snd, Category.assoc, ← spMap_comp, hk']
+  · rw [Category.assoc, bc_snd, bc_snd, ← Category.assoc, bc_snd, Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, hk']
 
 theorem mem_of_isPushout {R A B P : CommRingCat.{0}} {φ : R ⟶ A} {ψ : R ⟶ B} {inl : A ⟶ P} {inr : B ⟶ P}
     (H : IsPushout φ ψ inl inr) (S : Subring P) (hA : ∀ a, inl.hom a ∈ S) (hB : ∀ b, inr.hom b ∈ S)

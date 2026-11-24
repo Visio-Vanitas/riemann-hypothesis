@@ -553,7 +553,7 @@ theorem GlobalTheory.nonempty_isPullDeg_id_of_common_pull : ∀ (K Ω : Type) [F
     (rigPull_le φ.hom.left (spMap (RingHom.id K)) he D₁.P.L) (fun _ => rfl)).1 rw'
   obtain ⟨v, T⟩ := exists_comp D₂.P.isLB w h₂.w pw' p₂ D₁.P.isLB D.P.isLB
   have r₂ := T.pmaps_comp D₂.P.isLB (fun _ => h₂.he) r₀ (FieldPull.pmaps_rig h₂)
-  rw [← spMap_comp] at r₂
+  rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp] at r₂
   have hom := fun {Z : Scheme.{0}} (z : Z) J J' q =>
     FieldDescent.om_eq h₁ v hΦ (T.pgen_comp D₂.P.isLB pw' p₂) r₂ z J J' q
   obtain ⟨f₁, f₂⟩ := PolIsoDescent.flat_surjective (spMap l)
@@ -646,7 +646,7 @@ theorem exists_comp_proj {R R' R'' : Type} [CommRing R] [IsDomain R] [CommRing R
     [CommRing R''] [IsDomain R''] {i : R →+* R'} {j : R' →+* R''} (hj : Function.Injective j)
     {D : DegPre R} {D' : DegPre R'} {D'' : DegPre R''} (p : IsPullDeg i D D') (q : IsPullDeg j D' D'') :
     ∃ r : IsPullDeg (j.comp i) D D'', proj r = proj q ≫ proj p := by
-  have sc : spMap j ≫ spMap i = spMap (j.comp i) := (spMap_comp i j).symm
+  have sc : spMap j ≫ spMap i = spMap (j.comp i) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp i j).symm
   have gp : IsGrpPullback D''.P.A D.P.A (spMap (j.comp i)) (proj q ≫ proj p) :=
     ((pull_grp q).comp (pull_grp p)).congr sc rfl
   have g₁ := (isGen_iff _).1 p.w_gen
@@ -774,7 +774,7 @@ theorem nonempty_isPullDeg_cancel {R K₁ K : Type} [CommRing R] [IsDomain R] [F
     (hα : Function.Injective α) (β : K₁ →+* K) {D₀ : DegPre R} {D₁ : DegPre K₁} {D : DegPre K}
     (h₁ : IsPullDeg α D₀ D₁) (h : IsPullDeg (β.comp α) D₀ D) : Nonempty (IsPullDeg β D₁ D) := by
   have p₁ : IsGrpPullback D₁.P.A D₀.P.A (spMap α) (proj h₁) := pull_grp h₁
-  have sc : spMap β ≫ spMap α = spMap (β.comp α) := (spMap_comp α β).symm
+  have sc : spMap β ≫ spMap α = spMap (β.comp α) := (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp α β).symm
   have p : IsGrpPullback D.P.A D₀.P.A (spMap β ≫ spMap α) (proj h) := (pull_grp h).congr sc.symm rfl
   obtain ⟨Φ, e₁, e₂⟩ : ∃ Φ : D.P.A.left ⟶ D₁.P.A.left, Φ ≫ proj h₁ = proj h ∧ Φ ≫ D₁.P.A.hom = D.P.A.hom ≫ spMap β :=
     ⟨p₁.1.lift (proj h) (D.P.A.hom ≫ spMap β) (p.1.w.trans (Category.assoc _ _ _).symm), p₁.1.lift_fst _ _ _,
@@ -1144,7 +1144,7 @@ theorem grp : ∀ (R R' : Type) [CommRing R] [IsDomain R] [CommRing R'] [IsDomai
   haveI : IsNoetherianRing R' := hR.1
   haveI : IsIntegrallyClosed R' := hR.2.2.1
   have sc : spMap ((algebraMap R' (FractionRing R')).comp ρ) = spMap (algebraMap R' (FractionRing R')) ≫ spMap ρ :=
-    spMap_comp ρ (algebraMap R' (FractionRing R'))
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ (algebraMap R' (FractionRing R'))
   have gpp := pull_grp p
   have g1 := (pull_grp q₁).congr sc rfl
   have g2 := (pull_grp q₂).congr sc rfl
@@ -1183,7 +1183,7 @@ theorem cpt : ∀ (R R' : Type) [CommRing R] [IsDomain R] [CommRing R'] [IsDomai
   set y := q₁.xe.symm (p.xe x) with hy
   have hy' : q₁.xe y = p.xe x := q₁.xe.apply_symm_apply _
   have sc : spMap ((algebraMap R' (FractionRing R')).comp ρ) = jK R' ≫ spMap ρ :=
-    spMap_comp ρ (algebraMap R' (FractionRing R'))
+    ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ (algebraMap R' (FractionRing R'))
   have gpp := pull_grp p
   have b1 : (E.c y).left ≫ E.P.A.hom = 𝟙 _ := by simpa using Over.w (E.c y)
   have b3 : (D₃.c x).left ≫ D₃.P.A.hom = 𝟙 _ := by simpa using Over.w (D₃.c x)
@@ -1227,7 +1227,7 @@ theorem isPullDeg_of_generic : ∀ (R R' : Type) [CommRing R] [IsDomain R] [Comm
   let r' : (TK R').left ⟶ (TK (FractionRing R')).left := spMap lf
   have hrj : r' ≫ jK (FractionRing R') = 𝟙 _ := by
     show spMap lf ≫ spMap (algebraMap (FractionRing R') (FractionRing (FractionRing R'))) = 𝟙 _
-    rw [← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have : lf.comp (algebraMap (FractionRing R') (FractionRing (FractionRing R'))) = RingHom.id _ :=
       RingHom.ext fun a => IsFractionRing.lift_algebraMap (A := FractionRing R') (K := FractionRing (FractionRing R')) (g := RingHom.id (FractionRing R')) Function.injective_id a
     rw [this]; exact Spec.map_id _
@@ -1235,7 +1235,7 @@ theorem isPullDeg_of_generic : ∀ (R R' : Type) [CommRing R] [IsDomain R] [Comm
       GlobalTheory.ArcPull.genMap hρ ≫ jK R := by
     refine (Category.assoc _ _ _).symm.trans ?_
     rw [hrj, Category.id_comp]
-    exact (spMap_comp ρ (algebraMap R' (FractionRing R'))).trans ((Category.id_comp _).symm.trans (GlobalTheory.ArcPull.fracMap_sq hρ))
+    exact (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp ρ (algebraMap R' (FractionRing R'))).trans ((Category.id_comp _).symm.trans (GlobalTheory.ArcPull.fracMap_sq hρ))
   refine ⟨(GlobalTheory.DvrDeg.exists_isPullDeg_of_val hρ D₂ D₃ q₂.psiW s hs gp w hw hr
     (p.xe.trans (q₁.xe.symm.trans q₂.xe)) hc (fun x z J J' hJ hJ' => ?_)).choose⟩
   set y := q₁.xe.symm (p.xe x) with hy

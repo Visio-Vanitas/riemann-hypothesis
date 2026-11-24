@@ -595,8 +595,8 @@ theorem qkPullExists (hG : GlobalFnsSt) : QkPullExistsSt := by
   have gp := pull_grp hD
   have hw := (isGen_iff hD.w).1 hD.w_gen
   have hj : jFK (R := R') F ≫ jK R' ≫ spMap φ = jFK (R := R) F ≫ jK R :=
-    ((congrArg (jFK (R := R') F ≫ ·) (spMap_comp φ _).symm).trans (spMap_comp _ _).symm).trans
-      ((congrArg spMap (RingHom.ext fun r => (hF r).symm)).trans (spMap_comp _ _))
+    ((congrArg (jFK (R := R') F ≫ ·) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp φ _).symm).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _).symm).trans
+      ((congrArg spMap (RingHom.ext fun r => (hF r).symm)).trans (ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp _ _))
   have hT : (TF (R := R') F).hom ≫ spMap φ = (TF (R := R) F).hom := (Category.assoc _ _ _).trans hj
   let Φ := hD.e.hom.left ≫ pullback.fst D.P.A.hom (specOf φ)
   let β : (TF (R := R') F ⟶ D'.P.A) → (TF (R := R) F ⟶ D.P.A) := fun x =>

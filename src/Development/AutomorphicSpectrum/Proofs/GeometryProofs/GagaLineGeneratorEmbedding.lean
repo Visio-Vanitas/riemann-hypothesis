@@ -885,11 +885,6 @@ section BaseChange
 
 variable {X : Scheme.{0}} {Ω : Type} [Field Ω]
 
-theorem spMap_comp {R S T : Type} [CommRing R] [CommRing S] [CommRing T] (f : R →+* S) (g : S →+* T) :
-    spMap g ≫ spMap f = spMap (g.comp f) := by
-  rw [spMap, spMap, ← Spec.map_comp]
-  rfl
-
 theorem exists_ringHom_of_mem {A : Type} [CommRing A] (a : Sp A ⟶ X) [IsOpenImmersion a] (ξ : Sp Ω ⟶ X)
     (h : genPt ξ ∈ Set.range a) : ∃ φ : A →+* Ω, spMap φ ≫ a = ξ := by
   have hr : Set.range ξ ⊆ Set.range a := by
@@ -925,15 +920,15 @@ theorem chart_data {K C : Type} [Field K] [Field C] [Algebra K C] [Algebra K Ω]
   obtain ⟨φ₀, hφ₀⟩ := exists_ringHom_of_mem a ξ (by rw [hr]; exact hmem)
   have hcomm : ∀ k, φ₀ (algebraMap K A k) = algebraMap K Ω k := by
     have e : spMap (φ₀.comp (algebraMap K A)) = spMap (algebraMap K Ω) := by
-      rw [← hξs, ← hφ₀, Category.assoc, has, spMap_comp]
+      rw [← hξs, ← hφ₀, Category.assoc, has, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have e2 := Spec.map_injective e
     exact fun k => congrArg (fun t => t.hom k) e2
   let φ : A →ₐ[K] Ω := { φ₀ with commutes' := hcomm }
   refine ⟨A, _, _, a, j, φ, ha, hr, hφ₀, hj, hjf, hjr, ?_⟩
   apply pullback.hom_ext
-  · rw [Category.assoc, hjf, h1, ← Category.assoc, spMap_comp, ← hφ₀, ← Category.assoc, spMap_comp]
+  · rw [Category.assoc, hjf, h1, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← hφ₀, ← Category.assoc, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 2
-  · rw [Category.assoc, hjs, h2, spMap_comp]
+  · rw [Category.assoc, hjs, h2, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have e : ((algebraMap (Ω ⊗[K] C) (FractionRing (Ω ⊗[K] C))).comp
         (Algebra.TensorProduct.map φ (AlgHom.id K C)).toRingHom).comp
           (Algebra.TensorProduct.includeRight (R := K) (A := A) (B := C)).toRingHom =
@@ -988,7 +983,7 @@ theorem cpt_base_change_dominates (K C : Type) [Field K] [CharZero K] [Field C] 
     aT.comp (Algebra.TensorProduct.includeRight (R := K) (A := Ω) (B := C)).toRingHom
   letI alg' : Algebra C (FractionRing (Ω ⊗[K] C)) := ic.toAlgebra
   have hcond : (spMap i ≫ ξ) ≫ s = spMap ic ≫ spMap (algebraMap K C) := by
-    rw [Category.assoc, hξs, spMap_comp, spMap_comp]
+    rw [Category.assoc, hξs, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     have e : i.comp (algebraMap K Ω) = ic.comp (algebraMap K C) := by
       ext k
       have e0 : algebraMap K Ω k ⊗ₜ[K] (1 : C) = (1 : Ω) ⊗ₜ[K] algebraMap K C k := by

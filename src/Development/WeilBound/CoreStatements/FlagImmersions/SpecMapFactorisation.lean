@@ -97,8 +97,8 @@ theorem isGeom_of {l : Level H} {Xo : Moduli D l} {c : Coeff l} [NumberField c.F
     exact congrArg genPt o.𝔐.fn_over
   obtain ⟨i, hi⟩ := exists_factor Fx.ξf Z.gen (e1 ▸ specializes_rfl)
   have hb : (o.g.comp i).comp Z.inc = o.𝔐.cst := by
-    refine IsLocalization.ringHom_ext (nonZeroDivisors (𝓞 c.F)) (_root_.GlobalTheory.ZM.DenseFib.spMap_inj ?_)
-    rw [← o.𝔐.cst_over, ← Category.assoc, o.g_over, ← hi, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Z.over_inc,
+    refine IsLocalization.ringHom_ext (nonZeroDivisors (𝓞 c.F)) (ReciprocityTheory.ChartRestriction.G.Geo.Tor.eq_of_spMap_eq ?_)
+    rw [← o.𝔐.cst_over, ← Category.assoc, o.g_over, ← hi, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← Z.over_inc,
       ← Y.jQ_over]
     simp only [Model.j, Category.assoc, pullback.condition]
   rintro x ⟨f, hf, hx⟩

@@ -283,7 +283,7 @@ theorem tab_map : LL → ∀ (R R' : Type) [CommRing R] [IsDomain R] [CharZero R
   have hφ : ψ ≫ A.A.hom = A'.A.hom ≫ spMap gam := gp.1.w
   have hh : spMap σ ≫ (TFK (R := R) F).hom = (TFK (R := R') F').hom ≫ spMap gam := by
     show spMap σ ≫ spMap (algebraMap (FractionRing R) F) = spMap (algebraMap (FractionRing R') F') ≫ spMap gam
-    rw [← spMap_comp, ← spMap_comp]
+    rw [← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp, ← ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp]
     congr 1
     exact RingHom.ext hσ
   obtain ⟨β, hβ⟩ := exists_ptHom (T := TFK (R := R) F) (T' := TFK (R := R') F') (h := spMap σ) gp hh

@@ -131,7 +131,7 @@ theorem exists_algClosure_lift {K k : Type} [Field K] [Field k] [IsAlgClosed k] 
       @_root_.Algebra.IsIntegral.isAlgebraic, @_root_.inferInstance])
   exact ⟨f.toRingHom, RingHom.ext fun z => f.commutes z⟩
 
-alias spMap_comp_eq := _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
+alias spMap_comp_eq := ReciprocityTheory.ChartRestriction.G.Geo.Tor.spMap_comp
 
 section Abstract
 
