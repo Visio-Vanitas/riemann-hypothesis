@@ -159,8 +159,8 @@ theorem locMap_algebraMap (p : Polynomial R) :
   erw [IsLocalization.map_eq]
   rfl
 
-theorem eval_map_apply' (a : R) (p : Polynomial R) : (p.map ψ).eval (ψ a) = ψ (p.eval a) := by
-  rw [Polynomial.eval_map, Polynomial.eval₂_at_apply]
+theorem eval_map_apply' (a : R) (p : Polynomial R) : (p.map ψ).eval (ψ a) = ψ (p.eval a) :=
+  Polynomial.eval_map_apply ψ a
 
 theorem isUnit_eval (a : R) (ha : IsUnit (Polynomial.evalRingHom a P₁)) :
     IsUnit (Polynomial.evalRingHom (ψ a) (P₁.map ψ)) := by

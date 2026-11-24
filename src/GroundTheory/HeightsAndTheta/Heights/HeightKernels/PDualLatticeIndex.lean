@@ -181,9 +181,8 @@ theorem mem_dual_sup {L : Submodule (𝓞 K) (Fin i → K)} {x₀ φ : Fin i →
     refine add_mem (h1 y hy) ⟨a * c, ?_⟩
     rw [map_mul, hc, Algebra.smul_def]
 
-theorem absNorm_eq_index (I : Ideal (𝓞 K)) : Ideal.absNorm I = I.toAddSubgroup.index := by
-  rw [Ideal.absNorm_apply, Submodule.cardQuot_apply]
-  rfl
+theorem absNorm_eq_index (I : Ideal (𝓞 K)) : Ideal.absNorm I = I.toAddSubgroup.index :=
+  Ideal.absNorm_eq_index I
 
 theorem mem_integralClosure_of_mem_range {y : K} (h : y ∈ (algebraMap (𝓞 K) K).range) :
     y ∈ integralClosure ℤ K := by

@@ -297,9 +297,8 @@ theorem cc_log (D : D7) (p : ℕ) [Fact p.Prime] {β : Type} (v : Pl D × β) :
   refine Finset.sum_eq_zero fun e _ => if_neg fun h => ?_
   exact pow_ne_zero e (pow_ne_zero 2 (Fact.out : p.Prime).ne_zero) (Finsupp.single_eq_zero.mp h.symm)
 
-theorem degree_single' {σ : Type*} (v : σ) (k : ℕ) : (Finsupp.single v k).degree = k := by
-  first
-  | exact Finsupp.degree_single v k
+theorem degree_single' {σ : Type*} (v : σ) (k : ℕ) : (Finsupp.single v k).degree = k :=
+  Finsupp.degree_single v k
 
 theorem JetTdeg_eq_degree {σ : Type*} (m : σ →₀ ℕ) : JetTdeg m = m.degree := rfl
 

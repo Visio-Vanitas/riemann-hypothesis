@@ -71,10 +71,8 @@ private lemma projection_comm_of_mapsTo {p q : Submodule ℂ V} (h : IsCompl p q
 
 variable {V : Type} [AddCommGroup V] [Module ℂ V] in
 private lemma sub_projection_mem' {p q : Submodule ℂ V} (h : IsCompl p q) (v : V) :
-    v - p.projection q h v ∈ q := by
-  rw [← Submodule.IsCompl.projection_apply_eq_zero_iff h, map_sub,
-    (Submodule.IsCompl.projection_eq_self_iff h _).mpr
-      (Submodule.IsCompl.projection_apply_mem h v), sub_self]
+    v - p.projection q h v ∈ q :=
+  Submodule.sub_projection_mem h v
 
 
 variable {V : Type} [AddCommGroup V] [Module ℂ V] in

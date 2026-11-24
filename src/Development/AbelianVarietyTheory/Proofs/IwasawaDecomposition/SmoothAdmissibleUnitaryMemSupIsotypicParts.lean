@@ -68,8 +68,8 @@ def IrrSub (ρ : G →* Module.End ℂ V) (W : Submodule ℂ V) : Prop :=
 
 variable (ρ : G →* Module.End ℂ V) (hunit : ∀ g x y, inner ℂ (ρ g x) (ρ g y) = inner ℂ x y)
 
-theorem rho_inv_apply (g : G) (y : V) : ρ g (ρ g⁻¹ y) = y := by
-  rw [← Module.End.mul_apply, ← map_mul, mul_inv_cancel, map_one, Module.End.one_apply]
+theorem rho_inv_apply (g : G) (y : V) : ρ g (ρ g⁻¹ y) = y :=
+  Representation.self_inv_apply ρ g y
 
 include hunit in
 theorem inner_rho_left (g : G) (x y : V) : inner ℂ (ρ g x) y = inner ℂ x (ρ g⁻¹ y) := by
