@@ -58,7 +58,6 @@ import Mathlib.Tactic.Linter.HaveILetI
 import Development.AutomorphicArithmetic.Foundations.EtaleClopenDescent.IsIntegralRBIff
 import Mathlib.Tactic.Basify
 import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.CoeEqAlgebraMapZeroEquiv
-import Development.AbelianVarietyTheory.Proofs.SatakeParameters.CechHomologyEquivFamStatement
 import Development.AbelianVarietyTheory.Proofs.SatakeParameters.GenericGermDifferentialFormRestrictAffineOpenStatement
 import Development.AbelianVarietyTheory.Proofs.SatakeParameters.RiemannFormHermitianLattice
 import Mathlib.Algebra.Module.StablyFree.Basic

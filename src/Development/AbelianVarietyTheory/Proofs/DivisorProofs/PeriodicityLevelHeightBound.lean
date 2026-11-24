@@ -54,7 +54,6 @@ import Development.AbelianVarietyTheory.Definitions.Foundations.NormEulerPolySub
 import Development.AbelianVarietyTheory.Proofs.HeightProofs.UnitaryLatticeDenominatorHeightBoundProof
 import Mathlib.Tactic.ReduceModChar
 import Mathlib.RingTheory.PiTensorProduct
-import Development.AbelianVarietyTheory.Proofs.DivisorProofs.DHRealAdSmul
 
 -- This file was produced by scripts/clump.py from the modules listed below.
 -- Members: Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousCharacterTrivialOnSmallIdeles, Development.AbelianVarietyTheory.Proofs.DivisorProofs.SchwartzBruhatLevelConductorCompatible, Development.AbelianVarietyTheory.Proofs.DivisorProofs.PeriodicityLevelHeightBound
