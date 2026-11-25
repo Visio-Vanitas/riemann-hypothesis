@@ -23,7 +23,7 @@ public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.OneParamSubg
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SchwartzFockVacuumLineUniqueOfHeisenbergDerivati
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ThetaKernelReal
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.WeilModelLineActionExists
-public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.WeilLieAlgebraScalarAction
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.ILiescalar
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LieFirstOfLieSecond
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.PolActs
 public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.HoweDualityReal
@@ -102,6 +102,7 @@ import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ProductFunctionOnSu
 import Formalism.LocalToGlobal.IndefiniteReal.PHeisFC
 import Mathlib.Tactic.Linter.HaveILetI
 import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ArchActionReadingsCompatible
+import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.WeilLieAlgebraScalarAction
 import Mathlib.RingTheory.Coalgebra.CoassocSimps
 import Development.WeilBound.ThetaLifts.SphericalLattices.ThetaSubSup
 

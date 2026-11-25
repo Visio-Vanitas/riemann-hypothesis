@@ -2,10 +2,7 @@ module
 
 public import Formalism.SharpRestriction.CuspSpanNormBounds.BesselShellMomentBounds
 public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.ThmBUse
-import Formalism.FlagUnipotentLattices.UnipotentStabiliserCharacterisation
-import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.BlockMinorSumCounterexample
-import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.CircleIntegralInvSubEqZeroOfOutside
-import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.IntegrableOnIoiTruncatedPowerMoment
+import Formalism.FlagUnipotentLattices.AlgebraicIdentityHigherDegree
 import Mathlib.Tactic.TypeStar
 
 @[expose] public section
@@ -15,8 +12,6 @@ noncomputable section
 namespace Formalism.L2.SG.Pf.OrderedProducts
 
 open Formalism.BasicNotions Formalism.MainNotions.S Formalism.MainNotions.S.ThB Formalism.MainNotions.BesselShellMomentBounds Formalism.L2.SG.RowsConc Formalism.FourierDecayAlt
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 section Lists
 

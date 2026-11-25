@@ -2,8 +2,7 @@ module
 
 public import Development.AbelianVarietyTheory.Definitions.Foundations.NonnegOfMemCStarSet
 public import Development.AbelianVarietyTheory.Proofs.FormalGroupCharts.ExistsNonzeroOfGenerator
-import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.ExtVStatement
-import Development.AbelianVarietyTheory.Counterexamples.ModuliSurvey.PremisesOfProper
+import Development.AbelianVarietyTheory.Proofs.ModuliProofs.SemiAbelianModelDeterminedByGenericFibre
 public import Development.AbelianVarietyTheory.Proofs.TorusSplitting.PhiCSmulPull
 import Development.AbelianVarietyTheory.Proofs.TorusSplitting.ValuationFormPsiBalancedSymmetricPeriodForm
 import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.PsiCoordExistsUniqueUpToUnitLocal
@@ -45,8 +44,6 @@ import Mathlib.Tactic.NormNum.RealSqrt
 import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.DiscreteValuationRings.LBLocalC
 
 @[expose] public section
-
-set_option autoImplicit false
 
 noncomputable section
 

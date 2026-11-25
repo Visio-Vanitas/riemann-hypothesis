@@ -27,8 +27,7 @@ public import Development.WeilBound.CoreStatements.TorusUniformisation.ChowMahle
 public import Development.WeilBound.CoreStatements.TorusUniformisation.ChowMahlerFamilies.MemOfFixedByAutomorphisms
 public import Development.AutomorphicSpectrum.PublishedTheorems.Geometry₂.GagaSections
 public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.BlowupProjections.BlowupProjStatement
-public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.IsHolPeriods
-public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.CmModuliConsequenceOfAbelianSchemeLaws
+public import Development.AutomorphicSpectrum.Proofs.GeometryProofs.ComplexUniformisationHolds
 public import Development.AutomorphicSpectrum.Proofs.GeometryProofs.ExistsUnitAnalyticFunction
 public import Development.AutomorphicSpectrum.Proofs.GeometryProofs.FrameFunctionAnalyticNorm
 public import Development.AutomorphicSpectrum.Statements.GeometryStatements.FinConstFor
@@ -701,14 +700,22 @@ def ofAt (V : Type) [CommRing V] : epsAt (𝟙 (Sp V)) ⟶ epsOver V V :=
 theorem ofAt_toAt (V : Type) [CommRing V] : ofAt V ≫ toAt V = 𝟙 _ :=
   Over.OverMorphism.ext (Category.comp_id _)
 
-def ptAt (V : Type) [CommRing V] : Over.mk (𝟙 (Sp V)) ⟶ ptOver V V :=
-  Over.homMk (𝟙 (Sp V)) ((Category.id_comp _).trans (pt_hom V))
+theorem id_comp_pt_hom (V : Type) [CommRing V] : 𝟙 (Sp V) ≫ spMap (algebraMap V V) = 𝟙 (Sp V) :=
+  (Category.id_comp _).trans (pt_hom V)
 
+def ptAt (V : Type) [CommRing V] : Over.mk (𝟙 (Sp V)) ⟶ ptOver V V :=
+  Over.homMk (U := Over.mk (𝟙 (Sp V))) (V := Over.mk (spMap (algebraMap V V))) (𝟙 (Sp V))
+    (id_comp_pt_hom V)
+
+/- The two sides have types `(Over.mk (𝟙 (Sp V))).left ⟶ G.left` and `(ptOver V V).left ⟶ G.left`.
+Stating the equation in `Sp V ⟶ G.left` keeps the kernel from comparing `𝟙 (Sp V)` with
+`spMap (algebraMap V V)` to see that these agree. -/
 theorem one_left_at (V : Type) [CommRing V] (G : Over (Sp V)) [GrpObj G] :
-    (1 : Over.mk (𝟙 (Sp V)) ⟶ G).left = (1 : ptOver V V ⟶ G).left := by
+    @Eq (Sp V ⟶ G.left) (1 : Over.mk (𝟙 (Sp V)) ⟶ G).left (1 : ptOver V V ⟶ G).left :=
   have h : ptAt V ≫ (1 : ptOver V V ⟶ G) = 1 := pre_one _
-  rw [← h, Over.comp_left]
-  exact Category.id_comp _
+  have h2 : @Eq (Sp V ⟶ G.left) (𝟙 (Sp V) ≫ (1 : ptOver V V ⟶ G).left)
+      (1 : Over.mk (𝟙 (Sp V)) ⟶ G).left := congrArg CommaMorphism.left h
+  h2.symm.trans (Category.id_comp _)
 
 end Frames
 

@@ -53,7 +53,7 @@ import Mathlib.Tactic.NormNum.Prime
 import Mathlib.Tactic.NormNum.RealSqrt
 import Mathlib.Topology.Sheaves.Init
 import Development.AutomorphicSpectrum.Definitions.CommutativeAlgebra.IsSplitGaussChars
-import Development.AutomorphicSpectrum.Proofs.GeometryProofs.ChartOfBasis
+import Development.WeilBound.CoreStatements.HodgeTatePoints.CdLocal
 import Development.WeilBound.CoreStatements.HodgeTatePoints.CdUniv
 import Mathlib.Algebra.CharP.Subring
 import Mathlib.RingTheory.WittVector.IsPoly

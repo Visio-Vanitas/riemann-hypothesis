@@ -4,9 +4,7 @@ public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankP
 public import Formalism.SharpRestriction.CuspSpanNormBounds.BruhatCellsKronecker.CellFin
 public import Formalism.SharpRestriction.CuspSpanNormBounds.BruhatCellsKronecker.SplittingAdmissibleOfTermData
 public import Formalism.SharpRestriction.CuspSpanNormBounds.KappaEndpoints
-public import Formalism.FlagUnipotentLattices.MemOfOrthogonalAnisotropic
-public import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.ExistsHasLeadingCoeffOfMemSpanBelow
-public import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.MinkowskiNumberDvdFactorial
+public import Formalism.FlagUnipotentLattices.AutBoundOfMinkowskiBound
 
 @[expose] public section
 
@@ -19,8 +17,6 @@ open MeasureTheory NumberField Matrix Formalism.BasicNotions Formalism.MainNotio
 namespace PI.SchurPlaces
 
 open Formalism.L2.SG.KappaOffDiagonal
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 theorem nfRat : NFRat := by
   intro D X u u' Λ Λ' q hrel hG

@@ -26,8 +26,7 @@ import Development.AbelianVarietyTheory.BlockTheory.HeightDefect.SchurLatticeCon
 import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsNumberFieldPoint
 import Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.HomLieEquivScalarTmul
 import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsUniversalTripleFibreAtFramedPoint
-import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.ExtVStatement
-import Development.AbelianVarietyTheory.Counterexamples.ModuliSurvey.PremisesOfProper
+import Development.AbelianVarietyTheory.Proofs.ModuliProofs.SemiAbelianModelDeterminedByGenericFibre
 import Development.AbelianVarietyTheory.Proofs.ThetaLawProofs.KeyFamOne
 import Development.AbelianVarietyTheory.Proofs.TorusSplitting.DegenerationDataAtModelPointOfUniformisation
 import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.EigenBasisIffTangentBasis
@@ -83,8 +82,6 @@ import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.ComponentMassSum
 import Formalism.LocalToGlobal.ProjectiveLattices.HeightF1OfData
 
 @[expose] public section
-
-set_option autoImplicit false
 
 noncomputable section
 

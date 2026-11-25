@@ -11,8 +11,7 @@ public import Development.AbelianVarietyTheory.Proofs.CubicalLineBundles.Rigidif
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ColengthDvdOfNeZero
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ThetaKeyScalarIsUnitOnIntegralModels
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsUniversalTripleFibreAtFramedPoint
-public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.ExtVStatement
-public import Development.AbelianVarietyTheory.Counterexamples.ModuliSurvey.PremisesOfProper
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.SemiAbelianModelDeterminedByGenericFibre
 public import Development.AbelianVarietyTheory.Proofs.TorusSplitting.DegenerationDataAtModelPointOfUniformisation
 import Development.AbelianVarietyTheory.Proofs.CubicalLineBundles.ExistsOfCmTriplePullback
 import Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsValuationSubringComapEqNonunits
@@ -187,15 +186,6 @@ theorem exists_lie_matrices {R O : Type} [CommRing R] [CommRing O] {G : Over (Sp
   · have hw' : w = fun k => (b k).hom := funext fun k => (Lie.hom_basis (a := act) hw k).symm
     rw [hw', Lie.isLieComb_iff, b.sum_equivFun]
     rfl
-
-theorem isTan_iff_isTangent {V : Type} [CommRing V] {G : Over (Sp V)} [GrpObj G] (w : epsR V ⟶ G) :
-    IsTan (V := V) (R := V) (G := G) w ↔ IsTangent w := by
-  have : (1 : ptOver V V ⟶ G).left = η[G].left := by
-    show spMap (algebraMap V V) ≫ _ = _
-    rw [show spMap (algebraMap V V) = 𝟙 _ from Spec.map_id _]
-    exact Category.id_comp _
-  unfold IsTan IsTangent
-  rw [this]
 
 end Lie
 

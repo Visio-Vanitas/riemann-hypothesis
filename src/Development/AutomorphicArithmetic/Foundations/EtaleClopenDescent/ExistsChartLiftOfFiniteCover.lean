@@ -7,7 +7,7 @@ public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.KahlerFormsO
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.TwistedDualRegularFormsFiniteCoverStatement
 public import Mathlib.LinearAlgebra.ExteriorAlgebra.Basis
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.CechDifferentialAdjointCupProductPairingStatement
-public import Development.AbelianVarietyTheory.Definitions.Divisors.DlogRatioVolumeFormNeZero
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.KahlerFormsOverSubalgebraClosurePropertiesStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ResidueFunctionalVanishesOnOmegaFormsStatement
 public import Mathlib.RingTheory.Trace.Basic
 public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.Edge1
@@ -796,8 +796,6 @@ section -- clump:auto
 
 open KaehlerDifferential GlobalTheory.CechDR GlobalTheory.PD GlobalTheory.WH GlobalTheory.W1 UpperTheory.Gal.productCup_of_system
 open scoped TensorProduct
-
-set_option autoImplicit false
 
 namespace UpperTheory.Gal.productCup_of_system
 

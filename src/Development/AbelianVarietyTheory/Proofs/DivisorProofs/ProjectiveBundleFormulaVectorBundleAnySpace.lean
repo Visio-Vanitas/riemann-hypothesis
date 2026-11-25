@@ -3,7 +3,7 @@ module
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.TrivV
 public import Development.AbelianVarietyTheory.Definitions.Divisors.SecClass
 public import Mathlib.Algebra.Homology.HomotopyCategory.KInjective
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HypercohomologyMappingConeSecondVariableExact
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HypercohomologyMappingConeSecondVariableExactStatement
 public import Mathlib.Algebra.Homology.HomotopyCategory.Plus
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsNaturalHomotopyEquivChainsConstantPresheafStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSections

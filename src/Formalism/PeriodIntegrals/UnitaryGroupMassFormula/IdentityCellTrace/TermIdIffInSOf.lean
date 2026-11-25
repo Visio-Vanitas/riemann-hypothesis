@@ -2,6 +2,7 @@ module
 
 public import Mathlib.NumberTheory.NumberField.Basic
 public import Formalism.HermitianLattices.HermitianLatticesProofs.DualLattice
+public import Lemmata.GeneralBFactThirdTail.Imports
 public import Formalism.HermitianLattices.StatementLat
 public import Formalism.HermitianLattices.HermitianLatticesProofs.DualBasic
 public import Formalism.LocalToGlobal.SiegelLatticeTheory.ClosedLocalOrbits.FourParts

@@ -1,9 +1,7 @@
 module
 
 public import Formalism.SharpRestriction.CuspSpanNormBounds.LatticeIndexAndWeightTheory
-public import Formalism.FlagUnipotentLattices.MemOfOrthogonalAnisotropic
-public import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.ExistsHasLeadingCoeffOfMemSpanBelow
-public import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.MinkowskiNumberDvdFactorial
+public import Formalism.FlagUnipotentLattices.AutBoundOfMinkowskiBound
 public import Formalism.SharpRestriction.CuspSpanNormBounds.LatticeGluingRadicals
 import Formalism.FlagUnipotentLattices.SignaturePreservingEntryNorms
 public import Formalism.LocalRingCardinality.RankBoundMonotoneInDimension
@@ -300,8 +298,6 @@ end Gen
 
 section Rec
 
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
-
 variable {D : D7} (X : TermTie D)
 
 theorem nf_T_ne (D : D7) (u : D.what₂.Word) : ((Tu D u : ℕ) : D.host.E) ≠ 0 := Nat.cast_ne_zero.2 (tie_Tu_pos D u).ne'
@@ -343,8 +339,6 @@ end Schur
 
 section Rec
 
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
-
 variable {D : D7} (X : TermTie D)
 
 end Rec
@@ -360,8 +354,6 @@ namespace Formalism.MainNotions.KappaEndpoints
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat
 
 section Rec
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 variable {D : D7} (X : TermTie D)
 
@@ -386,8 +378,6 @@ end HS
 
 section Rec
 
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
-
 variable {D : D7} (X : TermTie D)
 
 def Ineq2a (D : D7) {u u' : D.what₂.Word} (Φ : Set (D.s.Term u u')) (c : ℝ) : Prop :=
@@ -407,8 +397,6 @@ namespace Formalism.MainNotions.KappaEndpoints
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat Formalism.MainNotions.BridgeLemma
 
 section Rec
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 variable {D : D7} (X : TermTie D)
 
@@ -433,8 +421,6 @@ namespace Formalism.MainNotions.KappaEndpoints
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat Formalism.MainNotions.S.Cnt Formalism.MainNotions.BridgeLemma
 
 section Rec
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 variable {D : D7} (X : TermTie D)
 
@@ -492,8 +478,6 @@ open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S Formal
 open scoped nonZeroDivisors NumberField
 
 section Rec
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 variable (D : D7)
 
@@ -593,8 +577,6 @@ namespace Formalism.MainNotions.KappaEndpoints
 
 open Formalism.BasicNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat Formalism.MainNotions.S.Cnt
 
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
-
 end Formalism.MainNotions.KappaEndpoints
 
 end
@@ -606,8 +588,6 @@ open NumberField
 namespace Formalism.MainNotions.KappaEndpoints
 
 open Formalism.BasicNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat Formalism.MainNotions.LatticeGluingRadicals
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 section Gen
 
@@ -624,8 +604,6 @@ noncomputable section
 namespace Formalism.MainNotions.KappaEndpoints
 
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 end Formalism.MainNotions.KappaEndpoints
 
@@ -648,8 +626,6 @@ open NumberField
 namespace Formalism.MainNotions.KappaEndpoints
 
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat Formalism.MainNotions.LatticeGluingRadicals
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 section Gen
 
@@ -698,8 +674,6 @@ namespace Formalism.MainNotions.KappaEndpoints
 
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat Formalism.MainNotions.LatticeGluingRadicals Formalism.MainNotions.BridgeLemma
 
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
-
 section Det
 
 variable {E : Type} [Field E] [NumberField E] [StarRing E] {S : HSpace E} {r : ℕ} {T T' : E}
@@ -721,8 +695,6 @@ noncomputable section
 namespace Formalism.MainNotions.KappaEndpoints
 
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat Formalism.MainNotions.S.Cnt Formalism.MainNotions.BridgeLemma
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 section Same
 

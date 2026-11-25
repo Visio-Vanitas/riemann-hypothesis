@@ -1,7 +1,7 @@
 module
 
 public import Development.AbelianVarietyTheory.Definitions.Divisors.DlogRatioVolumeFormNeZero
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardAffineOpenRingPolynomialEquiv
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardAffineOpenRingPolynomialEquivStatement
 public import Mathlib.RingTheory.MvPolynomial.Ideal
 public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
 public import Mathlib.RingTheory.Trace.Quotient
@@ -9,7 +9,7 @@ public import Mathlib.RingTheory.Flat.Basic
 public import Mathlib.RingTheory.Flat.Stability
 public import Mathlib.RingTheory.LocalRing.Module
 public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.TcoMem
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.BoundaryChartHodgeMatrix
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteCoverChartSmoothNormal
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralClosureProjectiveOverStandardOpenRingStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardOpenCoordinateRingIsFractionRingIsNoetheStatement
 public import Mathlib.FieldTheory.IsAlgClosed.Basic
@@ -79,8 +79,6 @@ section -- clump:auto
 @[expose] public section
 
 open GlobalTheory GlobalTheory.PD GlobalTheory.CechDR KaehlerDifferential
-
-set_option autoImplicit false
 
 noncomputable section
 
@@ -241,8 +239,6 @@ section -- clump:auto
 
 open GlobalTheory GlobalTheory.PD GlobalTheory.CechDR KaehlerDifferential
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace GlobalTheory.PD.TraceOrigin
@@ -331,8 +327,6 @@ section -- clump:auto
 open GlobalTheory GlobalTheory.PD GlobalTheory.CechDR KaehlerDifferential
 open scoped TensorProduct
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace GlobalTheory.PD.FibTrace
@@ -392,8 +386,6 @@ section -- clump:auto
 @[expose] public section
 
 open CategoryTheory AlgebraicGeometry ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory GlobalTheory.CechDR GlobalTheory.PD KaehlerDifferential
-
-set_option autoImplicit false
 
 noncomputable section
 

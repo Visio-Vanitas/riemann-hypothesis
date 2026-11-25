@@ -2,8 +2,7 @@ module
 
 public import Development.AbelianVarietyTheory.Definitions.TorusSections.ExistsSecTie
 public import Formalism.LocalToGlobal.ProjectiveLattices.DataAtPointN3
-public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.ExtVStatement
-public import Development.AbelianVarietyTheory.Counterexamples.ModuliSurvey.PremisesOfProper
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.SemiAbelianModelDeterminedByGenericFibre
 public import Formalism.LocalToGlobal.ProjectiveLattices.ExtPtUnique
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

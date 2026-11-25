@@ -12,7 +12,7 @@ public import Mathlib.Algebra.Homology.ShortComplex.Ab
 public import Development.AbelianVarietyTheory.Definitions.Divisors.IndEtOfForallFinset
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ChosenInjectiveResolutionEtaleSheafBasicProperti
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExactAtOfProd
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HCXBijective
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HCXBijectiveStatement
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

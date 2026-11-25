@@ -3,10 +3,7 @@ module
 public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.StepHeightOfNormOne
 public import Formalism.LocalToGlobal.SiegelLatticeTheory.ClosedLocalOrbits.GaugeLatticeShifts.KExpCut
 public import Formalism.SharpRestriction.CuspSpanNormBounds.BesselShellMomentBounds
-import Formalism.FlagUnipotentLattices.UnipotentStabiliserCharacterisation
-import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.BlockMinorSumCounterexample
-import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.CircleIntegralInvSubEqZeroOfOutside
-import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.IntegrableOnIoiTruncatedPowerMoment
+import Formalism.FlagUnipotentLattices.AlgebraicIdentityHigherDegree
 public import Formalism.SharpRestriction.CuspSpanNormBounds.CayleyDegreeNondegeneracy.DifferentIdealMapNeBot
 public import Formalism.SharpRestriction.CuspSpanNormBounds.LatticeGluingRadicals
 
@@ -19,8 +16,6 @@ open NumberField Formalism.BasicNotions Formalism.MainNotions.S Formalism.MainNo
   Formalism.L2.SG.RowsConc Formalism.L2.SG.NGData Formalism.L2.SG.NGCut
 
 namespace Formalism.L2.SG.NGCut.PtPf
-
-attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 theorem frame_mem {D : D7} {Λ : Submodule (𝓞 D.host.E) (VS D).V} {T : D.host.E} (F : LFlag (D.sp.Y 0) D.R.rS T)
     (hz : F.fl.z ∈ Λ) (hX : XLam Λ F = XS D F.fl) (b : Fin (D.R.rS + 1)) : frame F b ∈ Λ := by

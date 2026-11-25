@@ -102,12 +102,6 @@ section Elementary
 
 variable {A : Type} [CommRing A] (π : A)
 
-theorem smodEq_span_iff {M : Type} [AddCommGroup M] [Module A M] (n : ℕ) (x y : M) :
-    x ≡ y [SMOD (Ideal.span {π} ^ n • ⊤ : Submodule A M)] ↔ ∃ z : M, π ^ n • z = x - y := by
-  rw [SModEq.sub_mem, Ideal.span_singleton_pow, Submodule.ideal_span_singleton_smul,
-    Submodule.mem_smul_pointwise_iff_exists]
-  simp
-
 theorem isAdicComplete_span_iff {M : Type} [AddCommGroup M] [Module A M] :
     IsAdicComplete (Ideal.span {π}) M ↔
       (∀ x : M, (∀ n : ℕ, ∃ z : M, π ^ n • z = x) → x = 0) ∧
@@ -536,7 +530,6 @@ end -- clump:auto
 section -- clump:auto
 @[expose] public section
 
-set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 set_option linter.unusedVariables false
 
@@ -926,8 +919,8 @@ theorem base_acris_zero_mem (u : (base l).Acr0) : u.1 ∈ ACris.ACrisZero ℂ_[l
     obtain ⟨k, rfl⟩ := hy
     refine Algebra.subset_adjoin ⟨k, ?_⟩
     have e : (base l).xi = xi0 l := wmap_id _
-    change dpw k (xi0 l) = dpw k (base l).xi
-    rw [e]
+    change ACris.dpow k (xi0 l) = dpw k (base l).xi
+    rw [dpow_eq_dpw, e]
   | algebraMap x => exact Subalgebra.algebraMap_mem _ _
   | add x y _ _ hx hy => exact add_mem hx hy
   | mul x y _ _ hx hy => exact mul_mem hx hy
@@ -952,12 +945,12 @@ theorem cris_ker (n : ℕ) (a : Acris l) (h : (base l).cris n a = 0) : ∃ b : A
     rw [hl, map_natCast, (base l).pow_l_acr]
   have hk : ∀ y : Acris0 l, (base l).cris n (algebraMap (Acris0 l) (Acris l) y) = 0 → ∃ c, y = c * (l : Acris0 l) ^ n := by
     intro y hy
-    rw [AdicCompletion.algebraMap_apply, cris_of] at hy
+    rw [cris_of'] at hy
     obtain ⟨c, hc⟩ := Ideal.mem_span_singleton'.1 (Ideal.Quotient.eq_zero_iff_mem.1 hy)
     obtain ⟨c', rfl⟩ := cris_zero_surjective c
     exact ⟨c', cris_zero_injective (Eq.symm (by rw [map_mul, map_pow, map_natCast]; exact hc))⟩
   obtain ⟨b, hb⟩ := adic_ker_of (l : Acris0 l) n ((base l).cris n) hx hk a h
-  exact ⟨b, by rw [hb, hl]⟩
+  exact ⟨b, by rw [← hl]; exact hb⟩
 
 end Rings
 
@@ -1548,7 +1541,6 @@ end -- clump:auto
 section -- clump:auto
 @[expose] public section
 
-set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 
 
@@ -1573,7 +1565,6 @@ end -- clump:auto
 section -- clump:auto
 @[expose] public section
 
-set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
