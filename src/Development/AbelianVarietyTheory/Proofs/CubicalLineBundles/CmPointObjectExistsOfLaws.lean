@@ -2,7 +2,7 @@ module
 
 public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.IsHolPeriods
 public import Development.AbelianVarietyTheory.Proofs.CubicalLineBundles.PureTypeVectorSpansQuadraticLattice
-public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.DatumExistsPeriod
+public import Development.AbelianVarietyTheory.Proofs.ToricGeometry.ExistsEquivOfSumEq
 public import Development.AbelianVarietyTheory.Definitions.CMLattices.IsDiffOf
 public import Mathlib.Basic.Complex.Basic
 public import Mathlib.NumberTheory.NumberField.Basic

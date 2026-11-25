@@ -5,7 +5,7 @@ public import Development.AbelianVarietyTheory.Definitions.Divisors.EightDvdNCol
 public import Development.AbelianVarietyTheory.Definitions.Divisors.PolyBetween
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.JetNumberQuotientBounds
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ThetaExponentsDominantLastEntryOneDegreeStatement
-public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.QuoShapeStatement
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.QuoShape
 public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.SizesStatement
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

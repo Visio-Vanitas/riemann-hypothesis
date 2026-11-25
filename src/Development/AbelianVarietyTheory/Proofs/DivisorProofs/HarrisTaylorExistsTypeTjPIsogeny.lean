@@ -5,7 +5,8 @@ public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LiftSystemRe
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.GermSystemHeightFree
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.CardTorsionKilledByIdealCharZero
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsPairing
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegersSurjectiveOfRankOne
+public import Development.AbelianVarietyTheory.Definitions.Divisors.NotCompactOfMEqOne
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.BiholomorphicLiftSystem
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

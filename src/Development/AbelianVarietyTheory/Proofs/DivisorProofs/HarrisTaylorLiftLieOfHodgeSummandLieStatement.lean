@@ -11,7 +11,7 @@ public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Cry
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.AbelianSchemeFirstDeRhamStructure
 public import Mathlib.Data.Matrix.Mul
 public import Mathlib.Data.Matrix.Basic
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsTangentCoordsBaseChangeSmoothCommGroupStatement
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsTangentCoordsBaseChangeSmoothCommGroup
 public import Development.AbelianVarietyTheory.Definitions.Divisors.NotCompactOfMEqOne
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

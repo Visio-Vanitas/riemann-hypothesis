@@ -30,7 +30,9 @@ public import Development.WeilBound.ThetaLifts.CartanFactorisation.TensOfEval
 public import Development.WeilBound.ThetaLifts.LatticeBasics.LocUnrInert
 public import Development.WeilBound.ThetaLifts.LocalTheory.ConeShifts.ActsRhoFin
 public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.ThetaParseval.ThetaKernels.TPGDecomp
-public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.MeasurableSetIntF
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
+public import Mathlib.LinearAlgebra.Countable
 public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.ThetaParseval.ThetaKernels.TPGBumpAny
 public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.ThetaParseval.ThetaKernels.TPGDatum
 public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.ThetaParseval.ThetaKernels.TPGLiftAut

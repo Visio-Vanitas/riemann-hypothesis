@@ -66,7 +66,8 @@ import Formalism.HermitianCurvature.HermitianCurvatureProofs.TriangularFactorMid
 import Mathlib.Tactic.Basify
 import Mathlib.Tactic.ENatToNat
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.LeadingTermIdentity
-import Formalism.HermitianCurvature.HermitianCurvatureProofs.OperatorsCommuteTranslations
+import Formalism.HermitianCurvature.OperatorsCommuteTranslations
+import Formalism.PeriodIntegrals.OrbitalBoundsConclusion.AAInvTrans
 import Mathlib.Algebra.Order.Star.Real
 import Std.Tactic.BVDecide.Normalize.Prop
 

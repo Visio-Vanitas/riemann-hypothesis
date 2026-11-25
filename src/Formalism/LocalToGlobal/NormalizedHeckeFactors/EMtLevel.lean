@@ -4,7 +4,7 @@ public import Formalism.LocalToGlobal.GaloisLevelStructure.TiedGal
 public import Formalism.LocalToGlobal.GaloisLevelStructure.TiedLevel
 public import Formalism.LocalToGlobal.GaloisLevelStructure.DefsAutLoc
 public import Formalism.LocalToGlobal.UnitaryNorms.CharTied
-public import Formalism.LocalToGlobal.NormalizedHeckeFactors.NormalizedHeckeData
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
 public import Formalism.LocalToGlobal.NormalizedHeckeFactors.TwoPowS0EqTwoPartModulus
 public import Formalism.LocalToGlobal.NormalizedHeckeFactors.HeckeStdTwOfStd
 public import Formalism.LocalToGlobal.NormalizedHeckeFactors.RingSpecSidedEmbeddingFixedField
