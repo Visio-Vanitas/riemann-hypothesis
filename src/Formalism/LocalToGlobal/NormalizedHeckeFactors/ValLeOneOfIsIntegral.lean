@@ -1,7 +1,7 @@
 module
 
 public import Formalism.LocalToGlobal.NormalizedHeckeFactors.RhoDefs
-public import Formalism.LocalToGlobal.NormalizedHeckeFactors.NormalizedHeckeData
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
 public import Mathlib.RingTheory.DedekindDomain.Factorization
 
 @[expose] public section
