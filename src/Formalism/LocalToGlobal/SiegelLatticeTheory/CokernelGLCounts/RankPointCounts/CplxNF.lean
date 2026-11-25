@@ -4,7 +4,9 @@ public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankP
 public import Formalism.SharpRestriction.CuspSpanNormBounds.BruhatCellsKronecker.CellFin
 public import Formalism.SharpRestriction.CuspSpanNormBounds.BruhatCellsKronecker.SplittingAdmissibleOfTermData
 public import Formalism.SharpRestriction.CuspSpanNormBounds.KappaEndpoints
-public import Formalism.FlagUnipotentLattices.AutBoundOfMinkowskiBound
+public import Formalism.FlagUnipotentLattices.MemOfOrthogonalAnisotropic
+public import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.ExistsHasLeadingCoeffOfMemSpanBelow
+public import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.MinkowskiNumberDvdFactorial
 
 @[expose] public section
 

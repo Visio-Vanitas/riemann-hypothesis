@@ -23,7 +23,8 @@ import Formalism.HermitianCurvature.HermitianCurvatureProofs.StrictMonoSnoc
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.ThirdPolynomialExpansion
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.TriangularFactorMiddleRow
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.LeadingTermIdentity
-import Formalism.HermitianCurvature.HermitianCurvatureProofs.OperatorsCommuteTranslations
+import Formalism.HermitianCurvature.OperatorsCommuteTranslations
+import Formalism.PeriodIntegrals.OrbitalBoundsConclusion.AAInvTrans
 import Mathlib.Algebra.Order.Star.Real
 
 -- This file was produced by scripts/clump.py from the modules listed below.

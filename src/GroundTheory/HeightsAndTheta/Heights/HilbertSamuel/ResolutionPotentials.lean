@@ -3,7 +3,6 @@ module
 public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.ResolutionMetricObjects
 public import Mathlib.Analysis.SpecialFunctions.Complex.Analytic
 public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovGeometry.AMixSt
-import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovGeometry.AParamStA
 
 @[expose] public section
 

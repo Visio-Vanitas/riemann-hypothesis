@@ -10,7 +10,7 @@ public import Formalism.LocalToGlobal.GlobalTheory.GL3.CubicFields.WeierstrassUn
 public import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.EndInt
 public import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.PhNorm
 public import Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.NonsingularJetNorms.TransW
-public import Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.ShiftAnalyticW
+public import Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.NonsingularJetNorms.AnaSysW
 public import Formalism.LocalToGlobal.TorsionIntegrality.UniformGaussModels.OrthogonalGaussModels.NormLeOneOfQuad
 public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExpMvNegLogMvMul
 public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.TaylorDiscriminants.WickVanishing.CalcExp
@@ -41,7 +41,6 @@ import Formalism.LocalToGlobal.TorsionIntegrality.RamifiedCurveKernels.PairedSqu
 import Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.BinomialSeriesCoefficients.Points
 import Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.CurveSecondLogDerivative
 import Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.PhNormFromDatum
-import Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.NonsingularJetNorms.AnaSysW
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

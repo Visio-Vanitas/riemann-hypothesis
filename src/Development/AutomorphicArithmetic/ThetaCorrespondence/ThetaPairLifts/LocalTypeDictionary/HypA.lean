@@ -55,7 +55,7 @@ import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.NoFormsOff
 import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.OffRange
 import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.FunKilled
 import Development.AutomorphicArithmetic.PrimeDiscriminants.Scales
-import Formalism.SharpRestriction.InertJacobiLevels.ExtraGat
+import Formalism.SharpRestriction.GrowthBounds.DataG
 public import Formalism.SharpRestriction.LevelLetterCocycles.IntegralHeckeForms
 
 @[expose] public section

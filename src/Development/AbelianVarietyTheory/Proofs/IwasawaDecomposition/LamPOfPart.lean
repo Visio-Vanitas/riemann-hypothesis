@@ -73,7 +73,7 @@ import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Strict
 import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.SetUnipotentTranslate
 import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.FunKilled
 import Development.AutomorphicArithmetic.PrimeDiscriminants.Scales
-import Formalism.SharpRestriction.InertJacobiLevels.ExtraGat
+import Formalism.SharpRestriction.GrowthBounds.DataG
 
 -- This file was produced by scripts/clump.py from the modules listed below.
 -- Members: Development.AbelianVarietyTheory.Proofs.SatakeParameters.HeckeThetaLiftTwistedModelIffUntwisted, Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExtVMemLevSubVOfLift, Development.AbelianVarietyTheory.Proofs.TwistedOperators.GWEqChiSmul, Development.AbelianVarietyTheory.Proofs.TwistedOperators.ThGEquiv, Development.AbelianVarietyTheory.Proofs.TwistedOperators.TranslateLiftLinearIsometry, Development.AbelianVarietyTheory.Proofs.TwistedOperators.LambdaPrimeEqLambdaThree, Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.LamPOfPart

@@ -74,7 +74,6 @@ import Mathlib.Tactic.NormNum.Parity
 import Mathlib.Tactic.NormNum.Prime
 import Mathlib.Tactic.NormNum.RealSqrt
 import Mathlib.Topology.Sheaves.Init
-import Formalism.HermitianCurvature.HermitianCurvatureProofs.DegreeOfProdLinearLe
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.BlockOfChoices
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.LagrangeExtraction
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.LeftFubiniNormalizedTower

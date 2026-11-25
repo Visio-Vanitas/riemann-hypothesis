@@ -1,7 +1,8 @@
 module
 
 public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.InterSt
-public import Lemmata.GeneralBFactTerForm.Imports
+public import Mathlib.Data.ENat.Basic
+public import Mathlib.Data.ENat.Monoid
 import Mathlib.Order.CompletePartialOrder
 public import Mathlib.RingTheory.GradedAlgebra.Radical
 public import Mathlib.RingTheory.Ideal.KrullsHeightTheorem

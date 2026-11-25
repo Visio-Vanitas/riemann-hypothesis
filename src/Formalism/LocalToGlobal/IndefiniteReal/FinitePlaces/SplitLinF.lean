@@ -73,7 +73,8 @@ import Mathlib.RingTheory.SimpleRing.Principal
 import Mathlib.RingTheory.WittVector.IsPoly
 import Mathlib.Tactic.TypeStar
 import Mathlib.Algebra.Module.StablyFree.Basic
-import Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.EFinSmulEqOfFinPart
+import Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.SobDer
+import Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.AdlEqZeroOfMemNbhd
 import Mathlib.Tactic.Linter.Style
 import Formalism.LocalToGlobal.IndefiniteReal.FinitePlaces.FourExist
 import Formalism.LocalToGlobal.IndefiniteReal.FinitePlaces.PlaceSum

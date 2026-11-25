@@ -2,7 +2,10 @@ module
 
 public import Formalism.SharpRestriction.CuspSpanNormBounds.BesselShellMomentBounds
 public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.ThmBUse
-import Formalism.FlagUnipotentLattices.AlgebraicIdentityHigherDegree
+import Formalism.FlagUnipotentLattices.UnipotentStabiliserCharacterisation
+import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.BlockMinorSumCounterexample
+import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.CircleIntegralInvSubEqZeroOfOutside
+import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.IntegrableOnIoiTruncatedPowerMoment
 import Mathlib.Tactic.TypeStar
 
 @[expose] public section

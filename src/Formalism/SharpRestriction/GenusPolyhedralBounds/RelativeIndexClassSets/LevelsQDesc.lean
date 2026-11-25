@@ -1,7 +1,7 @@
 module
 
 public import Formalism.FilteredPoleLength.ReducedBasisBounds.BetaSesquilinearity
-public import Formalism.LogFactorialIndices.LogProductFormula
+public import Formalism.LogFactorialIndices.SignedSubspaceIndex.IdxDet
 public import Lemmata.MiscLemmasO.Imports
 public import Mathlib.RingTheory.TensorProduct.IsBaseChangeFree
 public import Formalism.LogFactorialIndices.SignedSubspaceIndex.IdxBase

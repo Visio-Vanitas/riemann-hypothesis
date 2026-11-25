@@ -17,7 +17,11 @@ public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.PadicIsNo
 public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NontrivialTwJacquetOfSurjective
 public import Development.AbelianVarietyTheory.Definitions.Foundations.IsHilbertSchmidtOfFiniteDimensional
 public import Mathlib.Algebra.Module.Lattice.Full
-public import Formalism.PadicSubsetSums.StableGradedCounts.BaseChangeIwahoriFactorization
+public import Mathlib.Algebra.Algebra.Operations
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.RingTheory.LocalRing.MaximalIdeal.Defs
+public import Lemmata.FirstBlockLemmaG.Imports
+public import Lemmata.MiscLemmasA.Imports
 public import Mathlib.Analysis.CStarAlgebra.Classes
 public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
 public import Mathlib.MeasureTheory.Function.L1Space.Integrable
