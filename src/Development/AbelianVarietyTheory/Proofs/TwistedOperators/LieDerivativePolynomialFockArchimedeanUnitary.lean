@@ -352,6 +352,7 @@ section -- clump:auto
 open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
 open scoped Matrix
 open scoped Classical
+open GlobalTheory.WeilM
 
 namespace GlobalTheory.ArchLineContPair
 

@@ -736,6 +736,7 @@ section Split
 
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum GlobalTheory.WeilParts IsDedekindDomain NumberField
 open GlobalTheory.IdemModTwo GlobalTheory.Member GlobalTheory.UnRep GlobalTheory.UnitarySplit GlobalTheory.SplitCharTrivial
+open scoped TensorProduct
 
 variable {D : D7} {V : HSp D} (H : Subgroup (GA D V))
 
@@ -796,6 +797,7 @@ section Key
 
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum GlobalTheory.WeilParts IsDedekindDomain NumberField
 open GlobalTheory.IdemModTwo GlobalTheory.Member GlobalTheory.UnRep GlobalTheory.UnitarySplit GlobalTheory.SplitCharTrivial
+open scoped TensorProduct
 
 variable {D : D7} {V : HSp D}
 
@@ -836,6 +838,7 @@ section Reflection
 
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum GlobalTheory.WeilParts IsDedekindDomain NumberField
 open GlobalTheory.IdemModTwo GlobalTheory.Member GlobalTheory.UnRep GlobalTheory.UnitarySplit GlobalTheory.SplitCharTrivial
+open scoped TensorProduct
 
 variable {D : D7} {V : HSp D} (H : Subgroup (GA D V))
 
@@ -916,6 +919,7 @@ section Rat
 
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum GlobalTheory.WeilParts IsDedekindDomain NumberField
 open GlobalTheory.IdemModTwo GlobalTheory.Member GlobalTheory.UnRep GlobalTheory.UnitarySplit GlobalTheory.SplitCharTrivial
+open scoped TensorProduct
 
 variable {D : D7} {V : HSp D} (H : Subgroup (GA D V))
 
@@ -1020,6 +1024,8 @@ open GlobalTheory.RowEx MeasureTheory
 open scoped TensorProduct
 
 section Reformulated
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta
+open IsDedekindDomain NumberField Formalism.IndefR.Datum
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 noncomputable section

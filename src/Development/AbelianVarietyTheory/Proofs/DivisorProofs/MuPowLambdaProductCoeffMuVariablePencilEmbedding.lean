@@ -371,7 +371,10 @@ namespace GlobalTheory
 
 theorem optionEquivLeft_rename_some_complex_eq_C {τ : Type} (c : MvPolynomial τ ℂ) :
     MvPolynomial.optionEquivLeft ℂ τ (MvPolynomial.rename some c) = Polynomial.C c := by
-  apply _root_.GlobalTheory.pencil_optionEquivLeft_rename_some <;> assumption
+  induction c using MvPolynomial.induction_on with
+  | C a => rw [MvPolynomial.rename_C, MvPolynomial.optionEquivLeft_C, Polynomial.C_eq_algebraMap]
+  | add p q hp hq => rw [map_add (f := _), map_add (f := _), hp, hq, Polynomial.C_add]
+  | mul_X p n hp => rw [map_mul, map_mul, hp, MvPolynomial.rename_X, MvPolynomial.optionEquivLeft_X_some, Polynomial.C_mul]
 
 theorem coeff_optionEquivLeft_extDerivation {τ : Type}
     (E : Derivation ℂ (MvPolynomial τ ℂ) (MvPolynomial τ ℂ)) (k : ℕ) (s : MvPolynomial (Option τ) ℂ) :

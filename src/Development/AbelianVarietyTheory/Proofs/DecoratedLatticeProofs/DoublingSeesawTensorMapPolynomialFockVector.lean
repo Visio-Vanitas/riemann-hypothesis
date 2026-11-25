@@ -1,6 +1,5 @@
 module
 
-import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FockVectorNegHermitianSpaceConjMonomial
 public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.SphericalVolumeLift
 public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.SphericalZero
 public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.EqZeroOfLintegralEqZero
@@ -114,7 +113,16 @@ variable {D : D7} {θ : InfFam D} {ψ : AddChar (AF D.host.F) ℂ}
 
 theorem lineAt_neg (hθ : IsInfFam θ) {m n : ℕ} (τ : D.what₂.Tau) (z : Matrix (Fin m) (Fin n) ℂ) :
     lineAt θ τ (-z) = -lineAt θ τ z := by
-  apply _root_.GlobalTheory.FockConj.lineAt_neg <;> assumption
+  have hL := isLineAt_lineAt hθ τ z
+  refine GlobalTheory.RealLineAt.lineAt_unique D θ hθ _ _ τ _ _ _ (isLineAt_lineAt hθ τ _) ⟨?_, fun t => ?_, fun t τ' => ?_⟩
+  · have e : ⇑(-lineAt θ τ z) = fun t => lineAt θ τ z (-t) := by
+      funext t; rw [AddMonoidHom.neg_apply, map_neg]
+    rw [e]
+    exact hL.1.comp continuous_neg
+  · rw [AddMonoidHom.neg_apply, ← map_neg]
+    exact hL.2.1 _
+  · rw [AddMonoidHom.neg_apply, ← map_neg, hL.2.2]
+    simp
 
 theorem lineAt_col (hθ : IsInfFam θ) {m n k : ℕ} (c : Fin k → Fin n) (τ : D.what₂.Tau) (z : Matrix (Fin m) (Fin n) ℂ)
     (t : ℝ) : lineAt θ τ (z.submatrix id c) t = (lineAt θ τ z t).submatrix id c := by

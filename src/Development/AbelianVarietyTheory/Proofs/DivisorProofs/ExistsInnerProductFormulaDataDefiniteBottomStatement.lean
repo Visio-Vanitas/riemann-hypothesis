@@ -1,6 +1,5 @@
 module
 
-import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HeckeFormAnisoOfGlobalEuler
 public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.NormSmall
 public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.SphericalVolumeLift
 public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.EventuallyCongOne
@@ -527,7 +526,11 @@ private theorem inId_mul {b a c : ℕ} {I : Ideal (𝓞 D.host.E)} {N : Matrix (
 
 private theorem topL_mul {b a : ℕ} (N : Matrix (Fin b) (Fin a) (Lev.EAf D)) (κ : Matrix (Fin a) (Fin a) (Lev.EAf D)) :
     topL a (N * κ) = topL a N * κ := by
-  apply _root_.UpperTheory.upperRows_mul_right <;> assumption
+  ext i j
+  simp only [topL, Matrix.mul_apply]
+  by_cases hi : i.1 < b
+  · simp [hi]
+  · simp [hi]
 
 private theorem det_int {k : ℕ} {N : Matrix (Fin k) (Fin k) (Lev.EAf D)} (hN : IsIntM N) : N.det ∈ OO := by
   let A : Matrix (Fin k) (Fin k) OO := fun i j => ⟨N i j, hN i j⟩
@@ -1514,7 +1517,22 @@ private theorem nuH_not_unrAt_iff {μ₀ : T} (hL : L.Is μ₀) (G : GridData L 
 
 private theorem prod_range_sub (f : ℤ → ℂ) (a h : ℕ) (e : ℤ) (he : (a : ℤ) = h + e) :
     ∏ i ∈ Finset.range a, f ((h : ℤ) - i) = ∏ s ∈ Finset.Icc (1 - e) (h : ℤ), f s := by
-  apply _root_.GlobalTheory.BottomRallis.prod_range_sub_eq_prod_Icc <;> assumption
+  refine Finset.prod_nbij' (fun i => (h : ℤ) - i) (fun s => ((h : ℤ) - s).toNat) ?_ ?_ ?_ ?_ ?_
+  · intro i hi
+    simp only [Finset.mem_range] at hi
+    simp only [Finset.mem_Icc]
+    omega
+  · intro s hs
+    simp only [Finset.mem_Icc] at hs
+    simp only [Finset.mem_range]
+    omega
+  · intro i _
+    simp
+  · intro s hs
+    simp only [Finset.mem_Icc] at hs
+    omega
+  · intro i _
+    rfl
 
 private theorem bot_ranks (D : D7) (i j : ℕ) : 1 ≤ botSmall D i j ∧ botBig D i j + botSmall D i j = 2 * h0 D i j ∧
     botBig D i j = h0 D i j + e0 D i j := by

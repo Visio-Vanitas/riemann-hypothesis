@@ -55,6 +55,7 @@ open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalC
 open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.UPel.HT
 
 open scoped CategoryTheory.Obj CategoryTheory.MonObj
+attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace GlobalTheory.SwapPairing
 

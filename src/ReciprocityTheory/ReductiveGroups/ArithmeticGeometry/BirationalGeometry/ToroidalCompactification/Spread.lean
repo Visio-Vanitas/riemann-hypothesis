@@ -20,6 +20,8 @@ open scoped CategoryTheory.Obj
 
 namespace ReciprocityTheory.ChartRestriction.G.Chart
 
+attribute [local instance] Over.cartesianMonoidalCategory
+
 variable {R : Type} [CommRing R] {G : Over (Spec (CommRingCat.of R))} [GrpObj G]
 
 

@@ -4,7 +4,8 @@ public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
 public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsContinuousPadic
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.AdelicUnitaryTopology
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.DefiniteThetaIntegralIntegrableContinuous
-import Development.AbelianVarietyTheory.Proofs.TwistedOperators.DefiniteUnitaryCocompact
+import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBoundUnitary
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

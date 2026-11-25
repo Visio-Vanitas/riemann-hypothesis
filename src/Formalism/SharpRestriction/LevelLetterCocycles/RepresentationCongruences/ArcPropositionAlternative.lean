@@ -12,7 +12,7 @@ public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongr
 public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.TsumThree
 public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.ArcLengthFourDenominator
 public import Formalism.SharpRestriction.LevelLetterCocycles.LetterConditionGlobal
-public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.ArcBasic
+public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.LenTLeThree
 public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.ArcLengthOneOrTwoCaseB
 public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.ArcLengthThreeCaseC
 public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.ArcLengthThreeCaseD
@@ -936,7 +936,15 @@ variable [FiniteDimensional Qp LL]
 theorem lifts_shift (W : LocWach PD LL O v n) (A : ArcP n) {T₁ T₂ : LocLat G Qp LL O} (F : LatHom T₁.L T₂.L)
     (c : ZMod n) {d : ℕ} (b : Fin d → W.DD T₂) (sol : Fin d → ℕ → Fin d → LL) (k₀ : Fin d) {f : W.EE} {s e : ℕ}
     (h : LiftsAt W A F c b sol k₀ (lE W s * f) e) : LiftsAt W A F c b sol k₀ f (e + s) := by
-  exact ArcLengthTwo.lifts_scale W A F c b sol k₀ h
+  obtain ⟨w₁, z, h1, h2, h3, h4, h5⟩ := h
+  refine ⟨w₁, z, h1, h2, h3, h4, ?_⟩
+  have hfun : (fun k => if k = k₀ then lE W (e + s) * f else 0) =
+      (fun k => if k = k₀ then lE W e * (lE W s * f) else 0) := by
+    funext k
+    split_ifs
+    · simp only [lE, pow_add]; ring
+    · rfl
+  rw [hfun]; exact h5
 
 theorem exists_exponent_le_liftsAt_arcOf [NeZero n] [Fintype (K →ₐ[Qp] LL)] [IsDomain O] [IsDiscreteValuationRing O] [IsAdicComplete (IsLocalRing.maximalIdeal O) O] (W : LocWach PD LL O v n) (hcase : Formalism.MainNotions.LiftingTheory.CaseA W)
     {T₁ T₂ : LocLat G Qp LL O} (F : LatHom T₁.L T₂.L) {b w S η m : ℕ} {up : ZMod n → Bool}

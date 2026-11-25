@@ -4,7 +4,7 @@ public import Development.AbelianVarietyTheory.Definitions.Divisors.OrthSubrepre
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.BaseChangeLiftClassFunction
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.CardIsGaloisTwistedNormGLMulCardGLStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EveryElementIsNorm
-import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsConjOfIsConjGlFieldExtensionInclusionStatement
+import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsConjOfIsConjGlFieldExtensionInclusion
 import Mathlib.Algebra.Group.ConjFinite
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

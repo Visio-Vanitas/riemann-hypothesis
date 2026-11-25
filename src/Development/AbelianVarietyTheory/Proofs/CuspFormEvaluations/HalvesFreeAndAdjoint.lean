@@ -396,6 +396,7 @@ open ReciprocityTheory.ChartRestriction.G.Geo.Tor hiding Level
 open GlobalTheory.SW hiding Level
 open Formalism.L2.Pj Formalism.L2.PjFree
 open scoped ComplexConjugate Classical
+attribute [local instance] Over.cartesianMonoidalCategory
 open GlobalTheory.Dict
 
 namespace GlobalTheory.ShortVal.Coeff

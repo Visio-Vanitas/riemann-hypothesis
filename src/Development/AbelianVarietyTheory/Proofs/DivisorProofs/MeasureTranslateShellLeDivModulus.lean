@@ -428,7 +428,10 @@ namespace GlobalTheory.ResLine.LowerAverage
 
 theorem countable_subgroupOf {G : Type} [Group G] (Λ N : Subgroup G) [Countable Λ] :
     Countable (Λ.subgroupOf N) := by
-  apply _root_.GlobalTheory.ResLine.countable_subgroupOf_of_countable <;> assumption
+  refine Function.Injective.countable
+    (f := fun x : Λ.subgroupOf N => (⟨x.1.1, Subgroup.mem_subgroupOf.1 x.2⟩ : Λ)) ?_
+  intro x y h
+  exact Subtype.ext (Subtype.ext (congrArg (fun z : Λ => (z : G)) h))
 
 theorem right_of_closed {G : Type} [Group G] [TopologicalSpace G] [IsTopologicalGroup G]
     [LocallyCompactSpace G] [SecondCountableTopology G] [MeasurableSpace G] [BorelSpace G]

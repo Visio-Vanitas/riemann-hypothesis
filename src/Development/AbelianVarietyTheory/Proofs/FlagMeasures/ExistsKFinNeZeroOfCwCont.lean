@@ -6,7 +6,8 @@ public import Mathlib.Analysis.Normed.Module.HahnBanach
 public import Mathlib.MeasureTheory.Function.L2Space
 public import Development.AbelianVarietyTheory.Definitions.Jets.SumIoPrAlt
 public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.CoefExtendsHolomorphically
-import Development.AbelianVarietyTheory.Proofs.JetHarmonics.DerivedActionDiscreteSeriesPropertiesStatement
+import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
+import Development.AbelianVarietyTheory.Proofs.JetHarmonics.DerivedActionDiscreteSeriesProperties
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

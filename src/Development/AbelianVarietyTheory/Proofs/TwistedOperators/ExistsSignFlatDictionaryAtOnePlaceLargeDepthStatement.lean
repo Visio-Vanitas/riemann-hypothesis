@@ -120,6 +120,7 @@ noncomputable section
 
 namespace GlobalTheory.FlatPlace
 
+open GlobalTheory.LocMod (Place Frame)
 
 section Entries
 
@@ -378,6 +379,7 @@ noncomputable section
 
 namespace GlobalTheory.FlatPlaceLoc
 
+open GlobalTheory.FlatPlace GlobalTheory.LocMod
 
 variable {D : D7}
 
@@ -432,6 +434,7 @@ end GlobalTheory.FlatPlaceLoc
 
 namespace GlobalTheory.FlatPlaceLoc
 
+open GlobalTheory.FlatPlace GlobalTheory.LocMod
 
 variable {D : D7}
 
@@ -803,7 +806,10 @@ namespace GlobalTheory.FlatScal
 
 noncomputable section
 
+open GlobalTheory.LocMod (Place Frame IsOne)
+open GlobalTheory.SplitWeil (SB)
 open GlobalTheory.SplitFlip (Grid Edge oppositePath gdet)
+open GlobalTheory.FlatPlace
 
 section Local
 

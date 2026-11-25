@@ -158,5 +158,6 @@ open MonoidalCategory CartesianMonoidalCategory MonObj NumberField MeasureTheory
 open ReciprocityTheory.ChartRestriction.G.Out ReciprocityTheory.GeometryOfNumbersTheory
 open GlobalTheory.LieHt GlobalTheory.Cartier GlobalTheory.ThetaOnto
 open scoped CategoryTheory.Obj
+attribute [local instance] Over.cartesianMonoidalCategory
 
 end GlobalTheory.VerticalUnit

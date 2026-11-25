@@ -14,7 +14,8 @@ import Formalism.HermitianCurvature.HermitianCurvatureProofs.FsvMulFsvNeg
 import Mathlib.Tactic.TypeStar
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.SfiniteOfIsHaarOn
 import Mathlib.Algebra.Order.Star.Real
-import Formalism.HermitianCurvature.HermitianCurvatureProofs.HasFDerivAtFsvSelf
+import Formalism.HermitianCurvature.CompositeFormulaLevelZero
+import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.HermMulVecMulVec
 import Mathlib.Order.CompletePartialOrder
 

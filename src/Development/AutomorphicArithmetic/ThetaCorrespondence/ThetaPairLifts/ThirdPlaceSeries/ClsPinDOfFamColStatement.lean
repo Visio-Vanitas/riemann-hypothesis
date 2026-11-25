@@ -16,7 +16,8 @@ public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Int
 public import Formalism.LocalRingCardinality.PosOfIsomEmb
 public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.TopLevExists
 public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.SplitPart
-public import Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.UnitTraceSumBounds.GoodLatCM
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.DirichletDensity.DirichletDensityProofs.QuadDiscr
 public import Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.UnitTraceSumBounds.StmtTransInvHolds
 public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.RealOf
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.PureTensorOZeroEqJetP

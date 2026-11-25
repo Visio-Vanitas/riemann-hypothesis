@@ -81,6 +81,7 @@ end General
 
 section Cols
 
+attribute [local instance] GlobalTheory.Mem.Col2.starE
 
 variable {B : Base} {px : PreX B.toPre} (I : ColIn B px)
 
@@ -102,6 +103,7 @@ end Forms
 
 section Crd
 
+attribute [local instance] GlobalTheory.Mem.Col2.starE
 
 def IsCrd {B : Base} {px : PreX B.toPre} (I : ColIn B px) (hX : B.fields.Ok) (a : I.ι) {V M : Type} [AddCommGroup M] [Module ℂ M]
     (e : Df.MtCx I a ≃ₗ[ℂ] M) (y : V) (v : M) : Prop :=

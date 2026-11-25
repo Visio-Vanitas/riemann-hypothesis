@@ -46,6 +46,7 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.S
 open GlobalTheory.ZH
 open scoped CategoryTheory.Obj
 open MonObj
+attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace GlobalTheory.UnifTorsK
 

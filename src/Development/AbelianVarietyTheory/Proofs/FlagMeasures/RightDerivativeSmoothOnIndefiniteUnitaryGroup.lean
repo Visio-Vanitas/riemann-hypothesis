@@ -46,7 +46,6 @@ import Mathlib.Tactic.Polynomial.Basic
 import Mathlib.Tactic.ReduceModChar
 import Mathlib.Topology.Sheaves.Init
 import Mathlib.Topology.UniformSpace.Matrix
-import Development.AbelianVarietyTheory.Proofs.TwistedOperators.LowerKTypesPTensorStableUnderK
 
 @[expose] public section
 
@@ -109,7 +108,15 @@ theorem inUH_mul {H a b : Matrix (Fin n) (Fin n) ℂ} (ha : inUH H a) (hb : inUH
 set_option backward.isDefEq.respectTransparency false in
 theorem hasDerivAt_exp_entry (X : Matrix (Fin n) (Fin n) ℂ) (i j : Fin n) :
     HasDerivAt (fun t : ℝ => NormedSpace.exp ((t : ℂ) • X) i j) (X i j) 0 := by
-  apply _root_.GlobalTheory.SphJet.vmstab_hasDerivAt_entry <;> assumption
+  open scoped Matrix.Norms.Operator in
+  have h : HasDerivAt (fun t : ℝ => NormedSpace.exp (t • X)) (NormedSpace.exp ((0 : ℝ) • X) * X) 0 :=
+    hasDerivAt_exp_smul_const (𝕂 := ℝ) X 0
+  open scoped Matrix.Norms.Operator in
+  let L : Matrix (Fin n) (Fin n) ℂ →L[ℝ] ℂ := LinearMap.toContinuousLinearMap (Matrix.entryLinearMap ℝ ℂ i j)
+  open scoped Matrix.Norms.Operator in
+  have h2 := L.hasFDerivAt.comp_hasDerivAt (0 : ℝ) h
+  simp only [zero_smul, NormedSpace.exp_zero, one_mul] at h2
+  exact h2
 
 attribute [local instance] Matrix.normedAddCommGroup Matrix.normedSpace
 

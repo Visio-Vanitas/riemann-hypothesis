@@ -88,6 +88,11 @@ private theorem diagIn_push (φ : R →ₐ[O] R') {η : D →* ℤˣ} {Ψ : D �
 
 variable [IsLocalRing R] [IsLocalRing R']
 
+private theorem map_mem_max (φ : R →ₐ[O] R') [IsLocalHom φ] {x : R} (hx : x ∈ maximalIdeal R) :
+    φ x ∈ maximalIdeal R' := by
+  rw [mem_maximalIdeal, mem_nonunits_iff] at hx ⊢
+  exact fun hu => hx (isUnit_of_map_unit φ x hu)
+
 private theorem inHat_push (φ : R →ₐ[O] R') [IsLocalHom φ] {h : GL (Fin 3) R} (H : InHat h) :
     InHat (GeneralLinearGroup.map (φ : R →+* R') h) := by
   unfold InHat CongOne EntIn at *
@@ -99,7 +104,7 @@ private theorem inHat_push (φ : R →ₐ[O] R') [IsLocalHom φ] {h : GL (Fin 3)
     rw [Matrix.one_apply, Matrix.one_apply]
     split_ifs <;> simp
   rw [e]
-  exact map_nonunit (φ : R →+* R') _ (H a b)
+  exact map_mem_max φ (H a b)
 
 private theorem adicCont_push [TopologicalSpace D] (φ : R →ₐ[O] R') [IsLocalHom φ]
     {r : D →* GG (m := 3) (R := R)}
@@ -111,7 +116,7 @@ private theorem adicCont_push [TopologicalSpace D] (φ : R →ₐ[O] R') [IsLoca
     have h1 : Ideal.map (φ : R →+* R') (maximalIdeal R) ≤ maximalIdeal R' := by
       rw [Ideal.map_le_iff_le_comap]
       intro y hy
-      exact map_nonunit (φ : R →+* R') _ hy
+      exact map_mem_max φ hy
     have h2 : Ideal.map (φ : R →+* R') (maximalIdeal R ^ n) ≤ maximalIdeal R' ^ n := by
       rw [Ideal.map_pow]
       exact Ideal.pow_right_mono h1 n
@@ -145,7 +150,7 @@ theorem UpperTheory.V.UnitaryThreeInertia.isPt_push :
     exact hm g
   · intro g a b
     rw [Matrix.sub_apply, hpm, Matrix.map_apply, Matrix.map_apply, ← AlgHom.commutes φ, ← map_sub]
-    apply map_nonunit (φ : R →+* R')
+    apply map_mem_max φ
     have := hr.red g a b
     rwa [Matrix.sub_apply, Matrix.map_apply] at this
   · intro v

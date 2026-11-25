@@ -52,6 +52,10 @@ noncomputable section
 
 namespace FunctorialResolution.EmbeddedResolution
 
+private theorem generalizingMap_of_flat {X Y : Scheme.{u}} (f : X ⟶ Y) [AlgebraicGeometry.Flat f] :
+    GeneralizingMap (fun x : ↥X => f x) :=
+  AlgebraicGeometry.Flat.generalizingMap f
+
 theorem closure_image_mem_irreducibleComponents_of_generalizingMap
     {X Y : Scheme.{u}} (f : X ⟶ Y) (hf : GeneralizingMap (fun x : ↥X => f x))
     {C : Set ↥X} (hC : C ∈ irreducibleComponents ↥X) :
@@ -128,7 +132,7 @@ theorem comap_of_generalizingMap {X Y : Scheme.{u}} {I : Y.IdealSheafData}
 theorem comap_of_flat {X Y : Scheme.{u}} {I : Y.IdealSheafData}
     (hI : NonzeroOnComponents I) (f : X ⟶ Y) [AlgebraicGeometry.Flat f] :
     NonzeroOnComponents (I.comap f) :=
-  hI.comap_of_generalizingMap f (AlgebraicGeometry.Flat.generalizingMap f)
+  hI.comap_of_generalizingMap f (generalizingMap_of_flat f)
 
 theorem comap_of_isOpenImmersion {X Y : Scheme.{u}} {I : Y.IdealSheafData}
     (hI : NonzeroOnComponents I) (f : X ⟶ Y) [AlgebraicGeometry.IsOpenImmersion f] :
@@ -141,7 +145,6 @@ theorem closure_image_mem_irreducibleComponents_of_flat
     {X Y : Scheme.{u}} (f : X ⟶ Y) [AlgebraicGeometry.Flat f]
     {C : Set ↥X} (hC : C ∈ irreducibleComponents ↥X) :
     closure ((fun x : ↥X => f x) '' C) ∈ irreducibleComponents ↥Y :=
-  closure_image_mem_irreducibleComponents_of_generalizingMap f
-    (AlgebraicGeometry.Flat.generalizingMap f) hC
+  closure_image_mem_irreducibleComponents_of_generalizingMap f (generalizingMap_of_flat f) hC
 
 end FunctorialResolution.EmbeddedResolution

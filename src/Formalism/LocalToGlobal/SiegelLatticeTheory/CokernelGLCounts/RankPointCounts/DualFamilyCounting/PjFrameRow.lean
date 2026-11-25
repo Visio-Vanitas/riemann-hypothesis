@@ -319,8 +319,12 @@ def Lmap (M : Matrix (Fin (k + 1)) (Fin (k + 1)) ℂ) : (CIdx r k → ℝ) →�
     (Psi r k).toLinearMap
 
 theorem det_vecMulLinear (M : Matrix (Fin (k + 1)) (Fin (k + 1)) ℂ) : LinearMap.det (Matrix.vecMulLinear M) = M.det := by
-  rw [← Matrix.mulVecLin_transpose, ← Matrix.toLin'_apply', LinearMap.det_toLin',
-    Matrix.det_transpose]
+  have h : Matrix.vecMulLinear M = Matrix.toLin' Mᵀ := by
+    apply LinearMap.ext
+    intro v
+    funext i
+    simp [Matrix.vecMul, Matrix.mulVec, dotProduct, mul_comm]
+  rw [h, LinearMap.det_toLin', Matrix.det_transpose]
 
 theorem det_Lmap (M : Matrix (Fin (k + 1)) (Fin (k + 1)) ℂ) :
     LinearMap.det (Lmap (r := r) M) = Complex.normSq M.det ^ r := by

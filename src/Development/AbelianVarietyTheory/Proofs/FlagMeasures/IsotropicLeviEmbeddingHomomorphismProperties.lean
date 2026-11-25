@@ -43,7 +43,6 @@ import Mathlib.Tactic.Polynomial.Basic
 import Mathlib.Tactic.ReduceModChar
 import Mathlib.Topology.Sheaves.Init
 import Std.Tactic.BVDecide.Normalize.Prop
-import Development.AbelianVarietyTheory.Proofs.FlagMeasures.IsotropicStabilizerRadicalStructure
 
 @[expose] public section
 
@@ -218,7 +217,17 @@ theorem mI_inj : mI k r m = mI k r n ↔ m = n := by
   · intro h
     rw [h]
 theorem esI_inj : esI k r a = esI k r b ↔ a = b := by
-  apply _root_.GlobalTheory.Amp.Rad.esI_inj <;> assumption
+  have va : (eI k r a).val = a.val := rfl
+  have vsa : (esI k r a).val = 2 * r + k - a.val := rfl
+  have vb : (eI k r b).val = b.val := rfl
+  have vsb : (esI k r b).val = 2 * r + k - b.val := rfl
+  constructor
+  · intro h
+    have h' := congrArg Fin.val h
+    rw [vsa, vsb] at h'
+    exact Fin.ext (by omega)
+  · intro h
+    rw [h]
 theorem eI_ne_mI : eI k r a ≠ mI k r m := by
   have ha := a.2
   have va : (eI k r a).val = a.val := rfl
@@ -228,7 +237,15 @@ theorem eI_ne_mI : eI k r a ≠ mI k r m := by
   rw [va, vm] at h'
   omega
 theorem eI_ne_esI : eI k r a ≠ esI k r b := by
-  apply _root_.GlobalTheory.Amp.Rad.eI_ne_esI <;> assumption
+  have ha := a.2
+  have va : (eI k r a).val = a.val := rfl
+  have hb := b.2
+  have vb : (eI k r b).val = b.val := rfl
+  have vsb : (esI k r b).val = 2 * r + k - b.val := rfl
+  intro h
+  have h' := congrArg Fin.val h
+  rw [va, vsb] at h'
+  omega
 theorem mI_ne_esI : mI k r m ≠ esI k r b := by
   have hm := m.2
   have vm : (mI k r m).val = r + m.val := rfl

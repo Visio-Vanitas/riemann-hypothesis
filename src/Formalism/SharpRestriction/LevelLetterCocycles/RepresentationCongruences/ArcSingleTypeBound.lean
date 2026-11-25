@@ -3,7 +3,7 @@ module
 public import Formalism.SharpRestriction.LevelLetterCocycles.AdmBoundsBOfAdm
 public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.ArcGamLiftCore
 public import Formalism.SharpRestriction.LevelLetterCocycles.ArcCoordinatesOfMembership
-public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.ArcBasic
+public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.LenTLeThree
 public import Formalism.SharpRestriction.LevelLetterCocycles.RepresentationCongruences.LiftsAtThickLetterType
 
 @[expose] public section

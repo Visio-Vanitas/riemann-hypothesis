@@ -73,7 +73,14 @@ variable {L : LocE F E} {r k : ℕ} (S : Frames L r k)
 
 theorem spanTo_top (g : Fin (r + 1) → S.V) :
     S.spanTo g (r + 1) = Submodule.span E (Set.range g) := by
-  apply _root_.GlobalTheory.HL.TermBasic.spanTo_top <;> assumption
+  unfold Frames.spanTo
+  congr 1
+  ext x
+  constructor
+  · rintro ⟨i, -, rfl⟩
+    exact ⟨i, rfl⟩
+  · rintro ⟨i, rfl⟩
+    exact ⟨i, i.2, rfl⟩
 
 theorem left_mem (g g' : Fin (r + 1) → S.V) (b : Fin (r + 1)) : g b ∈ S.Mof g g' :=
   Submodule.subset_span (Or.inl ⟨b, rfl⟩)

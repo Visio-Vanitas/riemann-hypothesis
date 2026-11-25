@@ -1,7 +1,9 @@
 module
 
 public import Formalism.FilteredPoleLength.ReducedBasisBounds.BetaSesquilinearity
-public import Formalism.LogFactorialIndices.LogProductFormula
+public import Formalism.LogFactorialIndices.StatementIdx
+public import Formalism.LogFactorialIndices.SignedSubspaceIndex.IdxBase
+public import Formalism.LogFactorialIndices.SignedSubspaceIndex.IdxDet
 import Mathlib.RingTheory.Henselian
 import Mathlib.RingTheory.RegularLocalRing.Defs
 import Mathlib.RingTheory.SimpleRing.Principal

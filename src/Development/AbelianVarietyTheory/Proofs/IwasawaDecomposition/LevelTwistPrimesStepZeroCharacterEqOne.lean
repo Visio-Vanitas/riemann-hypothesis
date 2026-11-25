@@ -56,6 +56,7 @@ noncomputable section
 
 namespace GlobalTheory.Mem.Col2.TC.GLev0
 
+attribute [local instance] GlobalTheory.Mem.Col2.starE
 
 variable {B : Base} {X : PreX B.toPre}
 

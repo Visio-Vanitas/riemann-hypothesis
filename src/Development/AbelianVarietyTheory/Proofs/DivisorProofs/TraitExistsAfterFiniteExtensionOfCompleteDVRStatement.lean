@@ -44,6 +44,7 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.S
 open GlobalTheory.Toroidal GlobalTheory.LocM GlobalTheory.PolFan GlobalTheory.ZM GlobalTheory.SiegelTor GlobalTheory.ZH
 open scoped CategoryTheory.Obj
 open GlobalTheory.Poinc Formalism.L2.Pj
+attribute [local instance] Over.cartesianMonoidalCategory
 open Classical
 
 theorem _root_.GlobalTheory.T.traitExistsAfterFiniteExtension_of_completeDVR : TraitExtSt := by

@@ -241,6 +241,28 @@ theorem cntSpec : CntSpec := by
   simp only [nuOf_cast lam hlam]
   exact _root_.Formalism.MainNotions.Pf14.weylDim_shift (m + 1) lam _
 
+private lemma weylDim_const_sub_rev (m : ℕ) (μ : Fin m → ℤ) (c : ℤ) :
+    Formalism.CountingSumsFrames.weylDim m (fun t => c - μ t.rev) = Formalism.CountingSumsFrames.weylDim m μ := by
+  unfold Formalism.CountingSumsFrames.weylDim
+  rw [Finset.prod_comm]
+  refine Fintype.prod_equiv Fin.revPerm _ _ (fun j => ?_)
+  refine Fintype.prod_equiv Fin.revPerm _ _ (fun i => ?_)
+  simp only [Fin.revPerm_apply]
+  have hr : ∀ x : Fin m, ((x.rev : ℕ) : ℚ) = (m : ℚ) - 1 - ((x : ℕ) : ℚ) := by
+    intro x
+    have := x.isLt
+    rw [Fin.val_rev, Nat.cast_sub (by omega)]
+    push_cast
+    ring
+  rw [hr i, hr j]
+  by_cases h : i < j
+  · have h' : j.rev < i.rev := Fin.rev_lt_rev.mpr h
+    rw [if_pos h, if_pos h']
+    push_cast
+    congr 1 <;> ring
+  · have h' : ¬ j.rev < i.rev := fun h2 => h (Fin.rev_lt_rev.mp h2)
+    rw [if_neg h, if_neg h']
+
 theorem cntTop : CntTop := by
   intro m _ lo hlo _ vec
   cases vec with
@@ -281,10 +303,7 @@ theorem cntTop : CntTop := by
       simp only
       linarith
     rw [hf, dGT_weylDim _ _ hanti]
-    rw [show (fun t : Fin m => lo 0 - lo t.rev.succ) = fun t => -lo t.rev.succ + lo 0 from
-      funext fun _ => sub_eq_neg_add _ _,
-      _root_.Formalism.MainNotions.Pf14.weylDim_shift m _ (lo 0),
-      _root_.Formalism.MainNotions.Pf14.weylDim_dual m fun i => lo i.succ]
+    exact weylDim_const_sub_rev m (fun i => lo i.succ) (lo 0)
 
 
 open Formalism.MainNotions.Pf14 (restW dT flW flatDeg vecE remainingWeightVectorCount) in
@@ -362,6 +381,7 @@ theorem card_all {n' m : ℕ} (hm : 2 ≤ m) (TT : Finset (Fin n')) (lam0 : Fin 
     rw [hR0 s hs]
     split_ifs
     · rfl
-    · simpa using _root_.Formalism.MainNotions.Pf14.weylDim_dual (m + 1) (lam0 s)
+    · have := weylDim_const_sub_rev (m + 1) (lam0 s) 0
+      simpa using this
 
 end Formalism.MainNotions.TestSideCounting

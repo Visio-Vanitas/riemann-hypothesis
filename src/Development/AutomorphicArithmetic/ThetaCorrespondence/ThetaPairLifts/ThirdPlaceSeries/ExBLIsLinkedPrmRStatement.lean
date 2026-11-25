@@ -52,7 +52,8 @@ public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership
 public import Formalism.LocalToGlobal.IndefiniteReal.RealRec
 public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.RealRecOf
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ComplexSpanRationalLiftFormsEqBasePartStatement
-public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsFamilyLabelContainingFiniteTypePartsStatement
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.HasLab
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsFamilyLabelContainingFiniteTypeParts
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.LamPOfPart
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.TwistedArgsColumnHeq
 public import Formalism.LocalToGlobal.HilbertRowConditions.CenterIdempotentAction
@@ -138,7 +139,7 @@ import Development.AbelianVarietyTheory.Proofs.SatakeParameters.ThetaLiftLevelsG
 import Formalism.SharpRestriction.LevelLetterCocycles.CommutingEndomorphismPreservesInvariants
 import Lean.Exception
 import Mathlib.Algebra.Ring.IsFormallyReal
-import Formalism.SharpRestriction.InertJacobiLevels.ExtraGat
+import Formalism.SharpRestriction.GrowthBounds.DataG
 import Mathlib.Tactic.Linter.Style
 
 -- This file was produced by scripts/clump.py from the modules listed below.

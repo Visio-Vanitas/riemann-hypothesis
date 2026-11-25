@@ -1,7 +1,6 @@
 module
 
 public import PositivityTheory.AutomorphicForms.PublishedInputs.NonzeroTypes.NonzeroLeviEigenvectorExists
-import PositivityTheory.AutomorphicForms.PublishedInputs.NonzeroTypes.PJone
 
 @[expose] public section
 
@@ -36,7 +35,7 @@ theorem inPow_add {a : ℕ} {x y : k} (hx : InPow a x) (hy : InPow a y) : InPow 
   obtain ⟨y', hy', rfl⟩ := hy
   exact ⟨x' + y', add_mem hx' hy', map_add _ _ _⟩
 
-theorem inPow_zero (a : ℕ) : InPow a (0 : k) := P_Jone.inPow_zero a
+theorem inPow_zero (a : ℕ) : InPow a (0 : k) := ⟨0, zero_mem _, map_zero _⟩
 
 theorem inPow_sum {a : ℕ} {ι : Type} (s : Finset ι) (f : ι → k) (h : ∀ i ∈ s, InPow a (f i)) :
     InPow a (∑ i ∈ s, f i) := by

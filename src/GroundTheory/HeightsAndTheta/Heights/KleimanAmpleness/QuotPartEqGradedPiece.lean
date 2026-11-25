@@ -36,8 +36,13 @@ theorem quotPart_eq_gradedPiece {F : Type} [Field F] {K : Type} [Fintype K] [Dec
 
 theorem isMultiHomog_one {S : Type} [CommRing S] {K : Type} [Fintype K] {ι : K → Type} [∀ k, Fintype (ι k)] :
     IsMultiHomog (1 : MRingOver S ι) 0 := by
+  intro d hd k
   classical
-  exact (Bridge.isMultiHomog_iff 1 0).mp (isWeightedHomogeneous_one S _)
+  rw [mem_support_iff, coeff_one] at hd
+  split_ifs at hd with h
+  · subst h
+    simp
+  · exact absurd rfl hd
 
 theorem MultiSerre.proof (hS : ReciprocityTheory.ChartRestriction.G.ArakelovGeometry.KH.TheoremSStatement) (hI : SectionMapInj.Statement) :
     MultiSerre.Statement := by

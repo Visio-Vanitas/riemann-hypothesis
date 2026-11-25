@@ -54,6 +54,8 @@ open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.S
 
 noncomputable section
 
+attribute [local instance] Over.cartesianMonoidalCategory
+
 namespace GlobalTheory.ProdPairing
 
 open GlobalTheory.CechPic GlobalTheory.DiagPairing

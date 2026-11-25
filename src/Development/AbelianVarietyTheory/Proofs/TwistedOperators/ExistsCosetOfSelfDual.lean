@@ -328,6 +328,7 @@ open scoped Matrix
 
 namespace GlobalTheory.HeckeLocMatrix
 
+open Formalism.L2.Theta
 open scoped TensorProduct
 
 theorem relIndex_eq_index_of_reading {G H : Type} [AddCommGroup G] [AddCommGroup H] {Λ M : AddSubgroup G}
@@ -937,6 +938,7 @@ open scoped TensorProduct
 
 namespace GlobalTheory.EPartChart
 
+open IsDedekindDomain Formalism.L2.NTheta
 
 theorem int_smul_mem_hat (D : D7) {n : ℕ} (L : Submodule (𝓞 D.host.E) (Fin n → D.host.E))
     {a : Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.Af D.host.F ⊗[D.host.F] D.host.E} (ha : a ∈ intAE D)
@@ -1072,6 +1074,7 @@ end GlobalTheory.EPartChart
 
 namespace GlobalTheory.EPartChart
 
+open IsDedekindDomain Formalism.L2.NTheta
 
 theorem chart_coord {D : D7} {V : HSp D} {v : HeightOneSpectrum (𝓞 D.host.F)}
     (π : GlobalTheory.SplitPlace.RF D →+* Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.Fv D.host.F v) (B : GL (Fin V.rank) (Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.Fv D.host.F v))
@@ -1434,6 +1437,7 @@ end GlobalTheory.HeckeLocStep
 
 namespace GlobalTheory.HeckeLocStep
 
+open Formalism.L2.Theta
 open scoped TensorProduct
 
 theorem hat_mono {D : D7} {n : ℕ} {L L' : Submodule (𝓞 D.host.E) (Fin n → D.host.E)} (h : L ≤ L') :

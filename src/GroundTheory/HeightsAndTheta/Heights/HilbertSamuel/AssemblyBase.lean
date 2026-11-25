@@ -328,7 +328,6 @@ import Mathlib.Algebra.Order.Star.Rat
 import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovGeometry.StepTStB
 import Mathlib.Tactic.Polynomial.Basic
 import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovGeometry.ABridgeStA
-import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovGeometry.AParamStA
 import GroundTheory.HeightsAndTheta.Heights.Intersections.Statements
 import Mathlib.Order.CompletePartialOrder
 import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Assembly

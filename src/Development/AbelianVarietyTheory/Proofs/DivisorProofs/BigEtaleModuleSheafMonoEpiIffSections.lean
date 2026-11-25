@@ -63,7 +63,17 @@ theorem sec_ext {F G : Shv R} (φ ψ : F ⟶ G) (h : ∀ U (a : Sec F U), Sec.ma
 
 theorem mono_iff_inj {F G : Shv R} (φ : F ⟶ G) :
     Mono φ ↔ ∀ U, Function.Injective (Sec.map φ (U := U)) := by
-  apply _root_.LateralTheory.EtaleFoundations.MonoEpiPf.mono_iff_inj <;> assumption
+  constructor
+  · intro h U
+    have : Mono φ.hom := inferInstanceAs (Mono ((sheafToPresheaf _ _).map φ))
+    have : Mono (φ.hom.app (op U)) := inferInstance
+    exact (ModuleCat.mono_iff_injective _).1 this
+  · intro h
+    have : Mono φ.hom := by
+      rw [NatTrans.mono_iff_mono_app]
+      intro U
+      exact (ModuleCat.mono_iff_injective _).2 (h (unop U))
+    exact (sheafToPresheaf _ _).mono_of_mono_map this
 
 theorem inj_iff_loc {F G : Shv R} (φ : F ⟶ G) :
     (∀ U, Function.Injective (Sec.map φ (U := U))) ↔
@@ -72,7 +82,17 @@ theorem inj_iff_loc {F G : Shv R} (φ : F ⟶ G) :
 
 theorem epi_iff_loc {F G : Shv R} (φ : F ⟶ G) :
     Epi φ ↔ ∀ U (b : Sec G U), Loc U fun V g => ∃ a : Sec F V, Sec.map φ a = Sec.res g b := by
-  apply _root_.LateralTheory.EtaleFoundations.MonoEpiPf.epi_iff <;> assumption
+  rw [← Sheaf.isLocallySurjective_iff_epi']
+  constructor
+  · intro h U b
+    exact ⟨_, Presheaf.imageSieve_mem Scheme.etaleTopology φ.hom b, fun V g hg => hg⟩
+  · intro h
+    constructor
+    intro U b
+    obtain ⟨S, hS, hP⟩ := h U b
+    refine Scheme.etaleTopology.superset_covering ?_ hS
+    intro V g hg
+    exact hP V g hg
 
 end GlobalTheory.EtC.MonoEpi
 

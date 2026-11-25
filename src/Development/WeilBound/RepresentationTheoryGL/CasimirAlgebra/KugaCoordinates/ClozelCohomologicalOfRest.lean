@@ -2,7 +2,15 @@ module
 
 public import Development.WeilBound.RepresentationTheoryGL.CasimirAlgebra.KugaCoordinates.IsStarRep
 public import Mathlib.Analysis.Calculus.Deriv.Prod
-public import Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.CapelliComplements.ProductIdentities
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Calculus.Deriv.Basic
+public import Mathlib.Analysis.InnerProductSpace.Basic
+public import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
+public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+public import Mathlib.LinearAlgebra.Matrix.Trace
+public import Mathlib.Analysis.Calculus.Deriv.Add
+public import Mathlib.Analysis.Calculus.Deriv.Mul
+public import Lemmata.ProductIdentities.ProdInvZpowMulOfProdZpowEqOne
 public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.CapelliOfGelfand
 public import Development.AbelianVarietyTheory.Definitions.SemilocalFrames.PosPartUnitaryMul
 public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.GelfValTwoEqCvalR
@@ -67,7 +75,6 @@ import Mathlib.Tactic.Basify
 import Mathlib.Tactic.Polynomial.Basic
 import Mathlib.Tactic.ReduceModChar
 import Std.Tactic.BVDecide.Normalize.Prop
-import Lemmata.ProductIdentities.ProdInvZpowMulOfProdZpowEqOne
 import Mathlib.Tactic.Linter.Style
 import Development.AbelianVarietyTheory.Proofs.JetHarmonics.QminorPolyMap
 import Formalism.RealPlaceAnalysis.StatementE

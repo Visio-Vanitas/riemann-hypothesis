@@ -11,7 +11,7 @@ public import Mathlib.Algebra.Order.PUnit
 public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.NonemptyEquivMultiProdOne
 public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.IsSmoothSmInd
 public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.SmoothPhiMinus
-public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.SmoothPsiMinusStatement
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.SmoothPsiMinus
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

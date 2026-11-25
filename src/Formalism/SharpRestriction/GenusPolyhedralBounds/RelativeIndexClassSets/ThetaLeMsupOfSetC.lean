@@ -51,6 +51,10 @@ theorem msup_mul_le (X : PJ D B P j) (w w' : WeightFamilies.Wt D j) :
   obtain ⟨H, hH, e⟩ := mlat_mul X w w' hF hG
   exact ⟨H, hH, e.symm⟩
 
+private lemma smul_le_lemma_2 {R A : Type*} [CommSemiring R] [Semiring A] [Algebra R A]
+    {M N P Q : Submodule R A} (h1 : M ≤ P) (h2 : N ≤ Q) : M * N ≤ P * Q :=
+  Submodule.mul_le.2 fun _ hm _ hn => Submodule.mul_mem_mul (h1 hm) (h2 hn)
+
 theorem msup_pow_mul_le (X : PJ D B P j) (wL : WeightFamilies.Wt D j) (n : ℕ) :
     ∀ w : WeightFamilies.Wt D j, X.Msup wL ^ n * X.Msup w ≤ X.Msup (wadd (wsmul n wL) w) := by
   induction n with
@@ -58,13 +62,21 @@ theorem msup_pow_mul_le (X : PJ D B P j) (wL : WeightFamilies.Wt D j) (n : ℕ) 
   | succ n ih =>
     intro w
     rw [pow_succ, mul_assoc, ← wadd_wsmul_succ]
-    exact (mul_le_mul' le_rfl (msup_mul_le X wL w)).trans (ih _)
+    exact (smul_le_lemma_2 le_rfl (msup_mul_le X wL w)).trans (ih _)
+
+private lemma spow_le_lemma {R A : Type*} [CommSemiring R] [Semiring A] [Algebra R A]
+    {M N : Submodule R A} (h : M ≤ N) (n : ℕ) : M ^ n ≤ N ^ n := by
+  induction n with
+  | zero => exact le_rfl
+  | succ n ih =>
+    rw [pow_succ, pow_succ]
+    exact smul_le_lemma_2 ih h
 
 theorem emb_pow_mul_le (X : PJ D B P j) (wL w : WeightFamilies.Wt D j) (n : ℕ)
     {NL : Submodule (𝓞 B.KO) (B.Cusp j wL)} {N : Submodule (𝓞 B.KO) (B.Cusp j w)}
     (hL : NL ≤ B.Mlat j wL) (hN : N ≤ B.Mlat j w) :
     X.emb wL NL ^ n * X.emb w N ≤ X.Msup (wadd (wsmul n wL) w) :=
-  (mul_le_mul' (pow_le_pow_left' (emb_mono X wL hL) n) (emb_mono X w hN)).trans
+  (smul_le_lemma_2 (spow_le_lemma (emb_mono X wL hL) n) (emb_mono X w hN)).trans
     (msup_pow_mul_le X wL n w)
 
 theorem wt_first {ka wL wF : WeightFamilies.Wt D j} {T nP nW : ℕ} (hF : IsF' ka wL wF T nP) (hL : wL.n = nW)

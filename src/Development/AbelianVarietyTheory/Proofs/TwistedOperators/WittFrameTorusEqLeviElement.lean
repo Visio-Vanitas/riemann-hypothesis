@@ -61,6 +61,8 @@ open GlobalTheory.Grid GlobalTheory.Doubling GlobalTheory.ChainFr GlobalTheory.I
 open scoped TensorProduct ENNReal
 open GlobalTheory.SquareComm
 open scoped Pointwise
+open Formalism.IndefR.Datum
+open GlobalTheory.Grid
 namespace GlobalTheory.WittLevi
 
 variable {D : D7}

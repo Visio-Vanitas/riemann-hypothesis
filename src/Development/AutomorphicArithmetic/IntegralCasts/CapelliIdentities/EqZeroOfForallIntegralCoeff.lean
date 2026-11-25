@@ -75,6 +75,9 @@ borel U2
 
 attribute [local instance] instMeasurableSpaceU2
 
+theorem aux3 : IsTopologicalGroup ↥(unitary (Matrix (Fin 2) (Fin 2) ℂ)) := by
+  exact (inferInstance : IsTopologicalGroup (Matrix.unitaryGroup (Fin 2) ℂ))
+
 theorem aux4 : BorelSpace U2 := by
   exact ⟨rfl⟩
 

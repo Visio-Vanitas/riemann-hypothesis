@@ -53,7 +53,6 @@ import Mathlib.Tactic.ReduceModChar
 import Mathlib.Topology.Separation.CompletelyRegular
 import Mathlib.Topology.Sheaves.Init
 public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
-import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsFieldUnitMemOpenArchimedeanUnits
 
 @[expose] public section
 
@@ -525,7 +524,19 @@ end Transport
 open InfinitePlace in
 private theorem denseRange_embeddings {E : Type} [Field E] [NumberField E]
     (hE : IsTotallyComplex E) : DenseRange (fun (a : E) (w : InfinitePlace E) => w.embedding a) := by
-  apply _root_.GlobalTheory.UnitsDense.denseRange_embeddings' <;> assumption
+  let f := Pi.map (fun w : InfinitePlace E => (Completion.extensionEmbedding w : w.Completion → ℂ))
+  have hf : DenseRange f :=
+    DenseRange.piMap fun w => (Completion.surjective_extensionEmbedding_of_isComplex (hE.isComplex w)).denseRange
+  have hc : Continuous f :=
+    continuous_pi fun w => (Completion.isometry_extensionEmbedding w).continuous.comp (continuous_apply w)
+  have he : (fun (a : E) (w : InfinitePlace E) => w.embedding a) =
+      f ∘ algebraMap E (InfiniteAdeleRing E) := by
+    funext a w
+    change w.embedding a = Completion.extensionEmbedding w (algebraMap E (InfiniteAdeleRing E) a w)
+    rw [InfiniteAdeleRing.algebraMap_apply, Completion.extensionEmbedding_coe]
+    rfl
+  rw [he]
+  exact hf.comp (InfiniteAdeleRing.denseRange_algebraMap E) hc
 
 theorem glVol_one : ∀ (E : Type) [Field E] [NumberField E], IsTotallyComplex E →
     glVol E 1 = ENNReal.ofReal (dedekindZeta_residue E * Formalism.HermitianLatticesTheory.vInv E ^ Formalism.HermitianLatticesTheory.fDeg E) := by

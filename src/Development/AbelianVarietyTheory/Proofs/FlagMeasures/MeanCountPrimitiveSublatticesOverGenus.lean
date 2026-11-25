@@ -1,6 +1,5 @@
 module
 
-import Development.AbelianVarietyTheory.Proofs.FlagMeasures.PrimitiveHermitianSublatticeDiscriminantGenerato
 public import Development.AbelianVarietyTheory.Definitions.SemilocalFrames.ChartGen
 public import Formalism.HermitianLattices.StatementMass
 public import Mathlib.RingTheory.SimpleRing.Principal
@@ -328,7 +327,16 @@ theorem idxN_span (x : V) (S : Submodule (𝓞 K) V) :
 
 omit [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem nondeg (h : V →ₗ⋆[K] V →ₗ[K] K) (hp : PD h) : h.Nondegenerate := by
-  apply _root_.GlobalTheory.Mass.PrimDisc.nondeg <;> assumption
+  obtain ⟨τ⟩ : Nonempty (K →+* ℂ) := inferInstance
+  refine And.intro (fun x hx => ?_) (fun y hy => ?_)
+  · by_contra h0
+    have hpos := hp τ x h0
+    rw [hx x, map_zero, Complex.zero_re] at hpos
+    exact lt_irrefl _ hpos
+  · by_contra h0
+    have hpos := hp τ y h0
+    rw [hy y, map_zero, Complex.zero_re] at hpos
+    exact lt_irrefl _ hpos
 
 omit [StarRing K] in
 theorem span_isLattice (h1 : Module.finrank K V = 1) {x : V} (hx : x ≠ 0) :
@@ -589,7 +597,18 @@ theorem latIn_isLattice (L : Submodule (𝓞 K) V) (hL : Submodule.IsLattice K L
     exact (LinearIndependent.iff_fractionRing _ _).mp hli
 theorem latIn_isFullLattice (L : Submodule (𝓞 K) V) (hL : Submodule.IsFullLattice K L)
     (U : Submodule K V) : Submodule.IsFullLattice K (latIn U L) := by
-  apply _root_.GlobalTheory.Mass.DetAgree.isLattice_latIn <;> assumption
+  let _ := latIn_isLattice L hL.toIsLattice U
+  refine ⟨?_⟩
+  apply eq_top_iff.mpr
+  intro x _
+  obtain ⟨r, hr, hx⟩ := exists_smul_mem L hL (x : V)
+  have hrK : algebraMap (𝓞 K) K r ≠ 0 := by simpa using hr
+  have hx' : r • x ∈ latIn U L := hx
+  have hmem : r • x ∈ Submodule.span K (latIn U L : Set U) := Submodule.subset_span hx'
+  have hmem' := (Submodule.span K (latIn U L : Set U)).smul_mem
+    (algebraMap (𝓞 K) K r)⁻¹ hmem
+  rw [← algebraMap_smul K r x, smul_smul, inv_mul_cancel₀ hrK, one_smul] at hmem'
+  exact hmem'
 end
 
 theorem one_le_rd (K : Type) [Field K] [NumberField K] : 1 ≤ 2 * vInv K := by
