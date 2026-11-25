@@ -2,17 +2,16 @@ module
 
 public import Development.AbelianVarietyTheory.Definitions.Divisors.OrthSubrepresentation
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsCoboundaryOfNormOneInSubalgebraStatement
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.GaloisTwistedNormGLBasicPropertiesStatement
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.GaloisTwistedNormGLBasicProperties
 public import Mathlib.Algebra.BigOperators.Finprod
 public import Mathlib.Algebra.Group.Subgroup.Map
 public import Mathlib.Basic.Complex.Basic
 public import Mathlib.SetTheory.Cardinal.Finite
 public import Mathlib.Algebra.BigOperators.Ring.Finset
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.NormMapSurjectiveFiniteField
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.DegreeLatticePrimeScaling
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBlockParabolicSubgroupLeviProjection
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.BaseChangeLiftClassFunction
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EveryElementIsNorm
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBlockParabolicSubgroupLeviProjectionStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.TwistedHarishChandraInductionGLIsTwistedClassFunStatement
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
@@ -63,7 +62,6 @@ import Mathlib.Tactic.Basify
 import Mathlib.Tactic.Linter.HaveILetI
 import Std.Tactic.BVDecide.Normalize.Prop
 import Development.AbelianVarietyTheory.Definitions.CommutativeAlgebra.InvariantSubspaceMobiusInverseRecEqOfFinrankLt
-import Development.AbelianVarietyTheory.Proofs.DivisorProofs.DegreeLatticePrimeScaling
 import Mathlib.Tactic.Linter.Style
 import Mathlib.Analysis.CStarAlgebra.Classes
 import Mathlib.Tactic.ENatToNat

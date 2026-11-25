@@ -1,9 +1,10 @@
 module
 
 public import Development.AbelianVarietyTheory.Definitions.Divisors.SecClass
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeEtaleModuleSheafMapMonoEpiIsoStatement
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeEtaleModuleSheafMapMonoEpiIso
 public import Development.AutomorphicArithmetic.BlowupCategories.SpanScale
-import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSectionsStatement
+import Development.AbelianVarietyTheory.Definitions.Divisors.PullHlComp
+import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSections
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic
