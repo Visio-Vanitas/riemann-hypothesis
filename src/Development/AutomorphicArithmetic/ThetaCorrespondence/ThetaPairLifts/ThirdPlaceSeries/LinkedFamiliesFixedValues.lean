@@ -1,7 +1,7 @@
 module
 
 public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.NGalLinkChar
-public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.LiftToGlobalDescentData
 public import Formalism.LocalToGlobal.LocalInduction.BridgeInd
 public import Formalism.LocalToGlobal.NormalizedHeckeFactors.Choice
 public import Formalism.LocalToGlobal.NormalizedHeckeFactors.GlobalDatumRegularityOfTypesCompatibility

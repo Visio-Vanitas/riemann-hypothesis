@@ -5,8 +5,7 @@ public import Mathlib.Algebra.Homology.DerivedCategory.KInjective
 public import Mathlib.Algebra.Homology.HomotopyCategory.HomComplexSingle
 public import Development.EtaleCohomology.KummerTheory.InjSlice
 public import Development.EtaleCohomology.WeilConjectures.AcycPf
-public import Development.AbelianVarietyTheory.Definitions.Divisors.PullHlComp
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSections
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSectionsStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HCXBijective
 public import Development.AutomorphicArithmetic.CommutativeAlgebra.HomAcyclicOfIsoOfIsZeroOfBiproduct
 public import Development.EtaleCohomology.EtaleSheaves.LeafConsPf

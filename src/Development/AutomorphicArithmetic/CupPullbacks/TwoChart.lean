@@ -2,7 +2,7 @@ module
 
 public import Development.AutomorphicArithmetic.CupPullbacks.ConstCompSingle
 public import Development.AbelianVarietyTheory.Definitions.Divisors.SecClass
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeEtaleModuleSheafMapMonoEpiIso
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeEtaleModuleSheafMapMonoEpiIsoStatement
 public import Mathlib.Algebra.Polynomial.Laurent
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
@@ -43,8 +43,7 @@ import Mathlib.Tactic.NormNum.Ordinal
 import Mathlib.Tactic.NormNum.Parity
 import Mathlib.Tactic.NormNum.Prime
 import Mathlib.Tactic.NormNum.RealSqrt
-import Development.AbelianVarietyTheory.Definitions.Divisors.PullHlComp
-import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSections
+import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSectionsStatement
 import Mathlib.Tactic.Linter.Style
 import Mathlib.Topology.Sheaves.Init
 import Mathlib.CategoryTheory.EffectiveEpi.Comp

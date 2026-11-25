@@ -1,6 +1,7 @@
 module
 
 public import Development.AbelianVarietyTheory.Definitions.Divisors.RatBasisLinearIndependentInt
+public import Development.WeilBound.CoreStatements.AbelianHeightsDuality.DividedPowerAlgebras.PreOfGens
 public import Development.WeilBound.LevelCriteria.IsLevOneIff
 public import Mathlib.RingTheory.Flat.Basic
 public import Mathlib.RingTheory.Flat.EquationalCriterion

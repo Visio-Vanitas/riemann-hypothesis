@@ -8,7 +8,7 @@ public import Development.AbelianVarietyTheory.Definitions.Foundations.GLintEqKO
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.BlockLevelsEqIntegralGLOfUnramified
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBlockLevelsTwistedConstantTermSplitPlace
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SatakeParametersOfTwist
-public import Formalism.SatakeDualWeyl.StatementE
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.DetCoverMatrixValuationOne
 public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.SatakeParameterSphericalProductSpehQuotients
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

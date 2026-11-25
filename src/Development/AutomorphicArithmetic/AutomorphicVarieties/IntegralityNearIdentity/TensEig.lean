@@ -1,6 +1,7 @@
 module
 
 public import Development.AutomorphicArithmetic.AutomorphicVarieties.ConjugateRepresentations.CuspidalSupport.HeckeLocalBlock
+import Development.WeilBound.SimpleEigenvalues.SimpleEigenvalueExtension.SimEig
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic
@@ -40,10 +41,7 @@ import Mathlib.Tactic.NormNum.RealSqrt
 import Mathlib.Tactic.Polynomial.Basic
 import Mathlib.Tactic.ReduceModChar
 import Mathlib.Topology.Sheaves.Init
-public import Mathlib.FieldTheory.IsAlgClosed.Basic
-public import Mathlib.LinearAlgebra.Eigenspace.Triangularizable
-public import Mathlib.LinearAlgebra.Eigenspace.Basic
-public import Development.WeilBound.SimpleEigenvalues.SimpleEigenvalueExtension.SimEig
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.GaloisLibrary.SimultaneousEigenvectors.SimEig
 
 @[expose] public section
 

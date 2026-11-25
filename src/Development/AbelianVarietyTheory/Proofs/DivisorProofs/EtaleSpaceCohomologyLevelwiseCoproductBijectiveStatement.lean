@@ -2,8 +2,7 @@ module
 
 public import Development.AbelianVarietyTheory.Definitions.Divisors.IndEtOfForallFinset
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.CohomologyComplexOfSheafCocycleClassProperties
-public import Mathlib.CategoryTheory.Preadditive.Yoneda.Basic
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HCXBijective
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HCXBijectiveStatement
 public import Development.AbelianVarietyTheory.Definitions.Divisors.GalMapMul
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

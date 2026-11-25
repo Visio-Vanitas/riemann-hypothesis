@@ -109,6 +109,7 @@ import Mathlib.RingTheory.Coalgebra.IsFrobenius
 import Mathlib.RingTheory.HopfAlgebra.Basic
 import Mathlib.Tactic.Linter.Style
 import Mathlib.Algebra.Order.Star.Int
+import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ValsAtApply
 import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.TorusSubmoduleMulLeftImageMemSelfDualStableLatti
 
 -- This file was produced by scripts/clump.py from the modules listed below.

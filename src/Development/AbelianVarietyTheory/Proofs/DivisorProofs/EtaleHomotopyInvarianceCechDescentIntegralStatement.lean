@@ -1,12 +1,12 @@
 module
 
+import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LaurentMapIsIntegral
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HInv
 public import Mathlib.RingTheory.PiTensorProduct
 public import Development.AbelianVarietyTheory.Definitions.ShimuraVarieties.PiTensorLiftCompSingle
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleCohomologyEquivalenceBasicPropertiesStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralSurjectionCechDescentTateTwist
-public import Mathlib.AlgebraicGeometry.Scheme
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SpecWidePushoutIsoWidePullbackYoneda
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SpecWidePushoutIsoWidePullbackYonedaStatement
 import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LevelwiseEquivalenceIsEquivalenceStatement
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
@@ -118,15 +118,7 @@ theorem poly_univ (A B T : Type) [CommRing A] [CommRing B] [CommRing T] (a : A �
 theorem spec_integral_surj (A B : Type) [CommRing A] [CommRing B] (φ : A →+* B) (hi : φ.IsIntegral)
     (hk : RingHom.ker φ ≤ nilradical A) :
     IsIntegralHom (Spec.map (CommRingCat.ofHom φ)) ∧ Surjective (Spec.map (CommRingCat.ofHom φ)) := by
-  refine ⟨IsIntegralHom.SpecMap_iff.2 hi, ⟨fun (x : PrimeSpectrum A) => ?_⟩⟩
-  letI := φ.toAlgebra
-  haveI : Algebra.IsIntegral A B := ⟨hi⟩
-  have hle : (⊥ : Ideal B).comap (algebraMap A B) ≤ x.asIdeal := by
-    rw [← RingHom.ker_eq_comap_bot]
-    exact hk.trans (nilradical_le_prime x.asIdeal)
-  obtain ⟨Q, -, hQ, hQx⟩ := Ideal.exists_ideal_over_prime_of_isIntegral x.asIdeal ⊥ hle
-  have : x ∈ Set.range (PrimeSpectrum.comap φ) := ⟨⟨Q, hQ⟩, PrimeSpectrum.ext hQx⟩
-  exact this
+  apply _root_.GlobalTheory.EtC.GmStep.spec_integral_surj <;> assumption
 
 theorem poly_isIntegral (A B : Type) [CommRing A] [CommRing B] (φ : A →+* B) (hi : φ.IsIntegral) :
     (Polynomial.mapRingHom φ).IsIntegral := by

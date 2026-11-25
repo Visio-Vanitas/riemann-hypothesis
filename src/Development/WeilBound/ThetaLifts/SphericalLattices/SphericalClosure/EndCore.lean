@@ -117,6 +117,7 @@ public import Development.WeilBound.ThetaLifts.TowerModels.PlaneSkew
 public import Development.WeilBound.ThetaLifts.TowerModels.StabEx
 public import Development.WeilBound.ThetaLifts.TowerModels.TowerCodimensionTwo
 public import Development.WeilBound.ThetaLifts.TowerModels.TowerCodimensionTwoOf
+public import Development.WeilBound.ThetaLifts.WeilDomination.DomWeilOf
 public import Development.WeilBound.ThetaLifts.WeilDomination.MatchEx
 public import Development.WeilBound.ThetaLifts.CTKernel
 public import Development.WeilBound.ThetaLifts.ConeHypotheses.PolDense

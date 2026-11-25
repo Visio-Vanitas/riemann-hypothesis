@@ -66,9 +66,7 @@ import Mathlib.Tactic.NormNum.Parity
 import Mathlib.Tactic.NormNum.Prime
 import Mathlib.Tactic.NormNum.RealSqrt
 import Mathlib.Topology.Sheaves.Init
-import Mathlib.NumberTheory.NumberField.Basic
-import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-import Mathlib.LinearAlgebra.Countable
+import Development.AutomorphicSpectrum.Proofs.GlobalProofs.MeasurableSetIntF
 import Mathlib.MeasureTheory.Integral.Pi
 import Mathlib.Tactic.Basify
 import Mathlib.Tactic.ENatToNat

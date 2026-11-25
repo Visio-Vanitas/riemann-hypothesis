@@ -7,8 +7,7 @@ public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsWeilDa
 import Development.AbelianVarietyTheory.Proofs.HeightProofs.EmbeddingXiZeroNeZero
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsBoundedUnitary
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsUnitOfCocompact
-public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBoundUnitary
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.DefiniteUnitaryCocompact
 public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.IsMulRightInvariantOfFundamentalDomain
 import Formalism.LocalToGlobal.BesselHermitianTheta.LemmasChr
 import Mathlib.Algebra.Order.Floor.Extended

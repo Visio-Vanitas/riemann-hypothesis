@@ -21,7 +21,7 @@ public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsLocalPe
 public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExpEqOfPeriodsOfMarking
 public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.NotInjOnOfFderivEqZero
 public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.PointEqIffIsometryClosed
-public import Development.AbelianVarietyTheory.Proofs.ToricGeometry.ExistsEquivOfSumEq
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.DatumExistsPeriod
 public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsFormEqOne
 public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsPointOfIsPeriod
 public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsSimTrivialOfMult

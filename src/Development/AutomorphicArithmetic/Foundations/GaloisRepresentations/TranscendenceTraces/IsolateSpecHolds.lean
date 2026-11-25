@@ -3,9 +3,8 @@ module
 public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.TranscendenceTraces.IsolateSpec
 public import Mathlib.RingTheory.LocalRing.Length
 public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.TranscendenceTraces.WtDegConst
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleLocallyIffAffineEtalePointCover
-public import Development.AbelianVarietyTheory.Definitions.Divisors.PullHlComp
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SecSigmaBijective
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleLocallyIffAffineEtalePointCoverStatement
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SecSigmaBijectiveStatement
 public import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
 public import Mathlib.AlgebraicGeometry.Morphisms.QuasiFinite
 public import Mathlib.RingTheory.Etale.QuasiFinite

@@ -2,8 +2,7 @@ module
 
 public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IsThetaFam
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsBoundedUnitary
-public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBoundUnitary
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.DefiniteUnitaryCocompact
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

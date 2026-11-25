@@ -29,7 +29,7 @@ public import Mathlib.RingTheory.AdicCompletion.Noetherian
 public import Development.AbelianVarietyTheory.Definitions.Foundations.ExistsRootOfIsAlgClosed
 public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsCuspFunctionalOddWeightOddPrime
 public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.GalBMemKummerInvariantSet
-public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.IsThBSuccCoeffCong
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.IsThBSuccCoeffCongStatement
 public import Development.AbelianVarietyTheory.Definitions.Foundations.Letter
 public import Mathlib.RingTheory.Flat.FaithfullyFlat.Basic
 public import Mathlib.RingTheory.Flat.TorsionFree

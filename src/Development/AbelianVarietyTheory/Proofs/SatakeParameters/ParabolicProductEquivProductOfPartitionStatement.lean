@@ -2,8 +2,7 @@ module
 
 public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.MultiProdCompCongr
 public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.ExistsReadingLaws
-public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.IsSubquotientDetRepParInd
-public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.ParabolicInductionTwoBlocksEmptyProductLeft
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.ParabolicInductionTwoBlocksEmptyProductLeftStatement
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

@@ -42,8 +42,7 @@ public import Mathlib.Algebra.Polynomial.Degree.Lemmas
 public import Development.AutomorphicSpectrum.Statements.MetricStatements.AgreementIffGuarded
 public import Development.AutomorphicSpectrum.Proofs.MetricProofs.FlagHeightPolynomialWeightForm
 public import Development.AutomorphicSpectrum.Proofs.MetricProofs.FlagVarietyAnalyticSystemExists
-public import Mathlib.RingTheory.MvPolynomial.Homogeneous
-public import Development.WeilBound.CoreStatements.PluriharmonicCharts.XPolyTowtBound
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.GapEqWeightSubNextStatement
 public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Proportional
 public import Development.WeilBound.CoreStatements.MultihomogeneousSquares.AntisymmetryFibreSquares
 public import Development.AutomorphicSpectrum.Proofs.DivisibilityProofs.TowerOriginVectorBundle

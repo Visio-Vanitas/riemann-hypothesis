@@ -2,8 +2,7 @@ module
 
 public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.RecTExists
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.BernsteinZelevinskyFinitenessHolds
-public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.GeometricLemmaFiltration
-public import CompanionTheory.AutomorphicTheory.TemperedLocalSpectra.LocalGeometry.Imports
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.GeometricLemmaFiltrationHolds
 public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.GeometricLemmaOfFiltration
 public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.HasSupportOfIsSubquotientProdIrr
 import Mathlib.Algebra.Order.Floor.Extended

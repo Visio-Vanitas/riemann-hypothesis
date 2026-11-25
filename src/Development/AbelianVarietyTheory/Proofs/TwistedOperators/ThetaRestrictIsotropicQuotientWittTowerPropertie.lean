@@ -6,8 +6,7 @@ public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.FinTen
 public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.HasDerivAtZeroAndIsTheta
 public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.EqZeroOfAeFundamentalDomain
 public import Development.AbelianVarietyTheory.Proofs.HeightProofs.CocompactTensor
-public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.HermitianSymplecticScalars
-public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.ThetaSquareIntegrable
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.ThetaFunctionsSquareIntegrableHeisenbergUnitary
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic
@@ -52,6 +51,7 @@ import Mathlib.Tactic.Linter.HaveILetI
 import Mathlib.Tactic.Linter.Style
 import Mathlib.Tactic.Polynomial.Basic
 import Mathlib.Topology.Compactness.DeltaGeneratedSpace
+import Development.AbelianVarietyTheory.Proofs.TwistedOperators.ThetaSquareIntegrable
 import Mathlib.Dynamics.Ergodic.Action.Regular
 
 -- This file was produced by scripts/clump.py from the modules listed below.

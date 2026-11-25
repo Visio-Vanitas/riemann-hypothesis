@@ -30,8 +30,7 @@ public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Exi
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.UnitaryClassRepresentativesBijective
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.TrueColumnSpacesStandardInFrameCoords
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.NeConjOfIdemSum
-public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.MidChart
-public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.SplitFrameGLFiniteMatrixOffPlaceEqOne
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.SplitFrameGLFiniteMatrixOffPlaceEqOneStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsOverBoth
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.FinAfMemIntUIff
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.PlaceProjectionZeroIntegralIffComponentsAbove
@@ -93,6 +92,7 @@ import Formalism.LocalToGlobal.Columns.BaseLemmas
 import Development.AbelianVarietyTheory.Definitions.LatticeFrames.JointSmooth
 import Formalism.LocalToGlobal.Columns.AdelicLemmas
 import Mathlib.Topology.Sheaves.Init
+import Development.AbelianVarietyTheory.Definitions.LatticeFrames.MidChart
 import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.FunKilled
 import Development.AbelianVarietyTheory.Definitions.Foundations.ValuedAlgebraMapEqOne
 import Formalism.LocalToGlobal.IndefiniteReal.LinksDefs
@@ -1062,19 +1062,7 @@ noncomputable section
 namespace GlobalTheory.FrameGfCImg
 
 theorem gl_mem_GfC : ∀ {D : D7} {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] {p : SplitPt D k} {S : HSp D} {n : Type} [Fintype n] [DecidableEq n] (β : Frame p S n) (g : GL n k), β.gl g ∈ GfC S := by
-  intro D k _ _ _ _ p S n _ _ β g
-  have hg := β.gl_supp g
-  have he := p.split
-  refine Units.ext (Matrix.ext fun i j => ?_)
-  have h : infPart D ((mt S (β.gl g) - 1) i j) = 0 := by
-    rw [← hg i j, RingHom.map_mul, RingHom.map_add (f := _), GlobalTheory.SplitScalar.infPart_splitIdem he,
-      GlobalTheory.SplitScalar.infPart_splitIdem (GlobalTheory.SplitScalar.isSplitIdem_conj he), add_zero, zero_mul]
-  rw [Matrix.sub_apply, RingHom.map_sub, sub_eq_zero] at h
-  show infPart D (mt S (β.gl g) i j) = (1 : Matrix _ _ _) i j
-  rw [h, Matrix.one_apply, Matrix.one_apply]
-  split_ifs
-  · rw [RingHom.map_one]
-  · rw [RingHom.map_zero]
+  apply _root_.GlobalTheory.FrameGfC.gl_mem_GfC <;> assumption
 
 end GlobalTheory.FrameGfCImg
 

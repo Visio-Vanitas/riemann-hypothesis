@@ -18,9 +18,7 @@ public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Schwartz
 public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.WeilSiegelTheta.BigCellDefs
 public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ThetaPartD
 public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.SiegelWeilOrbitalIntegralFormula
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.LinearAlgebra.Countable
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.MeasurableSetIntF
 public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.IsUnitHermOfDet
 public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.HermitianMeasureEulerProduct
 public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.SubQRMemIntegers

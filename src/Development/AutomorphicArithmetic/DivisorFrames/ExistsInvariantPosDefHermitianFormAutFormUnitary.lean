@@ -7,7 +7,7 @@ public import Formalism.LocalToGlobal.IndefiniteReal.ScalarOnPartsFull
 public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsRepsOfOpenCompact
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.AdelicUnitaryUnimodularExistsFundamentalDomain
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.RePosOfIsMultIP
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBoundUnitary
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.DefiniteUnitaryCocompact
 public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.FundamentalDomainSetIntegralMulRight
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

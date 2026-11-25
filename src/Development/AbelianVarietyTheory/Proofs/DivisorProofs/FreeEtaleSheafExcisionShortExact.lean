@@ -1,10 +1,9 @@
 module
 
 public import Development.AbelianVarietyTheory.Definitions.Divisors.SecClass
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleLocallyIffAffineEtalePointCover
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleLocallyIffAffineEtalePointCoverStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleSheafSectionsExtAndGlue
-public import Development.AbelianVarietyTheory.Definitions.Divisors.PullHlComp
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSections
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeHomSectionsStatement
 public import Development.AbelianVarietyTheory.Definitions.Divisors.GalMapMul
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleMayerVietorisFreeSequenceExact
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.AwayHomCompAlgebraMap

@@ -1,12 +1,13 @@
 module
 
+import Development.AbelianVarietyTheory.Proofs.DivisorProofs.AlternatingSumThreeTerms
 public import Development.AbelianVarietyTheory.Definitions.Divisors.IndEtOfForallFinset
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.CechLevelRepresentableStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleCohomologyEquivalenceBasicPropertiesStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralStrictHenselianAcyclicFinitaryStatement
 public import Development.AbelianVarietyTheory.Definitions.Divisors.GalMapMul
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.CohomologyContinuousCofilteredAffineLimit
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.OfEtaleCohomologyEquivalenceDiagram
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.OfEtaleCohomologyEquivalenceDiagramStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.RingCocone
 public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsCohomologyContinuousOnConeOfLevelwiseStatement
@@ -21,7 +22,7 @@ public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LeraySimplic
 public import Development.AbelianVarietyTheory.Definitions.Divisors.PullHlComp
 public import Mathlib.FieldTheory.KrullTopology
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.GaloisDescentFreeSheafCechLevelSepClosureStatement
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SimplicialCochainClassesBasicProperties
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SimplicialCochainClassesBasicPropertiesStatement
 public import Mathlib.Topology.LocallyConstant.Algebra
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreeRankOneEtaleSheafEquivLocallyConstant
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LocallyConstantSpecLocalRingConstBijectiveStatement
@@ -913,19 +914,8 @@ theorem cechPt_δ (m : ℕ) (i : Fin (m + 2)) {U : Scheme.{0}} (x : U ⟶ X) (y 
     (h : ∀ j, y j ≫ f = x) :
     ((cech f).δ i).app (op U) (cechPt f (m + 1) x y h) =
       cechPt f m x (fun j => y (i.succAbove j)) (fun j => h _) := by
-  have key : WidePullback.lift (arrows := fun _ : Fin (m + 2) => yoneda.map f) (yoneda.map x)
-      (fun j => yoneda.map (y j)) (fun j => by rw [← yoneda.map_comp, h j]) ≫ (cech f).δ i =
-      WidePullback.lift (arrows := fun _ : Fin (m + 1) => yoneda.map f) (yoneda.map x)
-      (fun j => yoneda.map (y (i.succAbove j))) (fun j => by rw [← yoneda.map_comp, h _]) := by
-    dsimp only [SimplicialObject.δ, cech, Arrow.cechNerve]
-    apply WidePullback.hom_ext
-    · intro j
-      erw [Category.assoc, WidePullback.lift_π, WidePullback.lift_π, WidePullback.lift_π]
-      rfl
-    · erw [Category.assoc, WidePullback.lift_base, WidePullback.lift_base, WidePullback.lift_base]
-  have := congrArg (fun φ => φ.app (op U) (𝟙 U)) key
-  simp only at this
-  exact this
+  intros
+  apply _root_.GlobalTheory.CechOne.cechPt_face <;> assumption
 end Cech
 
 section Gal

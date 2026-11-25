@@ -2,7 +2,7 @@ module
 
 public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.StableIffCarrierEq
 public import Formalism.SharpRestriction.Divisibility.LiftErrorLocal
-public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.LiftCuspFormSpaceThetaMapEqData
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.LiftCuspFormSpaceThetaMapEqDataStatement
 import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.SpanRangeMulVec
 import Formalism.LocalToGlobal.Divisibility.LiftLatLemmas
 import Formalism.LocalToGlobal.IndefiniteReal.CxLemmas

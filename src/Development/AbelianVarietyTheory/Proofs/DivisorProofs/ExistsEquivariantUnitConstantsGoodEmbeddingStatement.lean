@@ -13,7 +13,7 @@ public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ResidualChar
 public import Formalism.LocalToGlobal.IndefiniteReal.OneMapT
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.RightTranslationLiftEqLevelMoveUnitConst
 public import Mathlib.Analysis.Complex.Norm
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsLevelActionCuspFormRepresentation
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsLevelActionCuspFormRepresentationStatement
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

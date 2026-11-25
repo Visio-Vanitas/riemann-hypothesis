@@ -14,7 +14,7 @@ public import Mathlib.Data.Nat.Cast.Basic
 public import Mathlib.RingTheory.Ideal.Maps
 public import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
 public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.MonicPolynomialsHaveRootsIffIntegrallyClosedAlgC
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.MonicPolynomialsHaveRootsIffIntegrallyClosedAlgCStatement
 public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.IsAlgClosedResidueFieldOfAic
 public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.SpecGood
 public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.BasicOpenSections.BaseFacts

@@ -2,7 +2,7 @@ module
 
 public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.NonemptyAllIff
 public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.NGalLinkChar
-public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.LiftToGlobalDescentData
 public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.CGTrueT
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

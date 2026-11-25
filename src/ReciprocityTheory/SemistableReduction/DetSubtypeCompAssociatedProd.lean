@@ -1,7 +1,7 @@
 module
 
 public import ReciprocityTheory.SemistableReduction.ComapInclusionIsLocalHom
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
+import Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.CapelliComplements.GeneralBFactAlt
 public import Lemmata.GeneralBFactTail.Imports
 public import Mathlib.LinearAlgebra.FreeModule.IdealQuotient
 public import Mathlib.RingTheory.OrderOfVanishing.Noetherian

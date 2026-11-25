@@ -1,7 +1,7 @@
 module
 
 public import Development.AbelianVarietyTheory.Definitions.Divisors.DlogRatioVolumeFormNeZero
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardAffineOpenRingPolynomialEquiv
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardAffineOpenRingPolynomialEquivStatement
 public import Mathlib.RingTheory.MvPolynomial.Ideal
 public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
 public import Mathlib.RingTheory.Trace.Quotient
@@ -9,7 +9,7 @@ public import Mathlib.RingTheory.Flat.Basic
 public import Mathlib.RingTheory.Flat.Stability
 public import Mathlib.RingTheory.LocalRing.Module
 public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.TcoMem
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.BoundaryChartHodgeMatrix
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteCoverChartSmoothNormal
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralClosureProjectiveOverStandardOpenRingStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardOpenCoordinateRingIsFractionRingIsNoetheStatement
 public import Mathlib.FieldTheory.IsAlgClosed.Basic

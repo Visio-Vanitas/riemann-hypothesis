@@ -6,7 +6,7 @@ public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentation
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ComplementaryModuleStandardOpensIffStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsTopDegreeCoefficientFormAndEqOnTopFormsStatement
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ResidueFunctionalVanishesOnOmegaFormsStatement
-import Development.AbelianVarietyTheory.Proofs.SatakeParameters.FormsBaseChange
+import Development.AbelianVarietyTheory.Proofs.SatakeParameters.FormsBaseChangeStatement
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

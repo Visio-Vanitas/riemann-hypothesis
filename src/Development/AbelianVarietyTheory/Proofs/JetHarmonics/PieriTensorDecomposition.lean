@@ -9,8 +9,7 @@ public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.IsFRepExterio
 public import Development.AbelianVarietyTheory.Definitions.Jets.SumIoPr
 public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.NumericalFamilyShapeGaps
 public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.SmoothMapsClosureStatement
-public import Development.AbelianVarietyTheory.PublishedTheorems.DiscreteSeries₂.Poulsen
-public import Formalism.HermitianCurvature.HermitianCurvatureProofs.ContinuousMulMt
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.TensorDecompositionParameters
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

@@ -14,7 +14,7 @@ public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.DiscreteValua
 public import Development.AutomorphicSpectrum.Definitions.GlobalGeometry.IsCocharLieLieModel
 public import Development.AutomorphicSpectrum.Proofs.GeometryProofs.ExistsLieModel
 public import Development.WeilBound.CoreStatements.HodgeTatePoints.CbFrob
-public import Development.AutomorphicSpectrum.Proofs.GeometryProofs.ChartOfBasis
+public import Development.WeilBound.CoreStatements.HodgeTatePoints.CdLocal
 public import Development.WeilBound.CoreStatements.HodgeTatePoints.CdUniv
 public import Development.WeilBound.CoreStatements.HodgeTatePoints.HtatLieBc
 public import Formalism.SharpRestriction.Divisibility.GeneratorPowers.ChartJetTrA

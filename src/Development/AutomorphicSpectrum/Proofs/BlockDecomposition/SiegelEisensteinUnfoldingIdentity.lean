@@ -1,9 +1,7 @@
 module
 
 public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.IsUnitHermOfDet
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.LinearAlgebra.Countable
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.MeasurableSetIntF
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
 import Mathlib.Algebra.Order.Interval.Basic

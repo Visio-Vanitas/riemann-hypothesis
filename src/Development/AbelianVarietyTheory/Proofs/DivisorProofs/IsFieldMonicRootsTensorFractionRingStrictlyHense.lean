@@ -3,8 +3,7 @@ module
 import Development.EtaleCohomology.EtaleSheaves.LocalIntegralClosureRoots
 public import Development.AbelianVarietyTheory.Definitions.Divisors.IndEtOfForallFinset
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EtaleLocalizationAtPrimeIsDomainIsIntegrallyClos
-public import Development.AbelianVarietyTheory.Definitions.Divisors.GalMapMul
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsAlgClosedFractionRing
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsAlgClosedFractionRingOfMonicPolynomialsHaveRooStatement
 public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.FlatMapMaximalIdealIsSeparable
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

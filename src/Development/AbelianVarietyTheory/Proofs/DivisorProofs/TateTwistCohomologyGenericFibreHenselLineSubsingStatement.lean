@@ -18,7 +18,7 @@ public import Mathlib.RingTheory.Localization.AtPrime.Basic
 public import Development.AbelianVarietyTheory.Definitions.Divisors.PullHlComp
 public import Mathlib.RingTheory.PicardGroup
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.KummerVanishingStatement
-public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.TateTwistCohomologySpecTwistIndependent
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.TateTwistCohomologySpecTwistIndependentStatement
 import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsStrictHenselisationOfDirectedUnion
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield

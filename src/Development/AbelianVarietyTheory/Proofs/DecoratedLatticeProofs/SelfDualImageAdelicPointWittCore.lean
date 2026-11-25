@@ -4,8 +4,7 @@ public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IsSumFr
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.AdelicPointComponentsAtPlacesLatticesVacua
 public import Development.AbelianVarietyTheory.Definitions.ExistenceOfLattices.MarkSpec
 public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.FlatSpaceComponents
-public import Formalism.LocalToGlobal.IndefiniteReal.SubgroupCharExtensionOneApply
-public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.LatticeCompletionAtPlacesMemCompletedHermitianLa
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.LatticeCompletionAtPlacesMemCompletedHermitianLaStatement
 public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.SelfDualLatticeImageAdelicUnitary
 import Mathlib.Algebra.Order.Floor.Extended
 import Mathlib.Algebra.Order.Floor.Semifield
@@ -46,6 +45,7 @@ import Mathlib.Tactic.NormNum.Prime
 import Mathlib.Tactic.NormNum.RealSqrt
 import Mathlib.Topology.Sheaves.Init
 import Std.Tactic.BVDecide.Normalize.Prop
+import Formalism.LocalToGlobal.IndefiniteReal.SubgroupCharExtensionOneApply
 import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MemLatticeCompletionAtPlacesOfFinPartMemHatLatti
 
 -- This file was produced by scripts/clump.py from the modules listed below.
@@ -153,14 +153,7 @@ theorem mulVec_mem {I : Ideal (AE D)} {m n : ℕ} (A : Matrix (Fin m) (Fin n) (A
 
 theorem latV_supp : ∀ (D : D7) (S : HSp D) (M : Lat S) (P : Pl D → Prop) (y : Fin S.rank → AE D),
     y ∈ latV S M P → ∀ i, y i ∈ idAt D P := by
-  intro D S M P y hy
-  induction hy using AddSubgroup.closure_induction with
-  | mem z hz =>
-    obtain ⟨α, -, hα, a, ha, x, -, rfl⟩ := hz
-    exact fun i => _root_.GlobalTheory.FinPlLoc.pair_mem_idAt P α hα _
-  | zero => exact fun i => (idAt D P).zero_mem
-  | add a b _ _ ha hb => exact fun i => (idAt D P).add_mem (ha i) (hb i)
-  | neg a _ ha => exact fun i => (idAt D P).neg_mem (ha i)
+  apply _root_.GlobalTheory.FinPlLoc.latV_idAt <;> assumption
 
 theorem finRep : ∀ (D : D7) (S : HSp D) (g : GA D S), ∃ x ∈ GfC S, ∀ (P : Pl D → Prop) (y : Fin S.rank → AE D), (∀ i, y i ∈ idAt D P) → mt S g *ᵥ y = mt S x *ᵥ y := GlobalTheory.T.exists_finiteComponent_unitary_acting_on_finiteSupported
 
